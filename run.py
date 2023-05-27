@@ -16,9 +16,6 @@ app = create_app()
 # Create a Migrate instance
 migrate = Migrate(app, db)
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
 def run_app():
     """ Main Function """
     host = environ.get('ZDP_HOST')
