@@ -23,7 +23,7 @@ def run_app():
     if not host:
         host = '0.0.0.0'
     if not port:
-        port = '5000'
+        port = '5555'
     app.run(host=host, port=port, threaded=True)
 
 if __name__ == "__main__":
