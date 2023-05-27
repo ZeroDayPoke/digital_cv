@@ -6,9 +6,6 @@ set -e
 # Update system packages
 sudo apt update
 
-# Clone the project repository
-sudo git clone https://github.com/ZeroDayPoke/digital_cv.git $project_path
-
 # Install Nginx
 sudo apt install -y nginx
 
@@ -17,6 +14,7 @@ sudo apt install -y certbot python3-certbot-nginx
 
 # Remove the default Nginx configuration
 sudo rm -f /etc/nginx/sites-enabled/default
+sudo rm -f /etc/nginx/sites-available/default
 
 # Define variables for domain and project path
 domain="zerodaypoke.com"
@@ -53,17 +51,23 @@ sudo nginx -t
 sudo systemctl reload nginx
 
 # Obtain and update SSL certificate using Certbot
-sudo certbot --nginx -d $domain -d www.$domain --non-interactive --agree-tos -m admin@$domain
+sudo certbot --nginx -d $domain -d www.$domain --cert-name $domain --key-type rsa --non-interactive --agree-tos -m admin@$domain
 
 # Create project directory if it doesn't exist
-sudo mkdir -p $project_path
+if [ ! -d "$project_path/inbound" ]; then
+    # Create project directory
+    sudo mkdir $project_path/inbound
+fi
 
 # Set appropriate permissions for the project directory
 sudo chown -R $USER:$USER $project_path
 
+# Clone the project repository
+sudo git clone https://github.com/ZeroDayPoke/digital_cv.git $project_path/inbound
+
 # Install project dependencies
 sudo apt install -y python3-pip
-sudo pip3 install -r $project_path/requirements.txt
+sudo pip3 install -r $project_path/inbound/requirements.txt
 
 # GGEZ
 echo "Setup complete... QuickStart coming soon..."
