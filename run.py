@@ -7,6 +7,7 @@ This is the entry point for the Flask application.
 Located in /digital_cv/run.py
 """
 
+from os import environ
 from app import create_app, db
 from flask_migrate import Migrate
 
@@ -17,3 +18,16 @@ migrate = Migrate(app, db)
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+def run_app():
+    """ Main Function """
+    host = environ.get('ZDP_HOST')
+    port = environ.get('ZDP_PORT')
+    if not host:
+        host = '0.0.0.0'
+    if not port:
+        port = '5000'
+    app.run(host=host, port=port, threaded=True)
+
+if __name__ == "__main__":
+    run_app()
