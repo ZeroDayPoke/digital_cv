@@ -14,5 +14,8 @@ sudo ufw allow 443/tcp
 # Allow MySQL (port 3306) for database access
 sudo ufw allow 3306/tcp
 
+# Allow APP (port 5000) for application access
+sudo ufw allow 5000/tcp
+
 # Enable the firewall
 sudo ufw enable

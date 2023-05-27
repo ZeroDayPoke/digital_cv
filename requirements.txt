@@ -1,0 +1,5 @@
+Flask # for web framework
+Flask-SQLAlchemy # for database ORM
+Flask-Migrate # for database migration
+Flask-Login # for user login management
+Flask-WTF # for form validation
