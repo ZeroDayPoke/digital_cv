@@ -1,5 +1,6 @@
-Flask # for web framework
-Flask-SQLAlchemy # for database ORM
+Flask==2.0.1 # for web framework
+Flask-WTF==0.15.1 # for form validation
+Flask-Login==0.5.0 # for user login management
+Flask-SQLAlchemy==2.5.1 # for database ORM
+Werkzeug==2.0.1 # for password hashing
 Flask-Migrate # for database migration
-Flask-Login # for user login management
-Flask-WTF # for form validation

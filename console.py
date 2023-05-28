@@ -45,23 +45,24 @@ class CV_Console(cmd.Cmd):
                 key, value = param.split("=", 1)
                 attributes[key] = value
 
-        if class_name == 'User' and 'role' in attributes:
-            role_name = attributes.pop('role')
-            password = attributes.pop('password', None)
-            role = Role.query.filter_by(name=role_name).first()
-            if not role:
-                print(f"Role {role_name} not found")
-                return
-            instance = cls(**attributes)
-            if password is not None:
-                instance.set_password(password)
-            instance.roles.append(role)
-        else:
-            instance = cls(**attributes)
+        with app.app_context():
+            if class_name == 'User' and 'role' in attributes:
+                role_name = attributes.pop('role')
+                password = attributes.pop('password', None)
+                role = Role.query.filter_by(name=role_name).first()
+                if not role:
+                    print(f"Role {role_name} not found")
+                    return
+                instance = cls(**attributes)
+                if password is not None:
+                    instance.set_password(password)
+                instance.roles.append(role)
+            else:
+                instance = cls(**attributes)
 
-            db.session.add(instance)
-            db.session.commit()
-            print(f"{class_name} created with ID {instance.id}")
+                db.session.add(instance)
+                db.session.commit()
+                print(f"{class_name} created with ID {instance.id}")
 
     def do_show(self, arg):
         """Show an instance of a class: show <class> <id>"""
