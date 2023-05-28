@@ -26,6 +26,8 @@ def update_project():
             project_to_update.name = form.name.data
             project_to_update.description = form.description.data
             project_to_update.role = form.role.data
+            project_to_update.live_link = form.live_link.data
+            project_to_update.repo_link = form.repo_link.data
             project_to_update.related_skills = Skill.query.filter(Skill.id.in_(form.related_skills.data)).all()
             db.session.commit()
             flash('Project has been updated!', 'success')
@@ -64,6 +66,8 @@ def add_project():
             name=form.name.data,
             description=form.description.data,
             role=form.role.data,
+            live_link=form.live_link.data,
+            repo_link=form.repo_link.data,
             related_skills=Skill.query.filter(Skill.id.in_(form.related_skills.data)).all()
         )
         db.session.add(new_project)

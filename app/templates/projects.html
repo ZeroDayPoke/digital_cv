@@ -12,9 +12,19 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="card project-card mb-4" id="{{ project.id }}">
                         <div class="card-body">
-                            <h3 class="card-title">{{ project.name }}</h3>
+                            <h3 class="card-title">
+                            {% if project.repo_link %}
+                                <a href="{{ project.repo_link }}">{{ project.name }}</a>
+                            {% else %}
+                                {{ project.name }}
+                            {% endif %}
+                            </h3>
                             <p class="card-text">{{ project.description }}</p>
                             <p class="card-text"><b>Role:</b> {{ project.role }}</p>
+                            {% if project.live_link %}
+                                <p>Live Project At: </p>
+                                <a href="{{ project.live_link }}">{{ project.live_link }}</a>
+                            {% endif %}
                             <ul>
                                 <li><b>Related Skills:</b> 
                                     <ul>

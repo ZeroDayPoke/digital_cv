@@ -33,6 +33,8 @@ class ProjectForm(FlaskForm):
     name = StringField('Project Name', validators=[DataRequired()])
     description = TextAreaField('Description')
     role = StringField('Role')
+    repo_link = StringField('Repository Link')
+    live_link = StringField('Live Project Link')
     related_skills = MultiCheckboxField(
         'Related Skills',
         choices=[],
@@ -69,6 +71,8 @@ class UpdateProjectForm(FlaskForm):
     name = StringField('Updated Project Name', validators=[DataRequired()])
     description = TextAreaField('Updated Description')
     role = StringField('Updated Role')
+    repo_link = StringField('Updated Repository Link')
+    live_link = StringField('Updated Live Project Link')
     related_skills = MultiCheckboxField(
         'Related Skills',
         choices=[],
