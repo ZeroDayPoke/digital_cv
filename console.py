@@ -124,6 +124,48 @@ class CV_Console(cmd.Cmd):
             for instance in instances:
                 print(f"{class_name} {instance.id}: {instance}")
 
+    def do_update(self, arg):
+        """Updates an instance of a class: update <class> <id> <attribute1=value1> <attribute2=value2> ..."""
+        with app.app_context():
+            params = arg.split()
+            if len(params) < 3:
+                print("Usage: update <class> <id> <attribute1=value1> <attribute2=value2> ...")
+                return
+
+            class_name, instance_id = params[0], params[1]
+            cls = self.get_class(class_name)
+            if cls is None:
+                print(f"Invalid class. Available classes: {', '.join(class_dictionary.keys())}")
+                return
+
+            instance = cls.query.get(instance_id)
+            if instance is None:
+                print(f"{class_name} with ID {instance_id} not found")
+                return
+
+            attributes = {}
+            for param in params[2:]:
+                key, value = param.split("=", 1)
+                attributes[key] = value
+
+            if class_name == 'User' and 'role' in attributes:
+                role_name = attributes.pop('role')
+                role = Role.query.filter_by(name=role_name).first()
+                if not role:
+                    print(f"Role {role_name} not found")
+                    return
+
+                user = instance
+                user.roles.append(role)
+                db.session.commit()
+                print(f"Role {role_name} appended to User with ID {instance_id}")
+
+            for key, value in attributes.items():
+                setattr(instance, key, value)
+
+            db.session.commit()
+            print(f"{class_name} with ID {instance_id} has been updated.")
+
     def do_quit(self, arg):
         """Quit the console: quit"""
         print("Exiting console...")

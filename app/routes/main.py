@@ -25,10 +25,11 @@ def projects():
     projects = Project.query.all()
     return render_template('projects.html', projects=projects)
 
-
 @main_routes.route('/interface', methods=['GET', 'POST'])
 @login_required
 def interface():
+    if not current_user.has_role('ADMIN'):
+        return redirect(url_for('main_routes.projects'))
     form = ProjectForm()
     form.related_skills.choices = [(str(skill.id), skill.name) for skill in Skill.query.all()]
     if form.validate_on_submit():
@@ -58,6 +59,10 @@ def signup():
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('main_routes.index'))
+    else:
+        print(form.errors)
+        flash('Invalid email or password. Please try again.')
+
     return render_template('signup.html', form=form)
 
 @main_routes.route('/signin', methods=['GET', 'POST'])

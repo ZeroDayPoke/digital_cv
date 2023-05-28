@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from .base import BaseModel, db
 from sqlalchemy.orm import relationship
-from sqlalchemy import Table, Column, ForeignKey
+from .associations import user_roles
 
 class Role(BaseModel):
     __tablename__ = 'roles'
@@ -15,12 +15,6 @@ class Role(BaseModel):
 
     def __repr__(self):
         return '<Role {}>'.format(self.name)
-
-# UserRoles association table
-user_roles = Table('user_roles', BaseModel.metadata,
-    Column('user_id', db.String(60), ForeignKey('users.id')),
-    Column('role_id', db.String(60), ForeignKey('roles.id'))
-)
 
 class User(UserMixin, BaseModel):
     __tablename__ = 'users'
