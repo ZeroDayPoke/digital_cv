@@ -32,8 +32,10 @@ class User(UserMixin, BaseModel):
 
     def __init__(self, *args, **kwargs):
         """creates new User"""
+        password = kwargs.pop('password', None)
         super().__init__(*args, **kwargs)
-        self.set_password(kwargs.get('password'))
+        if password:
+            self.set_password(password)
 
     def __repr__(self):
         """User representation"""

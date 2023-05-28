@@ -3,8 +3,8 @@
 # app/forms.py
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms import StringField, TextAreaField, SubmitField, PasswordField
+from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 from wtforms.fields import SelectMultipleField
 from wtforms.widgets import ListWidget, CheckboxInput
 from uuid import UUID
@@ -39,3 +39,15 @@ class ProjectForm(FlaskForm):
         validators=[at_least_one_checkbox]
     )
     submit = SubmitField('Submit')
+
+class SignupForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Sign Up')
+
+class SigninForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Sign In')
