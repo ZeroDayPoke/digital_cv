@@ -6,7 +6,7 @@
 
 {% block content %}
 <h2>Add Project</h2>
-<form method="POST">
+<form action="{{ url_for('main_routes.add_project') }}" method="POST">
     {{ form.hidden_tag() }}
     <p>{{ form.name.label }} {{ form.name() }}</p>
     {% if form.name.errors %}
@@ -29,6 +29,66 @@
         <p class="error">{{ form.related_skills.errors[0] }}</p>
     {% endif %}
     <p>{{ form.submit() }}</p>
+</form>
+
+<h2>Add Skill</h2>
+<form action="{{ url_for('main_routes.add_skill') }}" method="POST">
+    {{ skill_form.hidden_tag() }}
+    <p>{{ skill_form.name.label }} {{ skill_form.name() }}</p>
+    {% if skill_form.name.errors %}
+        <p class="error">{{ skill_form.name.errors[0] }}</p>
+    {% endif %}
+    <p>{{ skill_form.submit() }}</p>
+</form>
+
+<h2>Delete Skill</h2>
+<form action="{{ url_for('main_routes.delete_skill') }}" method="POST">
+    {{ delete_skill_form.hidden_tag() }}
+    <p>{{ delete_skill_form.skill.label }} {{ delete_skill_form.skill() }}</p>
+    {% if delete_skill_form.skill.errors %}
+        <p class="error">{{ delete_skill_form.skill.errors[0] }}</p>
+    {% endif %}
+    <p>{{ delete_skill_form.submit() }}</p>
+</form>
+
+<h2>Update Project</h2>
+<form action="{{ url_for('main_routes.update_project') }}" method="POST">
+    {{ update_project_form.hidden_tag() }}
+    <p>{{ update_project_form.project.label }} {{ update_project_form.project() }}</p>
+    {% if update_project_form.project.errors %}
+        <p class="error">{{ update_project_form.project.errors[0] }}</p>
+    {% endif %}
+    <p>{{ update_project_form.name.label }} {{ update_project_form.name() }}</p>
+    {% if update_project_form.name.errors %}
+        <p class="error">{{ update_project_form.name.errors[0] }}</p>
+    {% endif %}
+    <p>{{ update_project_form.description.label }} {{ update_project_form.description() }}</p>
+    {% if update_project_form.description.errors %}
+        <p class="error">{{ update_project_form.description.errors[0] }}</p>
+    {% endif %}
+    <p>{{ update_project_form.role.label }} {{ update_project_form.role() }}</p>
+    {% if update_project_form.role.errors %}
+        <p class="error">{{ update_project_form.role.errors[0] }}</p>
+    {% endif %}
+    <p>{{ update_project_form.related_skills.label }}</p>
+    {% for skill in update_project_form.related_skills %}
+        <label>{{ skill.label }}</label>
+        {{ skill }}
+    {% endfor %}
+    {% if update_project_form.related_skills.errors %}
+        <p class="error">{{ update_project_form.related_skills.errors[0] }}</p>
+    {% endif %}
+    <p>{{ update_project_form.submit() }}</p>
+</form>
+
+<h2>Delete Project</h2>
+<form action="{{ url_for('main_routes.delete_project') }}" method="POST">
+    {{ delete_project_form.hidden_tag() }}
+    <p>{{ delete_project_form.project.label }} {{ delete_project_form.project() }}</p>
+    {% if delete_project_form.project.errors %}
+        <p class="error">{{ delete_project_form.project.errors[0] }}</p>
+    {% endif %}
+    <p>{{ delete_project_form.submit() }}</p>
 </form>
 {% endblock %}
 

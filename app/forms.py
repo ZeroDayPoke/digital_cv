@@ -3,7 +3,7 @@
 # app/forms.py
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, PasswordField
+from wtforms import StringField, TextAreaField, SubmitField, PasswordField, SelectField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 from wtforms.fields import SelectMultipleField
 from wtforms.widgets import ListWidget, CheckboxInput
@@ -51,3 +51,31 @@ class SigninForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign In')
+
+class SkillsFilterForm(FlaskForm):
+    skills = MultiCheckboxField('Skills', choices=[])  # Choices will be filled dynamically in the view
+    filter = SubmitField('Filter')
+
+class SkillForm(FlaskForm):
+    name = StringField('Skill Name', validators=[DataRequired()])
+    submit = SubmitField('Add Skill')
+
+class DeleteSkillForm(FlaskForm):
+    skill = SelectField('Skill to Delete', coerce=str)
+    submit = SubmitField('Delete Skill')
+
+class UpdateProjectForm(FlaskForm):
+    project = SelectField('Project to Update', coerce=str)
+    name = StringField('Updated Project Name', validators=[DataRequired()])
+    description = TextAreaField('Updated Description')
+    role = StringField('Updated Role')
+    related_skills = MultiCheckboxField(
+        'Related Skills',
+        choices=[],
+        validators=[at_least_one_checkbox]
+    )
+    submit = SubmitField('Update Project')
+
+class DeleteProjectForm(FlaskForm):
+    project = SelectField('Project to Delete', coerce=str)
+    submit = SubmitField('Delete Project')

@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <main class="container">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.skills.label }}
+            {{ form.skills }}
+            {{ form.filter }}
+        </form>
         <section class="row">
             {% for project in projects %}
                 <div class="col-md-6 col-lg-4">
@@ -24,5 +29,4 @@
                 </div>
             {% endfor %}
         </section>
-    </main>
 {% endblock %}
