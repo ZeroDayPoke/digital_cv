@@ -22,7 +22,7 @@ def add_skill():
         db.session.add(skill)
         db.session.commit()
         flash('Your skill has been added!', 'success')
-        return redirect(url_for('main_routes.interface'))
+        return redirect(url_for('admin_routes.interface'))
     return render_template('interface.html', title='Interface', skill_form=skill_form)
 
 @skill_routes.route('/interface/delete_skill', methods=['POST'])
@@ -40,4 +40,4 @@ def delete_skill():
             flash('Skill has been deleted!', 'success')
         else:
             flash('Error: Skill not found.', 'danger')
-    return redirect(url_for('main_routes.interface'))
+    return redirect(url_for('admin_routes.interface'))
