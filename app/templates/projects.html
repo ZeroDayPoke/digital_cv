@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="container">
+        <section class="row">
+            {% for project in projects %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card project-card mb-4" id="{{ project.id }}">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ project.name }}</h3>
+                            <p class="card-text">{{ project.description }}</p>
+                            <p class="card-text"><b>Role:</b> {{ project.role }}</p>
+                            <ul>
+                                <li><b>Related Skills:</b> 
+                                    <ul>
+                                        {% for skill in project.related_skills %}
+                                            <li>{{ skill.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+{% endblock %}

@@ -1,0 +1,37 @@
+<!-- app/templates/interface.html -->
+{% extends "base.html" %}
+
+{% block title %}Interface{% endblock %}
+{% block main %}{% endblock %}
+
+{% block content %}
+<h2>Add Project</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <p>{{ form.name.label }} {{ form.name() }}</p>
+    {% if form.name.errors %}
+        <p class="error">{{ form.name.errors[0] }}</p>
+    {% endif %}
+    <p>{{ form.description.label }} {{ form.description() }}</p>
+    {% if form.description.errors %}
+        <p class="error">{{ form.description.errors[0] }}</p>
+    {% endif %}
+    <p>{{ form.role.label }} {{ form.role() }}</p>
+    {% if form.role.errors %}
+        <p class="error">{{ form.role.errors[0] }}</p>
+    {% endif %}
+    <p>{{ form.related_skills.label }}</p>
+    {% for skill in form.related_skills %}
+        <label>{{ skill.label }}</label>
+        {{ skill }}
+    {% endfor %}
+    {% if form.related_skills.errors %}
+        <p class="error">{{ form.related_skills.errors[0] }}</p>
+    {% endif %}
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
+
+<!-- {% block footer %}{% endblock %} -->
+{% block scripts %}{% endblock %}
+{% block styles %}{% endblock %}
