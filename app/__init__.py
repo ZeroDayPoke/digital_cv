@@ -9,16 +9,20 @@ from flask import Flask
 from config import config
 from flask_login import LoginManager
 from app.models import db, User
-from app.routes.main import main_routes as main_blueprint
+from .routes import main_routes, auth_routes, project_routes, skill_routes, admin_routes
 
 def create_app(config_name='default'):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+    app.register_blueprint(main_routes)
+    app.register_blueprint(auth_routes)
+    app.register_blueprint(project_routes)
+    app.register_blueprint(skill_routes)
+    app.register_blueprint(admin_routes)
     app.url_map.strict_slashes = False
     login_manager = LoginManager()
     login_manager.init_app(app)
     db.init_app(app)
-    app.register_blueprint(main_blueprint)
 
     @login_manager.user_loader
     def load_user(user_id):

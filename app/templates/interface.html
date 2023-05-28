@@ -3,10 +3,62 @@
 
 {% block title %}Interface{% endblock %}
 {% block main %}{% endblock %}
+{% block header %}{% endblock %}
+{% block nav %}
+<header class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="{{ url_for('static', filename='images/favicon.ico') }}" alt="Chris Stamper - CV" width="auto" height="30">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main_routes.index') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main_routes.projects') }}">Search</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth_routes.signout') }}">Sign Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin_routes.interface') }}">Interface</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth_routes.signup') }}">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth_routes.signin') }}">Sign In</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#strain">STRAIN.gg Clouds</a></li>
+                        <li><a class="dropdown-item" href="#hbnb">HBNB Clone</a></li>
+                        <li><a class="dropdown-item" href="#shell">Simple Shell</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</header>
+{% endblock %}
 
 {% block content %}
 <h2>Add Project</h2>
-<form action="{{ url_for('main_routes.add_project') }}" method="POST">
+<form action="{{ url_for('project_routes.add_project') }}" method="POST">
     {{ form.hidden_tag() }}
     <p>{{ form.name.label }} {{ form.name() }}</p>
     {% if form.name.errors %}
@@ -32,7 +84,7 @@
 </form>
 
 <h2>Add Skill</h2>
-<form action="{{ url_for('main_routes.add_skill') }}" method="POST">
+<form action="{{ url_for('skill_routes.add_skill') }}" method="POST">
     {{ skill_form.hidden_tag() }}
     <p>{{ skill_form.name.label }} {{ skill_form.name() }}</p>
     {% if skill_form.name.errors %}
@@ -42,7 +94,7 @@
 </form>
 
 <h2>Delete Skill</h2>
-<form action="{{ url_for('main_routes.delete_skill') }}" method="POST">
+<form action="{{ url_for('skill_routes.delete_skill') }}" method="POST">
     {{ delete_skill_form.hidden_tag() }}
     <p>{{ delete_skill_form.skill.label }} {{ delete_skill_form.skill() }}</p>
     {% if delete_skill_form.skill.errors %}
@@ -52,7 +104,7 @@
 </form>
 
 <h2>Update Project</h2>
-<form action="{{ url_for('main_routes.update_project') }}" method="POST">
+<form action="{{ url_for('project_routes.update_project') }}" method="POST">
     {{ update_project_form.hidden_tag() }}
     <p>{{ update_project_form.project.label }} {{ update_project_form.project() }}</p>
     {% if update_project_form.project.errors %}
@@ -82,7 +134,7 @@
 </form>
 
 <h2>Delete Project</h2>
-<form action="{{ url_for('main_routes.delete_project') }}" method="POST">
+<form action="{{ url_for('project_routes.delete_project') }}" method="POST">
     {{ delete_project_form.hidden_tag() }}
     <p>{{ delete_project_form.project.label }} {{ delete_project_form.project() }}</p>
     {% if delete_project_form.project.errors %}
