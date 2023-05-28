@@ -74,4 +74,4 @@ def add_project():
         db.session.commit()
         flash('Your project has been added!', 'success')
         return redirect(url_for('admin_routes.interface'))
-    return render_template('interface.html', title='Interface', form=form)
+    return redirect(url_for('admin_routes.interface'))
