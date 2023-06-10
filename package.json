@@ -1,0 +1,27 @@
+{
+  "name": "digital_cv",
+  "version": "1.0.0",
+  "description": "digital_cv project continuation",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZeroDayPoke/digital_cv.git"
+  },
+  "author": "Chris Stamper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZeroDayPoke/digital_cv/issues"
+  },
+  "homepage": "https://github.com/ZeroDayPoke/digital_cv#readme",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.3",
+    "twilio": "^4.11.2"
+  }
+}

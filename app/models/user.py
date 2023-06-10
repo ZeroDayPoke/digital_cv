@@ -2,6 +2,7 @@
 """User Model"""
 # Import necessary modules
 
+from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from .base import BaseModel, db
@@ -23,7 +24,9 @@ class User(UserMixin, BaseModel):
     email = db.Column(db.String(120), unique=True, index=True)
     password_hash = db.Column(db.String(128))
     roles = relationship('Role', secondary=user_roles, backref=db.backref('users', lazy='dynamic'))
-
+    verification_token = db.Column(db.String(40))
+    verified = db.Column(db.Boolean, default=False)
+    token_generated_at = db.Column(db.DateTime, default=datetime.utcnow)
     def __init__(self, *args, **kwargs):
         """creates new User"""
         password = kwargs.pop('password', None)
@@ -48,3 +51,7 @@ class User(UserMixin, BaseModel):
 
     def has_role(self, role_name):
         return any(role.name == role_name for role in self.roles)
+
+    def token_expired(self):
+        expiration_time = self.token_generated_at + timedelta(hours=24)
+        return datetime.utcnow() > expiration_time

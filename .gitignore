@@ -1,1 +1,5 @@
 .env
+backup.sql
+*.gz
+node_modules/
+*.pyc
