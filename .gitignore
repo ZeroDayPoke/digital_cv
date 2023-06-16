@@ -1,8 +1,11 @@
 # specific
 .env
 backup.sql
-node_modules/
 
 # regex
 *.pyc
 *.gz
+
+# directory
+node_modules/
+app/templates/blog/

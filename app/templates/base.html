@@ -5,7 +5,7 @@
     <title>{% block title %}ZDP{% endblock %}</title>
 
     <!-- Meta -->
-    {% include 'meta.html' %}
+    {% include 'default/meta.html' %}
 
     <!-- Favicon -->
     <link
@@ -28,7 +28,7 @@
   </head>
   <body>
     <header class="container">
-      {% include 'navbar.html' %} {% include 'header.html' %}
+      {% include 'default/navbar.html' %} {% include 'default/header.html' %}
     </header>
     <main class="container">
       {% block content %}
@@ -169,7 +169,7 @@
       {% endblock %}
     </main>
 
-    {% include 'footer.html' %}
+    {% include 'default/footer.html' %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     {% block js %}{% endblock %}
   </body>

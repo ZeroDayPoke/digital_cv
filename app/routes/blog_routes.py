@@ -80,4 +80,4 @@ def blog_detail(blog_id):
     if blog is None:
         flash('Blog not found', 'error')
         return redirect(url_for('main_routes.index'))
-    return render_template('blog/detail.html', blog=blog)
+    return render_template('blog_detail.html', blog=blog)
