@@ -42,6 +42,16 @@ class ProjectForm(FlaskForm):
     )
     submit = SubmitField('Submit')
 
+class BlogForm(FlaskForm):
+    name = StringField('Blog Name', validators=[DataRequired()])
+    description = TextAreaField('Description')
+    related_skills = MultiCheckboxField(
+        'Related Skills',
+        choices=[],
+        validators=[at_least_one_checkbox]
+    )
+    submit = SubmitField('Submit')
+
 class SignupForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -55,7 +65,7 @@ class SigninForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 class SkillsFilterForm(FlaskForm):
-    skills = MultiCheckboxField('Skills', choices=[])  # Choices will be filled dynamically in the view
+    skills = MultiCheckboxField('Skills', choices=[])
     filter = SubmitField('Filter')
 
 class SkillForm(FlaskForm):
@@ -80,6 +90,21 @@ class UpdateProjectForm(FlaskForm):
     )
     submit = SubmitField('Update Project')
 
+class UpdateBlogForm(FlaskForm):
+    blog = SelectField('Blog to Update', coerce=str)
+    name = StringField('Updated Blog Name', validators=[DataRequired()])
+    description = TextAreaField('Updated Description')
+    related_skills = MultiCheckboxField(
+        'Related Skills',
+        choices=[],
+        validators=[at_least_one_checkbox]
+    )
+    submit = SubmitField('Update Blog')
+
 class DeleteProjectForm(FlaskForm):
     project = SelectField('Project to Delete', coerce=str)
     submit = SubmitField('Delete Project')
+
+class DeleteBlogForm(FlaskForm):
+    blog = SelectField('Blog to Delete', coerce=str)
+    submit = SubmitField('Delete Blog')

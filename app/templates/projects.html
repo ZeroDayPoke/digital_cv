@@ -1,42 +1,37 @@
-{% extends 'base.html' %}
-
-{% block content %}
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            {{ form.skills.label }}
-            {{ form.skills }}
-            {{ form.filter }}
-        </form>
-        <section class="row">
-            {% for project in projects %}
-                <div class="col-md-6 col-lg-4">
-                    <div class="card project-card mb-4" id="{{ project.id }}">
-                        <div class="card-body">
-                            <h3 class="card-title">
-                            {% if project.repo_link %}
-                                <a href="{{ project.repo_link }}">{{ project.name }}</a>
-                            {% else %}
-                                {{ project.name }}
-                            {% endif %}
-                            </h3>
-                            <p class="card-text">{{ project.description }}</p>
-                            <p class="card-text"><b>Role:</b> {{ project.role }}</p>
-                            {% if project.live_link %}
-                                <p>Live Project At: </p>
-                                <a href="{{ project.live_link }}">{{ project.live_link }}</a>
-                            {% endif %}
-                            <ul>
-                                <li><b>Related Skills:</b> 
-                                    <ul>
-                                        {% for skill in project.related_skills %}
-                                            <li>{{ skill.name }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </section>
+{% extends 'base.html' %} {% block content %}
+<form method="POST">
+  {{ form.hidden_tag() }} {{ form.skills.label }} {{ form.skills }} {{
+  form.filter }}
+</form>
+<section class="row">
+  {% for project in projects %}
+  <div class="col-md-6 col-lg-4">
+    <div class="card project-card mb-4" id="{{ project.id }}">
+      <div class="card-body">
+        <h3 class="card-title">
+          {% if project.repo_link %}
+          <a href="{{ project.repo_link }}">{{ project.name }}</a>
+          {% else %} {{ project.name }} {% endif %}
+        </h3>
+        <p class="card-text">{{ project.description }}</p>
+        <p class="card-text"><b>Role:</b> {{ project.role }}</p>
+        {% if project.live_link %}
+        <p>Live Project At:</p>
+        <a href="{{ project.live_link }}">{{ project.live_link }}</a>
+        {% endif %}
+        <ul>
+          <li>
+            <b>Related Skills:</b>
+            <ul>
+              {% for skill in project.related_skills %}
+              <li>{{ skill.name }}</li>
+              {% endfor %}
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</section>
 {% endblock %}

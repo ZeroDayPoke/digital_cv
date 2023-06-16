@@ -1,26 +1,24 @@
 <!-- app/templates/signup.html -->
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <h2>Sign Up</h2>
 <form method="POST">
-    {{ form.hidden_tag() }}
-    <p>{{ form.username.label }} {{ form.username() }}</p>
-    {% if form.username.errors %}
-        <p class="error">{{ form.username.errors[0] }}</p>
-    {% endif %}
-    <p>{{ form.email.label }} {{ form.email() }}</p>
-    {% if form.email.errors %}
-        <p class="error">{{ form.email.errors[0] }}</p>
-    {% endif %}
-    <p>{{ form.password.label }} {{ form.password() }}</p>
-    {% if form.password.errors %}
-        <p class="error">{{ form.password.errors[0] }}</p>
-    {% endif %}
-    <p>{{ form.confirm_password.label }} {{ form.confirm_password() }}</p>
-    {% if form.confirm_password.errors %}
-        <p class="error">{{ form.confirm_password.errors[0] }}</p>
-    {% endif %}
-    <p>{{ form.submit() }}</p>
+  {{ form.hidden_tag() }}
+  <p>{{ form.username.label }} {{ form.username() }}</p>
+  {% if form.username.errors %}
+  <p class="error">{{ form.username.errors[0] }}</p>
+  {% endif %}
+  <p>{{ form.email.label }} {{ form.email() }}</p>
+  {% if form.email.errors %}
+  <p class="error">{{ form.email.errors[0] }}</p>
+  {% endif %}
+  <p>{{ form.password.label }} {{ form.password() }}</p>
+  {% if form.password.errors %}
+  <p class="error">{{ form.password.errors[0] }}</p>
+  {% endif %}
+  <p>{{ form.confirm_password.label }} {{ form.confirm_password() }}</p>
+  {% if form.confirm_password.errors %}
+  <p class="error">{{ form.confirm_password.errors[0] }}</p>
+  {% endif %}
+  <p>{{ form.submit() }}</p>
 </form>
 {% endblock %}

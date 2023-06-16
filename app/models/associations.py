@@ -10,6 +10,12 @@ project_skills = db.Table(
     db.Column('skill_id', db.String(60), db.ForeignKey('skills.id'), primary_key=True)
 )
 
+blog_skills = db.Table(
+    'blog_skills',
+    db.Column('blog_id', db.String(60), db.ForeignKey('blogs.id'), primary_key=True),
+    db.Column('skill_id', db.String(60), db.ForeignKey('skills.id'), primary_key=True)
+)
+
 user_roles = db.Table(
     'user_roles',
     db.Column('user_id', db.String(60), db.ForeignKey('users.id')),
