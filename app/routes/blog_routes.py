@@ -4,7 +4,7 @@ blog routes for the Flask application
 """
 # Path: app/routes/blog_routes.py
 
-from flask import Blueprint, redirect, url_for, flash
+from flask import Blueprint, redirect, url_for, flash, render_template
 from flask_login import login_required, current_user
 from ..models import db, Blog, Skill
 from ..forms import AddBlogForm, UpdateBlogForm, DeleteBlogForm
@@ -71,3 +71,11 @@ def delete_blog():
         flash('Your blog has been deleted!', 'success')
         return redirect(url_for('admin_routes.interface'))
     return redirect(url_for('admin_routes.interface'))
+
+@blog_routes.route('/blog/<blog_id>', methods=['GET'])
+def blog_detail(blog_id):
+    blog = Blog.query.get(blog_id)
+    if blog is None:
+        flash('Blog not found', 'error')
+        return redirect(url_for('main_routes.index'))
+    return render_template('blog/detail.html', blog=blog)

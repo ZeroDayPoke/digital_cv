@@ -8,7 +8,7 @@ __init__ file for app module
 from flask import Flask
 from config import config
 from flask_login import LoginManager
-from app.models import db, User
+from app.models import db, User, Blog
 from .routes import main_routes, auth_routes, project_routes, skill_routes, admin_routes, blog_routes
 
 def create_app(config_name='default'):
@@ -30,5 +30,10 @@ def create_app(config_name='default'):
         # Retrieve the user object based on the user_id
         user = User.query.get(user_id)
         return user
+
+    @app.context_processor
+    def inject_blogs():
+        blogs = Blog.query.all()
+        return dict(blogs=blogs)
 
     return app
