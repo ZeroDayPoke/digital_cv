@@ -7,7 +7,7 @@ blog routes for the Flask application
 from flask import Blueprint, redirect, url_for, flash
 from flask_login import login_required, current_user
 from ..models import db, Blog, Skill
-from ..forms import BlogForm, UpdateBlogForm, DeleteBlogForm
+from ..forms import AddBlogForm, UpdateBlogForm, DeleteBlogForm
 
 blog_routes = Blueprint('blog_routes', __name__, url_prefix='')
 
@@ -17,7 +17,7 @@ blog_routes = Blueprint('blog_routes', __name__, url_prefix='')
 def add_blog():
     if not current_user.has_role('ADMIN'):
         return redirect(url_for('main_routes.blogs'))
-    form = BlogForm()
+    form = AddBlogForm()
     form.related_skills.choices = [
         (str(skill.id), skill.name) for skill in Skill.query.all()]
     if form.validate_on_submit():

@@ -7,7 +7,7 @@ skill_routes.py - skill routes for the Flask application
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
 from ..models import db, Skill
-from ..forms import SkillForm, DeleteSkillForm
+from ..forms import AddSkillForm, DeleteSkillForm
 
 skill_routes = Blueprint('skill_routes', __name__, url_prefix='')
 
@@ -16,7 +16,7 @@ skill_routes = Blueprint('skill_routes', __name__, url_prefix='')
 def add_skill():
     if not current_user.has_role('ADMIN'):
         return redirect(url_for('main_routes.projects'))
-    skill_form = SkillForm()
+    skill_form = AddSkillForm()
     if skill_form.validate_on_submit():
         skill = Skill(name=skill_form.name.data)
         db.session.add(skill)

@@ -9,6 +9,8 @@ from wtforms.fields import SelectMultipleField
 from wtforms.widgets import ListWidget, CheckboxInput
 from uuid import UUID
 
+
+# Custom form fields
 class MultiCheckboxField(SelectMultipleField):
     widget = ListWidget(prefix_label=False)
     option_widget = CheckboxInput()
@@ -29,29 +31,8 @@ def at_least_one_checkbox(form, field):
     if not any(field.data):
         raise ValidationError("At least one checkbox should be checked.")
 
-class ProjectForm(FlaskForm):
-    name = StringField('Project Name', validators=[DataRequired()])
-    description = TextAreaField('Description')
-    role = StringField('Role')
-    repo_link = StringField('Repository Link')
-    live_link = StringField('Live Project Link')
-    related_skills = MultiCheckboxField(
-        'Related Skills',
-        choices=[],
-        validators=[at_least_one_checkbox]
-    )
-    submit = SubmitField('Submit')
 
-class BlogForm(FlaskForm):
-    name = StringField('Blog Name', validators=[DataRequired()])
-    description = TextAreaField('Description')
-    related_skills = MultiCheckboxField(
-        'Related Skills',
-        choices=[],
-        validators=[at_least_one_checkbox]
-    )
-    submit = SubmitField('Submit')
-
+# Auth Forms
 class SignupForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -64,17 +45,20 @@ class SigninForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign In')
 
-class SkillsFilterForm(FlaskForm):
-    skills = MultiCheckboxField('Skills', choices=[])
-    filter = SubmitField('Filter')
 
-class SkillForm(FlaskForm):
-    name = StringField('Skill Name', validators=[DataRequired()])
-    submit = SubmitField('Add Skill')
-
-class DeleteSkillForm(FlaskForm):
-    skill = SelectField('Skill to Delete', coerce=str)
-    submit = SubmitField('Delete Skill')
+# Project Forms
+class AddProjectForm(FlaskForm):
+    name = StringField('Project Name', validators=[DataRequired()])
+    description = TextAreaField('Description')
+    role = StringField('Role')
+    repo_link = StringField('Repository Link')
+    live_link = StringField('Live Project Link')
+    related_skills = MultiCheckboxField(
+        'Related Skills',
+        choices=[],
+        validators=[at_least_one_checkbox]
+    )
+    submit = SubmitField('Submit')
 
 class UpdateProjectForm(FlaskForm):
     project = SelectField('Project to Update', coerce=str)
@@ -90,6 +74,40 @@ class UpdateProjectForm(FlaskForm):
     )
     submit = SubmitField('Update Project')
 
+class DeleteProjectForm(FlaskForm):
+    project = SelectField('Project to Delete', coerce=str)
+    submit = SubmitField('Delete Project')
+
+
+# Skill Forms
+class SkillsFilterForm(FlaskForm):
+    skills = MultiCheckboxField('Skills', choices=[])
+    filter = SubmitField('Filter')
+
+class AddSkillForm(FlaskForm):
+    name = StringField('Skill Name', validators=[DataRequired()])
+    submit = SubmitField('Add Skill')
+
+class DeleteSkillForm(FlaskForm):
+    skill = SelectField('Skill to Delete', coerce=str)
+    submit = SubmitField('Delete Skill')
+
+
+# Blog forms
+class AddBlogForm(FlaskForm):
+    name = StringField('Blog Name', validators=[DataRequired()])
+    description = TextAreaField('Description')
+    related_skills = MultiCheckboxField(
+        'Related Skills',
+        choices=[],
+        validators=[at_least_one_checkbox]
+    )
+    submit = SubmitField('Submit')
+
+class DeleteBlogForm(FlaskForm):
+    blog = SelectField('Blog to Delete', coerce=str)
+    submit = SubmitField('Delete Blog')
+
 class UpdateBlogForm(FlaskForm):
     blog = SelectField('Blog to Update', coerce=str)
     name = StringField('Updated Blog Name', validators=[DataRequired()])
@@ -100,11 +118,3 @@ class UpdateBlogForm(FlaskForm):
         validators=[at_least_one_checkbox]
     )
     submit = SubmitField('Update Blog')
-
-class DeleteProjectForm(FlaskForm):
-    project = SelectField('Project to Delete', coerce=str)
-    submit = SubmitField('Delete Project')
-
-class DeleteBlogForm(FlaskForm):
-    blog = SelectField('Blog to Delete', coerce=str)
-    submit = SubmitField('Delete Blog')

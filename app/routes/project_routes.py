@@ -4,10 +4,10 @@ project_routes.py - project routes for the Flask application
 """
 # Path: app/routes/project_routes.py
 
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, redirect, url_for, flash
 from flask_login import login_required, current_user
 from ..models import db, Project, Skill
-from ..forms import ProjectForm, UpdateProjectForm, DeleteProjectForm
+from ..forms import AddProjectForm, UpdateProjectForm, DeleteProjectForm
 
 project_routes = Blueprint('project_routes', __name__, url_prefix='')
 
@@ -59,7 +59,7 @@ def delete_project():
 def add_project():
     if not current_user.has_role('ADMIN'):
         return redirect(url_for('main_routes.projects'))
-    form = ProjectForm()
+    form = AddProjectForm()
     form.related_skills.choices = [(str(skill.id), skill.name) for skill in Skill.query.all()]
     if form.validate_on_submit():
         new_project = Project(

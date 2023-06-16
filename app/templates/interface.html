@@ -1,51 +1,17 @@
 <!-- app/templates/interface.html -->
-{% extends "base.html" %} {% block title %}Interface{% endblock %} {% block main
-%}{% endblock %} {% block header %} {% endblock %} {% block content %}
+{% extends "base.html" %} {% from "macros.html" import render_form %} {% block
+title %}Interface{% endblock %} {% block main %}{% endblock %} {% block header
+%} {% endblock %} {% block content %}
+
 <div class="container">
   <div class="row">
     <div class="col-lg-6">
       <h2>Add Project</h2>
-      <form action="{{ url_for('project_routes.add_project') }}" method="POST">
-        {{ form.hidden_tag() }}
-        <p>{{ form.name.label }} {{ form.name() }}</p>
-        {% if form.name.errors %}
-        <p class="error">{{ form.name.errors[0] }}</p>
-        {% endif %}
-        <p>{{ form.description.label }} {{ form.description() }}</p>
-        {% if form.description.errors %}
-        <p class="error">{{ form.description.errors[0] }}</p>
-        {% endif %}
-        <p>{{ form.role.label }} {{ form.role() }}</p>
-        {% if form.role.errors %}
-        <p class="error">{{ form.role.errors[0] }}</p>
-        {% endif %}
-        <p>{{ form.repo_link.label }} {{ form.repo_link() }}</p>
-        {% if form.repo_link.errors %}
-        <p class="error">{{ form.repo_link.errors[0] }}</p>
-        {% endif %}
-        <p>{{ form.live_link.label }} {{ form.live_link() }}</p>
-        {% if form.live_link.errors %}
-        <p class="error">{{ form.live_link.errors[0] }}</p>
-        {% endif %}
-        <p>{{ form.related_skills.label }}</p>
-        {% for skill in form.related_skills %}
-        <label>{{ skill.label }}</label>
-        {{ skill }} {% endfor %} {% if form.related_skills.errors %}
-        <p class="error">{{ form.related_skills.errors[0] }}</p>
-        {% endif %}
-        <p>{{ form.submit() }}</p>
-      </form>
+      {{ render_form(add_project_form, 'project_routes.add_project', 'Add') }}
     </div>
     <div class="col-lg-6">
       <h2>Add Skill</h2>
-      <form action="{{ url_for('skill_routes.add_skill') }}" method="POST">
-        {{ skill_form.hidden_tag() }}
-        <p>{{ skill_form.name.label }} {{ skill_form.name() }}</p>
-        {% if skill_form.name.errors %}
-        <p class="error">{{ skill_form.name.errors[0] }}</p>
-        {% endif %}
-        <p>{{ skill_form.submit() }}</p>
-      </form>
+      {{ render_form(add_skill_form, 'skill_routes.add_skill', 'Add') }}
     </div>
   </div>
 </div>
@@ -54,27 +20,11 @@
   <div class="row">
     <div class="col-lg-6">
       <h2>Add Blog</h2>
-      <form action="{{ url_for('blog_routes.add_blog') }}" method="POST">
-        {{ add_blog_form.hidden_tag() }}
-        <p>{{ add_blog_form.name.label }} {{ add_blog_form.name() }}</p>
-        {% if add_blog_form.name.errors %}
-        <p class="error">{{ add_blog_form.name.errors[0] }}</p>
-        {% endif %}
-        <p>
-          {{ add_blog_form.description.label }} {{ add_blog_form.description()
-          }}
-        </p>
-        {% if add_blog_form.description.errors %}
-        <p class="error">{{ add_blog_form.description.errors[0] }}</p>
-        {% endif %}
-        <p>{{ add_blog_form.related_skills.label }}</p>
-        {% for skill in add_blog_form.related_skills %}
-        <label>{{ skill.label }}</label>
-        {{ skill }} {% endfor %} {% if add_blog_form.related_skills.errors %}
-        <p class="error">{{ add_blog_form.related_skills.errors[0] }}</p>
-        {% endif %}
-        <p>{{ add_blog_form.submit() }}</p>
-      </form>
+      {{ render_form(add_blog_form, 'blog_routes.add_blog', 'Add') }}
+    </div>
+    <div class="col-lg-6">
+      <h2>Delete Blog</h2>
+      {{ render_form(delete_blog_form, 'blog_routes.delete_blog', 'Delete') }}
     </div>
   </div>
 </div>
@@ -83,33 +33,13 @@
   <div class="row">
     <div class="col-lg-6">
       <h2>Delete Skill</h2>
-      <form action="{{ url_for('skill_routes.delete_skill') }}" method="POST">
-        {{ delete_skill_form.hidden_tag() }}
-        <p>
-          {{ delete_skill_form.skill.label }} {{ delete_skill_form.skill() }}
-        </p>
-        {% if delete_skill_form.skill.errors %}
-        <p class="error">{{ delete_skill_form.skill.errors[0] }}</p>
-        {% endif %}
-        <p>{{ delete_skill_form.submit() }}</p>
-      </form>
+      {{ render_form(delete_skill_form, 'skill_routes.delete_skill', 'Delete')
+      }}
     </div>
     <div class="col-lg-6">
       <h2>Delete Project</h2>
-      <form
-        action="{{ url_for('project_routes.delete_project') }}"
-        method="POST"
-      >
-        {{ delete_project_form.hidden_tag() }}
-        <p>
-          {{ delete_project_form.project.label }} {{
-          delete_project_form.project() }}
-        </p>
-        {% if delete_project_form.project.errors %}
-        <p class="error">{{ delete_project_form.project.errors[0] }}</p>
-        {% endif %}
-        <p>{{ delete_project_form.submit() }}</p>
-      </form>
+      {{ render_form(delete_project_form, 'project_routes.delete_project',
+      'Delete') }}
     </div>
   </div>
 </div>
@@ -118,65 +48,11 @@
   <div class="row">
     <div class="col-lg-6">
       <h2>Update Project</h2>
-      <form
-        action="{{ url_for('project_routes.update_project') }}"
-        method="POST"
-      >
-        {{ update_project_form.hidden_tag() }}
-        <p>
-          {{ update_project_form.project.label }} {{
-          update_project_form.project() }}
-        </p>
-        {% if update_project_form.project.errors %}
-        <p class="error">{{ update_project_form.project.errors[0] }}</p>
-        {% endif %}
-        <p>
-          {{ update_project_form.name.label }} {{ update_project_form.name() }}
-        </p>
-        {% if update_project_form.name.errors %}
-        <p class="error">{{ update_project_form.name.errors[0] }}</p>
-        {% endif %}
-        <p>
-          {{ update_project_form.description.label }} {{
-          update_project_form.description() }}
-        </p>
-        {% if update_project_form.description.errors %}
-        <p class="error">{{ update_project_form.description.errors[0] }}</p>
-        {% endif %}
-        <p>
-          {{ update_project_form.role.label }} {{ update_project_form.role() }}
-        </p>
-        {% if update_project_form.role.errors %}
-        <p class="error">{{ update_project_form.role.errors[0] }}</p>
-        {% endif %}
-        <p>
-          {{ update_project_form.repo_link.label }} {{
-          update_project_form.repo_link() }}
-        </p>
-        {% if update_project_form.repo_link.errors %}
-        <p class="error">{{ update_project_form.repo_link.errors[0] }}</p>
-        {% endif %}
-        <p>
-          {{ update_project_form.live_link.label }} {{
-          update_project_form.live_link() }}
-        </p>
-        {% if update_project_form.live_link.errors %}
-        <p class="error">{{ update_project_form.live_link.errors[0] }}</p>
-        {% endif %}
-        <p>{{ update_project_form.related_skills.label }}</p>
-        {% for skill in update_project_form.related_skills %}
-        <label>{{ skill.label }}</label>
-        {{ skill }} {% endfor %} {% if update_project_form.related_skills.errors
-        %}
-        <p class="error">{{ update_project_form.related_skills.errors[0] }}</p>
-        {% endif %}
-        <p>{{ update_project_form.submit() }}</p>
-      </form>
+      {{ render_form(update_project_form, 'project_routes.update_project',
+      'Update') }}
     </div>
   </div>
 </div>
 
-{% endblock %}
-
-<!-- {% block footer %}{% endblock %} -->
-{% block scripts %}{% endblock %} {% block styles %}{% endblock %}
+{% endblock %} {% block scripts %}{% endblock %} {% block styles %}{% endblock
+%}
