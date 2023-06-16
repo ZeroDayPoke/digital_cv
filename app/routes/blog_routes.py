@@ -24,6 +24,7 @@ def add_blog():
         new_blog = Blog(
             name=form.name.data,
             description=form.description.data,
+            content_file=form.content_file.data,
             related_skills=Skill.query.filter(
                 Skill.id.in_(form.related_skills.data)).all()
         )
@@ -48,6 +49,7 @@ def update_blog():
         blog = Blog.query.get(form.blog.data)
         blog.name = form.name.data
         blog.description = form.description.data
+        blog.content_file = form.content_file.data
         blog.related_skills = Skill.query.filter(
             Skill.id.in_(form.related_skills.data)).all()
         db.session.commit()

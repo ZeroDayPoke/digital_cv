@@ -9,6 +9,7 @@ class Blog(BaseModel):
     __tablename__ = 'blogs'
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(500), nullable=True)
+    content_file = db.Column(db.String(500), nullable=True)
     related_skills = db.relationship('Skill', secondary=blog_skills, back_populates='related_blogs')
 
     def __repr__(self):

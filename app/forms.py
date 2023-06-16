@@ -97,6 +97,7 @@ class DeleteSkillForm(FlaskForm):
 class AddBlogForm(FlaskForm):
     name = StringField('Blog Name', validators=[DataRequired()])
     description = TextAreaField('Description')
+    content_file = StringField('Content File')
     related_skills = MultiCheckboxField(
         'Related Skills',
         choices=[],
@@ -112,6 +113,7 @@ class UpdateBlogForm(FlaskForm):
     blog = SelectField('Blog to Update', coerce=str)
     name = StringField('Updated Blog Name', validators=[DataRequired()])
     description = TextAreaField('Updated Description')
+    content_file = StringField('Content File')
     related_skills = MultiCheckboxField(
         'Related Skills',
         choices=[],

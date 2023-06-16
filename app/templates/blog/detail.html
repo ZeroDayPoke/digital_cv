@@ -4,4 +4,5 @@
 {% block content %}
 <h2>{{ blog.name }}</h2>
 <p>{{ blog.description }}</p>
+{% include 'blog/' + blog.content_file + '.html' %}
 {% endblock %}
