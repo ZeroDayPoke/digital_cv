@@ -28,7 +28,10 @@
   </head>
   <body>
     <header class="container">
-      {% include 'default/navbar.html' %} {% include 'default/header.html' %}
+      {% include 'default/navbar.html' %}
+      {% if include_header %}
+        {% include 'default/header.html' %}
+      {% endif %}
     </header>
     <main class="container">
       {% block content %}

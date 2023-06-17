@@ -1,8 +1,8 @@
 <!-- app/templates/blog/detail.html -->
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+
+{% block content %}
 <style>
 
 </style>
-<h2>{{ blog.name }}</h2>
-<p>{{ blog.description }}</p>
 {% include 'blog/' + blog.content_file + '.html' %} {% endblock %}
