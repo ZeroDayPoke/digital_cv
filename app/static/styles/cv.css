@@ -5,7 +5,12 @@
 }
 
 form input {
-  background-color: black;
+  background-color: #000;
   color: #f8f9fa;
-  border-color: orange;
+  border-color: #006400;
+}
+
+body {
+  padding-top: 70px;
+  background-color: #003300;
 }
