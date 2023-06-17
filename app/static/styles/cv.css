@@ -1,5 +1,11 @@
-.card .blog-card .card-body {
+.card.blog-card .card-body {
   /* This overrides the bootstrap built in light mode */
   background-color: #343a40; /* This is the color for bg-dark in Bootstrap */
   color: #f8f9fa; /* This is the color for text-light in Bootstrap */
+}
+
+form input {
+  background-color: black;
+  color: #f8f9fa;
+  border-color: orange;
 }
