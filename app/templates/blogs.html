@@ -7,7 +7,7 @@ header %}{% endblock %} {% block content %}
 <section class="row">
   {% for blog in blogs %}
   <div class="col-md-6 col-lg-4">
-    <div class="card blog-card mb-4" id="{{ blog.id }}">
+    <div class="card blog-card mb-4 bg-dark text-light" id="{{ blog.id }}">
       <div class="card-body">
         <h3 class="card-title">{{ blog.name }}</h3>
         <p class="card-text">{{ blog.description }}</p>
