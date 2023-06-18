@@ -9,3 +9,6 @@ backup.sql
 # directory
 node_modules/
 app/templates/blog/
+
+# temp
+tmp/
