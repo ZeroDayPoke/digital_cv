@@ -21,12 +21,12 @@
     <!-- Custom CSS -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='styles/cv.css', v='1.1') }}"
+      href="{{ url_for('static', filename='styles/cv.css', v='1.3') }}"
     />
 
     {% block css %}{% endblock %}
   </head>
-  <body>
+  <body class="text-light">
     <header class="container">
       {% include 'default/navbar.html' %} {% if include_header %} {% include
       'default/header.html' %} {% endif %}
@@ -73,7 +73,7 @@
           <h3>
             Tutor at GKFF / Tulsa Community Foundation / Holberton Tulsa LLC
           </h3>
-          <p>Duration: Dec 2022 - Present (6 months)</p>
+          <p>Duration: Dec 2022 - Jun 2023 (6 months)</p>
           <p>Location: Tulsa, Oklahoma, United States (Hybrid)</p>
           <p>
             As a Tutor, I significantly contributed to the learning environment
