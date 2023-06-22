@@ -21,9 +21,9 @@ def run_app():
     host = environ.get('ZDP_HOST')
     port = environ.get('ZDP_PORT')
     if not host:
-        host = '0.0.0.0'
+        host = '127.0.0.1'
     if not port:
-        port = '5000'
+        port = '5200'
     app.run(host=host, port=port, threaded=True)
 
 if __name__ == "__main__":
