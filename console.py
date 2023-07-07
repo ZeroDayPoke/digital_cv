@@ -6,6 +6,7 @@ from app import create_app, db
 from app.models import Skill
 from app.models import Project
 from app.models import User, Role
+from app.models import Blog
 
 app = create_app()
 
@@ -17,7 +18,8 @@ class_dictionary = {
     'Skill': Skill,
     'Project': Project,
     'User': User,
-    'Role': Role
+    'Role': Role,
+    'Blog': Blog
 }
 
 class CV_Console(cmd.Cmd):
