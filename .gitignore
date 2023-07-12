@@ -9,6 +9,10 @@ backup.sql
 # directory
 node_modules/
 app/templates/blog/
+__pycache__/
 
 # temp
 tmp/
+
+# config
+config.py
