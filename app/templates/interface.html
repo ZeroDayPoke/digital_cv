@@ -51,8 +51,13 @@ title %}Interface{% endblock %} {% block main %}{% endblock %} {% block header
       {{ render_form(update_project_form, 'project_routes.update_project',
       'Update') }}
     </div>
+    <div class="col-lg-6">
+      <h2>Add Tutorial</h2>
+      {{ render_form(add_tutorial_form, 'tutorial_routes.add_tutorial', 'Add')
+      }}
+    </div>
   </div>
-</div>
 
-{% endblock %} {% block scripts %}{% endblock %} {% block styles %}{% endblock
-%}
+  {% endblock %} {% block scripts %}{% endblock %} {% block styles %}{% endblock
+  %}
+</div>

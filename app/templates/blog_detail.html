@@ -1,5 +1,6 @@
-<!-- app/templates/blog/detail.html -->
-{% extends "base.html" %} {% block content %}
+<!-- app/templates/blog_detail.html -->
+{% extends "base.html" %} {% block title %} {{ blog.name }} {% endblock %}{% block
+content %}
 <style></style>
 {% include 'blog/' + blog.content_file + '.html' %} {% endblock %} {% block js
 %}

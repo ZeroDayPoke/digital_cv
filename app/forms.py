@@ -89,7 +89,7 @@ class AddSkillForm(FlaskForm):
     submit = SubmitField('Add Skill')
 
 class DeleteSkillForm(FlaskForm):
-    skill = SelectField('Skill to Delete', coerce=str)
+    related_skills = SelectField('Skill to Delete', coerce=str)
     submit = SubmitField('Delete Skill')
 
 
@@ -120,3 +120,30 @@ class UpdateBlogForm(FlaskForm):
         validators=[at_least_one_checkbox]
     )
     submit = SubmitField('Update Blog')
+
+class AddTutorialForm(FlaskForm):
+    name = StringField('Tutorial Name', validators=[DataRequired()])
+    description = TextAreaField('Description')
+    content_file = StringField('Content File')
+    related_skills = MultiCheckboxField(
+        'Related Skills',
+        choices=[],
+        validators=[at_least_one_checkbox]
+    )
+    submit = SubmitField('Submit')
+
+class DeleteTutorialForm(FlaskForm):
+    tutorial = SelectField('Tutorial to Delete', coerce=str)
+    submit = SubmitField('Delete Tutorial')
+
+class UpdateTutorialForm(FlaskForm):
+    tutorial = SelectField('Tutorial to Update', coerce=str)
+    name = StringField('Updated Tutorial Name', validators=[DataRequired()])
+    description = TextAreaField('Updated Description')
+    content_file = StringField('Content File')
+    related_skills = MultiCheckboxField(
+        'Related Skills',
+        choices=[],
+        validators=[at_least_one_checkbox]
+    )
+    submit = SubmitField('Update Tutorial')

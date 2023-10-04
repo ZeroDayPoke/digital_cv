@@ -1,0 +1,29 @@
+<!-- app/templates/tutorial_detail.html -->
+{% extends "base.html" %} {% block title %}{{ tutorial.name }}{% endblock %} {%
+block content %}
+<style></style>
+
+<div class="row">
+  <article class="col-md-8">
+    <div class="mt-4" id="tutorial-intro">
+      <h2>{{ tutorial.name }}</h2>
+      <p>{{ tutorial.description }}</p>
+    </div>
+
+    <div class="mt-4" id="tutorial-content">
+      <!-- Including the main content of the tutorial from its associated content file -->
+      {% include 'tutorial/' + tutorial.content_file + '.html' %}
+    </div>
+  </article>
+
+  <aside class="col-md-4"></aside>
+</div>
+
+{% endblock %} {% block js %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+{% endblock %}
