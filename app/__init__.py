@@ -5,9 +5,9 @@ __init__ file for app module
 # Path: digital_cv/app/__init__.py
 """
 
-from flask import Flask, request, g
+from flask import Flask, request, g, render_template
 from flask_login import LoginManager
-from flask_babel import Babel
+from flask_babel import Babel, gettext as _
 from flask_admin import Admin
 from config import config
 from admin import AdminModelView, ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView
@@ -26,6 +26,32 @@ def create_app(config_name='development'):
     app.register_blueprint(tutorial_routes)
     app.url_map.strict_slashes = False
 
+    babel = Babel()
+
+    def get_locale():
+        # 1. Locale from URL parameters
+        requested_locale = request.args.get('locale')
+        print(requested_locale)
+        if requested_locale in app.config['LANGUAGES']:
+            return requested_locale
+
+        # 2. Locale from user settings
+        user = g.get('user', None)
+        if user:
+            user_locale = user.get('locale')
+            if user_locale in app.config['LANGUAGES']:
+                return user_locale
+
+        # 3. Locale from request
+        best_match = request.accept_languages.best_match(app.config['LANGUAGES'])
+        if best_match:
+            return best_match
+
+        # 4. Default locale
+        return app.config['BABEL_DEFAULT_LOCALE']
+
+    babel.init_app(app, locale_selector=get_locale)
+
     admin = Admin(app, name='AdInt', template_mode='bootstrap4')
     admin.add_view(ProjectAdminView(Project, db.session))
     admin.add_view(SkillAdminView(Skill, db.session))
@@ -33,33 +59,9 @@ def create_app(config_name='development'):
     admin.add_view(TutorialAdminView(Tutorial, db.session))
 
     login_manager = LoginManager()
-    babel = Babel()
 
     db.init_app(app)
     login_manager.init_app(app)
-    babel.init_app(app)
-
-    @babel.localeselector
-    def get_locale():
-        # 1. Locale from URL parameters
-        requested_locale = request.args.get('locale')
-        if requested_locale in app.config['LANGUAGES']:
-            return requested_locale
-
-        # 2. Locale from user settings
-       # user = g.get('user', None)
-       # if user:
-        #    user_locale = user.get('locale')
-         #   if user_locale in app.config['LANGUAGES']:
-          #      return user_locale
-
-        # 3. Locale from request
-        #best_match = request.accept_languages.best_match(app.config['LANGUAGES'])
-        #if best_match:
-         #   return best_match
-
-        # 4. Default locale
-        return app.config['BABEL_DEFAULT_LOCALE']
 
     @login_manager.user_loader
     def load_user(user_id):

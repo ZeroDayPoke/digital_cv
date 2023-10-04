@@ -21,6 +21,7 @@ class Config:
     LANGUAGES = ["en", "es"]
     BABEL_DEFAULT_LOCALE = "es"
     BABEL_DEFAULT_TIMEZONE = "UTC"
+    BABEL_TRANSLATION_DIRECTORIES = os.path.join(os.getcwd(), 'translations')
 
 # Set the development configuration
 class DevelopmentConfig(Config):
