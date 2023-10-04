@@ -79,9 +79,9 @@ def verify_account(token):
 @auth_routes.route('/change_password', methods=['POST'])
 @login_required
 def change_password():
-    current_password = request.form.get('current_password')
-    new_password = request.form.get('new_password')
-    confirm_password = request.form.get('confirm_password')
+    current_password = requests.request.form.get('current_password')
+    new_password = requests.request.form.get('new_password')
+    confirm_password = requests.request.form.get('confirm_password')
 
     if not current_user.check_password(current_password):
         flash('Incorrect current password.')
