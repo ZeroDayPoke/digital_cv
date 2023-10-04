@@ -6,6 +6,7 @@ tutorial routes for the Flask application
 
 from flask import Blueprint, redirect, url_for, flash, render_template
 from flask_login import login_required, current_user
+from ..utils.section_slicer import extract_sections_from_content
 from ..models import db, Tutorial, Skill
 from ..forms import AddTutorialForm, UpdateTutorialForm, DeleteTutorialForm
 
@@ -80,7 +81,9 @@ def tutorial_detail(tutorial_id):
     if tutorial is None:
         flash('Tutorial not found', 'error')
         return redirect(url_for('main_routes.index'))
-    return render_template('tutorial_detail.html', tutorial=tutorial)
+    content_file_path = 'app/templates/tutorial/' + tutorial.name + '.html'
+    sections = extract_sections_from_content(content_file_path)
+    return render_template('tutorial_detail.html', tutorial=tutorial, sections=sections)
 
 @tutorial_routes.route('/tutorials', methods=['GET'])
 def tutorials():

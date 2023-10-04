@@ -24,7 +24,7 @@ def run_app():
         host = '127.0.0.1'
     if not port:
         port = '5200'
-    app.run(host=host, port=port, threaded=True)
+    app.run(host=host, port=port, threaded=True, debug=True)
 
 if __name__ == "__main__":
     run_app()

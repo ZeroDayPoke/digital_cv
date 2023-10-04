@@ -18,12 +18,17 @@ class Config:
     DB_HOST = os.getenv('DB_HOST', 'localhost')
     DB_NAME = os.getenv('DB_NAME', 'cv_db')
     SQLALCHEMY_DATABASE_URI = f"mysql+mysqldb://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+    LANGUAGES = ["en", "es"]
+    BABEL_DEFAULT_LOCALE = "es"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
 
+# Set the development configuration
 class DevelopmentConfig(Config):
-    DEBUG = True
+    FLASK_DEBUG = os.getenv('FLASK_DEBUG', True)
 
+# Set the production configuration
 class ProductionConfig(Config):
-    DEBUG = False
+    FLASK_DEBUG = os.getenv('FLASK_DEBUG', False)
 
 config = {
     'development': DevelopmentConfig,

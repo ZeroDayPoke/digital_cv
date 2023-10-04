@@ -5,10 +5,11 @@ block content %}
 
 <div class="row">
   <article class="col-md-8">
-    <div class="mt-4" id="tutorial-intro">
+    <!-- <div class="mt-4" id="tutorial-intro">
       <h2>{{ tutorial.name }}</h2>
       <p>{{ tutorial.description }}</p>
-    </div>
+    </div> -->
+
 
     <div class="mt-4" id="tutorial-content">
       <!-- Including the main content of the tutorial from its associated content file -->
@@ -16,7 +17,16 @@ block content %}
     </div>
   </article>
 
-  <aside class="col-md-4"></aside>
+  <aside class="col-md-4">
+    <nav role="navigation" aria-label="Table of Contents" id="toc-sticky">
+      <h2 id="table-of-contents-heading">Table of Contents</h2>
+      <ul>
+        {% for section in sections %}
+        <li><a href="#{{ section.anchor }}">{{ section.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </aside>
 </div>
 
 {% endblock %} {% block js %}

@@ -27,3 +27,44 @@ body {
 .nav-link {
   font-size: 1.5rem; /* Makes the text of each nav link larger */
 }
+
+aside.col-md-4 {
+  position: -webkit-sticky; /* Safi */
+  position: sticky;
+  top: 6em; /* top position when starting to stick */
+  height: 60vh; /* This ensures that the aside takes up the full viewport height */
+  overflow-y: auto; /* Allows it to be scrollable */
+}
+
+nav[role="navigation"] ul {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures the ul takes the full height of its parent */
+  justify-content: space-around; /* Distributes space evenly */
+}
+
+nav[role="navigation"] li {
+  flex: 1; 
+  display: flex; /* Make the li itself a flex container */
+  align-items: center; /* Center the link vertically */
+  justify-content: center; /* Center the link horizontally */
+}
+
+nav[role="navigation"] a {
+  padding: 10px;
+  text-align: center;
+  display: block; /* Makes the whole area clickable */
+  width: 100%; /* Ensures the link takes the full width of the li */
+  border: 1px solid #f8f9fa; /* Adds a border for distinction */
+  border-radius: 5px; /* Rounds the corners */
+  background-color: #343a40; /* Matching with your color scheme */
+  color: #f8f9fa; /* Matching with your color scheme */
+}
+
+nav[role="navigation"] a:hover {
+  background-color: #495057; /* Slightly darker on hover */
+}
+
+#tutorial-intro {
+  text-align: center;
+}

@@ -5,16 +5,16 @@ __init__ file for app module
 # Path: digital_cv/app/__init__.py
 """
 
-from flask import Flask
+from flask import Flask, request, g
 from flask_login import LoginManager
 from flask_babel import Babel
 from flask_admin import Admin
-from ..config import config
-from ..admin import AdminModelView, ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView
+from config import config
+from admin import AdminModelView, ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView
 from .models import db, User, Blog, Tutorial, Skill, Project
 from .routes import main_routes, auth_routes, project_routes, skill_routes, admin_routes, blog_routes, tutorial_routes
 
-def create_app(config_name='default'):
+def create_app(config_name='development'):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     app.register_blueprint(main_routes)
@@ -33,10 +33,33 @@ def create_app(config_name='default'):
     admin.add_view(TutorialAdminView(Tutorial, db.session))
 
     login_manager = LoginManager()
-    login_manager.init_app(app)
-    db.init_app(app)
     babel = Babel()
+
+    db.init_app(app)
+    login_manager.init_app(app)
     babel.init_app(app)
+
+    @babel.localeselector
+    def get_locale():
+        # 1. Locale from URL parameters
+        requested_locale = request.args.get('locale')
+        if requested_locale in app.config['LANGUAGES']:
+            return requested_locale
+
+        # 2. Locale from user settings
+       # user = g.get('user', None)
+       # if user:
+        #    user_locale = user.get('locale')
+         #   if user_locale in app.config['LANGUAGES']:
+          #      return user_locale
+
+        # 3. Locale from request
+        #best_match = request.accept_languages.best_match(app.config['LANGUAGES'])
+        #if best_match:
+         #   return best_match
+
+        # 4. Default locale
+        return app.config['BABEL_DEFAULT_LOCALE']
 
     @login_manager.user_loader
     def load_user(user_id):
