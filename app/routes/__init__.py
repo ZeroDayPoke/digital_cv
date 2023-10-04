@@ -10,3 +10,4 @@ from .project_routes import project_routes
 from .skill_routes import skill_routes
 from .admin_routes import admin_routes
 from .blog_routes import blog_routes
+from .tutorial_routes import tutorial_routes

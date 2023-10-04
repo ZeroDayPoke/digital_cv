@@ -21,3 +21,9 @@ user_roles = db.Table(
     db.Column('user_id', db.String(60), db.ForeignKey('users.id')),
     db.Column('role_id', db.String(60), db.ForeignKey('roles.id'))
 )
+
+tutorial_skills = db.Table(
+    'tutorial_skills',
+    db.Column('tutorial_id', db.String(60), db.ForeignKey('tutorials.id'), primary_key=True),
+    db.Column('skill_id', db.String(60), db.ForeignKey('skills.id'), primary_key=True)
+)
