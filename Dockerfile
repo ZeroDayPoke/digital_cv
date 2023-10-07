@@ -5,7 +5,7 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Install system dependencies for mysqlclient
-RUN apt-get update && apt-get install -y libmysqlclient-dev pkg-config && apt-get clean
+RUN apt-get update && apt-get install -y libmariadb-dev-compat pkg-config && apt-get clean
 
 # Copy the requirements file into the container
 COPY requirements.txt .
