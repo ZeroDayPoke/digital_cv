@@ -1,25 +1,14 @@
-# Use Ubuntu 22.04 (Jammy) as the base image for the container
-FROM ubuntu:22.04
+# Use Python 3.10 slim image as the base
+FROM python:3.10-slim
 
-# Set environment variable to prevent interactive prompts during package installation
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Define the working directory inside the container
+# Set the working directory in the container
 WORKDIR /app
 
-# Update package lists, add repository for newer Python versions, and install Python 3.10 along with essential tools
-RUN apt-get update && apt-get install -y \
-    software-properties-common \
-    && add-apt-repository ppa:deadsnakes/ppa \
-    && apt-get update \
-    && apt-get install -y python3.10 python3.10-venv python3.10-dev python3-pip \
-    && python3.10 -m pip install --upgrade pip
-
-# Copy the requirements file from the host to the container's working directory
+# Copy the requirements file into the container
 COPY requirements.txt .
 
 # Install Python packages listed in requirements.txt
-RUN python3.10 -m pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Install Gunicorn WSGI server
 RUN python3.10 -m pip install gunicorn
