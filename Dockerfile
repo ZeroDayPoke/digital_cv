@@ -4,8 +4,8 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies for mysqlclient
-RUN apt-get update && apt-get install -y libmariadb-dev-compat pkg-config && apt-get clean
+# Install system dependencies
+RUN apt-get update && apt-get install -y libmariadb-dev-compat pkg-config build-essential && apt-get clean
 
 # Copy the requirements file into the container
 COPY requirements.txt .
