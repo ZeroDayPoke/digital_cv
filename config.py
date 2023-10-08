@@ -15,7 +15,7 @@ class Config:
     SECRET_KEY = 'supersecretkey'
     DB_USER = os.getenv('DB_USER', 'cv_user')
     DB_PASS = os.getenv('DB_PASS', 'pass_cv')
-    DB_HOST = os.getenv('DB_HOST', 'localhost')
+    DB_HOST = os.getenv('DB_HOST', 'db')
     DB_NAME = os.getenv('DB_NAME', 'cv_db')
     SQLALCHEMY_DATABASE_URI = f"mysql+mysqldb://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
     LANGUAGES = ["en", "es"]

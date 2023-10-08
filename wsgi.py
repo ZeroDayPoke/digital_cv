@@ -7,9 +7,16 @@ This is the entry point for the WSGI server.
 Located in /digital_cv/wsgi.py
 """
 
-from app import create_app
+from flask_migrate import Migrate
+from app import create_app, db
 
 app = create_app()
 
+# Create a Migrate instance
+migrate = Migrate(app, db)
+
+with app.app_context():
+    db.create_all()
+
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port='8000', threaded=True)
+    app.run(host='0.0.0.0', port='8000', threaded=True)
