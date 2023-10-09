@@ -2,7 +2,7 @@
 FROM python:3.10-slim
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y libmariadb-dev-compat pkg-config build-essential && apt-get clean
