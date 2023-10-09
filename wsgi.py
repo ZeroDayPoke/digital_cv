@@ -7,6 +7,9 @@ This is the entry point for the WSGI server.
 Located in /digital_cv/wsgi.py
 """
 
+import sys
+sys.dont_write_bytecode = True
+
 from flask_migrate import Migrate
 from app import create_app, db
 
