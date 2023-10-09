@@ -19,12 +19,18 @@ app = create_app()
 migrate = Migrate(app, db)
 
 with app.app_context():
-    total = db.create_all()
-    if total:
-        print(f"Created {total} tables")
+    from sqlalchemy import MetaData
+
+    metadata = MetaData()
+    metadata.reflect(bind=db.engine)
+
+    if not metadata.tables:
+        db.create_all()
+        print("Created tables")
         from seeder import seed_all
+        seed_all()
     else:
-        print("No tables created")
+        print("Tables already exist")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='8000', threaded=True)
