@@ -6,7 +6,7 @@ This module contains functions for seeding the database with initial data.
 """
 
 from app import create_app, db
-from app.models import User, Role, Skill, Project, Blog
+from app.models import User, Role, Skill, Project, Blog, Tutorial
 
 app = create_app()
 
@@ -65,6 +65,17 @@ def seed_blogs():
             db.session.add(blog)
         db.session.commit()
 
+def seed_tutorials():
+    """Seed the tutorials table"""
+    with app.app_context():
+        tutorials = [
+            {"name": "Flask Tutorial", "description": "A tutorial on Flask.", "content_file": "flask_tutorial.md"},
+        ]
+        for tutorial_data in tutorials:
+            tutorial = Tutorial(**tutorial_data)
+            db.session.add(tutorial)
+        db.session.commit()
+
 def seed_all():
     """Seed all tables"""
     seed_roles()
@@ -72,6 +83,7 @@ def seed_all():
     seed_skills()
     seed_projects()
     seed_blogs()
+    seed_tutorials()
 
 if __name__ == "__main__":
     seed_all()

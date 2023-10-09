@@ -19,7 +19,12 @@ app = create_app()
 migrate = Migrate(app, db)
 
 with app.app_context():
-    db.create_all()
+    total = db.create_all()
+    if total:
+        print(f"Created {total} tables")
+        from seeder import seed_all
+    else:
+        print("No tables created")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='8000', threaded=True)
