@@ -88,4 +88,4 @@ def tutorial_detail(tutorial_id):
 @tutorial_routes.route('/tutorials', methods=['GET'])
 def tutorials():
     tutorials = Tutorial.query.all()
-    return render_template('tutorial_hub.html', tutorials=tutorials)
+    return render_template('tutorials.html', tutorials=tutorials)

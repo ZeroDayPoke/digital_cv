@@ -19,14 +19,43 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('main_routes.index') }}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('main_routes.projects') }}"
-          >Search</a
+    <!-- Left-aligned links -->
+    <div class="navbar-nav mr-auto">
+      <a class="nav-link" href="{{ url_for('main_routes.index') }}">Home</a>
+      <a class="nav-link" href="{{ url_for('main_routes.projects') }}"
+        >Search</a
+      >
+    </div>
+    <!-- Center-aligned links -->
+    <div class="navbar-nav mx-auto">
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="projectDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
         >
+          Projects
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="projectDropdown">
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('main_routes.projects') }}"
+              >All</a
+            >
+          </li>
+          {% for project in projects %}
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('project_routes.project_details', project_id=project.id) }}"
+              >{{ project.name }}</a
+            >
+          </li>
+          {% endfor %}
+        </ul>
       </li>
       <li class="nav-item dropdown">
         <a
@@ -35,7 +64,6 @@
           id="navbarDropdown"
           role="button"
           data-bs-toggle="dropdown"
-          aria-expanded="false"
         >
           Blogs
         </a>
@@ -63,13 +91,14 @@
           id="navbarDropdown"
           role="button"
           data-bs-toggle="dropdown"
-          aria-expanded="false"
         >
           Tutorials
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li>
-            <a class="dropdown-item" href="{{ url_for('tutorial_routes.tutorials') }}"
+            <a
+              class="dropdown-item"
+              href="{{ url_for('tutorial_routes.tutorials') }}"
               >All</a
             >
           </li>
@@ -84,37 +113,23 @@
           {% endfor %}
         </ul>
       </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
+    </div>
+    <!-- Right-aligned links -->
+    <div class="navbar-nav ml-auto">
       {% if current_user.is_authenticated %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('auth_routes.signout') }}"
-          >Sign Out</a
-        >
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('admin_routes.interface') }}"
-          >Interface</a
-        >
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('auth_routes.account') }}"
-          >Account</a
-        >
-      </li>
+      <a class="nav-link" href="{{ url_for('auth_routes.signout') }}"
+        >Sign Out</a
+      >
+      <a class="nav-link" href="{{ url_for('admin_routes.interface') }}"
+        >Interface</a
+      >
+      <a class="nav-link" href="{{ url_for('auth_routes.account') }}"
+        >Account</a
+      >
       {% else %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('auth_routes.signup') }}"
-          >Sign Up</a
-        >
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('auth_routes.signin') }}"
-          >Sign In</a
-        >
-      </li>
-      {% endif %} {% if include_header %} {% include 'default/quicknav.html' %}
+      <a class="nav-link" href="{{ url_for('auth_routes.signup') }}">Sign Up</a>
+      <a class="nav-link" href="{{ url_for('auth_routes.signin') }}">Sign In</a>
       {% endif %}
-    </ul>
+    </div>
   </div>
 </nav>

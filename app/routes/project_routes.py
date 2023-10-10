@@ -4,7 +4,7 @@ project_routes.py - project routes for the Flask application
 """
 # Path: app/routes/project_routes.py
 
-from flask import Blueprint, redirect, url_for, flash
+from flask import Blueprint, redirect, url_for, flash, render_template
 from flask_login import login_required, current_user
 from ..models import db, Project, Skill
 from ..forms import AddProjectForm, UpdateProjectForm, DeleteProjectForm
@@ -75,3 +75,20 @@ def add_project():
         flash('Your project has been added!', 'success')
         return redirect(url_for('admin_routes.interface'))
     return redirect(url_for('admin_routes.interface'))
+
+@project_routes.route('/project/<project_id>', methods=['GET'])
+def project_details(project_id):
+    """
+    Display the details of an individual project.
+
+    Args:
+        project_id (str): The ID of the project to display.
+
+    Returns:
+        Rendered template for project details.
+    """
+    # Query the database for the project with the given ID
+    project = Project.query.get_or_404(project_id)
+
+    # Render the 'project_detail.html' template, passing in the project
+    return render_template('project_details.html', project=project)
