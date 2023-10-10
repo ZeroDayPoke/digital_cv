@@ -41,3 +41,8 @@ def delete_skill():
         else:
             flash('Error: Skill not found.', 'danger')
     return redirect(url_for('admin_routes.interface'))
+
+@skill_routes.route('/skills', methods=['GET'])
+def skills():
+    skills = Skill.query.all()
+    return render_template('skills.html', skills=skills)

@@ -15,6 +15,10 @@ main_routes = Blueprint('main_routes', __name__, url_prefix='')
 def index():
     return render_template('index.html', include_header=True)
 
+@main_routes.route('/about')
+def about():
+    return render_template('about.html', title='About')
+
 @main_routes.route('/projects', methods=['GET', 'POST'])
 def projects():
     form = SkillsFilterForm(request.form)
