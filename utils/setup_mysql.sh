@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# ./utils/setup_mysql.sh
+# Function to manage database-related variables in .env
+manage_db_env() {
+  db_vars=("DB_USER" "DB_PASS" "DB_NAME")
+  for var in "${db_vars[@]}"; do
+    grep -q "^$var=" .env || { read -p "$var: " value; echo "$var=$value" >> .env; }
+  done
+}
+
 manage_database() {
   local DB=$1
   local USER=$2
