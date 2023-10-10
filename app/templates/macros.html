@@ -1,6 +1,6 @@
 <!-- app/templates/macros.html -->
 {% macro render_form(form, route, button_label) %}
-<form action="{{ url_for(route) }}" method="POST">
+<form action="{{ url_for(route) }}" method="POST" enctype="multipart/form-data">
   {{ form.hidden_tag() }}
   {% for field in form if field.type != "SubmitField" %}
   <p>{{ field.label }} {{ field() }}</p>

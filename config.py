@@ -11,6 +11,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
+    ALLOWED_EXTENSIONS = os.getenv('ALLOWED_EXTENSIONS', 'png,jpg,jpeg,gif'.split(','))
+    UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', 'app/static/images')
+    MAX_FILE_SIZE = os.getenv('MAX_FILE_SIZE', 1572864)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.getenv('SECRET_KEY', 'secret_key')
     DB_USER = os.getenv('DB_USER', 'cv_user')

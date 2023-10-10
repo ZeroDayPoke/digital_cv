@@ -20,8 +20,10 @@ def add_skill():
     skill_form = AddSkillForm()
     if skill_form.validate_on_submit():
         skill = Skill(name=skill_form.name.data)
+        print(f"Skill: {skill} with image: {skill_form.image.data}")
 
         if 'image' in request.files:  # Check if the request has an 'image' part
+            print("Image found in request.files")
             image_filename = handle_file_upload("skills")  # Passing the model name for the upload folder
             if image_filename:  # If an image was successfully uploaded
                 skill.image_filename = image_filename  # Storing the uploaded image filename
