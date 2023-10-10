@@ -9,6 +9,9 @@ from flask import Flask, request, g, redirect, url_for, flash
 from flask_admin import Admin
 from flask_babel import Babel
 from flask_login import LoginManager
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+import redis
 from config import config
 from .models import db, User, Blog, Tutorial, Skill, Project
 from .routes import (main_routes, auth_routes, project_routes,
@@ -103,6 +106,17 @@ def create_app(config_name='default') -> Flask:
         """
         projects = Project.query.all()
         return dict(projects=projects)
+    
+    # Initialize Redis
+    redis_store = redis.StrictRedis(host='localhost', port=6379, db=0)
+
+    # Initialize Flask-Limiter
+    limiter = Limiter(
+        app=app,
+        key_func=get_remote_address,
+        storage_uri="redis://localhost:6379",
+        default_limits=["30 per hour"]
+    )
 
     logging.info(f"App created with config: {config_name}")
 
