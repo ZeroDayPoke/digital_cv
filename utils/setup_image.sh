@@ -13,10 +13,12 @@ manage_image_env() {
     )
 
     for var in "${!image_vars[@]}"; do
-        default_value="${image_vars[$var]}"
-        read -p "$var [default: $default_value]: " value
-        value=${value:-$default_value}
-        echo "$var=$value" >>.env
+        if ! grep -q "^$var=" .env; then
+            default_value="${image_vars[$var]}"
+            read -p "$var [default: $default_value]: " value
+            value=${value:-$default_value}
+            echo "$var=$value" >>.env
+        fi
     done
 }
 

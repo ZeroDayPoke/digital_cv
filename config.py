@@ -16,8 +16,6 @@ class Config:
     MAX_FILE_SIZE = os.getenv('MAX_FILE_SIZE', 1572864)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.getenv('SECRET_KEY', 'secret_key')
-
-
     LANGUAGES = ["en", "es"]
     BABEL_DEFAULT_LOCALE = "es"
     BABEL_DEFAULT_TIMEZONE = "UTC"
