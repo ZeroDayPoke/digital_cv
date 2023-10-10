@@ -18,11 +18,13 @@
   <div class="carousel-inner">
     {% for skill in skills %}
     <div class="carousel-item {% if loop.first %}active{% endif %}">
+      {% if skill.image_filename %}
       <img
-        src="{{ url_for('static', filename='images/skills/' + skill.image_path|default('default_skill.jpg')) }}"
+        src="{{ url_for('static', filename='images/skills/' + skill.image_filename|default('default_skill.jpg')) }}"
         alt="{{ skill.name }} icon"
         class="d-block w-100 carousel-image img-fluid"
       />
+      {% endif %}
       <div class="carousel-caption d-flex flex-column align-items-center justify-content-end">
         <h5>{{ skill.name }}</h5>
         <p>{{ skill.description|default('A valuable skill.') }}</p>

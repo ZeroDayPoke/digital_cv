@@ -16,8 +16,8 @@ class ProjectAdminView(AdminModelView):
     form_columns = ['name', 'description', 'related_skills']
 
 class SkillAdminView(AdminModelView):
-    column_list = ['name']
-    form_columns = ['name']
+    column_list = ['name', 'image_filename', 'related_projects', 'related_blogs', 'related_tutorials']
+    form_columns = ['name', 'image_filename', 'related_projects', 'related_blogs', 'related_tutorials']
 
 class BlogAdminView(AdminModelView):
     column_list = ['name', 'description', 'content_file', 'related_skills']

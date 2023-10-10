@@ -92,6 +92,17 @@ def create_app(config_name='default') -> Flask:
         """
         tutorials = Tutorial.query.all()
         return dict(tutorials=tutorials)
+    
+    @app.context_processor
+    def inject_projects() -> dict:
+        """
+        Inject all project entries into the template context.
+
+        Returns:
+            dict: A dictionary containing all project entries.
+        """
+        projects = Project.query.all()
+        return dict(projects=projects)
 
     logging.info(f"App created with config: {config_name}")
 
