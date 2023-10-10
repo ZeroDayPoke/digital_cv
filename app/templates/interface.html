@@ -7,11 +7,11 @@ title %}Interface{% endblock %} {% block main %}{% endblock %} {% block header
   <div class="row">
     <div class="col-lg-6">
       <h2>Add Project</h2>
-      {{ render_form(add_project_form, 'project_routes.add_project', 'Add') }}
+      {{ render_form(addprojectform, 'project_routes.add_project', 'Add') }}
     </div>
     <div class="col-lg-6">
       <h2>Add Skill</h2>
-      {{ render_form(add_skill_form, 'skill_routes.add_skill', 'Add') }}
+      {{ render_form(addskillform, 'skill_routes.add_skill', 'Add') }}
     </div>
   </div>
 </div>
@@ -20,11 +20,11 @@ title %}Interface{% endblock %} {% block main %}{% endblock %} {% block header
   <div class="row">
     <div class="col-lg-6">
       <h2>Add Blog</h2>
-      {{ render_form(add_blog_form, 'blog_routes.add_blog', 'Add') }}
+      {{ render_form(addblogform, 'blog_routes.add_blog', 'Add') }}
     </div>
     <div class="col-lg-6">
       <h2>Delete Blog</h2>
-      {{ render_form(delete_blog_form, 'blog_routes.delete_blog', 'Delete') }}
+      {{ render_form(deleteblogform, 'blog_routes.delete_blog', 'Delete') }}
     </div>
   </div>
 </div>
@@ -33,12 +33,12 @@ title %}Interface{% endblock %} {% block main %}{% endblock %} {% block header
   <div class="row">
     <div class="col-lg-6">
       <h2>Delete Skill</h2>
-      {{ render_form(delete_skill_form, 'skill_routes.delete_skill', 'Delete')
+      {{ render_form(deleteskillform, 'skill_routes.delete_skill', 'Delete')
       }}
     </div>
     <div class="col-lg-6">
       <h2>Delete Project</h2>
-      {{ render_form(delete_project_form, 'project_routes.delete_project',
+      {{ render_form(deleteprojectform, 'project_routes.delete_project',
       'Delete') }}
     </div>
   </div>
@@ -48,12 +48,12 @@ title %}Interface{% endblock %} {% block main %}{% endblock %} {% block header
   <div class="row">
     <div class="col-lg-6">
       <h2>Update Project</h2>
-      {{ render_form(update_project_form, 'project_routes.update_project',
+      {{ render_form(updateprojectform, 'project_routes.update_project',
       'Update') }}
     </div>
     <div class="col-lg-6">
       <h2>Add Tutorial</h2>
-      {{ render_form(add_tutorial_form, 'tutorial_routes.add_tutorial', 'Add')
+      {{ render_form(addtutorialform, 'tutorial_routes.add_tutorial', 'Add')
       }}
     </div>
   </div>

@@ -5,7 +5,7 @@ __init__ file for app module
 # Path: digital_cv/app/__init__.py
 """
 
-from flask import Flask, request, g, render_template
+from flask import Flask, request, g, redirect, url_for, flash
 from flask_login import LoginManager
 from flask_babel import Babel, gettext as _
 from flask_admin import Admin
@@ -59,6 +59,11 @@ def create_app(config_name='default'):
     admin.add_view(TutorialAdminView(Tutorial, db.session))
 
     login_manager = LoginManager()
+
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        flash('You must be logged in to view that page.')
+        return redirect(url_for('main_routes.index'))
 
     db.init_app(app)
     login_manager.init_app(app)

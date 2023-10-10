@@ -5,7 +5,7 @@ auth_routes.py - authentication routes for the Flask application
 # Path: app/routes/auth_routes.py
 
 import requests
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash
 from ..models import db, User
@@ -42,9 +42,12 @@ def signin():
 @login_required
 def signout():
     """Sign out the current user and redirect to the home page"""
-    logout_user()
-    flash('Successfully logged out.')
-    return render_template('index.html')
+    if current_user.is_authenticated:
+        logout_user()
+        flash('Successfully signed out.')
+    else:
+        flash('You are not signed in.')
+    return redirect(url_for('main_routes.index'))
 
 @auth_routes.route('/account', methods=['GET'])
 @login_required
@@ -55,17 +58,21 @@ def account():
 @login_required
 def send_verification_email():
     user_email = current_user.email
+    email_service_url = current_app.config.get('EMAIL_SERVICE_URL', 'http://localhost:3000/send-email')
 
-    response = requests.post('http://localhost:3000/send-email', json={'to': user_email})
+    response = requests.post(email_service_url, json={'to': user_email})
 
     if response.status_code == 200:
-        token = response.json()['token']
-        current_user.verification_token = token
-        db.session.commit()
-
-        return 'Verification email sent! Check your inbox for the verification link.'
+        token = response.json().get('token')
+        if token:
+            current_user.verification_token = token
+            db.session.commit()
+            return 'Verification email sent! Check your inbox for the verification link.'
+        else:
+            return 'Error processing the verification email.', 500
     else:
         return 'There was an error sending the verification email. Please try again later.', 500
+
 
 @auth_routes.route('/verify-account/<token>', methods=['GET'])
 def verify_account(token):
