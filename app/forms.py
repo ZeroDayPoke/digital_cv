@@ -3,7 +3,8 @@
 # app/forms.py
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, PasswordField, SelectField
+from flask_wtf.file import FileAllowed
+from wtforms import StringField, TextAreaField, SubmitField, PasswordField, SelectField, FileField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 from wtforms.fields import SelectMultipleField
 from wtforms.widgets import ListWidget, CheckboxInput
@@ -86,6 +87,7 @@ class SkillsFilterForm(FlaskForm):
 
 class AddSkillForm(FlaskForm):
     name = StringField('Skill Name', validators=[DataRequired()])
+    image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Add Skill')
 
 class DeleteSkillForm(FlaskForm):
