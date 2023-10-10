@@ -8,5 +8,7 @@ touch .env
 bash ./utils/setup_mysql.sh
 bash ./utils/setup_admin.sh
 bash ./utils/setup_flask.sh
+bash ./utils/setup_misc.sh
+bash ./utils/setup_image.sh
 
 echo "Setup completed successfully."

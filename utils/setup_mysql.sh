@@ -5,9 +5,14 @@
 manage_db_env() {
   db_vars=("DB_USER" "DB_PASS" "DB_NAME")
   for var in "${db_vars[@]}"; do
-    grep -q "^$var=" .env || { read -p "$var: " value; echo "$var=$value" >> .env; }
+    grep -q "^$var=" .env || {
+      read -p "$var: " value
+      echo "$var=$value" >>.env
+    }
   done
 }
+
+manage_db_env
 
 manage_database() {
   local DB=$1
@@ -17,15 +22,30 @@ manage_database() {
   local ACTION=$5
 
   echo "$ACTION database $DB..."
-  
+
   if [ "$DROP" = "yes" ]; then
-    sudo mysql -e "DROP DATABASE IF EXISTS $DB;" || { echo "Failed to drop $DB"; exit 1; }
+    sudo mysql -e "DROP DATABASE IF EXISTS $DB;" || {
+      echo "Failed to drop $DB"
+      exit 1
+    }
   fi
 
-  sudo mysql -e "CREATE DATABASE IF NOT EXISTS $DB;" || { echo "Failed to create $DB"; exit 1; }
-  sudo mysql -e "CREATE USER IF NOT EXISTS '$USER'@'localhost' IDENTIFIED BY '$PASSWORD';" || { echo "Failed to create user $USER"; exit 1; }
-  sudo mysql -e "GRANT ALL PRIVILEGES ON $DB.* TO '$USER'@'localhost';" || { echo "Failed to grant privileges"; exit 1; }
-  sudo mysql -e "FLUSH PRIVILEGES;" || { echo "Failed to flush privileges"; exit 1; }
+  sudo mysql -e "CREATE DATABASE IF NOT EXISTS $DB;" || {
+    echo "Failed to create $DB"
+    exit 1
+  }
+  sudo mysql -e "CREATE USER IF NOT EXISTS '$USER'@'localhost' IDENTIFIED BY '$PASSWORD';" || {
+    echo "Failed to create user $USER"
+    exit 1
+  }
+  sudo mysql -e "GRANT ALL PRIVILEGES ON $DB.* TO '$USER'@'localhost';" || {
+    echo "Failed to grant privileges"
+    exit 1
+  }
+  sudo mysql -e "FLUSH PRIVILEGES;" || {
+    echo "Failed to flush privileges"
+    exit 1
+  }
 }
 
 # Read .env file if it exists, otherwise prompt for database config
@@ -38,9 +58,9 @@ else
   read -p "DB Password: " DB_PASS
   read -p "DB Name: " DB_NAME
   echo "Saving configurations to .env file..."
-  echo "DB_USER=$DB_USER" > .env
-  echo "DB_PASS=$DB_PASS" >> .env
-  echo "DB_NAME=$DB_NAME" >> .env
+  echo "DB_USER=$DB_USER" >.env
+  echo "DB_PASS=$DB_PASS" >>.env
+  echo "DB_NAME=$DB_NAME" >>.env
 fi
 
 # Ask to drop existing databases

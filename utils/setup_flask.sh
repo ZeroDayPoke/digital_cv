@@ -5,7 +5,10 @@
 manage_flask_env() {
   flask_vars=("FLASK_DEBUG" "SECRET_KEY" "FLASK_ENV")
   for var in "${flask_vars[@]}"; do
-    grep -q "^$var=" .env || { read -p "$var: " value; echo "$var=$value" >> .env; }
+    grep -q "^$var=" .env || {
+      read -p "$var: " value
+      echo "$var=$value" >>.env
+    }
   done
 }
 

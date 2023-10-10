@@ -5,7 +5,10 @@
 manage_admin_env() {
   admin_vars=("DEFAULT_ADMIN_EMAIL" "DEFAULT_ADMIN_PASSWORD" "DEFAULT_ADMIN_USERNAME")
   for var in "${admin_vars[@]}"; do
-    grep -q "^$var=" .env || { read -p "$var: " value; echo "$var=$value" >> .env; }
+    grep -q "^$var=" .env || {
+      read -p "$var: " value
+      echo "$var=$value" >>.env
+    }
   done
 }
 
