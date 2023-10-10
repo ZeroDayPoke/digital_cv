@@ -9,6 +9,15 @@ from datetime import datetime
 db = SQLAlchemy()
 
 class BaseModel(db.Model):
+    """
+    Base model for all database models.
+
+    Attributes:
+        id (str): Primary key of the model.
+        image_filename (str): Name of the image file.
+        created_at (datetime): Date and time when the model was created.
+        updated_at (datetime): Date and time when the model was last updated.
+    """
     __abstract__ = True
     id = db.Column(db.String(60), primary_key=True, default=lambda: str(uuid4()), nullable=False)
     image_filename = db.Column(db.String(128), nullable=True)
