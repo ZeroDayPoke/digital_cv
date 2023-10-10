@@ -30,6 +30,9 @@ def signin():
     form = SigninForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid email or password.')
+            return redirect(url_for('auth_routes.signin'))
         login_user(user)
         flash('Successfully signed in.')
         return redirect(url_for('main_routes.index'))
