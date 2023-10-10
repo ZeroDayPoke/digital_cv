@@ -12,7 +12,7 @@ load_dotenv()
 
 class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = 'supersecretkey'
+    SECRET_KEY = os.getenv('SECRET_KEY', 'secret_key')
     DB_USER = os.getenv('DB_USER', 'cv_user')
     DB_PASS = os.getenv('DB_PASS', 'pass_cv')
     DB_HOST = os.getenv('DB_HOST', 'db')

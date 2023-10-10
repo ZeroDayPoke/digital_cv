@@ -11,7 +11,7 @@ from os import environ
 from app import create_app, db
 from flask_migrate import Migrate
 
-app = create_app()
+app = create_app(config_name=environ.get('FLASK_ENV') or 'development')
 
 # Create a Migrate instance
 migrate = Migrate(app, db)

@@ -4,11 +4,12 @@ seeder.py
 
 This module contains functions for seeding the database with initial data.
 """
-
+import os
+from decouple import config
 from app import create_app, db
 from app.models import User, Role, Skill, Project, Blog, Tutorial
 
-app = create_app()
+app = create_app(os.getenv("FLASK_ENV") or "default")
 
 def seed_roles():
     """Seed the roles table"""
@@ -22,8 +23,11 @@ def seed_roles():
 def seed_users():
     """Seed the users table"""
     with app.app_context():
+        admin_username = config('DEFAULT_ADMIN_USERNAME', default='admin')
+        admin_password = config('DEFAULT_ADMIN_PASSWORD', default='admin')
+        admin_email = config('DEFAULT_ADMIN_EMAIL', default='admin@admin.admin')
         users = [
-            {"username": "admin", "email": "admin@zerodaypoke.com", "password": "admin", "role": "ADMIN"},
+            {"username": admin_username, "email": admin_email, "password": admin_password, "role": "ADMIN"},
             {"username": "user", "email": "user@zerodaypoke.com", "password": "user", "role": "USER"},
             {"username": "guest", "email": "guest@zerodaypoke.com", "password": "guest", "role": "GUEST"},
         ]

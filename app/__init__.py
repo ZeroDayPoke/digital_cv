@@ -14,7 +14,7 @@ from admin import AdminModelView, ProjectAdminView, SkillAdminView, BlogAdminVie
 from .models import db, User, Blog, Tutorial, Skill, Project
 from .routes import main_routes, auth_routes, project_routes, skill_routes, admin_routes, blog_routes, tutorial_routes
 
-def create_app(config_name='development'):
+def create_app(config_name='default'):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     app.register_blueprint(main_routes)
@@ -79,4 +79,5 @@ def create_app(config_name='development'):
         tutorials = Tutorial.query.all()
         return dict(tutorials=tutorials)
 
+    print("App created with config: " + config_name)
     return app
