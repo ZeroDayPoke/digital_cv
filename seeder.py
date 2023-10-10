@@ -41,18 +41,26 @@ def seed_users():
 def seed_skills():
     """Seed the skills table"""
     with app.app_context():
-        skills = ["Python", "Flask", "SQLAlchemy", "HTML", "CSS", "JavaScript"]
-        for skill_name in skills:
-            skill = Skill(name=skill_name)
-            db.session.add(skill)
+        skills = [
+            {"name": "Python", "image_filename": ""},
+            {"name": "Flask", "image_filename": ""},
+            {"name": "SQLAlchemy", "image_filename": ""},
+            {"name": "HTML", "image_filename": ""},
+            {"name": "CSS", "image_filename": ""},
+            {"name": "JavaScript", "image_filename": ""}
+        ]
+        existing_skills = [s.name for s in Skill.query.all()]
+        for skill_data in skills:
+            if skill_data["name"] not in existing_skills:
+                skill = Skill(**skill_data)
+                db.session.add(skill)
+
         db.session.commit()
 
 def seed_projects():
     """Seed the projects table"""
     with app.app_context():
-        projects = [
-            {"name": "Digital CV", "description": "A digital CV project made with Flask.", "role": "Full-stack developer", "repo_link": "https://github.com/ZeroDayPoke/digital_cv", "live_link": "https://zerodaypoke.com"},
-        ]
+        projects = [{"name": "Digital CV", "description": "A digital CV project made with Flask.", "role": "Full-stack developer", "repo_link": "https://github.com/ZeroDayPoke/digital_cv", "live_link": "https://zerodaypoke.com", "image_filename": "notfound2.png"}]
         for project_data in projects:
             project = Project(**project_data)
             db.session.add(project)
@@ -62,7 +70,7 @@ def seed_blogs():
     """Seed the blogs table"""
     with app.app_context():
         blogs = [
-            {"name": "My Journey to Programming", "description": "A blog post about how I got into programming.", "content_file": "journey"},
+            {"name": "My Journey to Programming", "description": "A blog post about how I got into programming.", "content_file": "journey", "image_filename": "notfound1.png"},
         ]
         for blog_data in blogs:
             blog = Blog(**blog_data)
@@ -73,7 +81,7 @@ def seed_tutorials():
     """Seed the tutorials table"""
     with app.app_context():
         tutorials = [
-            {"name": "Flask Tutorial", "description": "A tutorial on Flask.", "content_file": "tutorial"},
+            {"name": "Flask Tutorial", "description": "A tutorial on Flask.", "content_file": "tutorial", "image_filename": "notfound4.png"},
         ]
         for tutorial_data in tutorials:
             tutorial = Tutorial(**tutorial_data)

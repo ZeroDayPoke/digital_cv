@@ -1,6 +1,5 @@
-{% extends "base.html" %} 
-{% block title %}Skills{% endblock %} 
-{% block content %}
+{% extends "base.html" %} {% block title %}Skills{% endblock %} {% block content
+%}
 
 <div id="skillCarousel" class="carousel slide" data-bs-ride="carousel">
   <!-- Carousel Indicators -->
@@ -9,7 +8,13 @@
     <li
       data-bs-target="#skillCarousel"
       data-bs-slide-to="{{ loop.index0 }}"
-      {% if loop.first %}class="active"{% endif %}
+      {%
+      if
+      loop.first
+      %}class="active"
+      {%
+      endif
+      %}
     ></li>
     {% endfor %}
   </ol>
@@ -20,12 +25,20 @@
     <div class="carousel-item {% if loop.first %}active{% endif %}">
       {% if skill.image_filename %}
       <img
-        src="{{ url_for('static', filename='images/skills/' + skill.image_filename|default('default_skill.jpg')) }}"
+        src="{{ url_for('static', filename='images/skills/' + skill.image_filename) }}"
         alt="{{ skill.name }} icon"
         class="d-block w-100 carousel-image img-fluid"
       />
+      {% else %}
+      <img
+        src="{{ url_for('static', filename='images/defaults/notfound3.png') }}"
+        alt="Default skill icon"
+        class="d-block w-100 carousel-image img-fluid"
+      />
       {% endif %}
-      <div class="carousel-caption d-flex flex-column align-items-center justify-content-end">
+      <div
+        class="carousel-caption d-flex flex-column align-items-center justify-content-end"
+      >
         <h5>{{ skill.name }}</h5>
         <p>{{ skill.description|default('A valuable skill.') }}</p>
       </div>
