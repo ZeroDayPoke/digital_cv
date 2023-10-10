@@ -62,7 +62,7 @@ def seed_blogs():
     """Seed the blogs table"""
     with app.app_context():
         blogs = [
-            {"name": "My Journey to Programming", "description": "A blog post about how I got into programming.", "content_file": "journey.html"},
+            {"name": "My Journey to Programming", "description": "A blog post about how I got into programming.", "content_file": "journey"},
         ]
         for blog_data in blogs:
             blog = Blog(**blog_data)
@@ -73,7 +73,7 @@ def seed_tutorials():
     """Seed the tutorials table"""
     with app.app_context():
         tutorials = [
-            {"name": "Flask Tutorial", "description": "A tutorial on Flask.", "content_file": "tutorial.html"},
+            {"name": "Flask Tutorial", "description": "A tutorial on Flask.", "content_file": "tutorial"},
         ]
         for tutorial_data in tutorials:
             tutorial = Tutorial(**tutorial_data)

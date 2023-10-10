@@ -81,7 +81,7 @@ def tutorial_detail(tutorial_id):
     if tutorial is None:
         flash('Tutorial not found', 'error')
         return redirect(url_for('main_routes.index'))
-    content_file_path = 'app/templates/tutorial/' + tutorial.name + '.html'
+    content_file_path = 'app/templates/tutorial/' + tutorial.content_file + '.html'
     sections = extract_sections_from_content(content_file_path)
     return render_template('tutorial_detail.html', tutorial=tutorial, sections=sections)
 

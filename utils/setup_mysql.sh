@@ -1,27 +1,52 @@
 #!/usr/bin/env bash
 
-DB_NAME='digital_cv_dev'
-DB_USER='dev_user'
-DB_PASSWORD='dev_password'
+manage_database() {
+  local DB=$1
+  local USER=$2
+  local PASSWORD=$3
+  local DROP=$4
+  local ACTION=$5
 
-echo "Creating development database..."
+  echo "$ACTION database $DB..."
+  
+  if [ "$DROP" = "yes" ]; then
+    sudo mysql -e "DROP DATABASE IF EXISTS $DB;" || { echo "Failed to drop $DB"; exit 1; }
+  fi
 
-sudo mysql <<EOF
-CREATE DATABASE IF NOT EXISTS $DB_NAME;
-CREATE USER IF NOT EXISTS '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD';
-GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost';
-FLUSH PRIVILEGES;
-EOF
+  sudo mysql -e "CREATE DATABASE IF NOT EXISTS $DB;" || { echo "Failed to create $DB"; exit 1; }
+  sudo mysql -e "CREATE USER IF NOT EXISTS '$USER'@'localhost' IDENTIFIED BY '$PASSWORD';" || { echo "Failed to create user $USER"; exit 1; }
+  sudo mysql -e "GRANT ALL PRIVILEGES ON $DB.* TO '$USER'@'localhost';" || { echo "Failed to grant privileges"; exit 1; }
+  sudo mysql -e "FLUSH PRIVILEGES;" || { echo "Failed to flush privileges"; exit 1; }
+}
 
-echo "Development database created successfully."
+# Read .env file if it exists, otherwise prompt for database config
+if [ -f .env ]; then
+  echo "Reading database configurations from .env file..."
+  export $(grep -v '^#' .env | xargs -d '\n')
+else
+  echo "No .env file found. Please enter the database configurations:"
+  read -p "DB User: " DB_USER
+  read -p "DB Password: " DB_PASS
+  read -p "DB Name: " DB_NAME
+  echo "Saving configurations to .env file..."
+  echo "DB_USER=$DB_USER" > .env
+  echo "DB_PASS=$DB_PASS" >> .env
+  echo "DB_NAME=$DB_NAME" >> .env
+fi
 
-echo "Creating testing database..."
+# Ask to drop existing databases
+read -p "Do you want to drop existing databases? (y/N): " DROP_DB
+if [ "$DROP_DB" = "y" ] || [ "$DROP_DB" = "Y" ]; then
+  DROP="yes"
+  ACTION="Recreating"
+else
+  DROP="no"
+  ACTION="Creating"
+fi
 
-sudo mysql <<EOF
-CREATE DATABASE IF NOT EXISTS test_$DB_NAME;
-CREATE USER IF NOT EXISTS 'test_$DB_USER'@'localhost' IDENTIFIED BY 'test_$DB_PASSWORD';
-GRANT ALL PRIVILEGES ON test_$DB_NAME.* TO 'test_$DB_USER'@'localhost';
-FLUSH PRIVILEGES;
-EOF
+# Manage databases
+manage_database "$DB_NAME" "$DB_USER" "$DB_PASS" "$DROP" "$ACTION"
+manage_database "${DB_NAME}_dev" "$DB_USER" "$DB_PASS" "$DROP" "$ACTION"
+manage_database "${DB_NAME}_test" "$DB_USER" "$DB_PASS" "$DROP" "$ACTION"
 
-echo "Database created successfully."
+echo "Databases managed successfully."
