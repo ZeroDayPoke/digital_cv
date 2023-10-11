@@ -10,9 +10,15 @@ form input {
   border-color: #006400;
 }
 
-body {
-  padding-top: 70px;
-  background-color: #003300;
+/* Add padding to the navbar-brand (favicon) */
+.navbar-brand {
+  padding-left: 20px; /* Adjust this value based on your preference */
+}
+
+/* Add padding to the last element of navbar (Sign Up/Sign In) */
+.navbar-nav.ml-auto .nav-link:last-child {
+  padding-right: 20px;
+  /* Adjust this value based on your preference */
 }
 
 .navbar-nav {
