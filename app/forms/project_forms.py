@@ -2,6 +2,7 @@
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, SelectField
+from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired
 from . import at_least_one_checkbox, MultiCheckboxField
 
@@ -24,6 +25,8 @@ class AddProjectForm(FlaskForm):
         The link to the live version of the project.
     related_skills : MultiCheckboxField
         The skills related to the project.
+    image : FileField
+        An image for the project.
     submit : SubmitField
         A button to submit the form.
     """
@@ -37,6 +40,7 @@ class AddProjectForm(FlaskForm):
         choices=[],
         validators=[at_least_one_checkbox]
     )
+    image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Submit')
 
 class UpdateProjectForm(FlaskForm):

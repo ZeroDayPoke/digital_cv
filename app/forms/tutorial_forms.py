@@ -3,6 +3,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, SelectField
 from wtforms.validators import DataRequired
+from flask_wtf.file import FileField, FileAllowed
 from . import at_least_one_checkbox, MultiCheckboxField
 
 class AddTutorialForm(FlaskForm):
@@ -14,6 +15,7 @@ class AddTutorialForm(FlaskForm):
     - description (TextAreaField): The description of the tutorial.
     - content_file (StringField): The file containing the tutorial content.
     - related_skills (MultiCheckboxField): The skills related to the tutorial.
+    - image (FileField): An image for the tutorial.
     - submit (SubmitField): The button to submit the form.
     """
     name = StringField('Tutorial Name', validators=[DataRequired()])
@@ -24,6 +26,7 @@ class AddTutorialForm(FlaskForm):
         choices=[],
         validators=[at_least_one_checkbox]
     )
+    image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Submit')
 
 class DeleteTutorialForm(FlaskForm):

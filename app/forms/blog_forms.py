@@ -3,6 +3,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, SelectField
 from wtforms.validators import DataRequired
+from flask_wtf.file import FileField, FileAllowed
 from . import at_least_one_checkbox, MultiCheckboxField
 
 class AddBlogForm(FlaskForm):
@@ -14,6 +15,7 @@ class AddBlogForm(FlaskForm):
     - description (TextAreaField): A brief description of the blog post.
     - content_file (StringField): The file path to the content of the blog post.
     - related_skills (MultiCheckboxField): A list of related skills for the blog post.
+    - image (FileField): An image for the blog post.
     - submit (SubmitField): A button to submit the form.
     """
     name = StringField('Blog Name', validators=[DataRequired()])
@@ -24,6 +26,7 @@ class AddBlogForm(FlaskForm):
         choices=[],
         validators=[at_least_one_checkbox]
     )
+    image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Submit')
 
 class DeleteBlogForm(FlaskForm):
