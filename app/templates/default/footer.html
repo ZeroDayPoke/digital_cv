@@ -1,45 +1,51 @@
-<footer class="mt-3 py-2 bg-dark text-light">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<footer class="mt-3 py-2 bg-dark text-white" style="box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);">
   <div class="container">
     <div class="row">
-      <section class="col-md-4">
-        <h5>About</h5>
-        <p>Having fun making a digital resume... thing...</p>
+      <!-- About Section -->
+      <section class="col-md-4 mb-4 text-start">
+        <h5 class="text-uppercase fw-bold">About</h5>
+        <p class="text-muted">Having fun making a digital resume... thing...</p>
       </section>
-      <nav class="col-md-4">
-        <h5>Quick Links</h5>
-        <ul>
-          <li><a href="#">To Top</a></li>
+      <!-- Quick Links -->
+      <nav class="col-md-4 mb-4 text-center">
+        <h5 class="text-uppercase fw-bold" style="font-size: 1em;">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white text-decoration-none">To Top <i class="fas fa-arrow-up"></i></a></li>
         </ul>
       </nav>
-      <address class="col-md-4">
-        <h5>Contact</h5>
-        <ul class="list-unstyled text-light">
-          <li>
-            <span class="info-label">Email:</span>
-            <a href="mailto:cstampok@gmail.com">cstampok@gmail.com</a>
-          </li>
-          <li>
-            <span class="info-label">Website:</span>
-            <a href="https://zerodaypoke.com">zerodaypoke.com</a>
-          </li>
-          <li>
-            <span class="info-label">GitHub:</span>
-            <a href="https://github.com/zerodaypoke">github.com/ZeroDayPoke</a>
-          </li>
-          <li>
-            <span class="info-label">LinkedIn:</span>
-            <a href="https://www.linkedin.com/in/zerodaypoke/"
-              >linkedin.com/in/zerodaypoke/</a
-            >
-          </li>
+      <!-- Contact -->
+      <address class="col-md-4 mb-4 text-end">
+        <h5 class="text-uppercase fw-bold">Contact</h5>
+        <ul class="list-unstyled">
+          <li><span class="info-label"><i class="fas fa-envelope"></i> Email:</span> <a
+              href="mailto:.com">.com</a></li>
+          <li><span class="info-label"><i class="fas fa-globe"></i> Website:</span> <a
+              href="https://.com">.com</a></li>
+          <li><span class="info-label"><i class="fab fa-github"></i> GitHub:</span> <a
+              href="https://github.com/">github.com/</a></li>
+          <li><span class="info-label"><i class="fab fa-linkedin"></i> LinkedIn:</span> <a
+              href="https://www.linkedin.com/in//">linkedin.com/in//</a></li>
         </ul>
       </address>
     </div>
-    <div class="row mt-3">
-      <div class="col text-center">
-        <p>&copy; self.__name__</p>
-        <p>This has been hilarious</p>
+    <!-- Footer Bottom -->
+    <div class="row mt-0">
+      <div class="col text-center mb-0 pb-0">
+        <p class="mb-0">&copy; self.__name__</p>
+        <p class="fs-6 fst-italic text-muted">This has been hilarious</p>
       </div>
     </div>
   </div>
 </footer>
+
+<style>
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .info-label i {
+    margin-right: 8px;
+  }
+</style>
