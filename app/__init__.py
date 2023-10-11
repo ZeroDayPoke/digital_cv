@@ -115,7 +115,7 @@ def create_app(config_name='default') -> Flask:
         app=app,
         key_func=get_remote_address,
         storage_uri="redis://localhost:6379",
-        default_limits=["30 per hour"]
+        default_limits=["60 per hour"]
     )
 
     logging.info(f"App created with config: {config_name}")

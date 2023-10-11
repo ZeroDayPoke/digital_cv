@@ -17,11 +17,27 @@ auth_routes = Blueprint('auth_routes', __name__, url_prefix='')
 def signup():
     form = SignupForm()
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='sha256')
+        existing_user = User.query.filter_by(username=form.username.data).first()
+        existing_email = User.query.filter_by(email=form.email.data).first()
+        if existing_user or existing_email:
+            flash('Email address already in use. Please use a different email or sign in.')
+            return redirect(url_for('auth_routes.signup'))
+
+        hashed_password = generate_password_hash(form.password.data)
         new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+
+        # Log in the new user so that current_user can be used
+        login_user(new_user)
+
+        # Send verification email after successful registration
+        send_verification_email_result = send_verification_email()
+        if "Verification email sent" in send_verification_email_result:
+            flash('Congratulations, you are now a registered user! A verification email has been sent to your email address.')
+        else:
+            flash('Congratulations, you are now a registered user! However, we could not send a verification email.')
+
         return redirect(url_for('main_routes.index'))
     return render_template('signup.html', form=form)
 
@@ -67,15 +83,17 @@ def send_verification_email():
         if token:
             current_user.verification_token = token
             db.session.commit()
-            return 'Verification email sent! Check your inbox for the verification link.'
+            message = 'Verification email sent! Check your inbox for the verification link.'
         else:
-            return 'Error processing the verification email.', 500
+            message = 'Error processing the verification email.'
+        return message
     else:
-        return 'There was an error sending the verification email. Please try again later.', 500
+        message = 'There was an error sending the verification email. Please try again later.'
+        return message, 500
 
 
-@auth_routes.route('/verify-account/<token>', methods=['GET'])
-def verify_account(token):
+@auth_routes.route('/verify_account_email/<token>', methods=['GET'])
+def verify_account_email(token):
     user = User.query.filter_by(verification_token=token).first()
     if user and not user.token_expired():
         user.verified = True
