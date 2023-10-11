@@ -44,4 +44,4 @@ def interface():
             else:
                 forms[form_name] = load_choices(form_class(), model)
 
-    return render_template('interface.html', title='Interface', **forms)
+    return render_template('interface.html', title='Interface', forms=forms, **forms)
