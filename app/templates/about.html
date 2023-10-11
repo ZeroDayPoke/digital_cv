@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+  About Me
+{% endblock %}
+
+{% block css %}
+  <style>
+    #about-section {
+      background-color: #000000;
+      padding: 20px;
+      border-radius: 8px;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <section id="about-section">
+    <h1>About Me</h1>
+    <p>
+      Hello! I'm Mason, a data engineer deeply passionate about machine learning and neuroscience.
+    </p>
+    <h2>Education</h2>
+    <p>
+      Describe your educational background, perhaps highlighting any relevant coursework or projects.
+    </p>
+    <h2>Career</h2>
+    <p>
+      Talk about your professional journey, significant projects, and what you're looking to accomplish in the future.
+    </p>
+    <h2>Interests</h2>
+    <p>
+      Share a bit about your interests, especially those that are professionally relevant. This could include machine learning, data science, neuroscience, or anything else that paints a fuller picture of who you are.
+    </p>
+  </section>
+{% endblock %}
