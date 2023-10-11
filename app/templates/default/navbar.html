@@ -134,8 +134,12 @@
         >Account</a
       >
       {% else %}
-      <a class="nav-link" href="{{ url_for('auth_routes.signup') }}">Sign Up</a>
-      <a class="nav-link" href="{{ url_for('auth_routes.signin') }}">Sign In</a>
+      <a class="nav-link" href="{{ url_for('auth_routes.signup') }}">
+        <i class="fas fa-user-plus"></i> Sign Up
+      </a>
+      <a class="nav-link" href="{{ url_for('auth_routes.signin') }}">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </a>
       {% endif %}
     </div>
   </div>
