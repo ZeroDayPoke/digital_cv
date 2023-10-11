@@ -27,13 +27,7 @@
     {% block css %}{% endblock %}
   </head>
   <body class="text-light">
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <ul>
-      {% for message in messages %}
-      <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %} {% endwith %}
+    {% include 'flash.html' %}
     <header class="container">
       {% include 'default/navbar.html' %} {% if include_header %} {% include
       'default/header.html' %} {% endif %}
