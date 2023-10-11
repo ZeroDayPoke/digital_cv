@@ -108,15 +108,15 @@ def create_app(config_name='default') -> Flask:
         return dict(projects=projects)
     
     # Initialize Redis
-    redis_store = redis.StrictRedis(host='localhost', port=6379, db=0)
+    # redis_store = redis.StrictRedis(host='localhost', port=6379, db=0)
 
     # Initialize Flask-Limiter
-    limiter = Limiter(
-        app=app,
-        key_func=get_remote_address,
-        storage_uri="redis://localhost:6379",
-        default_limits=["30 per hour"]
-    )
+    # limiter = Limiter(
+    #     app=app,
+    #     key_func=get_remote_address,
+    #     storage_uri="redis://localhost:6379",
+    #     default_limits=["30 per hour"]
+    # )
 
     logging.info(f"App created with config: {config_name}")
 

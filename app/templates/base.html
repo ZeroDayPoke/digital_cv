@@ -10,7 +10,7 @@
     <!-- Favicon -->
     <link
       rel="icon"
-      href="{{ url_for('static', filename='images/favicon.ico') }}"
+      href="{{ url_for('static', filename='images/favicon.png') }}"
       type="image/x-icon"
     />
     <!-- Bootstrap CSS -->
@@ -23,7 +23,11 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='styles/cv.css', v='1.5') }}"
     />
-
+    <!--fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@450&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
     {% block css %}{% endblock %}
   </head>
   <body class="text-light">

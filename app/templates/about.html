@@ -1,36 +1,84 @@
 {% extends "base.html" %}
 
 {% block title %}
-  About Me
+About Me
 {% endblock %}
 
 {% block css %}
-  <style>
-    #about-section {
-      background-color: #000000;
-      padding: 20px;
-      border-radius: 8px;
-    }
-  </style>
+<style>
+  /* Container holding the headshot and the about section */
+  .container-about {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  /* Headshot styling */
+  .headshot {
+    width: 500px;
+    height: auto;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+
+  /* About Section styling */
+  #about-section {
+    flex-grow: 1;
+    /* Take up remaining space */
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 8px;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
+<!-- Container -->
+<div class="container-about">
+  <!-- Headshot -->
+  <img src="{{ url_for('static', filename='images/headshot.png') }}" alt="Mason's Headshot" class="headshot">
+
+  <!-- About Section -->
   <section id="about-section">
     <h1>About Me</h1>
-    <p>
-      Hello! I'm Mason, a data engineer deeply passionate about machine learning and neuroscience.
-    </p>
-    <h2>Education</h2>
-    <p>
-      Describe your educational background, perhaps highlighting any relevant coursework or projects.
-    </p>
-    <h2>Career</h2>
+      <p>
+        Hello! I'm Mason, a data engineer who is deeply passionate about machine learning, neuroscience, and all things STEM.
+        Transitioning from a diverse background in business, trade-work, and experiential marketing, I've found my true
+        calling in software programming and
+        machine learning. After building a strong foundation in C and Python, I'm currently focused on working through the
+        foundational math and statistics behind neural networks while utilizing all of the machine learning tools that I can
+        grasp.
+
+        My academic journey at Oklahoma State University culminated in a degree in International Business and Chinese Studies,
+        and included awesome experiences while studying abroad in China at Fudan University in Shanghai and the opportunity to
+        attend the World Expo 2010 in Shanghai (I highly recommend the World Expo for your bucket list!). Although my initial
+        goal to bridge U.S.-China relations shifted due to personal reasons, these experiences ignited my love for cultural
+        diversity and travel.
+
+        Post-graduation, my diverse roles in HVAC contracting, home renovations, and experiential marketing have taught me the
+        power of human diversity and the importance of effective communication. These skills are now being channeled into
+        making
+        complex topics in computer science and machine learning more accessible.
+
+        As I look toward the future, I'm thrilled at the prospect of blending my love for technology and science in a career
+        that promises endless intellectual challenges and meaningful impact. Also, I have realized that programming,
+        especially
+        in the field of machine learning, is a skill that will allow me to work in any and all fields of science! Therefore,
+        I'm
+        fully committed to mastering machine learning and am on track to complete my curriculum at Holberton by April 2024.
+
+        Beyond my professional pursuits, my interests in philosophy, cognitive science, and science fiction continue to
+        broaden
+        my perspective and fuel my passion for learning.
+      </p>
+    <h2>Goals</h2>
     <p>
       Talk about your professional journey, significant projects, and what you're looking to accomplish in the future.
     </p>
     <h2>Interests</h2>
     <p>
-      Share a bit about your interests, especially those that are professionally relevant. This could include machine learning, data science, neuroscience, or anything else that paints a fuller picture of who you are.
+      Share a bit about your interests, especially those that are professionally relevant.
     </p>
   </section>
+</div>
 {% endblock %}
+

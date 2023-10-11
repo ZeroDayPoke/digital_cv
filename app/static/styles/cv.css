@@ -10,6 +10,20 @@ form input {
   border-color: #006400;
 }
 
+body {
+  padding-top: 70px;
+  background-color: #b4b4b4;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+/*
+I like: b4b4b4
+*/
+
+.navbar {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, .1));
+}
+
 /* Add padding to the navbar-brand (favicon) */
 .navbar-brand {
   padding-left: 20px; /* Adjust this value based on your preference */
@@ -138,4 +152,9 @@ nav[role="navigation"] a:hover {
 .card {
   margin-bottom: 1rem;
   background-color: black;
+}
+
+.hero-section {
+  font-family: 'Montserrat', sans-serif;
+  text-shadow: 1px 3px 4px #000000;
 }
