@@ -4,8 +4,7 @@ auth_routes.py - authentication routes for the Flask application
 """
 # Path: app/routes/auth_routes.py
 
-import requests
-from flask import Blueprint, render_template, redirect, url_for, flash, current_app
+from flask import Blueprint, render_template, redirect, url_for, flash, current_app, request
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash
 from ..models import db, User
@@ -107,9 +106,9 @@ def verify_account_email(token):
 @auth_routes.route('/change_password', methods=['POST'])
 @login_required
 def change_password():
-    current_password = requests.request.form.get('current_password')
-    new_password = requests.request.form.get('new_password')
-    confirm_password = requests.request.form.get('confirm_password')
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('new_password')
+    confirm_password = request.form.get('confirm_password')
 
     if not current_user.check_password(current_password):
         flash('Incorrect current password.')
@@ -119,7 +118,7 @@ def change_password():
         flash('New password and confirm password do not match.')
         return redirect(url_for('auth_routes.account'))
 
-    current_user.password = generate_password_hash(new_password)
+    current_user.password_hash = generate_password_hash(new_password)
     db.session.commit()
     flash('Password changed successfully.')
     return redirect(url_for('auth_routes.account'))
