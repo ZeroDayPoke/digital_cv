@@ -4,6 +4,7 @@ auth_routes.py - authentication routes for the Flask application
 """
 # Path: app/routes/auth_routes.py
 
+import requests
 from flask import Blueprint, render_template, redirect, url_for, flash, current_app, request
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash
