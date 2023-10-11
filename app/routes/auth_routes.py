@@ -27,14 +27,15 @@ def signup():
     """
     form = SignupForm()
     if form.validate_on_submit():
-        existing_user = User.query.filter_by(username=form.username.data).first()
-        existing_email = User.query.filter_by(email=form.email.data).first()
+        existing_user = User.query.filter(
+            (User.username == form.username.data) | (User.email == form.email.data)
+        ).first()
 
         if existing_user:
-            flash('Username already in use.')
-        if existing_email:
-            flash('Email address already in use.')
-        if existing_user or existing_email:
+            if existing_user.username == form.username.data:
+                flash('Username already in use.')
+            if existing_user.email == form.email.data:
+                flash('Email address already in use.')
             return redirect(url_for('auth_routes.signup'))
 
         hashed_password = generate_password_hash(form.password.data)
@@ -65,13 +66,16 @@ def signin():
     form = SigninForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user is None:
+
+        if user:
+            if not user.check_password(form.password.data):
+                flash('Incorrect password.')
+                return redirect(url_for('auth_routes.signin'))
+            login_user(user)
+            flash('Successfully signed in.')
+        else:
             flash('Email does not exist.')
-        elif not user.check_password(form.password.data):
-            flash('Incorrect password.')
-            return redirect(url_for('auth_routes.signin'))
-        login_user(user)
-        flash('Successfully signed in.')
+        
         return redirect(url_for('main_routes.index'))
     return render_template('signin.html', form=form)
 
@@ -105,22 +109,25 @@ def send_verification_email():
     """
     user_email = current_user.email
     email_service_url = current_app.config.get('EMAIL_SERVICE_URL', 'http://localhost:3000/send-email')
-
-    response = requests.post(email_service_url, json={'to': user_email})
-
-    if response.status_code == 200:
-        token = response.json().get('token')
-        if token:
-            current_user.verification_token = token
-            db.session.commit()
-            message = 'Verification email sent! Check your inbox for the verification link.'
+    
+    try:
+        response = requests.post(email_service_url, json={'to': user_email})
+        if response.status_code == 200:
+            token = response.json().get('token')
+            if token:
+                current_user.verification_token = token
+                db.session.commit()
+                message = 'Verification email sent! Check your inbox for the verification link.'
+            else:
+                message = 'Error processing the verification email.'
+            flash(message)
+            return message
         else:
-            message = 'Error processing the verification email.'
-        flash(message)
-        return message
-    else:
-        flash('There was an error sending the verification email. Please try again later.')
-        return message, 500
+            flash('There was an error sending the verification email. Please try again later.')
+    except requests.RequestException:
+        flash('Network error while sending verification email.')
+
+    return "Verification email could not be sent", 500
 
 
 @auth_routes.route('/verify_account_email/<token>', methods=['GET'])

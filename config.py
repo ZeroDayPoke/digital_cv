@@ -10,7 +10,24 @@ from dotenv import load_dotenv
 # Load the environment variables from .env file
 load_dotenv()
 
+import os
+
 class Config:
+    """
+    Configuration class for the Flask app.
+
+    Attributes:
+    - ALLOWED_EXTENSIONS (list): List of allowed file extensions for file uploads.
+    - UPLOAD_FOLDER (str): Path to the folder where uploaded files will be stored.
+    - MAX_FILE_SIZE (int): Maximum allowed file size for uploads, in bytes.
+    - SQLALCHEMY_TRACK_MODIFICATIONS (bool): Flag to disable Flask-SQLAlchemy
+        modification tracking.
+    - SECRET_KEY (str): Secret key used for session management.
+    - LANGUAGES (list): List of supported languages.
+    - BABEL_DEFAULT_LOCALE (str): Default language for translations.
+    - BABEL_DEFAULT_TIMEZONE (str): Default timezone for translations.
+    - BABEL_TRANSLATION_DIRECTORIES (str): Path to the directory containing translation files.
+    """
     ALLOWED_EXTENSIONS = os.getenv('ALLOWED_EXTENSIONS', 'png,jpg,jpeg,gif'.split(','))
     UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', 'app/static/images')
     MAX_FILE_SIZE = os.getenv('MAX_FILE_SIZE', 1572864)
@@ -21,6 +38,7 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = "UTC"
     BABEL_TRANSLATION_DIRECTORIES = os.path.join(os.getcwd(), 'translations')
 
+
 class DevelopmentConfig(Config):
     DB_USER = os.getenv('DB_USER', 'cv_user_dev')
     DB_PASS = os.getenv('DB_PASS', 'pass_cv_dev')
@@ -28,6 +46,7 @@ class DevelopmentConfig(Config):
     DB_NAME = os.getenv('DB_NAME', 'cv_db_dev')
     SQLALCHEMY_DATABASE_URI = f"mysql+mysqldb://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
     FLASK_DEBUG = os.getenv('FLASK_DEBUG', True)
+
 
 class TestingConfig(Config):
     TESTING = True
@@ -46,6 +65,7 @@ class ProductionConfig(Config):
     DB_NAME = os.getenv('DB_NAME', 'cv_db_prod')
     SQLALCHEMY_DATABASE_URI = f"mysql+mysqldb://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
     FLASK_DEBUG = os.getenv('FLASK_DEBUG', False)
+
 
 config = {
     'development': DevelopmentConfig,

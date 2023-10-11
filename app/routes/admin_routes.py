@@ -32,15 +32,42 @@ def load_skill_choices(form):
 
 
 def load_project_choices(form):
+    """
+    Populate the choices for project-related fields in a form.
+    
+    Args:
+        form (Form): A Flask-WTF form object.
+        
+    Returns:
+        Form: The updated form object with project choices loaded.
+    """
     form.project.choices = [(str(project.id), project.name) for project in Project.query.all()]
     return form
 
 
 def load_blog_choices(form):
+    """
+    Populate the choices for blog-related fields in a form.
+    
+    Args:
+        form (Form): A Flask-WTF form object.
+        
+    Returns:
+        Form: The updated form object with blog choices loaded.
+    """
     form.blog.choices = [(str(blog.id), blog.name) for blog in Blog.query.all()]
     return form
 
 def load_tutorial_choices(form):
+    """
+    Populate the choices for tutorial-related fields in a form.
+    
+    Args:
+        form (Form): A Flask-WTF form object.
+        
+    Returns:
+        Form: The updated form object with tutorial choices loaded.
+    """
     form.tutorial.choices = [(str(tutorial.id), tutorial.name) for tutorial in Tutorial.query.all()]
     return form
 

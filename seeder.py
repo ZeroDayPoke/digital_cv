@@ -21,7 +21,9 @@ def seed_roles():
         db.session.commit()
 
 def seed_users():
-    """Seed the users table"""
+    """
+    Seed the users table with default admin, user and guest accounts.
+    """
     with app.app_context():
         admin_username = config('DEFAULT_ADMIN_USERNAME', default='admin')
         admin_password = config('DEFAULT_ADMIN_PASSWORD', default='admin')

@@ -13,22 +13,50 @@ from uuid import UUID
 
 # Custom form fields
 class MultiCheckboxField(SelectMultipleField):
+    """
+    A custom form field that allows multiple checkboxes to be selected.
+
+    :param SelectMultipleField: The base class for the field.
+    :type SelectMultipleField: class
+    """
     widget = ListWidget(prefix_label=False)
     option_widget = CheckboxInput()
 
     def process_formdata(self, valuelist):
+        """
+        Process the form data for the field.
+
+        :param valuelist: A list of values to process.
+        :type valuelist: list
+        """
         if valuelist:
             self.data = [str(UUID(x)) for x in valuelist]
         else:
             self.data = []
 
     def process_data(self, value):
+        """
+        Process the data for the field.
+
+        :param value: The value to process.
+        :type value: any
+        """
         if value:
             self.data = [str(x) for x in value]
         else:
             self.data = []
 
 def at_least_one_checkbox(form, field):
+    """
+    Validates that at least one checkbox is checked in a given field.
+
+    Args:
+        form: The form object.
+        field: The field to be validated.
+
+    Raises:
+        ValidationError: If no checkbox is checked.
+    """
     if not any(field.data):
         raise ValidationError("At least one checkbox should be checked.")
 
@@ -176,6 +204,16 @@ class AddSkillForm(FlaskForm):
     submit = SubmitField('Add Skill')
 
 class DeleteSkillForm(FlaskForm):
+    """
+    A form used to delete a skill from a user's profile.
+
+    Attributes:
+    -----------
+    related_skills : SelectField
+        A dropdown list of skills related to the user's profile.
+    submit : SubmitField
+        A button to submit the form.
+    """
     related_skills = SelectField('Skill to Delete', coerce=str)
     submit = SubmitField('Delete Skill')
 
@@ -265,6 +303,16 @@ class AddTutorialForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class DeleteTutorialForm(FlaskForm):
+    """
+    A form to delete a tutorial from the database.
+
+    Attributes:
+    -----------
+    tutorial : SelectField
+        A dropdown list of available tutorials to delete.
+    submit : SubmitField
+        A button to submit the form and delete the selected tutorial.
+    """
     tutorial = SelectField('Tutorial to Delete', coerce=str)
     submit = SubmitField('Delete Tutorial')
 

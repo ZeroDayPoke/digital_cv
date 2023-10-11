@@ -2,6 +2,21 @@
 
 import winston from "winston";
 
+/**
+ * Middleware for logging incoming requests.
+ * @module requestLogger
+ */
+
+// FILEPATH: digital_cv/src/middleware/requestLogger.js
+
+/**
+ * Creates a logger instance with specified configuration.
+ * @type {Object}
+ * @property {string} level - The minimum level of messages to log.
+ * @property {Object} format - The log message format.
+ * @property {Object} defaultMeta - The default metadata to attach to log messages.
+ * @property {Array} transports - The log transports to use.
+ */
 export const logger = winston.createLogger({
   level: "info",
   format: winston.format.json(),
@@ -20,6 +35,12 @@ if (process.env.NODE_ENV !== "production") {
   );
 }
 
+/**
+ * Middleware function to log HTTP requests.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ */
 export const requestLogger = (req, res, next) => {
   const now = new Date().toISOString();
   const meta = {
