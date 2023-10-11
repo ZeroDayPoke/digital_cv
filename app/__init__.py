@@ -5,7 +5,7 @@ __init__ file for app module
 # Path: digital_cv/app/__init__.py
 """
 
-from flask import Flask, request, g, redirect, url_for, flash
+from flask import Flask, request, g, render_template
 from flask_admin import Admin
 from flask_babel import Babel
 from flask_login import LoginManager
@@ -117,6 +117,10 @@ def create_app(config_name='default') -> Flask:
     #     storage_uri="redis://localhost:6379",
     #     default_limits=["30 per hour"]
     # )
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('404.html'), 404
 
     logging.info(f"App created with config: {config_name}")
 

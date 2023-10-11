@@ -1,36 +1,79 @@
-const transporter = require('../config/mail');
-const { generateToken } = require('../utils/tokenGenerator');
+// ./services/emailService.js
 
-const sendVerificationEmail = async (recipientEmail) => {
-  try {
-    console.log(recipientEmail);
-    // Generate a new verification token
-    const token = generateToken();
+/**
+ * EmailService Module
+ * 
+ * This module provides functionalities to send various types of emails.
+ * 
+ * @module services/EmailService
+ */
 
-    // Create the verification link
-    const verificationLink = `https://zerodaypoke.com/verify-account/${token}`;
+import dotenv from "dotenv";
+import crypto from "crypto";
+import nodemailer from "nodemailer";
+import { logger } from "../middleware/requestLogger.js";
 
-    // Define email content
-    const mailOptions = {
-      from: process.env.EMAIL, // sender address
-      to: recipientEmail, // list of receivers
-      subject: 'Account Verification', // Subject line
-      text: `Please click on the following link to verify your account: ${verificationLink}`
-    };
-    console.log(mailOptions);
+dotenv.config();
 
-    // Send email
-    const info = await transporter.sendMail(mailOptions);
+/**
+ * Transporter object responsible for sending emails.
+ */
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
 
-    console.log(`Message sent: ${info.messageId}`);
-    return { status: 'success', messageId: info.messageId, token };
+export default class EmailService {
+  /**
+   * Sends a verification email to the user.
+   * 
+   * @param {string} userEmail - The email address of the user.
+   * @param {string} token - The verification token.
+   * @returns {Promise<Object>} - Promise resolving to the email sending result.
+   */
+  static sendVerificationEmail(userEmail, token) {
+    return new Promise((resolve, reject) => {
+      token = crypto.randomBytes(20).toString("hex");
+      const mailOptions = {
+        from: process.env.EMAIL_USERNAME,
+        to: userEmail,
+        subject: "Email Verification",
+        text: `Please verify your email by clicking the following link: http://localhost:8000/verify_account_email/${token}`,
+      };
 
-  } catch (error) {
-    console.error(`Error occurred: ${error.message}`);
-    return { status: 'error', error: error.message };
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          reject({ status: "error", error });
+        } else {
+          resolve({ status: "success", response: info.response, token });
+        }
+      });
+    });
   }
-};
 
-module.exports = {
-  sendVerificationEmail
-};
+  /**
+   * Sends a password reset email to the user.
+   * 
+   * @param {string} userEmail - The email address of the user.
+   * @param {string} token - The password reset token.
+   */
+  static sendResetPasswordEmail(userEmail, token) {
+    const mailOptions = {
+      from: process.env.EMAIL_USERNAME,
+      to: userEmail,
+      subject: "Password Reset Request",
+      text: `You have requested to reset your password. Please click the following link to reset your password: ${process.env.BASE_URL}/reset-password?token=${token}`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(`Email sent: ${info.response}`);
+      }
+    });
+  }
+}

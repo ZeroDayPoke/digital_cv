@@ -6,6 +6,20 @@ from .base import BaseModel, db
 from .associations import project_skills, blog_skills, tutorial_skills
 
 class Skill(BaseModel):
+    """
+    A class representing a skill.
+
+    Attributes:
+    -----------
+    name : str
+        The name of the skill.
+    related_projects : list
+        A list of related projects.
+    related_blogs : list
+        A list of related blogs.
+    related_tutorials : list
+        A list of related tutorials.
+    """
     __tablename__ = 'skills'
     name = db.Column(db.String(120), nullable=False)
     related_projects = db.relationship('Project', secondary=project_skills, back_populates='related_skills')

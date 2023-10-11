@@ -6,6 +6,20 @@ from .base import BaseModel, db
 from .associations import tutorial_skills
 
 class Tutorial(BaseModel):
+    """
+    A class representing a tutorial.
+
+    Attributes:
+    -----------
+    name : str
+        The name of the tutorial.
+    description : str
+        A description of the tutorial.
+    content_file : str
+        The file containing the content of the tutorial.
+    related_skills : list of Skill objects
+        A list of skills related to the tutorial.
+    """
     __tablename__ = 'tutorials'
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(500), nullable=True)

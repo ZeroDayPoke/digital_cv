@@ -1,6 +1,7 @@
 {
   "name": "digital_cv",
   "version": "1.0.0",
+  "type": "module",
   "description": "digital_cv project continuation",
   "main": "src/server.js",
   "scripts": {
@@ -18,10 +19,15 @@
   },
   "homepage": "https://github.com/ZeroDayPoke/digital_cv#readme",
   "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
+    "express-rate-limit": "^7.1.1",
+    "helmet": "^7.0.0",
     "nodemailer": "^6.9.3",
-    "twilio": "^4.11.2"
+    "twilio": "^4.11.2",
+    "winston": "^3.11.0"
   }
 }

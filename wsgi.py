@@ -5,6 +5,9 @@ wsgi.py
 This is the entry point for the WSGI server.
 
 Located in /digital_cv/wsgi.py
+
+This script creates a Flask app instance and runs it using a WSGI server.
+It also creates a Migrate instance for database migrations and initializes the database tables.
 """
 
 import sys
@@ -26,11 +29,8 @@ with app.app_context():
 
     if not metadata.tables:
         db.create_all()
-        print("Created tables")
         from seeder import seed_all
         seed_all()
-    else:
-        print("Tables already exist")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='8000', threaded=True)

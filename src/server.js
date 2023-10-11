@@ -1,23 +1,78 @@
+// src/server.js
+
+import dotenv from "dotenv";
+import express from "express";
+import mailService from "./services/mailService.js";
+import cors from "cors";
+import helmet from "helmet";
+import compression from "compression";
+import rateLimit from "express-rate-limit";
+import { logger } from "./middleware/index.js";
+
 // Load environment variables
-require('dotenv').config()
+dotenv.config();
 
-const express = require('express');
+// Create the Express app
 const app = express();
-const mailService = require('./services/mailService');
 
-// Middleware to parse JSON bodies from the request
+// Set up middleware
+app.use(helmet());
+app.use(compression());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+  })
+);
 
-// Define routes
-app.post('/send-email', async (req, res) => {
+// Define allowed origins
+const allowedOrigins = ["localhost:8000"];
+
+// Set up CORS policy
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.some((allowedOrigin) => origin.includes(allowedOrigin))
+      ) {
+        return callback(null, true);
+      } else {
+        /**
+         * Error message for when the CORS policy for this site does not allow access from the specified Origin.
+         * @type {string}
+         */
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+    },
+    credentials: true,
+  })
+);
+
+/**
+ * Route for sending email.
+ * @name POST/send-email
+ * @function
+ * @memberof module:server
+ * @inner
+ * @param {string} to - The email address to send the email to.
+ * @returns {Object} - Returns a response object with a message and token property.
+ * @throws {Object} - Returns an error object with an error property if there was an error sending the email.
+ */
+app.post("/send-email", async (req, res) => {
   const { to } = req.body;
-  const result = await mailService.sendVerificationEmail(to);
-  
-  if(result.status === 'error') {
-    return res.status(500).send({ error: result.error });
+  logger.info(to);
+  try {
+    const result = await mailService.sendVerificationEmail(to);
+    return res.status(200).send({ message: "Email sent successfully!", token: result.token });
+  } catch (error) {
+    logger.error(error);
+    return res.status(500).send({ error: error.error });
   }
-  
-  return res.status(200).send({ message: "Email sent successfully!", token: result.token });
 });
 
 // Start the server
