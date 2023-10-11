@@ -1,7 +1,6 @@
 <!-- app/templates/interface.html -->
 {% extends "base.html" %} {% from "macros.html" import render_form %} {% block
-title %}Interface{% endblock %} {% block main %}{% endblock %} {% block header
-%} {% endblock %} {% block content %}
+title %}Interface{% endblock %}{% block content %}
 
 <div class="container">
   <div class="row">
@@ -33,8 +32,7 @@ title %}Interface{% endblock %} {% block main %}{% endblock %} {% block header
   <div class="row">
     <div class="col-lg-6">
       <h2>Delete Skill</h2>
-      {{ render_form(deleteskillform, 'skill_routes.delete_skill', 'Delete')
-      }}
+      {{ render_form(deleteskillform, 'skill_routes.delete_skill', 'Delete') }}
     </div>
     <div class="col-lg-6">
       <h2>Delete Project</h2>
@@ -53,11 +51,8 @@ title %}Interface{% endblock %} {% block main %}{% endblock %} {% block header
     </div>
     <div class="col-lg-6">
       <h2>Add Tutorial</h2>
-      {{ render_form(addtutorialform, 'tutorial_routes.add_tutorial', 'Add')
-      }}
+      {{ render_form(addtutorialform, 'tutorial_routes.add_tutorial', 'Add') }}
     </div>
   </div>
-
-  {% endblock %} {% block scripts %}{% endblock %} {% block styles %}{% endblock
-  %}
 </div>
+{% endblock %}

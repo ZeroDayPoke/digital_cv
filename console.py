@@ -25,13 +25,20 @@ class_dictionary = {
 }
 
 class CV_Console(cmd.Cmd):
+    """A command-line interface for creating, showing, updating, and deleting instances of classes."""
     prompt = '(cv_app) '
 
     def get_class(self, class_name):
+        """Returns the class object with the given name."""
         return class_dictionary.get(class_name)
 
     def do_create(self, arg):
-        """Creates a new instance of a class: create <class> <attribute1=value1> <attribute2=value2> ..."""
+        """Creates a new instance of a class.
+
+        Usage: create <class> <attribute1=value1> <attribute2=value2> ...
+
+        Example: create User name=John email=john@example.com password=1234
+        """
         with app.app_context():
             params = arg.split()
             if len(params) < 1:
@@ -69,7 +76,12 @@ class CV_Console(cmd.Cmd):
                 print(f"{class_name} created with ID {instance.id}")
 
     def do_show(self, arg):
-        """Show an instance of a class: show <class> <id>"""
+        """Show an instance of a class.
+
+        Usage: show <class> <id>
+
+        Example: show User 1
+        """
         with app.app_context():
             params = arg.split()
             if len(params) < 2:
@@ -89,7 +101,12 @@ class CV_Console(cmd.Cmd):
                 print(instance)
 
     def do_destroy(self, arg):
-        """Deletes an instance of a class: destroy <class> <id>"""
+        """Deletes an instance of a class.
+
+        Usage: destroy <class> <id>
+
+        Example: destroy User 1
+        """
         with app.app_context():
             params = arg.split()
             if len(params) != 2:
@@ -112,7 +129,12 @@ class CV_Console(cmd.Cmd):
             print(f"{class_name} with ID {instance_id} has been deleted.")
 
     def do_all(self, arg):
-        """Displays all instances of a class: all <class>"""
+        """Displays all instances of a class.
+
+        Usage: all <class>
+
+        Example: all User
+        """
         with app.app_context():
             params = arg.split()
             if len(params) != 1:
@@ -130,7 +152,12 @@ class CV_Console(cmd.Cmd):
                 print(f"{class_name} {instance.id}: {instance}")
 
     def do_update(self, arg):
-        """Updates an instance of a class: update <class> <id> <attribute1=value1> <attribute2=value2> ..."""
+        """Updates an instance of a class.
+
+        Usage: update <class> <id> <attribute1=value1> <attribute2=value2> ...
+
+        Example: update User 1 name=John email=john@example.com
+        """
         with app.app_context():
             params = arg.split()
             if len(params) < 3:

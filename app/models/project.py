@@ -6,6 +6,27 @@ from .base import BaseModel, db
 from .associations import project_skills
 
 class Project(BaseModel):
+    """
+    A class representing a project.
+
+    Attributes:
+    -----------
+    id : str
+        The unique identifier of the project.
+    name : str
+        The name of the project.
+    description : str
+        The description of the project.
+    role : str
+        The role of the user in the project.
+    repo_link : str
+        The link to the project's repository.
+    live_link : str
+        The link to the live version of the project.
+    related_skills : list of Skill objects
+        The list of skills related to the project.
+    """
+
     __tablename__ = 'projects'
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(500), nullable=True)

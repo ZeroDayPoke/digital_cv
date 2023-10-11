@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Associations"""
+"""This module defines the associations between different models in the application."""
 # Path: digital_cv/app/models/associations.py
 
 from .base import db

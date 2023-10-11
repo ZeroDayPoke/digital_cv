@@ -1,5 +1,13 @@
 // ./services/emailService.js
 
+/**
+ * EmailService Module
+ * 
+ * This module provides functionalities to send various types of emails.
+ * 
+ * @module services/EmailService
+ */
+
 import dotenv from "dotenv";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
@@ -7,6 +15,9 @@ import { logger } from "../middleware/requestLogger.js";
 
 dotenv.config();
 
+/**
+ * Transporter object responsible for sending emails.
+ */
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -16,6 +27,13 @@ const transporter = nodemailer.createTransport({
 });
 
 export default class EmailService {
+  /**
+   * Sends a verification email to the user.
+   * 
+   * @param {string} userEmail - The email address of the user.
+   * @param {string} token - The verification token.
+   * @returns {Promise<Object>} - Promise resolving to the email sending result.
+   */
   static sendVerificationEmail(userEmail, token) {
     return new Promise((resolve, reject) => {
       token = crypto.randomBytes(20).toString("hex");
@@ -28,14 +46,20 @@ export default class EmailService {
 
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          reject({ status: 'error', error });
+          reject({ status: "error", error });
         } else {
-          resolve({ status: 'success', response: info.response, token });
+          resolve({ status: "success", response: info.response, token });
         }
       });
     });
   }
 
+  /**
+   * Sends a password reset email to the user.
+   * 
+   * @param {string} userEmail - The email address of the user.
+   * @param {string} token - The password reset token.
+   */
   static sendResetPasswordEmail(userEmail, token) {
     const mailOptions = {
       from: process.env.EMAIL_USERNAME,

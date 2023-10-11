@@ -44,3 +44,10 @@ def blogs():
         blogs = Blog.query.all()
 
     return render_template('blogs.html', blogs=blogs, form=form)
+
+@main_routes.route('/resume')
+def resume():
+    """
+    Render the resume page.
+    """
+    return render_template('resume.html', title='Resume')
