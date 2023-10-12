@@ -33,6 +33,19 @@
       <div class="carousel-inner">
         {% for project in projects %}
         <div class="carousel-item {% if loop.first %}active{% endif %}">
+          {% if project.image_filename %}
+          <img
+            src="{{ url_for('static', filename='images/projects/' + project.image_filename) }}"
+            alt="{{ project.name }} image"
+            class="d-block w-100 carousel-image img-fluid"
+          />
+          {% else %}
+          <img
+            src="{{ url_for('static', filename='images/defaults/notfound2.png') }}"
+            alt="Default project image"
+            class="d-block w-100 carousel-image img-fluid"
+          />
+          {% endif %}
           <div
             class="carousel-caption d-flex flex-column align-items-center justify-content-end"
           >
