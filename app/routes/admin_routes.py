@@ -4,16 +4,19 @@ admin_routes.py - admin routes for the Flask application
 """
 # Path: app/routes/admin_routes.py
 
-from flask import Blueprint, render_template, redirect, url_for
+import os
+from flask import Blueprint, render_template, redirect, url_for, flash, current_app
 from flask_login import login_required, current_user
 from app.routes.route_utils import (
     load_project_choices, load_skill_choices, load_blog_choices, load_tutorial_choices
 )
+from werkzeug.utils import secure_filename
 from ..forms import (
     AddProjectForm, UpdateProjectForm, DeleteProjectForm, 
     AddSkillForm, DeleteSkillForm,
     DeleteBlogForm, UpdateBlogForm, AddBlogForm, 
-    AddTutorialForm, UpdateTutorialForm, DeleteTutorialForm
+    AddTutorialForm, UpdateTutorialForm, DeleteTutorialForm,
+    UploadCVForm
 )
 
 admin_routes = Blueprint('admin_routes', __name__, url_prefix='')
@@ -46,7 +49,9 @@ def interface():
     """
     if not current_user.has_role('ADMIN'):
         return redirect(url_for('main_routes.projects'))
-    
+
+    form = UploadCVForm()
+
     # Initialize and populate form instances.
     form_instances = {}
     for form_class, load_choice_funcs in LOAD_CHOICE_MAP.items():
@@ -56,4 +61,18 @@ def interface():
         form_name = form_class.__name__.lower()
         form_instances[form_name] = form_instance
 
-    return render_template('interface.html', title='Interface', **form_instances)
+    return render_template('interface.html', title='Interface', **form_instances, form=form)
+
+@admin_routes.route('/upload_cv', methods=['POST'])
+@login_required
+def upload_cv():
+    if not current_user.has_role('ADMIN'):
+        return redirect(url_for('main.index'))
+
+    form = UploadCVForm()
+    if form.validate_on_submit():
+        file = form.cv.data
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(current_app.config.get('CV_UPLOAD_FOLDER', 'app/static/cv/'), filename))
+        flash('CV uploaded successfully', 'success')
+    return redirect(url_for('admin_routes.interface'))

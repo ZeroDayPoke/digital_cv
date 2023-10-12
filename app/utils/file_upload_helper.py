@@ -44,6 +44,6 @@ def handle_file_upload(model_name, field_name='image'):
         file_path = os.path.join(upload_folder, filename)
         file.save(file_path)
         return filename
-    
+
     flash('Error: File not found or not allowed.', 'danger')
     return None

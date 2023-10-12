@@ -1,6 +1,7 @@
 # Auth Forms
 
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo
 
@@ -33,3 +34,9 @@ class SigninForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign In')
+
+class UploadCVForm(FlaskForm):
+    cv = FileField('Upload CV (PDF only)', validators=[
+        FileRequired(),
+        FileAllowed(['pdf'], 'PDFs only!')
+    ])
