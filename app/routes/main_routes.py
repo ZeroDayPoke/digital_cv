@@ -8,6 +8,7 @@ from flask import render_template, request, Blueprint
 
 from ..models import Project, Skill, Blog
 from ..forms import SkillsFilterForm
+from app.routes.route_utils import load_skill_choices, load_project_choices, load_blog_choices, load_tutorial_choices
 
 main_routes = Blueprint('main_routes', __name__, url_prefix='')
 

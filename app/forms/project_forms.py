@@ -40,7 +40,7 @@ class AddProjectForm(FlaskForm):
         choices=[],
         validators=[at_least_one_checkbox]
     )
-    image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
+    image = FileField('Project Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Submit')
 
 class UpdateProjectForm(FlaskForm):
@@ -63,6 +63,8 @@ class UpdateProjectForm(FlaskForm):
         A field for the updated live project link of the project.
     related_skills : MultiCheckboxField
         A field for selecting the skills related to the updated project.
+    image : FileField
+        A field for the updated image of the project.
     submit : SubmitField
         A button to submit the updated project information.
     """
@@ -77,6 +79,7 @@ class UpdateProjectForm(FlaskForm):
         choices=[],
         validators=[at_least_one_checkbox]
     )
+    image = FileField('Project Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Update Project')
 
 class DeleteProjectForm(FlaskForm):
