@@ -2,7 +2,7 @@
 
 <head>
 	<!-- Title -->
-	<title>{% block title %}ZDP{% endblock %}</title>
+	<title>{% block title %}Resume{% endblock %}</title>
 
 	<!-- Meta -->
 	{% include 'default/meta.html' %}
@@ -77,11 +77,11 @@
 					<div class="text-md-end">
 						<div class="mb-4">
 							<h3>Interact</h3>
-							<a href="https://zerodaypoke.com/static/resume_draft_v2.pdf" download="Source_Code"
+							<a href="https://masoncounts.com/static/resume_draft_v2.pdf" download="Source_Code"
 								class="btn btn-primary ml-2">Download Source Code</a>
-							<a href="https://zerodaypoke.com/static/chris_stamper_cv.pdf" download="Chris_Stamper_CV"
-								class="btn btn-primary">Download CV</a>
-							<a href="mailto:cstampok@gmail.com?subject=Job Opportunity" class="btn btn-primary ml-2">Hire Me</a>
+							<a href="https://masoncounts.com/static/resume/MASON_COUNTS-ATS_RESUME.pdf" download="Mason_Counts_ATS_Resume"
+								class="btn btn-primary">Download Resume (ATS)</a>
+							<a href="mailto:mlc9181209@gmail.com?subject=Job Opportunity" class="btn btn-primary ml-2">Hire Me</a>
 						</div>
 					</div>
 				</div>
@@ -91,30 +91,56 @@
           <div class="mt-4" id="education">
             <h2>Education</h2>
             <details open>
-              <summary><h3>Holberton School, Tulsa, Oklahoma</h3></summary>
-              <p>Computer Science & Machine Learning (4.0 GPA)</p>
+              <summary>
+                <h3>Holberton School, Tulsa, Oklahoma</h3>
+              </summary>
+              <p>Computer Science & Machine Learning, Aug 2022 - Mar 2024</p>
+              <p>
+                The 20-month program at Holberton School started with a deep dive into C programming,
+                followed by practical applications in Python and Full Stack development, including a project
+                where a near-fully functioning Airbnb clone was built. The last 12 months were dedicated to
+                specializing in Machine Learning, gaining a robust understanding of linear algebra, calculus,
+                and probability, and practical application using tools like NumPy, Matplotlib, Jupyter notebooks,
+                Pandas, Scikit-learn, and TensorFlow for data analysis and model development.
+              </p>
+              <p>Skills Acquired: SQL, Data Analysis, Programming, C, Python, Technical Writing</p>
             </details>
             <details open>
               <summary>
                 <h3>Oklahoma State University, Stillwater, Oklahoma</h3>
               </summary>
-              <p>Bachelors of Science in Chemical Engineering (3.1 GPA)</p>
-              <p>21 Hours Petroleum Processes Courses (3.9 GPA)</p>
-              <p>24 Hours Finance Courses (4.0 GPA)</p>
+              <p>Bachelors of Science in International Business, 2011 - 2014</p>
+              <p>Activities: Chinese Language Association, Study abroad at Fudan University in Shanghai, China.</p>
+              <p>Skills Acquired: Accounting, Finance, Data Analysis, Management, Technical Writing, Chinese Studies, Mandarin
+                Chinese</p>
+            </details>
+            <details open>
+              <summary>
+                <h3>Tulsa Community College, Tulsa, Oklahoma</h3>
+              </summary>
+              <p>Business Administration and Management, General, 2009 - 2011</p>
+              <p>
+                Activities: Short study abroad at Shanghai University of Finance and Economics, some weeks at Beijing Union
+                University, Attended World Expo 2010.
+              </p>
+              <p>Skills Acquired: Management, Technical Writing</p>
             </details>
           </div>
         </article>
         <article class="col-md-6">
           <div class="mt-4" id="technologies">
-            <h2>Technologies</h2>
+            <h2>Technology Skills</h2>
             <ul>
               <li>
-                Programming Languages: Python, C, JavaScript, Visual Basic
+                Programming Languages: Python, C, SQL
               </li>
-              <li>Web Development: HTML/CSS, Flask, Node.js</li>
+              <li>Web Development: HTML/CSS, Flask</li>
               <li>Database Management: SQL, MySQL, SQLAlchemy</li>
+              <li>Machine Learning Tools: Tensorflow, Keras, NumPy, Matplotlib, Jupyter notebooks, Google Colab</li>
+              <li>Statistics and Mathematics: Statistics, Probability, Calculus, Linear Algebra</li>
               <li>Version Control: Git BASH</li>
-              <li>Microsoft Office Suite: Excel, PowerPoint</li>
+              <li>Data Engineering: Data cleaning, Data modeling, Data preprocessing, Feature engineering, Feature selection</li>
+              <li>Data Analysis and Visualization: MySQL, Technical Writing</li>
             </ul>
           </div>
         </article>
@@ -123,19 +149,19 @@
       <section class="mt-4" id="experience">
         <h2>Experience</h2>
         <article>
-          <h3>
-            Tutor at GKFF / Tulsa Community Foundation / Holberton Tulsa LLC
-          </h3>
-          <p>Duration: Dec 2022 - Jun 2023 (6 months)</p>
-          <p>Location: Tulsa, Oklahoma, United States (Hybrid)</p>
+          <h3>Brand Ambassador & Event Marketing Specialist</h3>
+          <p>Duration: 8+ years</p>
           <p>
-            As a Tutor, I significantly contributed to the learning environment
-            by elevating students' comprehension of complex coding concepts,
-            boosting their problem-solving skills, and promoting academic
-            excellence through individualized support. I maintained availability
-            on Slack for student queries and assisted in the academic success of
-            new students. I played a crucial role in tutor meetings and honed my
-            leadership and problem-solving skills within my cohort.
+            Represented and served as a demonstrator for major tech brands like Sony, Samsung, and Google at high-profile events
+            like GDC and SXSW. Engaged with attendees through interactive product demonstrations and collected user feedback.
+          </p>
+        </article>
+
+        <article>
+          <h3>Independent Contractor Assistant</h3>
+          <p>Duration: 10+ years</p>
+          <p>
+            Assisted in a variety of technical roles including HVAC technician, plumber, painter, etc.
           </p>
         </article>
       </section>
@@ -147,27 +173,22 @@
             <div class="card project-card mb-4 bg-dark text-light" id="strain">
               <div class="card-body">
                 <h3>
-                  <a href="https://github.com/ZeroDayPoke/STRAIN.gg_Clouds"
-                    >STRAIN.gg Clouds</a
+                  <a href="https://github.com/Julia-5534/DF"
+                    >Death Farts</a
                   >
                 </h3>
                 <p>
-                  STRAIN.gg Clouds is a web application for exploring,
-                  filtering, and sorting strains of cannabis based on parameters
-                  like concentration, terpene profiles, effects, and more. Users
-                  can also create accounts and save their favorite strains.
+                  Created for Holberton C19's Hack Sprint, this labor of love was wholly inspired by Flappy Bird, Death Trips, and Earth's
+                  funniest pastime: farting. Only, let's swap Flappy Bird out for The Grim Reaper, A.K.A. Death. Instead of travelling
+                  through a cityscape, Death travels from a graveyard, through the river Styx, and onward to Hell. Rinse and repeat. C'est
+                  la vie.
                 </p>
                 <ul>
                   <li>
-                    <b>Technologies used:</b> JavaScript, HTML/CSS, Node.js,
-                    Flask, MySQL
+                    <b>Technologies used:</b> Python, Pygame, Neural Network (AI can play the game and updates weights and biases using fitness (death count) as target metric)
                   </li>
                   <li>
-                    <b>Role:</b> CLOUD_CHASER - added via the mysql interpreter
-                  </li>
-                  <li>
-                    <b>Live Project:</b>
-                    <a href="https://strain.gg">strain.gg</a>
+                    <b>Role:</b> Co-Creator
                   </li>
                 </ul>
               </div>
@@ -178,14 +199,15 @@
               <div class="card-body">
                 <h3>
                   <a
-                    href="https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone_v4"
+                    href="https://github.com/spindouken/holbertonschool-AirBnB_clone_v4"
                     >HBNB Clone</a
                   >
                 </h3>
                 <p>
-                  HBNB Clone is a clone of the Airbnb website. This full-stack
-                  web development project involves front-end and back-end
-                  design.
+                  This AirBNB clone is version 4 of an AirBNB clone project. The project included peer collaboration and resulted in a comprehensive, full-stack web application. Details: The application integrates a MySQL database
+                  and a Flask RESTful API with a dynamic HTML/CSS/jQuery front-end. The codebase includes a class system built in Python
+                  for managing back-end models, a Flask web application server rendering HTML templates with Jinja2, and a RESTful Flask
+                  API.
                 </p>
                 <ul>
                   <li>
@@ -202,7 +224,7 @@
               <div class="card-body">
                 <h3>
                   <a
-                    href="https://github.com/Julia-5534/holbertonschool-simple_shell"
+                    href="https://github.com/spindouken/holbertonschool-simple_shell"
                     >Simple Shell</a
                   >
                 </h3>
