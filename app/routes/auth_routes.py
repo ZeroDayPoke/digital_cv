@@ -96,6 +96,12 @@ def signout():
 @auth_routes.route('/account', methods=['GET'])
 @login_required
 def account():
+    """
+    Renders the account.html template for the authenticated user.
+
+    Returns:
+        The rendered account.html template.
+    """
     return render_template('account.html')
 
 @auth_routes.route('/send_verification_email', methods=['GET'])

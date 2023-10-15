@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
-"""This module defines the associations between different models in the application."""
-# Path: digital_cv/app/models/associations.py
+"""This module defines the associations between different models in the application.
+
+This module contains the following associations:
+    - project_skills
+    - blog_skills
+    - user_roles
+    - tutorial_skills
+"""
 
 from .base import db
 

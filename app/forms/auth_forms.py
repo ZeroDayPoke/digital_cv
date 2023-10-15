@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Auth Forms
 
 from flask_wtf import FlaskForm
@@ -36,6 +38,12 @@ class SigninForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 class UploadCVForm(FlaskForm):
+    """
+    A form for uploading a CV in PDF format.
+
+    Attributes:
+    - cv (FileField): The field for uploading the CV file.
+    """
     cv = FileField('Upload CV (PDF only)', validators=[
         FileRequired(),
         FileAllowed(['pdf'], 'PDFs only!')
