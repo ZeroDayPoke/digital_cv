@@ -11,7 +11,7 @@ class Education(BaseModel):
     institution = db.Column(db.String(120), nullable=False)
     location = db.Column(db.String(120), nullable=False)
     field_of_study = db.Column(db.String(120), nullable=False)
-    grad_date = db.Column(db.String(20), nullable=True)
+    grad_date = db.Column(db.String(20), nullable=True, default='attending')
     details = db.Column(db.String(500), nullable=True)
     related_skills = db.relationship('Skill', secondary=education_skills, back_populates='related_educations')
 

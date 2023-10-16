@@ -4,7 +4,7 @@ main.py - main routes for the Flask application
 """
 # Path: app/routes/main_routes.py
 
-from flask import render_template, request, Blueprint, current_app
+from flask import render_template, request, Blueprint, current_app, redirect, url_for
 
 from ..models import Project, Skill, Blog
 from ..forms import SkillsFilterForm
@@ -53,4 +53,9 @@ def resume():
     """
     domain_name = current_app.config.get('DOMAIN_NAME', 'https://zerodaypoke.com')
     pdf_name = current_app.config.get('CV_PDF_NAME', 'dynamic_cv_name.pdf')
-    return render_template('resume.html', title='Resume', domain_name=domain_name, pdf_name=pdf_name)
+    return render_template('resume/main.html', title='Resume', domain_name=domain_name, pdf_name=pdf_name)
+
+@main_routes.route('/exit_admin')
+def exit_admin():
+    # Perform any additional operations if needed
+    return redirect(url_for('main_routes.index'))

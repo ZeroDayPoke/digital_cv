@@ -7,6 +7,7 @@ __init__ file for app module
 
 from flask import Flask, request, g, render_template
 from flask_admin import Admin
+from flask_admin.menu import MenuLink
 from flask_babel import Babel
 from flask_login import LoginManager
 from flask_limiter import Limiter
@@ -27,13 +28,14 @@ def init_db(app):
 
 # Initialize admin interface
 def init_admin(app):
-    admin_name = app.config.get('ADMIN_NAME', 'AdInt')
+    admin_name = app.config.get('ADMIN_NAME', 'Digital CV Admin')
     admin = Admin(app, name=admin_name, template_mode='bootstrap4')
     admin.add_view(ProjectAdminView(Project, db.session))
     admin.add_view(SkillAdminView(Skill, db.session))
     admin.add_view(BlogAdminView(Blog, db.session))
     admin.add_view(TutorialAdminView(Tutorial, db.session))
     admin.add_view(EducationAdminView(Education, db.session))
+    admin.add_link(MenuLink(name='Back to Central App', url='/'))
 
 
 # Initialize login manager
@@ -64,7 +66,9 @@ def register_context_processors(app):
         return {
             'blogs': Blog.query.all(),
             'tutorials': Tutorial.query.all(),
-            'projects': Project.query.all()
+            'projects': Project.query.all(),
+            'skills': Skill.query.all(),
+            'educations': Education.query.all(),
         }
 
 

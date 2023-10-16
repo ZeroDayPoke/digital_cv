@@ -9,7 +9,7 @@ def seed_educations():
         {
             "institution": "Oklahoma State University",
             "location": "Stillwater, OK, USA",
-            "field_of_study": "Bachelors of Science in Chemical Engineering",
+            "field_of_study": "Chemical Engineering",
             "grad_date": "2015",
             "details": "Graduated with a Bachelors of Science in Chemical Engineering."
         }

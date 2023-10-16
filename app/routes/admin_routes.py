@@ -76,3 +76,15 @@ def upload_cv():
         file.save(os.path.join(current_app.config.get('CV_UPLOAD_FOLDER', 'app/static/cv/'), filename))
         flash('CV uploaded successfully', 'success')
     return redirect(url_for('admin_routes.interface'))
+
+@admin_routes.route('/go_to_admin', methods=['GET'])
+@login_required
+def go_to_admin():
+    """
+    Redirects to the default Flask-Admin interface if the user has an ADMIN role.
+    """
+    if current_user.has_role('ADMIN'):
+        return redirect('/admin/')
+    else:
+        flash('You do not have permission to access the admin interface.', 'danger')
+        return redirect(url_for('main_routes.projects'))

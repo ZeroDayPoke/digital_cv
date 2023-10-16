@@ -43,9 +43,13 @@
   <body class="{{ body_class|default('text-dark') }}">
     {% include 'flash.html' %}
 
-    <header class="container">{% include 'default/nav/main.html' %}</header>
+    <header class="container d-flex flex-column">
+      {% include 'default/nav/main.html' %}
+    </header>
 
-    <main class="container">{% block content %} {% endblock %}</main>
+    <main class="container d-flex flex-column">
+      {% block content %} {% endblock %}
+    </main>
 
     {% include 'default/footer.html' %}
 
