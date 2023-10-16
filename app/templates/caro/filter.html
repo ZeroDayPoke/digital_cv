@@ -1,0 +1,14 @@
+<!-- Filter Section -->
+<div class="col-md-3">
+  <form method="POST" class="shadow p-3 mb-5 bg-white rounded">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">{{ form.skills.label }}</div>
+    {% for subfield in form.skills %}
+    <div class="form-check">
+      {{ subfield.label(class_="form-check-label") }} {{
+      subfield(class_="form-check-input") }}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-outline-primary">Filter</button>
+  </form>
+</div>

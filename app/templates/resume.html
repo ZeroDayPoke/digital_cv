@@ -1,8 +1,20 @@
+<!--
+  This template uses a Babel dictionary for localization and personalization.
+  The Babel dictionary contains key-value pairs where the keys represent fixed
+  identifiers and the values represent user-specific or localized text.
+
+  To modify any user-specific text, update the corresponding value in the Babel
+  dictionary. You do not need to modify this template file directly for such changes.
+
+  The Babel dictionary is used in conjunction with Jinja2's gettext function,
+  commonly aliased as '_', to fetch the localized strings dynamically.
+-->
+
 {% extends "base.html" %}
 
 <body class="text-light">
 	<header class="container">
-		{% include 'default/navbar.html' %}
+		{% include 'default/nav/main.html' %}
 	</header>
     <main class="container">
       {% block content %}
@@ -43,14 +55,7 @@
 					<div class="mb-4">
 						<h3>Objective</h3>
 						<p class="small">
-              Machine learning engineer with 10 plus years of experience in tech marketing, real estate, and skilled trades. Gained a
-              unique global perspective from an International Business degree at OSU, complemented by a minor in Chinese Studies.
-              Acquired cultural fluency and market insights through a study abroad program in Shanghai, China. Built a robust skill
-              set in C and Python, mastering various data analytics tools with a specialization in machine learning and data
-              engineering. Proficient in the complexities of neural networks, fortified by a deep understanding of the underlying
-              mathematics and statistics. Utilizes strong communication skills, honed from years in customer-facing roles, to
-              effectively translate complex technical concepts into accessible language. Driven to merge a deep-rooted enthusiasm for
-              technology and science into a transformative and intellectually stimulating career in machine learning.
+              {{ _('header_objective') }}
 						</p>
 					</div>
 				</div>

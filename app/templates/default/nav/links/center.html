@@ -1,0 +1,86 @@
+<!-- Center-aligned links -->
+<div class="navbar-nav mx-auto">
+  <li class="nav-item dropdown">
+    <a
+      class="nav-link dropdown-toggle"
+      href="#"
+      id="projectDropdown"
+      role="button"
+      data-bs-toggle="dropdown"
+    >
+      Projects
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="projectDropdown">
+      <li>
+        <a class="dropdown-item" href="{{ url_for('main_routes.projects') }}"
+          >All</a
+        >
+      </li>
+      {% for project in projects %}
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{ url_for('project_routes.project_details', project_id=project.id) }}"
+          >{{ project.name }}</a
+        >
+      </li>
+      {% endfor %}
+    </ul>
+  </li>
+  <li class="nav-item dropdown">
+    <a
+      class="nav-link dropdown-toggle"
+      href="#"
+      id="navbarDropdown"
+      role="button"
+      data-bs-toggle="dropdown"
+    >
+      Blogs
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <li>
+        <a class="dropdown-item" href="{{ url_for('main_routes.blogs') }}"
+          >All</a
+        >
+      </li>
+      {% for blog in blogs %}
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{ url_for('blog_routes.blog_detail', blog_id=blog.id) }}"
+          >{{ blog.name }}</a
+        >
+      </li>
+      {% endfor %}
+    </ul>
+  </li>
+  <li class="nav-item dropdown">
+    <a
+      class="nav-link dropdown-toggle"
+      href="#"
+      id="navbarDropdown"
+      role="button"
+      data-bs-toggle="dropdown"
+    >
+      Tutorials
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{ url_for('tutorial_routes.tutorials') }}"
+          >All</a
+        >
+      </li>
+      {% for tutorial in tutorials %}
+      <li>
+        <a
+          class="dropdown-item"
+          href="{{ url_for('tutorial_routes.tutorial_detail', tutorial_id=tutorial.id) }}"
+          >{{ tutorial.name }}</a
+        >
+      </li>
+      {% endfor %}
+    </ul>
+  </li>
+</div>
