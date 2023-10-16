@@ -33,9 +33,28 @@ class SigninForm(FlaskForm):
     - password (PasswordField): an input field for user password
     - submit (SubmitField): a button to submit the form
     """
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Sign In')
+    email = StringField(
+        'Email', 
+        validators=[DataRequired(), Email()],
+        render_kw={
+            "class": "form-control", 
+            "placeholder": "Email"
+        }
+    )
+    password = PasswordField(
+        'Password', 
+        validators=[DataRequired()],
+        render_kw={
+            "class": "form-control", 
+            "placeholder": "Password"
+        }
+    )
+    submit = SubmitField(
+        'Sign In',
+        render_kw={
+            "class": "btn btn-primary"
+        }
+    )
 
 class UploadCVForm(FlaskForm):
     """

@@ -28,6 +28,7 @@ class Config:
     - BABEL_DEFAULT_TIMEZONE (str): Default timezone for translations.
     - BABEL_TRANSLATION_DIRECTORIES (str): Path to the directory containing translation files.
     - CV_UPLOAD_FOLDER (str): Path to the folder where CVs will be stored.
+    - USE_EXTENDED_BOOTSTRAP (bool): Flag to enable/disable extended Bootstrap.
     """
     ALLOWED_EXTENSIONS = os.getenv('ALLOWED_EXTENSIONS', 'png,jpg,jpeg,gif'.split(','))
     UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', 'app/static/images')
@@ -41,6 +42,7 @@ class Config:
     CV_UPLOAD_FOLDER = os.getenv('CV_UPLOAD_FOLDER', 'app/static/cv/')
     DOMAIN_NAME = os.getenv('DOMAIN_NAME', 'http://localhost:8000')
     CV_PDF_NAME = os.getenv('CV_PDF_NAME', 'resume_draft_v2.pdf')
+    USE_EXTENDED_BOOTSTRAP = os.getenv('USE_EXTENDED_BOOTSTRAP', True)
 
 class DevelopmentConfig(Config):
     DB_USER = os.getenv('DB_USER', 'cv_user_dev')
