@@ -1,6 +1,12 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
 
-<footer class="mt-3 py-2 bg-dark text-white" style="box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);">
+<footer
+  class="mt-3 py-2 bg-dark text-white"
+  style="box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2)"
+>
   <div class="container">
     <div class="row">
       <!-- About Section -->
@@ -10,23 +16,48 @@
       </section>
       <!-- Quick Links -->
       <nav class="col-md-4 mb-4 text-center">
-        <h5 class="text-uppercase fw-bold" style="font-size: 1em;">Quick Links</h5>
+        <h5 class="text-uppercase fw-bold" style="font-size: 1em">
+          Quick Links
+        </h5>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-white text-decoration-none">To Top <i class="fas fa-arrow-up"></i></a></li>
+          <li>
+            <a href="#" class="text-white text-decoration-none"
+              >To Top <i class="fas fa-arrow-up"></i
+            ></a>
+          </li>
         </ul>
       </nav>
       <!-- Contact -->
       <address class="col-md-4 mb-4 text-end">
         <h5 class="text-uppercase fw-bold">Contact</h5>
         <ul class="list-unstyled">
-          <li><span class="info-label"><i class="fas fa-envelope"></i> Email:</span> <a
-              href="mailto:mlc9181209@gmail.com">mlc9181209@gmail.com</a></li>
-          <li><span class="info-label"><i class="fas fa-globe"></i> Website:</span> <a
-              href="https://masoncounts.com">masoncounts.com</a></li>
-          <li><span class="info-label"><i class="fab fa-github"></i> GitHub:</span> <a
-              href="https://github.com/spindouken">github.com/spindouken</a></li>
-          <li><span class="info-label"><i class="fab fa-linkedin"></i> LinkedIn:</span> <a
-              href="https://www.linkedin.com/in/masoncounts/">linkedin.com/in/masoncounts/</a></li>
+          <li>
+            <span class="info-label"
+              ><i class="fas fa-envelope"></i> Email:</span
+            ><a href="mailto:{{ _('contact_email') }}"
+              >{{ _('contact_email') }}</a
+            >
+          </li>
+          <li>
+            <span class="info-label"
+              ><i class="fas fa-globe"></i> Website:</span
+            >
+            <a href="{{ _('contact_website') }}">{{ _('contact_website') }}</a>
+          </li>
+          <li>
+            <span class="info-label"
+              ><i class="fab fa-github"></i> GitHub:</span
+            >
+            <a href="{{ _('contact_github') }}">{{ _('contact_github') }}</a>
+          </li>
+          <li>
+            <span class="info-label"
+              ><i class="fab fa-linkedin"></i> LinkedIn:</span
+            >
+            <a href="{{ _('contact_linkedin') }}"
+              >{{ _('contact_linkedin') }}</a
+            >
+          </li>
         </ul>
       </address>
     </div>
@@ -39,13 +70,3 @@
     </div>
   </div>
 </footer>
-
-<style>
-  a:hover {
-    text-decoration: underline;
-  }
-
-  .info-label i {
-    margin-right: 8px;
-  }
-</style>

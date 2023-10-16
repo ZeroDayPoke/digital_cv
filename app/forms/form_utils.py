@@ -15,6 +15,12 @@ class MultiCheckboxField(SelectMultipleField):
     widget = ListWidget(prefix_label=False)
     option_widget = CheckboxInput()
 
+    def __init__(self, *args, **kwargs):
+        render_kw = kwargs.get("render_kw", {})
+        render_kw.setdefault("class", "form-check-input")
+        kwargs["render_kw"] = render_kw
+        super(MultiCheckboxField, self).__init__(*args, **kwargs)
+
     def process_formdata(self, valuelist):
         """
         Process the form data for the field.

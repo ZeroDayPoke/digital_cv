@@ -1,8 +1,8 @@
 <section class="row align-items-center">
   <div class="col-12">
-    <h1>Chris Stamper</h1>
-    <h2>Data Engineer, Software Engineer, Chemical Engineer</h2>
-    <p class="fs-5">Location: Tulsa, Oklahoma, United States</p>
+    <h1>{{ _('header_name') }}</h1>
+    <h2>{{ _('header_roles') }}</h2>
+    <p class="fs-5">{{ _('header_location') }}</p>
   </div>
 </section>
 <section class="row align-items-center">
@@ -13,20 +13,22 @@
         <ul class="list-unstyled">
           <li>
             <span class="info-label">Email:</span>
-            <a href="mailto:cstampok@gmail.com">cstampok@gmail.com</a>
+            <a href="mailto:{{ _('contact_email') }}"
+              >{{ _('contact_email') }}</a
+            >
           </li>
           <li>
             <span class="info-label">Website:</span>
-            <a href="https://zerodaypoke.com">zerodaypoke.com</a>
+            <a href="{{ _('contact_website') }}">{{ _('contact_website') }}</a>
           </li>
           <li>
             <span class="info-label">GitHub:</span>
-            <a href="https://github.com/zerodaypoke">github.com/ZeroDayPoke</a>
+            <a href="{{ _('contact_github') }}">{{ _('contact_github') }}</a>
           </li>
           <li>
             <span class="info-label">LinkedIn:</span>
-            <a href="https://www.linkedin.com/in/zerodaypoke/"
-              >linkedin.com/in/zerodaypoke/</a
+            <a href="{{ _('contact_linkedin') }}"
+              >{{ _('contact_linkedin') }}</a
             >
           </li>
         </ul>
@@ -36,14 +38,7 @@
   <div class="col-md-4">
     <div class="mb-4">
       <h3>Objective</h3>
-      <p class="small">
-        I am a versatile and driven engineer seeking an exciting career
-        opportunity. While I have a particular interest in transitioning into a
-        machine learning role, I am also open to positions in various areas,
-        including full-stack development. I am eager to apply my technical
-        expertise and problem-solving skills to contribute to the success of
-        innovative projects and teams.
-      </p>
+      <p class="small">{{ _('header_objective') }}</p>
     </div>
   </div>
   <div class="col-md-4">
@@ -51,20 +46,18 @@
       <div class="mb-4">
         <h3>Interact</h3>
         <a
-          href="https://zerodaypoke.com/static/resume_draft_v2.pdf"
+          href="{{ _('download_code_link') }}"
           download="Source_Code"
           class="btn btn-primary ml-2"
           >Download Source Code</a
         >
         <a
-          href="https://zerodaypoke.com/static/chris_stamper_cv.pdf"
+          href="{{ _('download_cv_link') }}"
           download="Chris_Stamper_CV"
           class="btn btn-primary"
           >Download CV</a
         >
-        <a
-          href="mailto:cstampok@gmail.com?subject=Job Opportunity"
-          class="btn btn-primary ml-2"
+        <a href="mailto:{{ _('hire_me_email') }}" class="btn btn-primary ml-2"
           >Hire Me</a
         >
       </div>

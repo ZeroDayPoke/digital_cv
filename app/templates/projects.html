@@ -1,17 +1,29 @@
 {% extends 'base.html' %} {% block content %}
-<div class="row">
+
+<div class="row mt-3">
   <!-- Filter Section -->
   <div class="col-md-3">
-    <form method="POST">
+    <form method="POST" class="shadow p-3 mb-5 bg-white rounded">
       {{ form.hidden_tag() }}
-      <div class="mb-3">{{ form.skills.label }} {{ form.skills }}</div>
-      {{ form.filter }}
+      <div class="mb-3">{{ form.skills.label }}</div>
+      {% for subfield in form.skills %}
+      <div class="form-check">
+        {{ subfield.label(class_="form-check-label") }} {{
+        subfield(class_="form-check-input") }}
+      </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-outline-primary">Filter</button>
     </form>
   </div>
 
-  <!-- Carousel Section -->
-  <div class="col-md-9">
-    <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel">
+  <!-- Carousel and Project Synopsis Section -->
+  <div class="col-md-9 position-relative">
+    <!-- Carousel -->
+    <div
+      id="projectCarousel"
+      class="carousel slide shadow-lg rounded"
+      data-bs-ride="carousel"
+    >
       <!-- Carousel Indicators -->
       <ol class="carousel-indicators">
         {% for project in projects %}
@@ -28,7 +40,6 @@
         ></li>
         {% endfor %}
       </ol>
-
       <!-- Carousel Slides -->
       <div class="carousel-inner">
         {% for project in projects %}
@@ -37,41 +48,18 @@
           <img
             src="{{ url_for('static', filename='images/projects/' + project.image_filename) }}"
             alt="{{ project.name }} image"
-            class="d-block w-100 carousel-image img-fluid"
+            class="d-block w-100 h-auto img-fluid"
           />
           {% else %}
           <img
             src="{{ url_for('static', filename='images/defaults/notfound2.png') }}"
             alt="Default project image"
-            class="d-block w-100 carousel-image img-fluid"
+            class="d-block w-100 h-auto img-fluid"
           />
           {% endif %}
-          <div
-            class="carousel-caption d-flex flex-column align-items-center justify-content-end"
-          >
-            <h5>
-              {% if project.repo_link %}
-              <a href="{{ project.repo_link }}">{{ project.name }}</a>
-              {% else %} {{ project.name }} {% endif %}
-            </h5>
-            <p>{{ project.description }}</p>
-            <p><b>Role:</b> {{ project.role }}</p>
-            {% if project.live_link %}
-            <p><a href="{{ project.live_link }}">Live Project</a></p>
-            {% endif %}
-            <ul>
-              <b>Related Skills:</b>
-              <ul>
-                {% for skill in project.related_skills %}
-                <li>{{ skill.name }}</li>
-                {% endfor %}
-              </ul>
-            </ul>
-          </div>
         </div>
         {% endfor %}
       </div>
-
       <!-- Carousel Controls -->
       <a
         class="carousel-control-prev"
@@ -92,6 +80,20 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
+    <!-- Project Synopsis -->
+    <div
+      class="position-absolute bottom-0 start-0 w-100 p-3"
+      style="z-index: 2; background: rgba(255, 255, 255, 0.75)"
+    >
+      <div class="card bg-transparent border-0">
+        <div class="card-body">
+          <h5 class="card-title">Project Title</h5>
+          <p class="card-text">Project description...</p>
+          <a href="#" class="btn btn-primary">Go to Project</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
 {% endblock %}
