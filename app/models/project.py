@@ -28,7 +28,6 @@ class Project(BaseModel):
     """
 
     __tablename__ = 'projects'
-    name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(500), nullable=True)
     role = db.Column(db.String(120), nullable=True)
     repo_link = db.Column(db.String(500), nullable=True)

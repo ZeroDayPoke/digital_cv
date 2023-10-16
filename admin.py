@@ -60,3 +60,14 @@ class TutorialAdminView(AdminModelView):
     """
     column_list = ['name', 'description', 'related_skills']
     form_columns = ['name', 'description', 'related_skills']
+
+class EducationAdminView(AdminModelView):
+    """
+    View for managing education records in the admin panel.
+    
+    Attributes:
+    - column_list (list): List of columns to display in the admin panel.
+    - form_columns (list): List of columns to display in the add/edit form.
+    """
+    column_list = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'related_skills']
+    form_columns = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'related_skills']

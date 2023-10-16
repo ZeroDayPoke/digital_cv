@@ -20,6 +20,7 @@ class BaseModel(db.Model):
     """
     __abstract__ = True
     id = db.Column(db.String(60), primary_key=True, default=lambda: str(uuid4()), nullable=False)
+    name = db.Column(db.String(120), nullable=True)
     image_filename = db.Column(db.String(128), nullable=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)

@@ -13,10 +13,10 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import redis
 from config import config
-from .models import db, User, Blog, Tutorial, Skill, Project
+from .models import db
 from .routes import (main_routes, auth_routes, project_routes,
                      skill_routes, admin_routes, blog_routes, tutorial_routes)
-from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView
+from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView
 import logging
 
 def create_app(config_name='default') -> Flask:
@@ -39,6 +39,9 @@ def create_app(config_name='default') -> Flask:
     babel = Babel()
     babel.init_app(app, locale_selector=lambda: get_locale(app))
 
+    # Import models
+    from .models import User, Blog, Tutorial, Skill, Project, Education
+
     # Initialize admin interface
     admin_name = app.config.get('ADMIN_NAME', 'AdInt')
     admin = Admin(app, name=admin_name, template_mode='bootstrap4')
@@ -46,6 +49,7 @@ def create_app(config_name='default') -> Flask:
     admin.add_view(SkillAdminView(Skill, db.session))
     admin.add_view(BlogAdminView(Blog, db.session))
     admin.add_view(TutorialAdminView(Tutorial, db.session))
+    admin.add_view(EducationAdminView(Education, db.session))
 
     # Initialize login manager and user loader
     login_manager = LoginManager()

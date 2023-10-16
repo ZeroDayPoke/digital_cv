@@ -21,7 +21,6 @@ class Tutorial(BaseModel):
         A list of skills related to the tutorial.
     """
     __tablename__ = 'tutorials'
-    name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(500), nullable=True)
     content_file = db.Column(db.String(500), nullable=True)
     related_skills = db.relationship('Skill', secondary=tutorial_skills, back_populates='related_tutorials')

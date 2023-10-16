@@ -6,6 +6,7 @@ This module contains the following associations:
     - blog_skills
     - user_roles
     - tutorial_skills
+    - education_skills
 """
 
 from .base import db
@@ -31,5 +32,11 @@ user_roles = db.Table(
 tutorial_skills = db.Table(
     'tutorial_skills',
     db.Column('tutorial_id', db.String(60), db.ForeignKey('tutorials.id'), primary_key=True),
+    db.Column('skill_id', db.String(60), db.ForeignKey('skills.id'), primary_key=True)
+)
+
+education_skills = db.Table(
+    'education_skills',
+    db.Column('education_id', db.String(60), db.ForeignKey('educations.id'), primary_key=True),
     db.Column('skill_id', db.String(60), db.ForeignKey('skills.id'), primary_key=True)
 )
