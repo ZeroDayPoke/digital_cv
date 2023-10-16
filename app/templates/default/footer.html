@@ -1,40 +1,32 @@
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-/>
-
-<footer
-  class="mt-3 py-2 bg-dark text-white"
-  style="box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2)"
->
+<!-- ./app/templates/default/footer.html -->
+<footer class="mt-3 py-2 bg-dark text-white">
   <div class="container">
     <div class="row">
       <!-- About Section -->
-      <section class="col-md-4 mb-4 text-start">
+      <section class="col-md-4 mb-4">
         <h5 class="text-uppercase fw-bold">About</h5>
         <p class="text-muted">Having fun making a digital resume... thing...</p>
       </section>
       <!-- Quick Links -->
       <nav class="col-md-4 mb-4 text-center">
-        <h5 class="text-uppercase fw-bold" style="font-size: 1em">
-          Quick Links
-        </h5>
+        <h5 class="text-uppercase fw-bold">Quick Links</h5>
         <ul class="list-unstyled">
           <li>
-            <a href="#" class="text-white text-decoration-none"
-              >To Top <i class="fas fa-arrow-up"></i
-            ></a>
+            <a href="#" class="text-white text-decoration-none">
+              To Top <i class="fas fa-arrow-up"></i>
+            </a>
           </li>
         </ul>
       </nav>
       <!-- Contact -->
-      <address class="col-md-4 mb-4 text-end">
+      <address class="col-md-4 mb-4">
         <h5 class="text-uppercase fw-bold">Contact</h5>
         <ul class="list-unstyled">
           <li>
             <span class="info-label"
               ><i class="fas fa-envelope"></i> Email:</span
-            ><a href="mailto:{{ _('contact_email') }}"
+            >
+            <a href="mailto:{{ _('contact_email') }}"
               >{{ _('contact_email') }}</a
             >
           </li>
@@ -62,8 +54,8 @@
       </address>
     </div>
     <!-- Footer Bottom -->
-    <div class="row mt-0">
-      <div class="col text-center mb-0 pb-0">
+    <div class="row">
+      <div class="col text-center">
         <p class="mb-0">&copy; self.__name__</p>
         <p class="fs-6 fst-italic text-muted">This has been hilarious</p>
       </div>

@@ -27,17 +27,9 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='styles/cv.css', v='1.5') }}"
     />
-    <!--fonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@450&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap"
-      rel="stylesheet"
-    />
+
+    <!-- Fonts -->
+    {% include 'default/fonts.html' %}
     {% block css %}{% endblock %}
   </head>
   <body class="{{ body_class|default('text-dark') }}">
