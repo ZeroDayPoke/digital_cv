@@ -160,7 +160,7 @@ def verify_account_email(token):
         user.token_generated_at = None
         db.session.commit()
         flash('Account successfully verified!')
-        return redirect(url_for('main_routes.account'))
+        return redirect(url_for('auth_routes.account'))
 
 
 @auth_routes.route('/change_password', methods=['POST'])
