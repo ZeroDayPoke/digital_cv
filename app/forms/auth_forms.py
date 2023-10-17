@@ -4,7 +4,7 @@
 
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Email, EqualTo
 
 class SignupForm(FlaskForm):
@@ -108,6 +108,71 @@ class UploadCVForm(FlaskForm):
     )
     submit = SubmitField(
         'Upload',
+        render_kw={
+            "class": "btn btn-primary"
+        }
+    )
+
+class MessageAdminForm(FlaskForm):
+    """
+    A form for messaging the admin.
+
+    Attributes:
+    - message_body (TextAreaField): The field for entering the message.
+    - submit (SubmitField): A button to submit the form.
+    """
+    message_body = TextAreaField(
+        'Message',
+        validators=[DataRequired()],
+        render_kw={
+            "class": "form-control",
+            "rows": 5,
+            "placeholder": "Type your message here..."
+        }
+    )
+    submit = SubmitField(
+        'Send Message',
+        render_kw={
+            "class": "btn btn-primary"
+        }
+    )
+
+class ChangePasswordForm(FlaskForm):
+    """
+    A form for changing user password.
+    
+    Attributes:
+    - current_password (PasswordField): an input field for the current password
+    - new_password (PasswordField): an input field for the new password
+    - confirm_password (PasswordField): an input field for confirming the new password
+    - submit (SubmitField): a button to submit the form
+    """
+    current_password = PasswordField(
+        'Current Password', 
+        validators=[DataRequired()],
+        render_kw={
+            "class": "form-control", 
+            "placeholder": "Current Password"
+        }
+    )
+    new_password = PasswordField(
+        'New Password', 
+        validators=[DataRequired()],
+        render_kw={
+            "class": "form-control", 
+            "placeholder": "New Password"
+        }
+    )
+    confirm_password = PasswordField(
+        'Confirm New Password', 
+        validators=[DataRequired(), EqualTo('new_password')],
+        render_kw={
+            "class": "form-control", 
+            "placeholder": "Confirm New Password"
+        }
+    )
+    submit = SubmitField(
+        'Change Password',
         render_kw={
             "class": "btn btn-primary"
         }

@@ -39,6 +39,7 @@ class User(UserMixin, BaseModel):
     verification_token = db.Column(db.String(40))
     verified = db.Column(db.Boolean, default=False)
     token_generated_at = db.Column(db.DateTime, default=datetime.utcnow)
+    messages = db.relationship('Message', backref='sender', lazy='dynamic')
 
     def __init__(self, *args, **kwargs):
         """

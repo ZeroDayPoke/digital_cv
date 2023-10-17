@@ -71,3 +71,14 @@ class EducationAdminView(AdminModelView):
     """
     column_list = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'related_skills', 'image_filename']
     form_columns = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'related_skills', 'image_filename']
+
+class UserAdminView(AdminModelView):
+    """
+    View for managing users in the admin panel, focused on the 'verified' attribute.
+    
+    Attributes:
+    - column_list (list): List of columns to display in the admin panel.
+    - form_columns (list): List of columns to display in the add/edit form.
+    """
+    column_list = ['username', 'email', 'verified']
+    form_columns = ['verified']

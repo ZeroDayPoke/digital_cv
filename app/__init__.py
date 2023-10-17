@@ -14,10 +14,10 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import redis
 from config import config
-from .models import db, User, Blog, Tutorial, Skill, Project, Education
+from .models import db, User, Blog, Tutorial, Skill, Project, Education, Message
 from .routes import (main_routes, auth_routes, project_routes,
                      skill_routes, admin_routes, blog_routes, tutorial_routes)
-from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView
+from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView, UserAdminView
 import logging
 
 
@@ -35,6 +35,7 @@ def init_admin(app):
     admin.add_view(BlogAdminView(Blog, db.session))
     admin.add_view(TutorialAdminView(Tutorial, db.session))
     admin.add_view(EducationAdminView(Education, db.session))
+    admin.add_view(UserAdminView(User, db.session))
     admin.add_link(MenuLink(name='Back to Central App', url='/'))
 
 
