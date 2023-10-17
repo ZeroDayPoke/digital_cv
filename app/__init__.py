@@ -95,16 +95,15 @@ def create_app(config_name='default') -> Flask:
     babel = Babel()
     babel.init_app(app, locale_selector=lambda: get_locale(app))
 
-    # Initialize Redis
-    redis_store = redis.StrictRedis(host='localhost', port=6379, db=0)
+    default_limits = app.config.get('DEFAULT_LIMITS', "30 per hour")
+    storage_uri = app.config.get('STORAGE_URI', "redis://localhost:6379")
 
-    # Initialize Flask-Limiter
     limiter = Limiter(
         app=app,
         key_func=get_remote_address,
-        storage_uri="redis://localhost:6379",
-        default_limits=["30 per hour"]
-    )
+        storage_uri=storage_uri,
+        default_limits=[default_limits]
+)
 
     @app.errorhandler(404)
     def page_not_found(e):
