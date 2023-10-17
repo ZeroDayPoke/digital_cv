@@ -2,6 +2,15 @@
 {% extends "base.html" %} {% block css %}
 <link
   rel="stylesheet"
-  href="{{ url_for('static', filename='styles/caro-edu.css', v='1.0') }}"
+  href="{{ url_for('static', filename='styles/edu.css', v='1.0') }}"
 />
-{% endblock %} {% block content %} {% include "default/header.html" %} {% include "resume/edu.html" %} {% endblock %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/project_row.css', v='1.0') }}"
+/>
+{% endblock %}
+{% block content %}
+{% include "default/header.html" %}
+{% include "resume/edu.html" %}
+{% include "resume/proj.html" %}
+{% endblock %}

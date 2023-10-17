@@ -1,0 +1,44 @@
+/* Limit the maximum height of each project row */
+.project-row {
+  max-height: 400px;
+  overflow: hidden;
+}
+
+/* Style the project images */
+.project-image {
+  object-fit: cover;
+  max-height: 400px;
+}
+
+.related-skills {
+  position: absolute;
+  bottom: 0;
+  start: 0;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: white;
+  font-size: 1.2em; /* Larger font size */
+  overflow: auto; /* Allow scrolling for overflow */
+  max-height: 100px; /* Limit the maximum height */
+}
+
+/* Style for synopsis column */
+.synopsis-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Styles for the skills list */
+.related-skills ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.related-skills li {
+  display: inline;
+  margin-right: 10px;
+}

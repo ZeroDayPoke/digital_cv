@@ -8,6 +8,12 @@ def seed_skills():
     skills = [
         {"name": "Python", "image_filename": "python.png"},
         {"name": "Flask", "image_filename": "flask.png"},
+        {"name": "SQLAlchemy", "image_filename": "sqlalchemy.png"},
+        {"name": "MySQL", "image_filename": "mysql.png"},
+        {"name": "React", "image_filename": "react.png"},
+        {"name": "Bootstrap", "image_filename": "bootstrap.png"},
+        {"name": "C", "image_filename": "c.png"},
+        {"name": "Node.js", "image_filename": "node.png"},
     ]
     
     # Query existing skills to prevent duplicates

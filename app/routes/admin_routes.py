@@ -18,6 +18,9 @@ from ..forms import (
     AddTutorialForm, UpdateTutorialForm, DeleteTutorialForm,
     UploadCVForm
 )
+from decouple import Config
+
+config = Config('.env')
 
 admin_routes = Blueprint('admin_routes', __name__, url_prefix='')
 
@@ -72,8 +75,16 @@ def upload_cv():
     form = UploadCVForm()
     if form.validate_on_submit():
         file = form.cv.data
-        filename = secure_filename(file.filename)
+
+        # Get the CV name from the environment variables
+        cv_pdf_name = config.get('CV_PDF_NAME', 'default_cv_name.pdf')
+        
+        # Secure the filename
+        filename = secure_filename(cv_pdf_name)
+        
+        # Save the file
         file.save(os.path.join(current_app.config.get('CV_UPLOAD_FOLDER', 'app/static/cv/'), filename))
+        
         flash('CV uploaded successfully', 'success')
     return redirect(url_for('admin_routes.interface'))
 
