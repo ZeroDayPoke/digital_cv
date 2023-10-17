@@ -3,7 +3,7 @@
 # ./utils/setup_flask.sh
 # Manage Flask-related variables in .env
 manage_flask_env() {
-  flask_vars=("FLASK_DEBUG" "SECRET_KEY" "FLASK_ENV")
+  flask_vars=("FLASK_APP_DEBUG" "SECRET_KEY" "FLASK_APP_ENV")
   for var in "${flask_vars[@]}"; do
     grep -q "^$var=" .env || {
       read -p "$var: " value

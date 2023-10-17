@@ -51,11 +51,10 @@ def resume():
     """
     Render the resume page.
     """
-    domain_name = current_app.config.get('DOMAIN_NAME', 'https://zerodaypoke.com')
+    domain_name = current_app.config.get('FLASK_APP_DOMAIN', 'https://zerodaypoke.com')
     pdf_name = current_app.config.get('CV_PDF_NAME', 'dynamic_cv_name.pdf')
     return render_template('resume/main.html', title='Resume', domain_name=domain_name, pdf_name=pdf_name)
 
 @main_routes.route('/exit_admin')
 def exit_admin():
-    # Perform any additional operations if needed
     return redirect(url_for('main_routes.index'))
