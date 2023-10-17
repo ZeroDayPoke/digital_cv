@@ -1,0 +1,79 @@
+# English (United States) translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-10-15 17:33-0500\n"
+"PO-Revision-Date: 2023-10-15 17:33-0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en_US\n"
+"Language-Team: en_US <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.0\n"
+
+msgid "name"
+msgstr "Chris Stamper"
+
+msgid "meta_description"
+msgstr "Chris Stamper's CV. Software Engineer and Chemical Engineer based in Tulsa, Oklahoma."
+
+msgid "meta_keywords"
+msgstr "Chris Stamper, Software Engineer, Chemical Engineer, Tulsa, Oklahoma, CV, Resume"
+
+msgid "meta_author"
+msgstr "Chris Stamper"
+
+msgid "header_name"
+msgstr "Chris Stamper"
+
+msgid "header_roles"
+msgstr "Data Engineer, Software Engineer, Chemical Engineer"
+
+msgid "header_location"
+msgstr "Location: Tulsa, Oklahoma, United States"
+
+msgid "contact_email"
+msgstr "cstampok@gmail.com"
+
+msgid "contact_website"
+msgstr "https://zerodaypoke.com"
+
+msgid "contact_github"
+msgstr "https://github.com/zerodaypoke"
+
+msgid "contact_linkedin"
+msgstr "https://www.linkedin.com/in/zerodaypoke/"
+
+msgid "header_objective"
+msgstr "make things"
+
+msgid "download_code_link"
+msgstr "https://zerodaypoke.com/static/resume_draft_v2.pdf"
+
+msgid "download_cv_link"
+msgstr "https://zerodaypoke.com/static/chris_stamper_cv.pdf"
+
+msgid "hire_me_email"
+msgstr "cstampok@gmail.com?subject=Job Opportunity"
+
+msgid "favicon_location"
+msgstr "static/images/favicon.ico"
+
+msgid "headshot_location"
+msgstr "static/images/chris.png"
+
+msgid "about_intro"
+msgstr "Talk about me some here..."
+
+msgid "about_goals"
+msgstr "fun job"
+
+msgid "about_interests"
+msgstr "prob should get some outside this"
