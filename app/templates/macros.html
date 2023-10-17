@@ -1,13 +1,26 @@
 <!-- app/templates/macros.html -->
 {% macro render_form(form, route, button_label) %}
 <form action="{{ url_for(route) }}" method="POST" enctype="multipart/form-data">
-  {{ form.hidden_tag() }}
-  {% for field in form if field.type != "SubmitField" %}
-  <p>{{ field.label }} {{ field() }}</p>
-  {% if field.errors %}
-  <p class="error">{{ field.errors[0] }}</p>
-  {% endif %}
+  {{ form.hidden_tag() }} {% for field in form if field.type != "SubmitField" %}
+  <div class="form-group">
+    <label for="{{ field.id }}">{{ field.label.text }}</label>
+    {% if field.type == "MultiCheckboxField" %}
+    <!-- Special handling for MultiCheckboxField -->
+    {% for subfield in field %}
+    <div class="form-check">
+      {{ subfield(class="form-check-input") }}
+      <label class="form-check-label" for="{{ subfield.id }}"
+        >{{ subfield.label.text }}</label
+      >
+    </div>
+    {% endfor %} {% else %} {{ field(class="form-control") }} {% endif %} {% if
+    field.errors %}
+    <p class="error">{{ field.errors[0] }}</p>
+    {% endif %}
+  </div>
   {% endfor %}
-  <p><input type="submit" value="{{ button_label }}" class="btn btn-primary"></p>
+  <div class="form-group">
+    <input type="submit" value="{{ button_label }}" class="btn btn-primary" />
+  </div>
 </form>
 {% endmacro %}
