@@ -51,6 +51,7 @@ class DevelopmentConfig(Config):
     DB_NAME = os.getenv('DB_NAME', 'cv_db_dev')
     SQLALCHEMY_DATABASE_URI = f"mysql+mysqldb://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
     FLASK_DEBUG = os.getenv('FLASK_DEBUG', True)
+    REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
 
 
 class TestingConfig(Config):
@@ -61,6 +62,7 @@ class TestingConfig(Config):
     DB_NAME = os.getenv('DB_NAME', 'cv_db_test')
     SQLALCHEMY_DATABASE_URI = f"mysql+mysqldb://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
     WTF_CSRF_ENABLED = False
+    REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
 
 
 class ProductionConfig(Config):
@@ -70,6 +72,7 @@ class ProductionConfig(Config):
     DB_NAME = os.getenv('DB_NAME', 'cv_db_prod')
     SQLALCHEMY_DATABASE_URI = f"mysql+mysqldb://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
     FLASK_DEBUG = os.getenv('FLASK_DEBUG', False)
+    REDIS_HOST = os.getenv('REDIS_HOST', 'redis')
 
 
 config = {

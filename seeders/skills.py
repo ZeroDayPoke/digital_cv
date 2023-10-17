@@ -18,8 +18,13 @@ def seed_skills():
         {"name": "Docker", "image_filename": "docker.png"},
         {"name": "Git", "image_filename": "git.png"},
         {"name": "Express", "image_filename": "express.png"},
+        {"name": "JavaScript", "image_filename": "javascript.png"},
+        {"name": "Chemical Engineering", "image_filename": "cheme.png"},
+        {"name": "Mathematics", "image_filename": "maths.png"},
+        {"name": "HTML", "image_filename": "html.png"},
+        {"name": "CSS", "image_filename": "css.png"}
     ]
-    
+
     # Query existing skills to prevent duplicates
     existing_skills = [s.name for s in db.session.query(Skill.name).all()]
     

@@ -18,8 +18,8 @@ migrate = Migrate(app, db)
 
 def run_app():
     """ Main Function """
-    host = environ.get('ZDP_HOST')
-    port = environ.get('ZDP_PORT')
+    host = environ.get('FLASK_APP_HOST')
+    port = environ.get('FLASK_APP_PORT')
     if not host:
         host = '127.0.0.1'
     if not port:

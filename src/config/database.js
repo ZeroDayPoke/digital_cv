@@ -20,7 +20,7 @@ const dbConfig = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   host: process.env.DB_HOST,
-  dialect: process.env.DB_DIALECT || "mysql",
+  dialect: process.env.DB_DIAL || "mysql",
   logging: env === "development" ? console.log : false,
 };
 

@@ -16,7 +16,7 @@ sys.dont_write_bytecode = True
 from flask_migrate import Migrate
 from app import create_app, db
 
-app = create_app(config_name='production')
+app = create_app(config_name='development')
 
 # Create a Migrate instance
 migrate = Migrate(app, db)
