@@ -6,8 +6,8 @@ from app import db
 def seed_skills():
     """Seed the skills table"""
     skills = [
-        {"name": "Python", "image_filename": ""},
-        {"name": "Flask", "image_filename": ""},
+        {"name": "Python", "image_filename": "python.png"},
+        {"name": "Flask", "image_filename": "flask.png"},
     ]
     
     # Query existing skills to prevent duplicates

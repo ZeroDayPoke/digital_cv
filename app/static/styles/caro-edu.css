@@ -1,48 +1,17 @@
-/* Fixed row height */
-.row-fixed-height {
-  height: 30vh;
-}
-
-/* Flexbox container for cards */
-.card-flex-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-/* Overflow control for card body */
-.card-body-overflow {
-  overflow: auto;
-}
-
-/* Carousel styles */
-.carousel-position {
+/* Image Wrapper (Square Container) */
+.image-wrapper {
   position: relative;
-}
-
-.carousel-inner-custom {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  width: 100%;
+  padding-bottom: 100%; /* 1:1 Aspect Ratio for square */
   overflow: hidden;
-  flex-grow: 1;
 }
 
-/* Carousel image */
-.carousel-img {
-  object-fit: cover;
-  height: 100%;
-}
-
-.carousel-img-cover {
-  object-fit: cover;
-  height: 100%;
-}
-
-/* Carousel controls */
-.carousel-control-prev,
-.carousel-control-next {
+/* Image */
+.image-wrapper img {
   position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
 }

@@ -13,7 +13,15 @@ def seed_projects():
             "repo_link": "https://github.com/ZeroDayPoke/digital_cv", 
             "live_link": "https://zerodaypoke.com", 
             "image_filename": "notfound2.png"
-        }
+        },
+        {
+            "name": "Better Flask", 
+            "description": "A Flask project with a better structure.", 
+            "role": "Full-stack developer", 
+            "repo_link": "",
+            "live_link": "",
+            "image_filename": "notfound2.png"
+        },
     ]
     
     # Query existing projects to prevent duplicates

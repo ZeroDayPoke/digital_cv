@@ -69,5 +69,5 @@ class EducationAdminView(AdminModelView):
     - column_list (list): List of columns to display in the admin panel.
     - form_columns (list): List of columns to display in the add/edit form.
     """
-    column_list = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'related_skills']
-    form_columns = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'related_skills']
+    column_list = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'related_skills', 'image_filename']
+    form_columns = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'related_skills', 'image_filename']

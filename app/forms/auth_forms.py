@@ -18,11 +18,44 @@ class SignupForm(FlaskForm):
     - confirm_password (PasswordField): a field for the user to confirm their password.
     - submit (SubmitField): a button to submit the form.
     """
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Sign Up')
+    username = StringField(
+        'Username', 
+        validators=[DataRequired()],
+        render_kw={
+            "class": "form-control",
+            "placeholder": "Username"
+        }
+    )
+    email = StringField(
+        'Email', 
+        validators=[DataRequired(), Email()],
+        render_kw={
+            "class": "form-control",
+            "placeholder": "Email"
+        }
+    )
+    password = PasswordField(
+        'Password', 
+        validators=[DataRequired()],
+        render_kw={
+            "class": "form-control",
+            "placeholder": "Password"
+        }
+    )
+    confirm_password = PasswordField(
+        'Confirm Password', 
+        validators=[DataRequired(), EqualTo('password')],
+        render_kw={
+            "class": "form-control",
+            "placeholder": "Confirm Password"
+        }
+    )
+    submit = SubmitField(
+        'Sign Up',
+        render_kw={
+            "class": "btn btn-primary"
+        }
+    )
 
 class SigninForm(FlaskForm):
     """
@@ -63,7 +96,19 @@ class UploadCVForm(FlaskForm):
     Attributes:
     - cv (FileField): The field for uploading the CV file.
     """
-    cv = FileField('Upload CV (PDF only)', validators=[
-        FileRequired(),
-        FileAllowed(['pdf'], 'PDFs only!')
-    ])
+    cv = FileField(
+        'Upload CV (PDF only)', 
+        validators=[
+            FileRequired(),
+            FileAllowed(['pdf'], 'PDFs only!')
+        ],
+        render_kw={
+            "class": "form-control-file"
+        }
+    )
+    submit = SubmitField(
+        'Upload',
+        render_kw={
+            "class": "btn btn-primary"
+        }
+    )

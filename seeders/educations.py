@@ -12,6 +12,13 @@ def seed_educations():
             "field_of_study": "Chemical Engineering",
             "grad_date": "2015",
             "details": "Graduated with a Bachelors of Science in Chemical Engineering."
+        },
+        {
+            "institution": "Holberton School",
+            "location": "Tulsa, OK, USA",
+            "field_of_study": "Computer Science and Full Stack Web Development",
+            "grad_date": "2024",
+            "details": "Currently attending for Computer Science and Full Stack Web Development"
         }
     ]
     
