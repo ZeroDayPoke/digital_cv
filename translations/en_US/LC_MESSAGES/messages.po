@@ -55,10 +55,10 @@ msgid "header_objective"
 msgstr "make things"
 
 msgid "download_code_link"
-msgstr "https://zerodaypoke.com/static/resume_draft_v2.pdf"
+msgstr ""
 
 msgid "download_cv_link"
-msgstr "https://zerodaypoke.com/static/chris_stamper_cv.pdf"
+msgstr "https://zerodaypoke.com/static/cv/chris_stamper_cv.pdf"
 
 msgid "hire_me_email"
 msgstr "cstampok@gmail.com?subject=Job Opportunity"
