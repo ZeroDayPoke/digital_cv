@@ -1,59 +1,44 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/about.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="container mt-5">
+  <!-- First Row: About Intro and Image -->
+  <div class="row">
+    <!-- About Intro -->
+    <div class="col-lg-6">
+      <h1>About Me</h1>
+      <p>{{ _("about_intro") }}</p>
+    </div>
 
-{% block title %}
-About Me
-{% endblock %}
+    <!-- Image -->
+    <div class="col-lg-6 d-flex justify-content-center">
+      <div class="img-container">
+        <img
+          src="{{ _('headshot_location') }}"
+          alt="{{ _('name') }}"
+          class="img-fluid rounded-circle"
+        />
+      </div>
+    </div>
+  </div>
 
-{% block css %}
-{% endblock %}
+  <!-- Second Row: Goals -->
+  <div class="row mt-4">
+    <div class="col-lg-12">
+      <h2>Goals</h2>
+      <p>{{ _("about_goals") }}</p>
+    </div>
+  </div>
 
-{% block content %}
-<!-- Container -->
-<div class="container-about">
-  <!-- Headshot -->
-  <img src="{{ url_for('static', filename='images/headshot.png') }}" alt="Mason's Headshot" class="headshot">
-
-  <!-- About Section -->
-  <section id="about-section">
-    <h1>About Me</h1>
-      <p>
-        Hello! I'm Mason, a data engineer who is deeply passionate about machine learning, neuroscience, and all things STEM.
-        Transitioning from a diverse background in business, trade-work, and experiential marketing, I've found my true
-        calling in software programming and
-        machine learning. After building a strong foundation in C and Python, I'm currently focused on working through the
-        foundational math and statistics behind neural networks while utilizing all of the machine learning tools that I can
-        grasp.
-
-        My academic journey at Oklahoma State University culminated in a degree in International Business and Chinese Studies,
-        and included awesome experiences while studying abroad in China at Fudan University in Shanghai and the opportunity to
-        attend the World Expo 2010 in Shanghai (I highly recommend the World Expo for your bucket list!). Although my initial
-        goal to bridge U.S.-China relations shifted due to personal reasons, these experiences ignited my love for cultural
-        diversity and travel.
-
-        Post-graduation, my diverse roles in HVAC contracting, home renovations, and experiential marketing have taught me the
-        power of human diversity and the importance of effective communication. These skills are now being channeled into
-        making
-        complex topics in computer science and machine learning more accessible.
-
-        As I look toward the future, I'm thrilled at the prospect of blending my love for technology and science in a career
-        that promises endless intellectual challenges and meaningful impact. Also, I have realized that programming,
-        especially
-        in the field of machine learning, is a skill that will allow me to work in any and all fields of science! Therefore,
-        I'm
-        fully committed to mastering machine learning and am on track to complete my curriculum at Holberton by April 2024.
-
-        Beyond my professional pursuits, my interests in philosophy, cognitive science, and science fiction continue to
-        broaden
-        my perspective and fuel my passion for learning.
-      </p>
-    <h2>Goals</h2>
-    <p>
-      Talk about your professional journey, significant projects, and what you're looking to accomplish in the future.
-    </p>
-    <h2>Interests</h2>
-    <p>
-      Share a bit about your interests, especially those that are professionally relevant.
-    </p>
-  </section>
+  <!-- Third Row: Interests -->
+  <div class="row mt-4">
+    <div class="col-lg-12">
+      <h2>Interests</h2>
+      <p>{{ _("about_interests") }}</p>
+    </div>
+  </div>
 </div>
 {% endblock %}

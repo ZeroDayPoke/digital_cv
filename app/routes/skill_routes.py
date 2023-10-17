@@ -56,5 +56,4 @@ def delete_skill():
 
 @skill_routes.route('/skills', methods=['GET'])
 def skills():
-    skills = Skill.query.all()
-    return render_template('skills.html', skills=skills)
+    return render_template('skills/main.html')

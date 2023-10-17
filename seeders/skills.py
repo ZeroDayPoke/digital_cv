@@ -14,6 +14,10 @@ def seed_skills():
         {"name": "Bootstrap", "image_filename": "bootstrap.png"},
         {"name": "C", "image_filename": "c.png"},
         {"name": "Node.js", "image_filename": "node.png"},
+        {"name": "nginx", "image_filename": "nginx.png"},
+        {"name": "Docker", "image_filename": "docker.png"},
+        {"name": "Git", "image_filename": "git.png"},
+        {"name": "Express", "image_filename": "express.png"},
     ]
     
     # Query existing skills to prevent duplicates
