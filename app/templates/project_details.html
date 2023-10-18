@@ -19,6 +19,11 @@
           <a href="{{ project.live_link }}" target="_blank">{{ project.live_link }}</a>
         </p>
         {% endif %}
+        {% if project.misc_link %}
+        <p><b>Live Project At:</b> 
+          <a href="{{ project.misc_link }}" target="_blank">{{ project.misc_name }}</a>
+        </p>
+        {% endif %}
         <ul>
           <li>
             <b>Related Skills:</b>
