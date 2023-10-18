@@ -25,8 +25,8 @@ class ProjectAdminView(AdminModelView):
     - column_list (list): List of columns to display in the admin panel.
     - form_columns (list): List of columns to display in the add/edit form.
     """
-    column_list = ['name', 'image_filename', 'description', 'related_skills']
-    form_columns = ['name', 'image_filename', 'description', 'related_skills']
+    column_list = ['name', 'image_filename', 'description', 'related_skills', 'repo_link', 'live_link']
+    form_columns = ['name', 'image_filename', 'description', 'related_skills', 'repo_link', 'live_link']
 
 class SkillAdminView(AdminModelView):
     """
