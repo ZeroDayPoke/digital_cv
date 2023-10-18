@@ -1,0 +1,77 @@
+version: "3.4"
+
+services:
+  db:
+    image: mysql:8.0.34
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    command: --default-authentication-plugin=caching_sha2_password
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "${DB_USER}",
+          "-p${DB_PASS}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  flask-app:
+    build:
+      context: ./${FLASK_APP_REPO}
+    ports:
+      - "${FLASK_APP_PORT}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - /home/grazingtatanka/spinup/digital_cv/app/static:/app/static
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - flask-app
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot
+      - /home/grazingtatanka/spinup/digital_cv/app/static:/app/static
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/www/certbot:/var/www/certbot
+    command: certonly --webroot --webroot-path=/var/www/certbot --email diamondpawsholding@gmail.com --agree-tos --no-eff-email --non-interactive --force-renewal -d zerodaypoke.com -d www.zerodaypoke.com
+    depends_on:
+      - nginx
+
+volumes:
+  mysql-data:
