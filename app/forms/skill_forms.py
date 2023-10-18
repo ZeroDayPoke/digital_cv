@@ -16,8 +16,8 @@ class SkillsFilterForm(FlaskForm):
     - skills: A MultiCheckboxField for selecting skills.
     - filter: A SubmitField for submitting the form.
     """
-    skills = MultiCheckboxField('Skills', choices=[], render_kw={"class": "form-check-input"})
-    filter = SubmitField('Filter', render_kw={"class": "btn btn-outline-primary"})
+    skills = MultiCheckboxField('Skills', choices=[])
+    filter = SubmitField('Filter')
 
 class AddSkillForm(FlaskForm):
     """

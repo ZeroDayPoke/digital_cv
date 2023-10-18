@@ -1,16 +1,29 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% block content %}
 
-<div class="row project-display-container">
-  <!-- Include the Filter Section -->
-  {% include 'caro/filter.html' %}
+<!-- Main Container -->
+<div class="container-fluid">
 
-  <div class="col-md-9 position-relative">
-    <!-- Include the Carousel -->
-    {% include 'caro/main.html' %}
+  <!-- Row for Filter and Carousel + Synopsis -->
+  <div class="row flex-md-row">
+  
+    <!-- Column for Filter -->
+    <div class="col-12 col-md-4">
+      {% include 'caro/filter.html' %}
+    </div>
 
-    <!-- Include the Project Synopsis -->
-    {% include 'caro/synopsis.html' %}
+    <!-- Column for Carousel and Synopsis -->
+    <div class="col-12 col-md-8">
+    
+      <!-- Carousel -->
+      {% include 'caro/main.html' %}
+      
+      <!-- Project Synopsis -->
+      {% include 'caro/synopsis.html' %}
+      
+    </div>
   </div>
-</div>
+
+</div> <!-- End Main Container -->
 
 {% endblock %}
