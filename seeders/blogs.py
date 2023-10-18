@@ -7,7 +7,9 @@ def seed_blogs():
     """Seed the blogs table"""
 
     blogs = [
-        {"name": "My Journey to Programming", "description": "A blog post about how I got into programming.", "content_file": "journey", "image_filename": "notfound1.png"},
+        {"name": "cnn", "description": "cnn", "content_file": "cnn", "image_filename": ""},
+        {"name": "optimization", "description": "optimization", "content_file": "optimization", "image_filename": ""},
+        {"name": "regularization", "description": "regularization", "content_file": "regularization", "image_filename": ""}
     ]
     existing_blogs = [b.name for b in Blog.query.all()]
     for blog_data in blogs:
