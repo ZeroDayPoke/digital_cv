@@ -5,6 +5,10 @@
 />
 {% endblock %} {% block content %}
 
+<video autoplay loop muted playsinline id="background-video">
+  <source src="{{ url_for('static', filename='videos/background.mov')}}" type="video/mp4">
+</video>
+
 <div class="mt-5 mb-5 skill-circle-container">
   <!-- Central User Image -->
   <img
