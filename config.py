@@ -40,7 +40,7 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = "UTC"
     BABEL_TRANSLATION_DIRECTORIES = os.path.join(os.getcwd(), 'translations')
     CV_UPLOAD_FOLDER = os.getenv('CV_UPLOAD_FOLDER', 'app/static/cv/')
-    DOMAIN_NAME = os.getenv('DOMAIN_NAME', 'http://localhost:8000')
+    FLASK_APP_DOMAIN = os.getenv('FLASK_APP_DOMAIN', 'http://localhost:8000')
     CV_PDF_NAME = os.getenv('CV_PDF_NAME', 'resume_draft_v2.pdf')
     USE_EXTENDED_BOOTSTRAP = os.getenv('USE_EXTENDED_BOOTSTRAP', True)
 
