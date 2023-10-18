@@ -12,8 +12,8 @@ def seed_projects():
             "role": "Full-stack developer", 
             "repo_link": "https://github.com/ZeroDayPoke/digital_cv", 
             "live_link": "https://zerodaypoke.com", 
-            "image_filename": "notfound2.png",
-            "skills": ["Flask", "Python", "JavaScript"]
+            "image_filename": "digital_cv.png",
+            "skills": ["Flask", "Python", "JavaScript", "CSS", "HTML", "Git", "nginx", "Docker", "SQLAlchemy", "node.js", "MySQL", "Expresss", "Bootstrap"]
         },
         {
             "name": "Strain.GG Clouds", 
