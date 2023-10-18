@@ -3,9 +3,9 @@
 <form action="{{ url_for(route) }}" method="POST" enctype="multipart/form-data">
   <div class="container">
     {{ form.hidden_tag() }} {% for field in form if field.type != "SubmitField"
-    and field.name != 'csrf_token' %} {% if field.name == 'skills' %}
+    and field.name != 'csrf_token' %} {% if field.name in ['skills', 'related_skills'] %}
     <!-- Special layout for 'skills' -->
-    <div class="form-group row">
+    <div class="form-group row mb-4">
       <div class="col-sm-12">
         <label for="{{ field.id }}" class="form-label"
           >{{ field.label.text }}</label
@@ -24,7 +24,7 @@
               id="{{ subfield.id }}"
               autocomplete="off"
             />
-            <label class="btn btn-primary w-100 mb-2" for="{{ subfield.id }}"
+            <label class="btn btn-primary w-100 mb-3" for="{{ subfield.id }}"
               >{{ subfield.label.text }}</label
             >
           </div>
@@ -34,13 +34,13 @@
     </div>
     {% else %}
     <!-- Default layout for other fields -->
-    <div class="form-group row">
+    <div class="form-group row mb-2">
       <label for="{{ field.id }}" class="col-sm-2 col-form-label"
         >{{ field.label.text }}</label
       >
       <div class="col-sm-10">
         {{ field(class="form-control") }} {% if field.errors %}
-        <div class="errors">
+        <div class="errors mt-2">
           {% for error in field.errors %}
           <p class="error">{{ error }}</p>
           {% endfor %}
