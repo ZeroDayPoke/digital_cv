@@ -4,20 +4,35 @@
   href="{{ url_for('static', filename='styles/project-detail.css', v='1.2') }}"
 />
 {% endblock %} {% block content %}
-
 <section class="row justify-content-center">
   <div class="col-md-10">
     <div class="card project-card mb-4 bg-dark text-light card-container">
+      <div class="card-header">
+        <h3>
+          {% if project.repo_link %}
+          <a href="{{ project.repo_link }}" target="_blank"
+            >{{ project.name }}</a
+          >
+          {% else %} {{ project.name }} {% endif %}
+        </h3>
+      </div>
       <div class="card-body">
-        <div class="row d-flex align-items-stretch">
-          <div class="col-md-6 d-flex align-items-center">
-            <h1 class="card-title">
+        <div class="row d-flex align-items-stretch flex-wrap mb-4">
+          <div class="col-md-6 d-flex flex-column">
+            <h6 class="card-title text-muted mb-4">
               {% if project.repo_link %}
               <a href="{{ project.repo_link }}" target="_blank"
-                >{{ project.name }}</a
+                >Github Repo: {{ project.repo_link }}</a
               >
-              {% else %} {{ project.name }} {% endif %}
-            </h1>
+              {% endif %}
+            </h6>
+            <h6 class="card-subtitle text-muted">
+              {% if project.live_link %}
+              <a href="{{ project.live_link }}" target="_blank"
+                >Live Project At: {{ project.live_link }}</a
+              >
+              {% endif %}
+            </h6>
           </div>
           <div
             class="col-md-6 d-flex justify-content-center align-items-center"
@@ -25,25 +40,18 @@
             {% if project.image_filename %}
             <img
               src="{{ url_for('static', filename='images/projects/' + project.image_filename) }}"
-              class="stretch-full"
+              class="img-thumbnail stretch-full"
             />
             {% endif %}
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <p class="card-text">
+        <div class="row d-flex align-items-stretch flex-wrap mb-4">
+          <div class="col-md-12 d-flex flex-column">
+            <p class="card-text mb-4">
               <b>Description:</b> {{ project.description }}
             </p>
-            <p class="card-text"><b>Role:</b> {{ project.role }}</p>
-            {% if project.live_link %}
-            <p>
-              <b>Live Project At:</b>
-              <a href="{{ project.live_link }}" target="_blank"
-                >{{ project.live_link }}</a
-              >
-            </p>
-            {% endif %} {% if project.misc_link %}
+            <p class="card-text mb-4"><b>Role:</b> {{ project.role }}</p>
+            {% if project.misc_link %}
             <p>
               <b>{{ project.misc_name }} At:</b>
               <a href="{{ project.misc_link }}" target="_blank"
@@ -51,7 +59,7 @@
               >
             </p>
             {% endif %}
-            <ul>
+            <ul class="mb-4">
               <li>
                 <b>Related Skills:</b>
                 <ul>
@@ -67,5 +75,4 @@
     </div>
   </div>
 </section>
-
 {% endblock %}

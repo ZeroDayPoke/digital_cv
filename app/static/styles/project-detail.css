@@ -1,6 +1,6 @@
 .card-container {
   max-height: 70vh;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 .stretch-full {
