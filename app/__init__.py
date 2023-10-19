@@ -72,6 +72,7 @@ def register_context_processors(app):
             'projects': Project.query.all(),
             'skills': Skill.query.all(),
             'educations': Education.query.all(),
+            'experiences': Experience.query.all(),
         }
 
 

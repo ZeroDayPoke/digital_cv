@@ -109,5 +109,5 @@ class ExperienceAdminView(AdminModelView):
     form_columns = ['company', 'location', 'position', 'start_date', 'end_date', 'is_current', 'description', 'experience_type', 'image_filename']
 
 class MessageAdminView(AdminModelView):
-    column_list = ['sender_id', 'message_body', 'is_read', 'image_filename', 'created_at', 'updated_at']
-    form_columns = ['sender_id', 'message_body', 'is_read', 'image_filename']
+    column_list = ['sender_id', 'message_body', 'is_read', 'created_at', 'updated_at']
+    form_columns = ['sender_id', 'message_body', 'is_read']

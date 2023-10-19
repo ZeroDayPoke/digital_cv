@@ -7,6 +7,7 @@ from .tutorials import seed_tutorials
 from .blogs import seed_blogs
 from .educations import seed_educations
 from .projects import seed_projects
+from .experiences import seed_experiences
 
 def seed_all():
     """
@@ -27,3 +28,4 @@ def seed_all():
     seed_blogs()
     seed_educations()
     seed_projects()
+    seed_experiences()
