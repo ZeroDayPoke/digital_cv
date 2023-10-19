@@ -1,0 +1,58 @@
+<h1>{{ _('Hello world') }}</h1>
+<h2>{{ _('Welcome to Flask-Babel Tutorial') }}</h2>
+
+<h2 id="basic-flask-app">0. Basic Flask App</h2>
+<p>
+  Start with setting up a basic Flask app. Flask makes it easy to set up a web
+  application with minimal boilerplate. Learn how to define routes and render
+  HTML templates using the `render_template` function.
+</p>
+
+<h2 id="basic-babel-setup">1. Basic Babel Setup</h2>
+<p>
+  Discover Flask-Babel, an essential extension for internationalizing Flask
+  applications. Understand how to configure available languages and set up
+  default locale and timezone for your app.
+</p>
+
+<h2 id="get-locale-from-request">2. Get Locale from Request</h2>
+<p>
+  Learn to leverage the `Accept-Language` header sent by browsers. Using
+  Flask-Babel's `localeselector`, determine and set the locale for each request
+  dynamically.
+</p>
+
+<h2 id="parametrize-templates">3. Parametrize Templates</h2>
+<p>
+  Dive into template internationalization. Understand the concept of message IDs
+  and how to use the `_` or `gettext` function to parametrize templates. Set up
+  translation workflows with `pybabel`.
+</p>
+
+<h2 id="force-locale-url">4. Force Locale with URL Parameter</h2>
+<p>
+  Learn to change the behavior of applications dynamically using URL parameters.
+  Understand how to override default behaviors like locale selection based on
+  URL inputs.
+</p>
+
+<h2 id="mock-logging-in">5. Mock Logging In</h2>
+<p>
+  Emulate user-specific behaviors without setting up a full authentication
+  system. Using Flask's global `g` object, mock user data and login mechanisms
+  for development and testing purposes.
+</p>
+
+<h2 id="use-user-locale">6. Use User Locale</h2>
+<p>
+  Dive deeper into personalizing user experience. Understand how to check user
+  data and provide a tailored experience, such as displaying content in a user's
+  preferred language.
+</p>
+
+<h2 id="infer-timezone">7. Infer Appropriate Time Zone</h2>
+<p>
+  Handling time zones correctly is crucial for global applications. Learn about
+  Flask-Babel's mechanisms to set and use time zones, ensuring date-time data is
+  displayed appropriately for users.
+</p>
