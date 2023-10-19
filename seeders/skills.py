@@ -29,6 +29,7 @@ def seed_skills():
         {"name": "dotnet SDK", "image_filename": "dotnet.png", "level": SkillLevel.INTERMEDIATE, "category": "Framework"},
         {"name": "C#", "image_filename": "csharp.png", "level": SkillLevel.INTERMEDIATE, "category": "Language"},
         {"name": "sequelize", "image_filename": "sequelize.png", "level": SkillLevel.INTERMEDIATE, "category": "ORM"},
+        {"name": "sales", "image_filename": "sales.png", "level": SkillLevel.INTERMEDIATE, "category": "Field"},
     ]
 
     # Query existing skills to prevent duplicates
