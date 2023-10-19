@@ -68,6 +68,20 @@
                   {% endfor %}
                 </ul>
               </li>
+              <li>
+                <b>Collaborators:</b>
+                <ul>
+                  {% for collaborator in project.collaborators %}
+                  <li>
+                    <a
+                      href="https://github.com/{{ collaborator.github_username }}"
+                      target="_blank"
+                      >{{ collaborator.username }}</a
+                    >
+                  </li>
+                  {% endfor %}
+                </ul>
+              </li>
             </ul>
           </div>
         </div>

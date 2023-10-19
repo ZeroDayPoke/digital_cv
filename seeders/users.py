@@ -16,8 +16,11 @@ def seed_users():
 
     users = [
         {"username": admin_username, "email": admin_email, "password": admin_password, "role": "ADMIN"},
-        {"username": "user", "email": "user@zerodaypoke.com", "password": "user", "role": "USER"},
-        {"username": "guest", "email": "guest@zerodaypoke.com", "password": "guest", "role": "GUEST"},
+        {"username": "mason", "email": "mason@zerodaypoke.com", "password": "mason", "role": "USER", "github_username": "spindouken"},
+        {"username": "rob", "email": "rob@zerodaypoke.com", "password": "rob", "role": "USER", "github_username": "Nomad-Rob"},
+        {"username": "jules", "email": "jules@zerodaypoke.com", "password": "jules", "role": "USER", "github_username": "Julia-5534"},
+        {"username": "twood", "email": "twood@zerodaypoke.com", "password": "twood", "role": "USER", "github_username": "WoodsonTD"},
+        {"username": "jobb", "email": "jobb@zerodaypoke.com", "password": "jobb", "role": "USER", "github_username": "jobabyyy"}
     ]
 
     for user_data in users:

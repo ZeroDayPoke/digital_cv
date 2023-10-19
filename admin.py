@@ -25,9 +25,13 @@ class ProjectAdminView(AdminModelView):
     - column_list (list): List of columns to display in the admin panel.
     - form_columns (list): List of columns to display in the add/edit form.
     """
-    column_list = ['name', 'image_filename', 'description', 'related_skills', 'repo_link', 'live_link', 'misc_link', 'misc_name']
-    form_columns = ['name', 'image_filename', 'description', 'related_skills', 'repo_link', 'live_link', 'misc_link', 'misc_name']
+    column_list = ['name', 'description', 'role', 'repo_link', 'live_link', 'misc_link', 'misc_name', 'status', 'collaborators', 'image_filename', 'related_skills', 'created_at', 'updated_at']
+    form_columns = ['name', 'description', 'role', 'repo_link', 'live_link', 'misc_link', 'misc_name', 'status', 'collaborators', 'image_filename', 'related_skills']
 
+    column_formatters = {
+        'collaborators': lambda v, c, m, p: ", ".join([collaborator.username for collaborator in m.collaborators]),
+        'related_skills': lambda v, c, m, p: ", ".join([skill.name for skill in m.related_skills]),
+    }
 class SkillAdminView(AdminModelView):
     """
     View for managing skills in the admin panel.
@@ -36,8 +40,16 @@ class SkillAdminView(AdminModelView):
     - column_list (list): List of columns to display in the admin panel.
     - form_columns (list): List of columns to display in the add/edit form.
     """
-    column_list = ['name', 'image_filename', 'related_projects', 'related_blogs', 'related_tutorials']
-    form_columns = ['name', 'image_filename', 'related_projects', 'related_blogs', 'related_tutorials']
+
+    column_list = ['name', 'level', 'category', 'image_filename', 'created_at', 'updated_at', 'related_blogs', 'related_tutorials', 'related_educations', 'related_projects']
+    form_columns = ['name', 'level', 'category', 'image_filename', 'related_tutorials', 'related_educations', 'related_projects', 'related_blogs']
+
+    column_formatters = {
+        'related_projects': lambda v, c, m, p: ", ".join([project.name for project in m.related_projects]),
+        'related_blogs': lambda v, c, m, p: ", ".join([blog.name for blog in m.related_blogs]),
+        'related_tutorials': lambda v, c, m, p: ", ".join([tutorial.name for tutorial in m.related_tutorials]),
+        'related_educations': lambda v, c, m, p: ", ".join([education.institution for education in m.related_educations]),
+    }
 
 class BlogAdminView(AdminModelView):
     """
@@ -47,8 +59,11 @@ class BlogAdminView(AdminModelView):
     - column_list (list): List of columns to display in the admin panel.
     - form_columns (list): List of columns to display in the add/edit form.
     """
-    column_list = ['name', 'image_filename', 'description', 'content_file', 'related_skills']
-    form_columns = ['name', 'image_filename', 'description', 'content_file', 'related_skills']
+    column_list = ['name', 'description', 'content_file', 'tags', 'image_filename', 'related_skills', 'created_at', 'updated_at']
+    form_columns = ['name', 'description', 'content_file', 'tags', 'image_filename', 'related_skills']
+    column_formatters = {
+        'related_skills': lambda v, c, m, p: ", ".join([skill.name for skill in m.related_skills]),
+    }
 
 class TutorialAdminView(AdminModelView):
     """
@@ -58,8 +73,11 @@ class TutorialAdminView(AdminModelView):
     - column_list (list): List of columns to display in the admin panel.
     - form_columns (list): List of columns to display in the add/edit form.
     """
-    column_list = ['name', 'description', 'related_skills']
-    form_columns = ['name', 'description', 'related_skills']
+    column_list = ['name', 'description', 'content_file', 'tags', 'image_filename', 'related_skills', 'created_at', 'updated_at']
+    form_columns = ['name', 'description', 'content_file', 'tags', 'image_filename', 'related_skills']
+    column_formatters = {
+        'related_skills': lambda v, c, m, p: ", ".join([skill.name for skill in m.related_skills]),
+    }
 
 class EducationAdminView(AdminModelView):
     """
@@ -69,8 +87,11 @@ class EducationAdminView(AdminModelView):
     - column_list (list): List of columns to display in the admin panel.
     - form_columns (list): List of columns to display in the add/edit form.
     """
-    column_list = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'related_skills', 'image_filename']
-    form_columns = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'related_skills', 'image_filename']
+    column_list = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'image_filename', 'related_skills', 'created_at', 'updated_at']
+    form_columns = ['institution', 'location', 'field_of_study', 'grad_date', 'details', 'image_filename', 'related_skills']
+    column_formatters = {
+        'related_skills': lambda v, c, m, p: ", ".join([skill.name for skill in m.related_skills]),
+    }
 
 class UserAdminView(AdminModelView):
     """
@@ -82,3 +103,11 @@ class UserAdminView(AdminModelView):
     """
     column_list = ['username', 'email', 'verified']
     form_columns = ['verified']
+
+class ExperienceAdminView(AdminModelView):
+    column_list = ['company', 'location', 'position', 'start_date', 'end_date', 'is_current', 'description', 'experience_type', 'image_filename', 'created_at', 'updated_at']
+    form_columns = ['company', 'location', 'position', 'start_date', 'end_date', 'is_current', 'description', 'experience_type', 'image_filename']
+
+class MessageAdminView(AdminModelView):
+    column_list = ['sender_id', 'message_body', 'is_read', 'image_filename', 'created_at', 'updated_at']
+    form_columns = ['sender_id', 'message_body', 'is_read', 'image_filename']

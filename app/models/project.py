@@ -3,7 +3,7 @@
 # Path: digital_cv/app/models/project.py
 
 from .base import BaseModel, db
-from .associations import project_skills
+from .associations import project_skills, project_users
 
 class Project(BaseModel):
     """
@@ -38,6 +38,8 @@ class Project(BaseModel):
     live_link = db.Column(db.String(500), nullable=True)
     misc_link = db.Column(db.String(500), nullable=True)
     misc_name = db.Column(db.String(120), nullable=True)
+    status = db.Column(db.String(20), nullable=False, default='Planning')  # New field
+    collaborators = db.relationship('User', secondary=project_users, back_populates='projects')
     related_skills = db.relationship('Skill', secondary=project_skills, back_populates='related_projects')
 
     def __repr__(self):
