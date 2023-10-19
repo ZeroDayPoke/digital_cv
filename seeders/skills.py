@@ -22,7 +22,8 @@ def seed_skills():
         {"name": "Chemical Engineering", "image_filename": "cheme.png"},
         {"name": "Mathematics", "image_filename": "maths.png"},
         {"name": "HTML", "image_filename": "html.png"},
-        {"name": "CSS", "image_filename": "css.png"}
+        {"name": "CSS", "image_filename": "css.png"},
+        {"name": "Figma", "image_filename": "figma.png"},
     ]
 
     # Query existing skills to prevent duplicates
