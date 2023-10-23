@@ -1,0 +1,872 @@
+<h1>Optimization</h1>
+
+<div role="region" aria-label="Machine learning optimization video">
+  <video controls autoplay loop muted width="100%">
+    <source
+      src="{{ url_for('static', filename='videos/RunWayMLDemo_G2_ML_Flash.mp4') }}"
+      type="video/mp4"
+    />
+    Your browser does not support the video tag or the file format of this
+    video.
+  </video>
+  <p>
+    Generated using RunWay with the prompt: "Dive into this captivating video
+    that visually animates the journey of machine learning algorithms. Witness
+    colorful data points dynamically adjust in response to optimization methods,
+    illustrating concepts like gradient descent and batch normalization in
+    real-time."
+  </p>
+</div>
+
+<nav role="navigation" aria-label="Table of Contents">
+  <h2 id="table-of-contents-heading">Table of Contents</h2>
+  <ul>
+    <li><a href="#intro">0. Intro</a></li>
+    <li><a href="#feature-scaling">1. Feature Scaling</a></li>
+    <li><a href="#batch-normalization">2. Batch Normalization</a></li>
+    <li><a href="#mini-batch-gradient">3. Mini-batch Gradient Descent</a></li>
+    <li>
+      <a href="#gradient-descent-momentum">4. Gradient Descent with Momentum</a>
+    </li>
+    <li><a href="#rmsprop">5. RMSProp Optimization</a></li>
+    <li><a href="#adam-optimization">6. Adam Optimization</a></li>
+    <li><a href="#learning-rate-decay">7. Learning Rate Decay</a></li>
+  </ul>
+</nav>
+
+<h2 id="intro">What is TensorFlow?</h2>
+
+<p>
+  TensorFlow is an open-source machine learning library developed by the Google
+  Brain Team. It was designed to be highly flexible and efficient, catering to a
+  wide variety of machine learning models and applications. The name
+  'TensorFlow' is derived from the operations that neural networks perform on
+  multidimensional data arrays, which are referred to as "tensors".
+</p>
+// TODO: add link to tensor definition && general ENSC notes
+
+<h2>Versions:</h2>
+<p>
+  TensorFlow 1.x vs TensorFlow 2.x There have been two major versions of
+  TensorFlow: TensorFlow 1.x and TensorFlow 2.x. TensorFlow 1.x established
+  itself with a unique way of defining and running computations involving
+  tensors using a data flow graph. Here, operations and tensors are created
+  first and computed later. However, this posed a steep learning curve for
+  beginners due to its relatively more complex syntax and operation. With the
+  release of TensorFlow 2.x, many improvements were introduced. Eager execution
+  became the default, meaning operations are computed as they're defined, which
+  aligns more with the standard Pythonic programming and makes debugging easier.
+  It also fully integrated the high-level Keras API, making it easier to build
+  and train models. Regardless of the version, understanding TensorFlow's core
+  concepts remain vital in effectively leveraging its power.
+</p>
+
+TensorFlow Session
+<pre class="code">
+<code>sess = tf.Session()</code>
+<code>output = sess.run(fetches)</code>
+<code>sess.close()</code>
+<code>
+  import tensorflow as tf
+  
+  # Build a computation graph
+  a = tf.constant(5.0)
+  b = tf.constant(6.0)
+  c = a * b
+  
+  # Start a new Session
+  sess = tf.Session()
+  
+  # Evaluate the tensor `c`
+  print("Result: ", sess.run(c))
+  
+  # The output will be:
+  Result: 30.0
+  
+  # Close the session to free up system resources
+  sess.close()
+  </code>
+</pre>
+using with to close after:
+<pre class="code">
+<code>
+  with tf.Session() as sess:
+    print("Result: ", sess.run(c))
+</code>
+</pre>
+<h2>What is a MetaGraph?</h2>
+<p>
+  MetaGraph is a dataflow graph, plus its associated variables, assets, and
+  signatures. It's a complete TensorFlow program, including both the graph
+  structure and the state of variables. MetaGraphs are saved to disk as protobuf
+  files with a .meta extension. They can be exported and imported, preserving
+  both the graph structure and the variable states.
+</p>
+
+<h2>import_meta_graph function</h2>
+<p>
+  This function is used to import a previously exported MetaGraph. It provides a
+  way for us to load previously trained models, allowing us to avoid the need to
+  retrain them, which can be both time and resource-intensive.
+</p>
+
+<h2>Using the import_meta_graph function</h2>
+<p>
+  The import_meta_graph function is part of the tf.train module, and its primary
+  purpose is to import a serialized TensorFlow MetaGraph into the current graph.
+  Here is the basic syntax:
+</p>
+<pre class="code">
+  <code>
+    saver = tf.train.import_meta_graph('model.ckpt.meta')
+  </code>
+</pre>
+
+<p>
+  The string 'model.ckpt.meta' is the filename of the MetaGraph. This function
+  adds the saved graph into the current graph, and returns a Saver that can be
+  used to restore the saved variables into the session.
+</p>
+<pre class="code">
+  <code>
+    import tensorflow as tf
+    
+    # Assume we have a previously trained model saved with the name 'my_model'
+    with tf.Session() as sess:
+      new_saver = tf.train.import_meta_graph('my_model.meta')
+      
+      # Now, let's access the graph
+      graph = tf.get_default_graph()
+      
+      # If you want to know the operations in the graph
+      for op in graph.get_operations():
+        print(op.name)
+      
+      # To restore the session with our trained variables
+      new_saver.restore(sess, tf.train.latest_checkpoint('./'))
+  </code>
+</pre>
+
+<h2>Accessing Tensors</h2>
+
+<p>
+  To access a tensor, we use the get_tensor_by_name method. This method is part
+  of the Graph class in TensorFlow, and it retrieves a tensor from the current
+  computation graph by its name:
+</p>
+
+<pre class="code">
+  <code>
+    tensor = graph.get_tensor_by_name(name)
+  </code>
+</pre>
+
+<h2>Accessing Operations</h2>
+<p>
+  To access an operation, we use the get_operation_by_name method. This method
+  is also part of the Graph class in TensorFlow, and it retrieves an operation
+  from the current computation graph by its name:
+</p>
+
+<pre class="code">
+  <code>
+    operation = graph.get_operation_by_name(name)
+  </code>
+</pre>
+
+<h2>Accessing Placeholders</h2>
+
+<h2>Determining the Number of Steps for Mini-Batch Gradient Descent</h2>
+When training a machine learning model, we often break down our training set
+into smaller subsets known as mini-batches. This approach, known as mini-batch
+gradient descent, allows us to update our model's parameters using a subset of
+our data, rather than the entire data set at once (as in batch gradient descent)
+or one sample at a time (as in stochastic gradient descent). The number of
+mini-batches, or "steps", we will need to go through in an epoch (a single pass
+through the entire dataset) depends on our chosen batch_size and the size of our
+training set. Here's how we determine it:
+
+<pre class="code">
+  <code>
+    # Get the number of training examples
+    m = X_train.shape[0]
+    
+    # Calculate the number of steps
+    steps = m // batch_size
+    
+    # Check if we have any remaining data after dividing our dataset into batches
+    if steps * batch_size < m:
+      steps += 1
+  </code>
+</pre>
+<p>
+  X_train.shape[0] gives us the total number of training examples in our dataset
+  (m). The // operator performs floor division. So m // batch_size gives us the
+  number of full mini-batches that can be created from our training set.
+  However, if our training set size (m) is not perfectly divisible by the
+  batch_size, we will have some remaining data. This is checked by steps *
+  batch_size < m. If this condition is true, it means we have more data left, so
+  we add one more step to include this remaining data.
+</p>
+
+<h2>Data Shuffling in Machine Learning</h2>
+<p>
+  When training a machine learning model, we often shuffle our data to ensure
+  that the training process is not influenced by the order of the examples in
+  our dataset. This is a critical step, especially when using an iterative
+  optimization algorithm like gradient descent, which updates the model
+  parameters for each batch of data.
+</p>
+
+<section id="feature-scaling" aria-labelledby="feature-scaling-heading">
+  <h2 id="feature-scaling-heading">1. Feature Scaling</h2>
+  <h3>Mechanics</h3>
+  <p>
+    Feature Scaling involves adjusting the scale of features in your dataset to
+    a standard scale (usually a range between 0 and 1 or a mean of 0 and
+    standard deviation of 1). This technique is often used in algorithms that
+    use distance-based measures or gradient descent because these algorithms can
+    be sensitive to the scale of the features.
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        <p>
+          <strong>Normalization (Min-Max Scaling):</strong>
+        </p>
+        $$x' = \frac{x - min(x)}{max(x) - min(x)}$$
+        <p>
+          <strong>Standardization (Z-score Normalization):</strong>
+        </p>
+        $$x' = \frac{x - \mu}{\sigma}$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        <p>
+          <strong>Normalization:</strong> This method rescales the features to a
+          fixed range, usually 0 to 1. The normalized feature \(x'\) is
+          calculated by subtracting the minimum value of the feature \(min(x)\)
+          from the original feature \(x\) and dividing by the range of the
+          feature \(max(x) - min(x)\).
+        </p>
+        <p>
+          <strong>Standardization:</strong> This method standardizes features by
+          removing the mean and scaling to unit variance. The standardized
+          feature \(x'\) is calculated by subtracting the mean of the feature
+          \(\mu\) from the original feature \(x\) and dividing by the standard
+          deviation of the feature \(\sigma\).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>Pros</h4>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Speeds up the learning process: When features have similar scales, the
+          gradient descent algorithm converges more quickly towards the minimum
+          because it doesn't oscillate as much in directions associated with
+          highly scaled features.
+        </li>
+        <li class="list-group-item">
+          Helps prevent getting stuck in local optima: When features are on
+          different scales, the cost function becomes elongated, increasing the
+          chance of the optimization algorithm getting stuck in poor local
+          optima. Feature scaling mitigates this issue.
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <h4>Cons</h4>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Computationally expensive for large datasets: Scaling all features in
+          a large dataset can be computationally intensive, potentially slowing
+          down the initial data preparation phase.
+        </li>
+        <li class="list-group-item">
+          May lose some information: Scaling may reduce the interpretability of
+          the data and can compress the range, sometimes obscuring outliers or
+          complex data distributions.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="batch-normalization" aria-labelledby="batch-normalization-heading">
+  <h2 id="batch-normalization-heading">2. Batch Normalization</h2>
+  <h3>Mechanics</h3>
+  <p>
+    Batch Normalization is a technique used to standardize the inputs to a
+    network, improving the speed, performance, and stability of neural networks.
+    It works by normalizing the layer's inputs over a mini-batch of data to have
+    zero mean and unit variance. This helps to deal with the problem of internal
+    covariate shift, where the distribution of input data changes during
+    training.
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$\mu_B = \frac{1}{m}\sum_{i=1}^{m} x_i$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to calculate the mean of the batch. It averages the
+        inputs over the batch size 'm'.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(\mu_B\) is the mean of the batch, \(m\) is the number of inputs
+        in the batch, and \(x_i\) is the \(i^{th}\) input.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$\sigma_B^2 = \frac{1}{m}\sum_{i=1}^{m} (x_i - \mu_B)^2$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to calculate the variance of the batch. It averages
+        the squared differences from the mean over the batch size 'm'.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(\sigma_B^2\) is the variance of the batch, \(m\) is the number
+        of inputs in the batch, \(x_i\) is the \(i^{th}\) input, and \(\mu_B\)
+        is the mean of the batch.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$\hat{x}_i = \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to normalize the inputs. Each input is subtracted
+        by the mean and divided by the square root of the variance plus a small
+        constant for numerical stability.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(\hat{x}_i\) is the normalized input, \(x_i\) is the \(i^{th}\)
+        input, \(\mu_B\) is the mean of the batch, \(\sigma_B^2\) is the
+        variance of the batch, and \(\epsilon\) is a small constant added for
+        numerical stability.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$y_i = \gamma \hat{x}_i + \beta$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to scale and shift the normalized inputs. The
+        normalized inputs are scaled by a learned parameter 'γ' and shifted by
+        another learned parameter 'β'.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(y_i\) is the final output, \(\gamma\) is the scale parameter,
+        \(\hat{x}_i\) is the normalized input, and \(\beta\) is the shift
+        parameter.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Pros</h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Accelerates training: By reducing internal covariate shift, the
+          network can learn from a more stable distribution of activations,
+          speeding up the training process.
+        </li>
+        <li class="list-group-item">
+          Allows the use of higher learning rates: With more stable
+          distributions, the network can tolerate higher learning rates without
+          diverging, leading to faster convergence.
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <h3>Cons</h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Computational complexity and runtime overhead: Implementing batch
+          normalization involves extra computations during both forward and
+          backward propagation, which can slow down training.
+        </li>
+        <li class="list-group-item">
+          Influence of mini-batch size: If the batch size is too small, the
+          estimate of the mean and variance of the batch might not be a good
+          representation of the actual values, leading to less reliable
+          predictions.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="mini-batch-gradient" aria-labelledby="mini-batch-gradient-heading">
+  <h2 id="mini-batch-gradient-heading">3. Mini-batch Gradient Descent</h2>
+  <h3>Mechanics</h3>
+  <p>
+    Mini-Batch Gradient Descent is a variant of Gradient Descent optimization
+    where instead of using the entire dataset to compute the gradient of the
+    cost function, it uses a subset of the dataset. This subset is referred to
+    as a mini-batch. This technique can lead to a faster approximation of the
+    true gradient direction than Stochastic Gradient Descent, and it can also
+    add an element of randomness that can help with escaping local minimums.
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$\theta = \theta - \eta \cdot \frac{1}{m} \cdot \sum_{i=1}^{m}
+        (h_{\theta}(x^{(i)}) - y^{(i)}) \cdot x^{(i)}$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to update the parameters of the model. The
+        parameters are updated based on the average of the gradients of the cost
+        function calculated over a mini-batch of 'm' training examples.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(\theta\) is the parameter vector, \(\eta\) is the learning rate,
+        \(m\) is the number of training examples in the mini-batch,
+        \(h_{\theta}(x^{(i)})\) is the hypothesis function for the i-th training
+        example in the mini-batch, \(y^{(i)}\) is the actual output of the i-th
+        training example, and \(x^{(i)}\) is the feature vector of the i-th
+        training example.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Pros</h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Faster convergence and less oscillation: By averaging the gradients
+          over a mini-batch, the direction of the weight update is often more
+          accurate compared to stochastic gradient descent.
+        </li>
+        <li class="list-group-item">
+          Computationally efficient: When dealing with large-scale datasets, the
+          use of vectorized operations for mini-batches can significantly reduce
+          computational resources and time.
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <h3>Cons</h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Batch size tuning: The size of the batch can greatly impact model
+          performance. Larger batches provide a more accurate estimate of the
+          gradient, but smaller batches can sometimes escape shallow local
+          minima.
+        </li>
+        <li class="list-group-item">
+          Getting stuck in local minima: Mini-batch gradient descent is more
+          likely to get stuck in sharp, non-optimal minima, unlike stochastic
+          gradient descent which has more noise in its update, allowing it to
+          escape such narrow pits.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section
+  id="gradient-descent-momentum"
+  aria-labelledby="gradient-descent-momentum-heading"
+>
+  <h2 id="gradient-descent-momentum-heading">
+    4. Gradient Descent with Momentum
+  </h2>
+  <h3>Mechanics</h3>
+  <p>
+    Gradient Descent with Momentum is a technique that helps accelerate gradient
+    vectors in the right directions, leading to faster convergence. This is
+    achieved by adding a fraction 'γ' of the update vector of the past time step
+    to the current update vector.
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$v_t = \gamma v_{t-1} + \eta \nabla_{\theta} J(\theta)$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to calculate the velocity update.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(v_t\) is the velocity at time \(t\), \(\gamma\) is the momentum
+        term, \(v_{t-1}\) is the velocity at time \(t-1\), \(\eta\) is the
+        learning rate, and \(\nabla_{\theta} J(\theta)\) is the gradient of the
+        objective function (such as the loss function) with respect to the
+        parameters.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$\theta = \theta - v_t$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to update the parameters of the model.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(\theta\) is the parameter vector and \(v_t\) is the velocity at
+        time \(t\).
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Pros</h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Accelerates convergence: Momentum helps the gradient descent algorithm
+          to navigate along the relevant directions and softens the oscillation
+          in the irrelevant. This leads to faster convergence.
+        </li>
+        <li class="list-group-item">
+          Better results in less time: In practice, it's often the case that
+          Momentum will achieve superior results in less epochs, hence less
+          training time.
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <h3>Cons</h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Extra hyperparameter: Momentum introduces another hyperparameter, the
+          momentum term, which requires tuning. This increases the complexity of
+          the optimization.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="rmsprop" aria-labelledby="rmsprop-heading">
+  <h2 id="rmsprop-heading">5. RMSProp Optimization</h2>
+  <h3>Mechanics</h3>
+  <p>
+    RMSProp (Root Mean Square Propagation) is an optimization algorithm designed
+    to speed up training in certain types of neural networks. It adjusts the
+    learning rate by dividing it by an exponentially decaying average of squared
+    gradients. RMSProp can be particularly useful when dealing with very noisy
+    or sparse gradients.
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$g_t = \nabla_{\theta} J(\theta)$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to calculate the gradient of the loss function with
+        respect to the parameters.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(g_t\) is the gradient at time \(t\), \(\nabla_{\theta}\) is the
+        gradient of the parameters, and \(J(\theta)\) is the objective function
+        to be minimized, such as the loss function.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$v_t = \beta v_{t-1} + (1-\beta) g_t^2$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to accumulate the squared gradient.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(v_t\) is the accumulated squared gradient at time \(t\),
+        \(\beta\) is the decay rate, \(v_{t-1}\) is the accumulated squared
+        gradient at time \(t-1\), and \(g_t\) is the gradient at time \(t\).
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$\theta = \theta - \frac{\eta}{\sqrt{v_t + \epsilon}} \cdot g_t$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to update the parameters of the model.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(\theta\) is the parameter vector, \(\eta\) is the learning rate,
+        \(v_t\) is the accumulated squared gradient at time \(t\), \(\epsilon\)
+        is a small number to prevent division by zero, and \(g_t\) is the
+        gradient at time \(t\).
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Pros</h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Adapts the learning rate to each parameter: This means that each
+          parameter has its own learning rate, making RMSProp particularly
+          effective when dealing with complex or sparse datasets.
+        </li>
+        <li class="list-group-item">
+          Overcomes diminishing learning rates: Unlike AdaGrad, which reduces
+          the learning rate too aggressively for long-running tasks, RMSProp
+          adjusts the learning rate more carefully, often leading to better
+          performance on deep learning tasks.
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <h3>Cons</h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Non-intuitive learning rate: RMSProp's learning rate is harder to
+          interpret because it changes dynamically during training.
+        </li>
+        <li class="list-group-item">
+          Still requires manual tuning of learning rate: Although RMSProp adapts
+          the learning rate, it still requires the initial learning rate to be
+          manually set, which can be time-consuming.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="adam-optimization" aria-labelledby="adam-optimization-heading">
+  <h2 id="adam-optimization-heading">6. Adam Optimization</h2>
+  <h3>Mechanics</h3>
+  <p>
+    Adam (Adaptive Moment Estimation) optimization is an algorithm for
+    first-order gradient-based optimization of stochastic objective functions.
+    The method derives its name from the adaptive moment estimates it uses. Adam
+    combines the benefits of two other extensions of stochastic gradient
+    descent: AdaGrad and RMSProp. It computes adaptive learning rates for
+    different parameters.
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$m_t = \beta_1 \cdot m_{t-1} + (1 - \beta_1) \cdot g_t$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to calculate the first moment estimate. It's a
+        weighted average of the gradients, where the weight decreases
+        exponentially.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(m_t\) is the first moment estimate at time \(t\), \(\beta_1\) is
+        the decay rate for the first moment estimate, \(m_{t-1}\) is the first
+        moment estimate at time \(t-1\), and \(g_t\) is the gradient at time
+        \(t\).
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$v_t = \beta_2 \cdot v_{t-1} + (1 - \beta_2) \cdot g_t^2$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to calculate the second moment estimate. It's a
+        weighted average of the squared gradients, where the weight decreases
+        exponentially.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(v_t\) is the second moment estimate at time \(t\), \(\beta_2\)
+        is the decay rate for the second moment estimate, \(v_{t-1}\) is the
+        second moment estimate at time \(t-1\), and \(g_t\) is the gradient at
+        time \(t\).
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$\hat{m}_t = \frac{m_t}{1 - \beta_1^t}$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to correct the bias in the first moment estimate,
+        which is initially biased towards zero.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(\hat{m}_t\) is the bias-corrected first moment estimate at time
+        \(t\), \(m_t\) is the first moment estimate at time \(t\), and
+        \(\beta_1\) is the decay rate for the first moment estimate.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$\hat{v}_t = \frac{v_t}{1 - \beta_2^t}$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to correct the bias in the second moment estimate,
+        which is initially biased towards zero.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(\hat{v}_t\) is the bias-corrected second moment estimate at time
+        \(t\), \(v_t\) is the second moment estimate at time \(t\), and
+        \(\beta_2\) is the decay rate for the second moment estimate.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$\theta_t = \theta_{t-1} - \alpha \cdot
+        \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon}$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used to update the parameters of the model. It scales
+        the gradients by the ratio of the bias-corrected first moment estimate
+        to the square root of the bias-corrected second moment estimate, adds a
+        small constant to avoid division by zero, and then subtracts this value
+        from the previous parameters.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(\theta_t\) is the updated parameter at time \(t\),
+        \(\theta_{t-1}\) is the parameter at time \(t-1\), \(\alpha\) is the
+        learning rate, \(\hat{m}_t\) is the bias-corrected first moment estimate
+        at time \(t\), \(\hat{v}_t\) is the bias-corrected second moment
+        estimate at time \(t\), and \(\epsilon\) is a small constant to avoid
+        division by zero.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>Pros</h4>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Combines benefits of Momentum and RMSProp: Adam performs well in
+          practice and compares favorably to other adaptive learning-method
+          algorithms as it leverages both Momentum and RMSProp.
+        </li>
+        <li class="list-group-item">
+          Bias correction mechanism: Adam includes bias corrections to account
+          for the zero initialization of the first and second moment estimates,
+          which helps to kick start the optimization and improves the final
+          performance.
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <h4>Cons</h4>
+      <ul class="list-group">
+        <li class="list-group-item">
+          More hyperparameters: Adam has three hyperparameters to tune (learning
+          rate, beta1, beta2). This can make it more complex to use and optimize
+          than simpler optimizers.
+        </li>
+        <li class="list-group-item">
+          Computationally intensive: As Adam keeps an exponentially decaying
+          average of past gradients and squared gradients, it requires more
+          computations and thus, may be slower for very large-scale models or
+          datasets.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="learning-rate-decay" aria-labelledby="learning-rate-decay-heading">
+  <h2 id="learning-rate-decay-heading">7. Learning Rate Decay</h2>
+  <h3>Mechanics</h3>
+  <p>
+    Learning Rate Decay is a technique where the learning rate is adjusted over
+    the course of training. The idea is to start with a relatively high learning
+    rate to progress quickly, then reduce the rate over time to allow the
+    algorithm to fine-tune the parameters. Several strategies can be used to
+    reduce the learning rate over time, including step decay, exponential decay,
+    and 1/t decay.
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 border bg-dark text-light">
+        $$\alpha_t = \alpha_0 \cdot e^{-kt}$$
+      </div>
+      <div class="col-md-6 border bg-dark text-light">
+        This formula is used for exponential decay of the learning rate. The
+        learning rate decreases exponentially over time.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        Where \(\alpha_t\) is the learning rate at time \(t\), \(\alpha_0\) is
+        the initial learning rate, \(k\) is the decay rate, and \(t\) is the
+        current epoch.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>Pros</h4>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Helps to reach global minimum: By gradually reducing the learning
+          rate, learning rate decay can help the optimizer to land and stay at
+          the global minimum, since larger steps can cause the optimizer to
+          oscillate around or overshoot the global minimum.
+        </li>
+        <li class="list-group-item">
+          Quicker convergence and better generalization: The decay can speed up
+          the training process by making large updates at the beginning and then
+          smaller updates later. Also, smaller steps can help the model
+          generalize better from the training to unseen data.
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <h4>Cons</h4>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Additional hyperparameters: The rate of decay is an additional
+          hyperparameter that needs to be specified and tuned, adding to the
+          complexity of the model.
+        </li>
+
+        <li class="list-group-item">
+          Requires careful tuning: If the learning rate is reduced too rapidly,
+          the optimizer may get stuck in a poor local minimum or plateau
+          prematurely. Conversely, if the learning rate is reduced too slowly,
+          the optimizer may keep bouncing around the minimum for a longer period
+          before finally settling.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

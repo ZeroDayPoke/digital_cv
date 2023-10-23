@@ -1,0 +1,140 @@
+/* ./app/static/styles/skills.css */
+
+/* ============ Container and General Styles ============ */
+.skill-circle-container {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  margin: auto;
+}
+
+/* Use a CSS variable to store the id of the hovered skill */
+.skill-circle-container:hover {
+  --hovered-skill-id: attr(data-hovered-skill);
+}
+
+/* ============ Central User Image ============ */
+.center-user-img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  border-radius: 50%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+/* ============ Skill Icons and Animation ============ */
+.skill-icons {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: rotate 20s infinite linear;
+}
+
+.skill-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Style for individual skill icons */
+.skill-icon img {
+  border-radius: 50%;
+  max-height: 100px;
+  object-fit: cover;
+}
+
+/* ============ Skill Descriptions ============ */
+.skill-description-container {
+  position: absolute;
+  top: 0;
+  right: -220px;
+  width: 200px;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 3;
+}
+
+.skill-description {
+  display: none;
+}
+
+/* Show the description that matches the hovered skill id */
+.skill-description[id^="--hovered-skill-id"] {
+  display: block;
+}
+
+/* ============ Animations and Positioning ============ */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.skill-icons .skill-icon:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(0deg) translate(300px) rotate(0deg);
+}
+.skill-icons .skill-icon:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(30deg) translate(300px) rotate(-30deg);
+}
+.skill-icons .skill-icon:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(60deg) translate(300px) rotate(-60deg);
+}
+.skill-icons .skill-icon:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(90deg) translate(300px) rotate(-90deg);
+}
+.skill-icons .skill-icon:nth-child(5) {
+  transform: translate(-50%, -50%) rotate(120deg) translate(300px)
+    rotate(-120deg);
+}
+.skill-icons .skill-icon:nth-child(6) {
+  transform: translate(-50%, -50%) rotate(150deg) translate(300px)
+    rotate(-150deg);
+}
+.skill-icons .skill-icon:nth-child(7) {
+  transform: translate(-50%, -50%) rotate(180deg) translate(300px)
+    rotate(-180deg);
+}
+.skill-icons .skill-icon:nth-child(8) {
+  transform: translate(-50%, -50%) rotate(210deg) translate(300px)
+    rotate(-210deg);
+}
+.skill-icons .skill-icon:nth-child(9) {
+  transform: translate(-50%, -50%) rotate(240deg) translate(300px)
+    rotate(-240deg);
+}
+.skill-icons .skill-icon:nth-child(10) {
+  transform: translate(-50%, -50%) rotate(270deg) translate(300px)
+    rotate(-270deg);
+}
+.skill-icons .skill-icon:nth-child(11) {
+  transform: translate(-50%, -50%) rotate(300deg) translate(300px)
+    rotate(-300deg);
+}
+.skill-icons .skill-icon:nth-child(12) {
+  transform: translate(-50%, -50%) rotate(330deg) translate(300px)
+    rotate(-330deg);
+}
+
+#background-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1000;
+  transform: translateX(-50%) translateY(-50%);
+  background-size: cover;
+}
+
+footer {
+  background: transparent;
+}

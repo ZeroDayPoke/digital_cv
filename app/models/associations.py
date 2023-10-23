@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
-"""This module defines the associations between different models in the application."""
-# Path: digital_cv/app/models/associations.py
+"""This module defines the associations between different models in the application.
+
+This module contains the following associations:
+    - project_skills
+    - blog_skills
+    - user_roles
+    - tutorial_skills
+    - education_skills
+    - project_users
+"""
 
 from .base import db
 
@@ -26,4 +34,16 @@ tutorial_skills = db.Table(
     'tutorial_skills',
     db.Column('tutorial_id', db.String(60), db.ForeignKey('tutorials.id'), primary_key=True),
     db.Column('skill_id', db.String(60), db.ForeignKey('skills.id'), primary_key=True)
+)
+
+education_skills = db.Table(
+    'education_skills',
+    db.Column('education_id', db.String(60), db.ForeignKey('educations.id'), primary_key=True),
+    db.Column('skill_id', db.String(60), db.ForeignKey('skills.id'), primary_key=True)
+)
+
+project_users = db.Table(
+    'project_users',
+    db.Column('project_id', db.String(60), db.ForeignKey('projects.id'), primary_key=True),
+    db.Column('user_id', db.String(60), db.ForeignKey('users.id'), primary_key=True)
 )

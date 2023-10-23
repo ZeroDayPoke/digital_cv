@@ -1,5 +1,5 @@
-{% extends "base.html" %} {% block title %} Account - ZDP {% endblock %} {%
-block content %}
+{% extends "base.html" %} {% from "macros.html" import render_form %} {% block
+title %} Account - ZDP {% endblock %} {% block content %}
 <section class="row">
   <article class="col-md-6">
     <div class="mt-4" id="account_info">
@@ -19,40 +19,33 @@ block content %}
     </div>
     <div class="mt-4" id="change_password">
       <h2>Change Password</h2>
-      <form action="{{ url_for('auth_routes.change_password') }}" method="post">
-        <div class="mb-3">
-          <label for="current_password" class="form-label"
-            >Current Password</label
+      {{ render_form(form, 'auth_routes.account', 'Change Password') }}
+    </div>
+    <div class="mt-4" id="message_admin">
+      <h2>Message Admin</h2>
+
+      {% if current_user.has_role('ADMIN') %}
+      <h3>Received Messages</h3>
+      <ul>
+        {% for message in messages %}
+        <li>
+          {{ message.message_body }}
+          <form
+            action="{{ url_for('main_routes.mark_as_read', message_id=message.id) }}"
+            method="post"
           >
-          <input
-            type="password"
-            class="form-control"
-            id="current_password"
-            name="current_password"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="new_password" class="form-label">New Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="new_password"
-            name="new_password"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="confirm_password" class="form-label"
-            >Confirm New Password</label
-          >
-          <input
-            type="password"
-            class="form-control"
-            id="confirm_password"
-            name="confirm_password"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Change Password</button>
-      </form>
+            <button type="submit">Mark as Read</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+      {% elif current_user.verified %} {% if existing_message %}
+      <p>You have already sent a message.</p>
+      {{ render_form(message_form, 'main_routes.edit_message', 'Edit Message')
+      }} {% else %} {{ render_form(message_form, 'main_routes.send_message',
+      'Send Message') }} {% endif %} {% else %}
+      <p>Please verify your account to send messages to admin.</p>
+      {% endif %}
     </div>
   </article>
 </section>

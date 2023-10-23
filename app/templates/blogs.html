@@ -1,13 +1,10 @@
 {% extends "base.html" %} {% block title %}ZDP - Blog{% endblock %} {% block
 header %}{% endblock %} {% block content %}
-<form method="POST">
-  {{ form.hidden_tag() }} {{ form.skills.label }} {{ form.skills }} {{
-  form.filter }}
-</form>
+
 <section class="row">
   {% for blog in blogs %}
   <div class="col-md-6 col-lg-4">
-    <div class="card blog-card mb-4 bg-dark text-light" id="{{ blog.id }}">
+    <div class="card blog-card mb-4 bg-dark border-dark text-light" id="{{ blog.id }}">
       <div class="card-body">
         <h3 class="card-title">{{ blog.name }}</h3>
         <p class="card-text">{{ blog.description }}</p>

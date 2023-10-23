@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/skills.css', v='1.2') }}"
+/>
+{% endblock %} {% block content %}
+
+<video autoplay loop muted playsinline id="background-video">
+  <source src="{{ url_for('static', filename='videos/background.mov')}}" type="video/mp4">
+</video>
+
+<div class="mt-5 mb-5 skill-circle-container">
+  <!-- Central User Image -->
+  <img
+    src="{{ url_for('static', filename='images/chris.png') }}"
+    alt="User"
+    class="center-user-img"
+  />
+
+  <!-- Skill Icons -->
+  <div class="skill-icons">
+    {% for skill in skills %}
+    <div class="skill-icon" data-skill="{{ skill.name }}">
+      {% if skill.image_filename %}
+      <img
+        src="{{ url_for('static', filename='images/skills/' + skill.image_filename) }}"
+        alt="{{ skill.name }} icon"
+      />
+      {% else %}
+      <img
+        src="{{ url_for('static', filename='images/defaults/notfound3.png') }}"
+        alt="Default skill icon"
+      />
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Skill Descriptions -->
+  <div class="skill-description-container">
+    {% for skill in skills %}
+    <div class="skill-description" id="{{ skill.name }}-description">
+      <h5>{{ skill.name }}</h5>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %} {% block js %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let skillIcons = document.querySelectorAll(".skill-icon");
+    let skillDescriptions = document.querySelectorAll(".skill-description");
+
+    skillIcons.forEach((icon) => {
+      icon.addEventListener("mouseover", function () {
+        let skillName = this.getAttribute("data-skill");
+        skillDescriptions.forEach((desc) => (desc.style.display = "none"));
+        document.getElementById(skillName + "-description").style.display =
+          "block";
+      });
+
+      icon.addEventListener("mouseout", function () {
+        skillDescriptions.forEach((desc) => (desc.style.display = "none"));
+      });
+    });
+  });
+</script>
+{% endblock %}

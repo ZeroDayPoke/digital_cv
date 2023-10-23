@@ -19,5 +19,7 @@ RUN python3.10 -m pip install gunicorn
 # Copy the entire application from the host to the container's working directory
 COPY . .
 
+RUN pybabel compile -d translations
+
 # Command to run when the container starts: Use Gunicorn to serve the Flask application using the configuration file
 CMD ["gunicorn", "-c", "gunicorn_config.py", "wsgi:app"]

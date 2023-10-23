@@ -17,18 +17,22 @@ def allowed_file(filename):
     allowed_extensions = current_app.config['ALLOWED_EXTENSIONS']
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
 
-def handle_file_upload(model_name):
+def handle_file_upload(model_name, field_name='image'):
     """
-    Handles file upload for a given model.
+    Handles file upload for a given model and field name.
 
     Args:
         model_name (str): The name of the model to upload the file for.
+        field_name (str): The name of the file field in the request. Defaults to 'image'.
 
     Returns:
         str: The filename of the uploaded file if successful, None otherwise.
     """
-    print("Handling file upload...")
-    file = request.files.get('image')
+    if field_name not in request.files:
+        flash('No file part', 'danger')
+        return None
+
+    file = request.files.get(field_name)
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         
@@ -40,5 +44,6 @@ def handle_file_upload(model_name):
         file_path = os.path.join(upload_folder, filename)
         file.save(file_path)
         return filename
+
     flash('Error: File not found or not allowed.', 'danger')
     return None

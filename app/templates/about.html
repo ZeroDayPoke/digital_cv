@@ -1,34 +1,44 @@
-{% extends "base.html" %} {% block title %} About Me {% endblock %} {% block css
-%}
-<style>
-  #about-section {
-    background-color: #000000;
-    padding: 20px;
-    border-radius: 8px;
-  }
-</style>
+{% extends "base.html" %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/about.css') }}"
+/>
 {% endblock %} {% block content %}
-<section id="about-section">
-  <h1>About Me</h1>
-  <p>
-    This is a template for a simple marketing or informational website. It
-    includes a large callout called a jumbotron and three supporting pieces of
-    content. Use it as a starting point to create something more unique.
-  </p>
-  <h2>Education</h2>
-  <p>
-    Describe your education history, perhaps highlighting any relevant
-    qualifications.
-  </p>
-  <h2>Career</h2>
-  <p>
-    Describe your career history, perhaps highlighting any relevant positions or
-    projects.
-  </p>
-  <h2>Interests</h2>
-  <p>
-    What are you passionate about? What do you do in your free time? What
-    projects are you working on?
-  </p>
-</section>
+<div class="container mt-5">
+  <!-- First Row: About Intro and Image -->
+  <div class="row">
+    <!-- About Intro -->
+    <div class="col-lg-6">
+      <h1>About Me</h1>
+      <p>{{ _("about_intro") }}</p>
+    </div>
+
+    <!-- Image -->
+    <div class="col-lg-6 d-flex justify-content-center">
+      <div class="img-container">
+        <img
+          src="{{ _('headshot_location') }}"
+          alt="{{ _('name') }}"
+          class="img-fluid rounded-circle"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Row: Goals -->
+  <div class="row mt-4">
+    <div class="col-lg-12">
+      <h2>Goals</h2>
+      <p>{{ _("about_goals") }}</p>
+    </div>
+  </div>
+
+  <!-- Third Row: Interests -->
+  <div class="row mt-4">
+    <div class="col-lg-12">
+      <h2>Interests</h2>
+      <p>{{ _("about_interests") }}</p>
+    </div>
+  </div>
+</div>
 {% endblock %}

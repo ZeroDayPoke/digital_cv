@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  {% for project in projects %}
+  <div class="row mb-4 bg-success rounded shadow-lg project-row">
+    <!-- Project Image and Related Skills -->
+    <div class="col-md-8 position-relative">
+      {% if project.image_filename %}
+      <img
+        src="{{ url_for('static', filename='images/projects/' + project.image_filename) }}"
+        alt="{{ project.name }}"
+        class="img-fluid w-100 rounded-top project-image"
+      />
+      {% else %}
+      <img
+        src="{{ url_for('static', filename='images/defaults/notfound2.png') }}"
+        alt="Default project image"
+        class="img-fluid w-100 rounded-top project-image"
+      />
+      {% endif %}
+      <div class="related-skills">
+        <strong>Built With:</strong>
+        <ul class="list-inline m-0">
+          {% for skill in project.related_skills %}
+          <li class="list-inline-item">{{ skill.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Project Synopsis -->
+    <div class="col-md-4 synopsis-column">
+      {% include 'resume/project-synopsis.html' %}
+    </div>
+  </div>
+  {% endfor %}
+</div>

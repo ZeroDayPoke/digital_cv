@@ -8,8 +8,8 @@ import requests
 from flask import Blueprint, render_template, redirect, url_for, flash, current_app, request
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash
-from ..models import db, User
-from ..forms import SignupForm, SigninForm
+from ..models import db, User, Message
+from ..forms import SignupForm, SigninForm, ChangePasswordForm, MessageAdminForm, UploadCVForm
 
 auth_routes = Blueprint('auth_routes', __name__, url_prefix='')
 
@@ -93,10 +93,40 @@ def signout():
         flash('You are not signed in.')
     return redirect(url_for('main_routes.index'))
 
-@auth_routes.route('/account', methods=['GET'])
+
+@auth_routes.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
-    return render_template('account.html')
+    """
+    Renders the account.html template for the authenticated user.
+
+    Returns:
+        The rendered account.html template.
+    """
+    messages = []
+    existing_message = None
+    if current_user.has_role('ADMIN'):
+        messages = Message.query.filter_by(is_read=False).all()
+    else:
+        existing_message = Message.query.filter_by(sender_id=current_user.id).first()
+
+    form = ChangePasswordForm()
+    message_form = MessageAdminForm()
+
+    if existing_message:
+        message_form.message_body.data = existing_message.message_body
+
+    if form.validate_on_submit():
+        if not current_user.check_password(form.current_password.data):
+            flash('Incorrect current password.')
+        else:
+            current_user.password_hash = generate_password_hash(form.new_password.data)
+            db.session.commit()
+            flash('Password changed successfully.')
+
+    return render_template('account.html', form=form, message_form=message_form, 
+                           messages=messages, existing_message=existing_message)
+
 
 @auth_routes.route('/send_verification_email', methods=['GET'])
 @login_required
@@ -154,7 +184,7 @@ def verify_account_email(token):
         user.token_generated_at = None
         db.session.commit()
         flash('Account successfully verified!')
-        return redirect(url_for('main_routes.account'))
+        return redirect(url_for('auth_routes.account'))
 
 
 @auth_routes.route('/change_password', methods=['POST'])

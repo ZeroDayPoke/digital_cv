@@ -1,37 +1,29 @@
-{% extends 'base.html' %} {% block content %}
-<form method="POST">
-  {{ form.hidden_tag() }} {{ form.skills.label }} {{ form.skills }} {{
-  form.filter }}
-</form>
-<section class="row">
-  {% for project in projects %}
-  <div class="col-md-6 col-lg-4">
-    <div class="card project-card mb-4 bg-dark text-light" id="{{ project.id }}">
-      <div class="card-body">
-        <h3 class="card-title">
-          {% if project.repo_link %}
-          <a href="{{ project.repo_link }}">{{ project.name }}</a>
-          {% else %} {{ project.name }} {% endif %}
-        </h3>
-        <p class="card-text">{{ project.description }}</p>
-        <p class="card-text"><b>Role:</b> {{ project.role }}</p>
-        {% if project.live_link %}
-        <p>Live Project At:</p>
-        <a href="{{ project.live_link }}">{{ project.live_link }}</a>
-        {% endif %}
-        <ul>
-          <li>
-            <b>Related Skills:</b>
-            <ul>
-              {% for skill in project.related_skills %}
-              <li>{{ skill.name }}</li>
-              {% endfor %}
-            </ul>
-          </li>
-        </ul>
-      </div>
+{% extends 'base.html' %} 
+{% block content %}
+
+<!-- Main Container -->
+<div class="container-fluid">
+
+  <!-- Row for Filter and Carousel + Synopsis -->
+  <div class="row flex-md-row">
+  
+    <!-- Column for Filter -->
+    <div class="col-12 col-md-4">
+      {% include 'caro/filter.html' %}
+    </div>
+
+    <!-- Column for Carousel and Synopsis -->
+    <div class="col-12 col-md-8">
+    
+      <!-- Carousel -->
+      {% include 'caro/main.html' %}
+      
+      <!-- Project Synopsis -->
+      {% include 'caro/synopsis.html' %}
+      
     </div>
   </div>
-  {% endfor %}
-</section>
+
+</div> <!-- End Main Container -->
+
 {% endblock %}
