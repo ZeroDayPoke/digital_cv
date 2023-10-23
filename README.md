@@ -1,4 +1,6 @@
-# digital_cv
+# UWU OUTDATED README, PWEAZE NO AUTOREMOVE FOR NO GITHUB COMMIT
+
+## digital_cv
 
 personal website project for school - experimental stage
 
