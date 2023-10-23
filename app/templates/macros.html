@@ -1,13 +1,64 @@
 <!-- app/templates/macros.html -->
 {% macro render_form(form, route, button_label) %}
 <form action="{{ url_for(route) }}" method="POST" enctype="multipart/form-data">
-  {{ form.hidden_tag() }}
-  {% for field in form if field.type != "SubmitField" %}
-  <p>{{ field.label }} {{ field() }}</p>
-  {% if field.errors %}
-  <p class="error">{{ field.errors[0] }}</p>
-  {% endif %}
-  {% endfor %}
-  <p><input type="submit" value="{{ button_label }}" class="btn btn-primary"></p>
+  <div class="container">
+    {{ form.hidden_tag() }} {% for field in form if field.type != "SubmitField"
+    and field.name != 'csrf_token' %} {% if field.name in ['skills', 'related_skills'] %}
+    <!-- Special layout for 'skills' -->
+    <div class="form-group row mb-4">
+      <div class="col-sm-12">
+        <label for="{{ field.id }}" class="form-label"
+          >{{ field.label.text }}</label
+        >
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <div class="d-flex flex-wrap">
+          {% for subfield in field %}
+          <div class="p-2 flex-fill">
+            <input
+              type="checkbox"
+              class="btn-check"
+              name="{{ subfield.name }}"
+              id="{{ subfield.id }}"
+              autocomplete="off"
+            />
+            <label class="btn btn-primary w-100 mb-3" for="{{ subfield.id }}"
+              >{{ subfield.label.text }}</label
+            >
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <!-- Default layout for other fields -->
+    <div class="form-group row mb-2">
+      <label for="{{ field.id }}" class="col-sm-2 col-form-label"
+        >{{ field.label.text }}</label
+      >
+      <div class="col-sm-10">
+        {{ field(class="form-control") }} {% if field.errors %}
+        <div class="errors mt-2">
+          {% for error in field.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %} {% endfor %}
+    <!-- Submit button -->
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <input
+          type="submit"
+          value="{{ button_label }}"
+          class="btn btn-primary w-100"
+        />
+      </div>
+    </div>
+  </div>
 </form>
 {% endmacro %}

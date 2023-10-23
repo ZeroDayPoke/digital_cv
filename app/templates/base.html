@@ -2,184 +2,71 @@
 <html>
   <head>
     <!-- Title -->
-    <title>{% block title %}ZDP{% endblock %}</title>
+    <title>{% block title %}{{ _('name') }} - Digital CV{% endblock %}</title>
 
     <!-- Meta -->
     {% include 'default/meta.html' %}
 
     <!-- Favicon -->
-    <link
-      rel="icon"
-      href="{{ url_for('static', filename='images/favicon.ico') }}"
-      type="image/x-icon"
-    />
-    <!-- Bootstrap CSS -->
+    <link rel="icon" href="{{ _('favicon_location') }}" type="image/x-icon" />
+
+    {% if config['USE_EXTENDED_BOOTSTRAP'] == 'True' %}
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/vapor/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    {% else %}
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    />
+    {% endif %}
+
     <!-- Custom CSS -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='styles/cv.css', v='1.5') }}"
+      href="{{ url_for('static', filename='styles/cv.css', v='2.1') }}"
     />
 
-    {% block css %}{% endblock %}
+    <!-- Fonts -->
+    {% include 'default/fonts.html' %} {% block css %}{% endblock %}
   </head>
-  <body class="text-light">
-    {% include 'flash.html' %}
-    <header class="container">
-      {% include 'default/navbar.html' %} {% if include_header %} {% include
-      'default/header.html' %} {% endif %}
-    </header>
-    <main class="container">
-      {% block content %}
-      <section class="row">
-        <article class="col-md-6">
-          <div class="mt-4" id="education">
-            <h2>Education</h2>
-            <details open>
-              <summary><h3>Holberton School, Tulsa, Oklahoma</h3></summary>
-              <p>Computer Science & Machine Learning (4.0 GPA)</p>
-            </details>
-            <details open>
-              <summary>
-                <h3>Oklahoma State University, Stillwater, Oklahoma</h3>
-              </summary>
-              <p>Bachelors of Science in Chemical Engineering (3.1 GPA)</p>
-              <p>21 Hours Petroleum Processes Courses (3.9 GPA)</p>
-              <p>24 Hours Finance Courses (4.0 GPA)</p>
-            </details>
-          </div>
-        </article>
-        <article class="col-md-6">
-          <div class="mt-4" id="technologies">
-            <h2>Technologies</h2>
-            <ul>
-              <li>
-                Programming Languages: Python, C, JavaScript, Visual Basic
-              </li>
-              <li>Web Development: HTML/CSS, Flask, Node.js</li>
-              <li>Database Management: SQL, MySQL, SQLAlchemy</li>
-              <li>Version Control: Git BASH</li>
-              <li>Microsoft Office Suite: Excel, PowerPoint</li>
-            </ul>
-          </div>
-        </article>
-      </section>
+  <body class="{{ body_class|default('text-light') }}">
+    <div class="container-fluid">
+      <header class="container d-flex flex-column">
+        {% include 'default/nav/main.html' %}
+      </header>
 
-      <section class="mt-4" id="experience">
-        <h2>Experience</h2>
-        <article>
-          <h3>
-            Tutor at GKFF / Tulsa Community Foundation / Holberton Tulsa LLC
-          </h3>
-          <p>Duration: Dec 2022 - Jun 2023 (6 months)</p>
-          <p>Location: Tulsa, Oklahoma, United States (Hybrid)</p>
-          <p>
-            As a Tutor, I significantly contributed to the learning environment
-            by elevating students' comprehension of complex coding concepts,
-            boosting their problem-solving skills, and promoting academic
-            excellence through individualized support. I maintained availability
-            on Slack for student queries and assisted in the academic success of
-            new students. I played a crucial role in tutor meetings and honed my
-            leadership and problem-solving skills within my cohort.
-          </p>
-        </article>
-      </section>
+      <div class="container d-flex flex-column">
+        {% include 'default/spacer.html' %}
+      </div>
 
-      <section class="mt-4" id="projects">
-        <h2>Projects</h2>
-        <div class="row">
-          <article class="col-md-6 col-lg-4">
-            <div class="card project-card mb-4 bg-dark text-light" id="strain">
-              <div class="card-body">
-                <h3>
-                  <a href="https://github.com/ZeroDayPoke/STRAIN.gg_Clouds"
-                    >STRAIN.gg Clouds</a
-                  >
-                </h3>
-                <p>
-                  STRAIN.gg Clouds is a web application for exploring,
-                  filtering, and sorting strains of cannabis based on parameters
-                  like concentration, terpene profiles, effects, and more. Users
-                  can also create accounts and save their favorite strains.
-                </p>
-                <ul>
-                  <li>
-                    <b>Technologies used:</b> JavaScript, HTML/CSS, Node.js,
-                    Flask, MySQL
-                  </li>
-                  <li>
-                    <b>Role:</b> CLOUD_CHASER - added via the mysql interpreter
-                  </li>
-                  <li>
-                    <b>Live Project:</b>
-                    <a href="https://strain.gg">strain.gg</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
-          <article class="col-md-6 col-lg-4">
-            <div class="card project-card mb-4 bg-dark text-light" id="hbnb">
-              <div class="card-body">
-                <h3>
-                  <a
-                    href="https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone_v4"
-                    >HBNB Clone</a
-                  >
-                </h3>
-                <p>
-                  HBNB Clone is a clone of the Airbnb website. This full-stack
-                  web development project involves front-end and back-end
-                  design.
-                </p>
-                <ul>
-                  <li>
-                    <b>Technologies used:</b> Flask, Python, HTML/CSS, and
-                    Javascript
-                  </li>
-                  <li><b>Role:</b> Full-stack web developer</li>
-                </ul>
-              </div>
-            </div>
-          </article>
-          <article class="col-md-6 col-lg-4">
-            <div class="card project-card mb-4 bg-dark text-light" id="shell">
-              <div class="card-body">
-                <h3>
-                  <a
-                    href="https://github.com/Julia-5534/holbertonschool-simple_shell"
-                    >Simple Shell</a
-                  >
-                </h3>
-                <p>
-                  Simple Shell is a project where we created a simple UNIX
-                  command interpreter for a low-level programming project. The
-                  project replicates functionality of the simple shell (sh).
-                </p>
-                <ul>
-                  <li><b>Technologies used:</b> C</li>
-                  <li><b>Role:</b> Shell developer</li>
-                </ul>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-      {% endblock %}
-    </main>
+      <div class="container d-flex flex-column">{% include 'flash.html' %}</div>
 
-    {% include 'default/footer.html' %}
+      <main class="container d-flex flex-column">
+        {% block content %} {% include 'default/construction.html' %} {%
+        endblock %}
+      </main>
+
+      <footer class="container d-flex flex-column">
+        {% include 'default/footer.html' %}
+      </footer>
+    </div>
+    <!-- Common JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    {% block js %}
+
+    <!-- Additional JS -->
+    {% block js %} {% if use_mathjax %}
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script
       id="MathJax-script"
       async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     ></script>
-    {% endblock %}
+    {% endif %} {% endblock %}
   </body>
 </html>

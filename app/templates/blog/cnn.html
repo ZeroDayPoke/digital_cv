@@ -1,0 +1,71 @@
+<h1>Summary of "ImageNet Classification with Deep Convolutional Neural Networks"</h1>
+
+<div role="region" aria-label="ImageNet Classification image">
+    <img src="../../static/images/cnn.png" alt="ImageNet Classification" width="100%" />
+</div>
+<p>
+    This blog post provides a detailed summary of the seminal paper, "ImageNet Classification with Deep Convolutional
+    Neural Networks" by Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton. The paper presents a groundbreaking
+    approach to large-scale image classification using a deep convolutional neural network (CNN). We'll explore the
+    architecture of the CNN, the unique training procedures used, and the significant results that established new
+    benchmarks in the field.
+</p>
+
+<nav role="navigation" aria-label="Table of Contents">
+    <h2 id="table-of-contents-heading">Table of Contents</h2>
+    <ul>
+        <li><a href="#introduction">1. Introduction</a></li>
+        <li><a href="#procedures">2. Procedures</a></li>
+        <li><a href="#results">3. Results</a></li>
+        <li><a href="#conclusion">4. Conclusion</a></li>
+        <li><a href="#personal-notes">5. Personal Notes</a></li>
+    </ul>
+</nav>
+
+<h2 id="introduction">1. Introduction</h2>
+<p>
+    The paper marked a significant milestone in the field of machine learning by successfully training a deep
+    convolutional neural network (CNN) to classify a massive dataset of 1.2 million high-resolution images into 1000
+    different classes. This was a task of unprecedented scale and complexity, posing significant challenges related to
+    computational resources and overfitting. The authors addressed these challenges through innovative solutions that
+    have since become standard practices in the field.
+</p>
+
+<h2 id="procedures">2. Procedures</h2>
+<p>
+    The CNN designed by the authors was colossal, boasting 60 million parameters and 650,000 neurons. The architecture
+    was carefully designed with five convolutional layers, some of which were followed by max-pooling layers, and three
+    fully-connected layers that culminated in a 1000-way softmax output. To enhance the training speed, the authors
+    opted for non-saturating neurons and implemented an efficient GPU-based method for the convolution operation. They
+    tackled the pervasive problem of overfitting in such large-scale networks through a then recently-developed
+    regularization method known as "dropout".
+</p>
+
+<h2 id="results">3. Results</h2>
+<p>
+    The results of the study were nothing short of extraordinary. The CNN achieved top-1 and top-5 error rates of 37.5%
+    and 17.0% on the test data, respectively. These error rates were significantly lower than those of any previous
+    models, marking a substantial leap forward in the state-of-the-art in image classification. The results were a
+    testament to the CNN's capability to handle high-dimensional data and perform complex classification tasks
+    effectively.
+</p>
+
+<h2 id="conclusion">4. Conclusion</h2>
+<p>
+    The authors concluded that their deep CNN had significantly advanced image classification results on the ImageNet
+    dataset. They identified key factors that contributed to their success, including the use of rectified linear units
+    (ReLUs) as non-saturating neurons, which accelerated the training process, the use of dropout to prevent
+    overfitting, and the efficient GPU implementation that enabled the training of such a large network. The impact of
+    the authors' work has been lasting, setting a new standard in image classification tasks and influencing the
+    trajectory of future research in deep learning.
+</p>
+
+<h2 id="personal-notes">5. Personal Notes</h2>
+<p>
+    This paper is a landmark in the field of deep learning. Its introduction of deep convolutional neural networks for
+    image classification tasks was a game-changer, setting a new standard in terms of performance. The authors'
+    innovative use of techniques such as ReLUs, dropout, and GPU-accelerated computing has had a profound impact on the
+    field, influencing the direction of subsequent research and applications. This paper serves as a reminder of the
+    transformative potential of deep learning in handling complex, high-dimensional data. Hopefully in the future i'll
+    be able to write something even close to this... CHEERS FAM!
+</p>

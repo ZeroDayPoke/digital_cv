@@ -1,7 +1,10 @@
 from .base import BaseModel, db
 from .project import Project
-from .skill import Skill
+from .skill import Skill, SkillLevel
 from .user import User, Role
 from .blog import Blog
 from .tutorial import Tutorial
-from .associations import project_skills, tutorial_skills, blog_skills, user_roles
+from .education import Education
+from .message import Message
+from .experience import Experience
+from .associations import project_skills, tutorial_skills, blog_skills, user_roles, education_skills, project_users

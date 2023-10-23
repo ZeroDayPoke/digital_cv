@@ -4,72 +4,25 @@ admin_routes.py - admin routes for the Flask application
 """
 # Path: app/routes/admin_routes.py
 
-from flask import Blueprint, render_template, redirect, url_for
+import os
+from flask import Blueprint, render_template, redirect, url_for, flash, current_app
 from flask_login import login_required, current_user
-from ..models import db, Project, Skill, Blog, Tutorial
+from app.routes.route_utils import (
+    load_project_choices, load_skill_choices, load_blog_choices, load_tutorial_choices
+)
+from werkzeug.utils import secure_filename
 from ..forms import (
     AddProjectForm, UpdateProjectForm, DeleteProjectForm, 
     AddSkillForm, DeleteSkillForm,
     DeleteBlogForm, UpdateBlogForm, AddBlogForm, 
-    AddTutorialForm, UpdateTutorialForm, DeleteTutorialForm
+    AddTutorialForm, UpdateTutorialForm, DeleteTutorialForm,
+    UploadCVForm
 )
+from decouple import Config
+
+config = Config('.env')
 
 admin_routes = Blueprint('admin_routes', __name__, url_prefix='')
-
-
-def load_skill_choices(form):
-    """
-    Populate the choices for skill-related fields in a form.
-
-    Args:
-        form (Form): A Flask-WTF form object.
-
-    Returns:
-        Form: The updated form object with skill choices loaded.
-    """
-    form.related_skills.choices = [(str(skill.id), skill.name) for skill in Skill.query.all()]
-    return form
-
-
-def load_project_choices(form):
-    """
-    Populate the choices for project-related fields in a form.
-    
-    Args:
-        form (Form): A Flask-WTF form object.
-        
-    Returns:
-        Form: The updated form object with project choices loaded.
-    """
-    form.project.choices = [(str(project.id), project.name) for project in Project.query.all()]
-    return form
-
-
-def load_blog_choices(form):
-    """
-    Populate the choices for blog-related fields in a form.
-    
-    Args:
-        form (Form): A Flask-WTF form object.
-        
-    Returns:
-        Form: The updated form object with blog choices loaded.
-    """
-    form.blog.choices = [(str(blog.id), blog.name) for blog in Blog.query.all()]
-    return form
-
-def load_tutorial_choices(form):
-    """
-    Populate the choices for tutorial-related fields in a form.
-    
-    Args:
-        form (Form): A Flask-WTF form object.
-        
-    Returns:
-        Form: The updated form object with tutorial choices loaded.
-    """
-    form.tutorial.choices = [(str(tutorial.id), tutorial.name) for tutorial in Tutorial.query.all()]
-    return form
 
 LOAD_CHOICE_MAP = {
     AddProjectForm: [load_skill_choices],
@@ -99,7 +52,9 @@ def interface():
     """
     if not current_user.has_role('ADMIN'):
         return redirect(url_for('main_routes.projects'))
-    
+
+    form = UploadCVForm()
+
     # Initialize and populate form instances.
     form_instances = {}
     for form_class, load_choice_funcs in LOAD_CHOICE_MAP.items():
@@ -109,4 +64,38 @@ def interface():
         form_name = form_class.__name__.lower()
         form_instances[form_name] = form_instance
 
-    return render_template('interface.html', title='Interface', **form_instances)
+    return render_template('interface.html', title='Interface', **form_instances, form=form)
+
+@admin_routes.route('/upload_cv', methods=['POST'])
+@login_required
+def upload_cv():
+    if not current_user.has_role('ADMIN'):
+        return redirect(url_for('main.index'))
+
+    form = UploadCVForm()
+    if form.validate_on_submit():
+        file = form.cv.data
+
+        # Get the CV name from the environment variables
+        cv_pdf_name = config.get('CV_PDF_NAME', 'default_cv_name.pdf')
+        
+        # Secure the filename
+        filename = secure_filename(cv_pdf_name)
+        
+        # Save the file
+        file.save(os.path.join(current_app.config.get('CV_UPLOAD_FOLDER', 'app/static/cv/'), filename))
+        
+        flash('CV uploaded successfully', 'success')
+    return redirect(url_for('admin_routes.interface'))
+
+@admin_routes.route('/go_to_admin', methods=['GET'])
+@login_required
+def go_to_admin():
+    """
+    Redirects to the default Flask-Admin interface if the user has an ADMIN role.
+    """
+    if current_user.has_role('ADMIN'):
+        return redirect('/admin/')
+    else:
+        flash('You do not have permission to access the admin interface.', 'danger')
+        return redirect(url_for('main_routes.projects'))

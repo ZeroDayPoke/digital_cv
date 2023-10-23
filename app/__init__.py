@@ -7,17 +7,74 @@ __init__ file for app module
 
 from flask import Flask, request, g, render_template
 from flask_admin import Admin
+from flask_admin.menu import MenuLink
 from flask_babel import Babel
 from flask_login import LoginManager
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import redis
 from config import config
-from .models import db, User, Blog, Tutorial, Skill, Project
+from .models import db, User, Blog, Tutorial, Skill, Project, Education, Message, Experience
 from .routes import (main_routes, auth_routes, project_routes,
                      skill_routes, admin_routes, blog_routes, tutorial_routes)
-from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView
+from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView, UserAdminView, MessageAdminView, ExperienceAdminView
 import logging
+
+
+# Initialize database
+def init_db(app):
+    db.init_app(app)
+
+
+# Initialize admin interface
+def init_admin(app):
+    admin_name = app.config.get('ADMIN_NAME', 'Digital CV Admin')
+    admin = Admin(app, name=admin_name, template_mode='bootstrap4')
+    admin.add_view(ProjectAdminView(Project, db.session))
+    admin.add_view(SkillAdminView(Skill, db.session))
+    admin.add_view(BlogAdminView(Blog, db.session))
+    admin.add_view(TutorialAdminView(Tutorial, db.session))
+    admin.add_view(EducationAdminView(Education, db.session))
+    admin.add_view(UserAdminView(User, db.session))
+    admin.add_view(MessageAdminView(Message, db.session))
+    admin.add_view(ExperienceAdminView(Experience, db.session))
+    admin.add_link(MenuLink(name='Back to Central App', url='/'))
+
+
+# Initialize login manager
+def init_login_manager(app):
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+    
+    @login_manager.user_loader
+    def load_user(user_id: str) -> User:
+        return User.query.get(user_id)
+
+
+# Register blueprints
+def register_blueprints(app):
+    app.register_blueprint(main_routes)
+    app.register_blueprint(auth_routes)
+    app.register_blueprint(project_routes)
+    app.register_blueprint(skill_routes)
+    app.register_blueprint(admin_routes)
+    app.register_blueprint(blog_routes)
+    app.register_blueprint(tutorial_routes)
+
+
+# Register context processors
+def register_context_processors(app):
+    @app.context_processor
+    def inject_data() -> dict:
+        return {
+            'blogs': Blog.query.all(),
+            'tutorials': Tutorial.query.all(),
+            'projects': Project.query.all(),
+            'skills': Skill.query.all(),
+            'educations': Education.query.all(),
+            'experiences': Experience.query.all(),
+        }
+
 
 def create_app(config_name='default') -> Flask:
     """
@@ -32,90 +89,28 @@ def create_app(config_name='default') -> Flask:
     app = Flask(__name__)
     app.config.from_object(config[config_name])
 
-    # Initialize database
-    db.init_app(app)
+    init_db(app)
+    init_admin(app)
+    init_login_manager(app)
+    register_blueprints(app)
+    register_context_processors(app)
 
     # Initialize localization
     babel = Babel()
     babel.init_app(app, locale_selector=lambda: get_locale(app))
 
-    # Initialize admin interface
-    admin_name = app.config.get('ADMIN_NAME', 'AdInt')
-    admin = Admin(app, name=admin_name, template_mode='bootstrap4')
-    admin.add_view(ProjectAdminView(Project, db.session))
-    admin.add_view(SkillAdminView(Skill, db.session))
-    admin.add_view(BlogAdminView(Blog, db.session))
-    admin.add_view(TutorialAdminView(Tutorial, db.session))
-
-    # Initialize login manager and user loader
-    login_manager = LoginManager()
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(user_id: str) -> User:
-        """
-        Load a user from the database using the user ID.
-
-        Args:
-            user_id (str): The ID of the user to load.
-
-        Returns:
-            User: The loaded user object, or None if the user doesn't exist.
-        """
-        return User.query.get(user_id)
-
-    # Register blueprints
-    app.register_blueprint(main_routes)
-    app.register_blueprint(auth_routes)
-    app.register_blueprint(project_routes)
-    app.register_blueprint(skill_routes)
-    app.register_blueprint(admin_routes)
-    app.register_blueprint(blog_routes)
-    app.register_blueprint(tutorial_routes)
-
-    # Register context processors
-    @app.context_processor
-    def inject_blogs() -> dict:
-        """
-        Inject all blog entries into the template context.
-
-        Returns:
-            dict: A dictionary containing all blog entries.
-        """
-        blogs = Blog.query.all()
-        return dict(blogs=blogs)
-
-    @app.context_processor
-    def inject_tutorials() -> dict:
-        """
-        Inject all tutorial entries into the template context.
-
-        Returns:
-            dict: A dictionary containing all tutorial entries.
-        """
-        tutorials = Tutorial.query.all()
-        return dict(tutorials=tutorials)
+    redis_host = app.config.get('REDIS_HOST', 'redis')
+    redis_port = app.config.get('REDIS_PORT', 6379)
     
-    @app.context_processor
-    def inject_projects() -> dict:
-        """
-        Inject all project entries into the template context.
-
-        Returns:
-            dict: A dictionary containing all project entries.
-        """
-        projects = Project.query.all()
-        return dict(projects=projects)
+    storage_uri = f"redis://{redis_host}:{redis_port}"
     
-    # Initialize Redis
-    redis_store = redis.StrictRedis(host='localhost', port=6379, db=0)
+    default_limits = app.config.get('DEFAULT_LIMITS', "60 per hour")
 
-    # Initialize Flask-Limiter
     limiter = Limiter(
         app=app,
         key_func=get_remote_address,
-        storage_uri="redis://localhost:6379",
-        default_limits=["60 per hour"]
+        storage_uri=storage_uri,
+        default_limits=[default_limits]
     )
 
     @app.errorhandler(404)

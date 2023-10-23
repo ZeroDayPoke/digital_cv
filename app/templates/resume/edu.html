@@ -1,0 +1,58 @@
+<div class="container mt-4">
+  {% for edu in educations %}
+  <div class="card mb-4 border-success bg-secondary">
+    <!-- Card Header -->
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class="m-0">Education</h2>
+        </div>
+        <div class="col-md-3 text-center">
+          <h2 class="m-0">Image</h2>
+        </div>
+        <div class="col-md-3 text-center">
+          <h2 class="m-0">Skills</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Body -->
+    <div class="row card-body">
+      <!-- Education Description -->
+      <div class="col-md-6">
+        <h5 class="card-title">{{ edu.institution }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ edu.location }}</h6>
+        <p class="card-text">
+          <strong>Field of Study:</strong> {{ edu.field_of_study }}<br />
+          <strong>Graduation Date:</strong> {{ edu.grad_date or 'attending'
+          }}<br />
+          <strong>Details:</strong> {{ edu.details or 'N/A' }}
+        </p>
+      </div>
+
+      <!-- Image -->
+      <div class="col-md-3 d-flex flex-column align-items-start">
+        <div class="image-wrapper mt-2">
+          {% if edu.image_filename %}
+          <img
+            src="{{ url_for('static', filename='images/educations/' + edu.image_filename) }}"
+            alt="{{ edu.institution }}"
+          />
+          {% else %}
+          <img
+            src="{{ url_for('static', filename='images/educations/default.png') }}"
+            alt="{{ edu.institution }}"
+          />
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="col-md-3 d-flex flex-column align-items-start">
+        {% if edu.related_skills %} {% include "caro/edu/main.html" %} {% endif
+        %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>

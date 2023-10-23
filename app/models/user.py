@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from .base import BaseModel, db
 from sqlalchemy.orm import relationship
-from .associations import user_roles
+from .associations import user_roles, project_users
 
 class Role(BaseModel):
     """
@@ -39,6 +39,9 @@ class User(UserMixin, BaseModel):
     verification_token = db.Column(db.String(40))
     verified = db.Column(db.Boolean, default=False)
     token_generated_at = db.Column(db.DateTime, default=datetime.utcnow)
+    github_username = db.Column(db.String(39), unique=True, nullable=True, index=True)
+    projects = db.relationship('Project', secondary=project_users, back_populates='collaborators')
+    messages = db.relationship('Message', backref='sender', lazy='dynamic')
 
     def __init__(self, *args, **kwargs):
         """

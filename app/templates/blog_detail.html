@@ -1,9 +1,7 @@
 <!-- app/templates/blog_detail.html -->
-{% extends "base.html" %} {% block title %} {{ blog.name }} {% endblock %}{% block
-content %}
-<style></style>
-{% include 'blog/' + blog.content_file + '.html' %} {% endblock %} {% block js
-%}
+{% extends "base.html" %} {% block title %} {{ blog.name }} {% endblock %}{%
+block content %} {% include 'blog/' + blog.content_file + '.html' %} {% endblock
+%} {% block js %}
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script
   id="MathJax-script"

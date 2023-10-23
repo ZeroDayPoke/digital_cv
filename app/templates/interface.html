@@ -1,57 +1,163 @@
 <!-- app/templates/interface.html -->
 {% extends "base.html" %} {% from "macros.html" import render_form %} {% block
-title %}Interface{% endblock %}{% block content %}
+title %}Interface{% endblock %} {% block content %}
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-6">
-      <h2>Add Project</h2>
+<h1>Upload CV</h1>
+{{ render_form(form, 'admin_routes.upload_cv', 'Upload') }}
+
+<div class="container mt-4">
+  <!-- Tabs Navigation -->
+  <ul class="nav nav-tabs" id="interfaceTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link active"
+        id="add-project-tab"
+        data-bs-toggle="tab"
+        href="#add-project"
+        role="tab"
+        >Add Project</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="add-skill-tab"
+        data-bs-toggle="tab"
+        href="#add-skill"
+        role="tab"
+        >Add Skill</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="add-blog-tab"
+        data-bs-toggle="tab"
+        href="#add-blog"
+        role="tab"
+        >Add Blog</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="add-tutorial-tab"
+        data-bs-toggle="tab"
+        href="#add-tutorial"
+        role="tab"
+        >Add Tutorial</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="update-project-tab"
+        data-bs-toggle="tab"
+        href="#update-project"
+        role="tab"
+        >Update Project</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="update-blog-tab"
+        data-bs-toggle="tab"
+        href="#update-blog"
+        role="tab"
+        >Update Blog</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="update-tutorial-tab"
+        data-bs-toggle="tab"
+        href="#update-tutorial"
+        role="tab"
+        >Update Tutorial</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="delete-project-tab"
+        data-bs-toggle="tab"
+        href="#delete-project"
+        role="tab"
+        >Delete Project</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="delete-skill-tab"
+        data-bs-toggle="tab"
+        href="#delete-skill"
+        role="tab"
+        >Delete Skill</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="delete-blog-tab"
+        data-bs-toggle="tab"
+        href="#delete-blog"
+        role="tab"
+        >Delete Blog</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="delete-tutorial-tab"
+        data-bs-toggle="tab"
+        href="#delete-tutorial"
+        role="tab"
+        >Delete Tutorial</a
+      >
+    </li>
+  </ul>
+
+  <!-- Tab Content -->
+  <div class="tab-content mt-3" id="interfaceTabsContent">
+    <div class="tab-pane fade show active" id="add-project" role="tabpanel">
       {{ render_form(addprojectform, 'project_routes.add_project', 'Add') }}
     </div>
-    <div class="col-lg-6">
-      <h2>Add Skill</h2>
+    <div class="tab-pane fade" id="add-skill" role="tabpanel">
       {{ render_form(addskillform, 'skill_routes.add_skill', 'Add') }}
     </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-6">
-      <h2>Add Blog</h2>
+    <div class="tab-pane fade" id="add-blog" role="tabpanel">
       {{ render_form(addblogform, 'blog_routes.add_blog', 'Add') }}
     </div>
-    <div class="col-lg-6">
-      <h2>Delete Blog</h2>
-      {{ render_form(deleteblogform, 'blog_routes.delete_blog', 'Delete') }}
+    <div class="tab-pane fade" id="add-tutorial" role="tabpanel">
+      {{ render_form(addtutorialform, 'tutorial_routes.add_tutorial', 'Add') }}
     </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-6">
-      <h2>Delete Skill</h2>
-      {{ render_form(deleteskillform, 'skill_routes.delete_skill', 'Delete') }}
-    </div>
-    <div class="col-lg-6">
-      <h2>Delete Project</h2>
-      {{ render_form(deleteprojectform, 'project_routes.delete_project',
-      'Delete') }}
-    </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-6">
-      <h2>Update Project</h2>
+    <div class="tab-pane fade" id="update-project" role="tabpanel">
       {{ render_form(updateprojectform, 'project_routes.update_project',
       'Update') }}
     </div>
-    <div class="col-lg-6">
-      <h2>Add Tutorial</h2>
-      {{ render_form(addtutorialform, 'tutorial_routes.add_tutorial', 'Add') }}
+    <div class="tab-pane fade" id="update-blog" role="tabpanel">
+      {{ render_form(updateblogform, 'blog_routes.update_blog', 'Update') }}
+    </div>
+    <div class="tab-pane fade" id="update-tutorial" role="tabpanel">
+      {{ render_form(updatetutorialform, 'tutorial_routes.update_tutorial',
+      'Update') }}
+    </div>
+    <div class="tab-pane fade" id="delete-project" role="tabpanel">
+      {{ render_form(deleteprojectform, 'project_routes.delete_project',
+      'Delete') }}
+    </div>
+    <div class="tab-pane fade" id="delete-skill" role="tabpanel">
+      {{ render_form(deleteskillform, 'skill_routes.delete_skill', 'Delete') }}
+    </div>
+    <div class="tab-pane fade" id="delete-blog" role="tabpanel">
+      {{ render_form(deleteblogform, 'blog_routes.delete_blog', 'Delete') }}
+    </div>
+    <div class="tab-pane fade" id="delete-tutorial" role="tabpanel">
+      {{ render_form(deletetutorialform, 'tutorial_routes.delete_tutorial',
+      'Delete') }}
     </div>
   </div>
 </div>
