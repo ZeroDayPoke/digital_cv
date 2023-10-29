@@ -54,6 +54,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.nginx
+    depends_on:
+      - flask-app
     environment:
       - CERT_EXISTS=${CERT_EXISTS}
     ports:
