@@ -6,15 +6,14 @@ sudo apt update && sudo apt install -y docker docker-compose git
 # Add current user to docker group
 sudo usermod -aG docker $USER
 
-# Check if Flask app directory exists, if not, clone it
-if [ ! -d "$FLASK_APP_REPO" ]; then
-    git clone https://github.com/$GIT_USERNAME/$FLASK_APP_REPO.git
-else
-    echo "$FLASK_APP_REPO directory already exists. Skipping clone."
-fi
+# Clone the Flask app repo
+git clone https://github.com/zerodaypoke/digital_cv
+
+# Copy the .env file
+cp .env digital_cv/
 
 # Change directory to Flask app
-cd $FLASK_APP_REPO
+cd digital_cv
 
 # Start all services except certbot
 docker-compose up -d nginx redis db flask-app
