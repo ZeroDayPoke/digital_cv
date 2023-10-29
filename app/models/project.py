@@ -38,7 +38,9 @@ class Project(BaseModel):
     live_link = db.Column(db.String(500), nullable=True)
     misc_link = db.Column(db.String(500), nullable=True)
     misc_name = db.Column(db.String(120), nullable=True)
-    status = db.Column(db.String(20), nullable=False, default='Planning')  # New field
+    status = db.Column(db.String(20), nullable=False, default='Planning')
+    category_id = db.Column(db.String(60), db.ForeignKey('project_categories.id'), nullable=True)
+    category = db.relationship('ProjectCategory', back_populates='projects')
     collaborators = db.relationship('User', secondary=project_users, back_populates='projects')
     related_skills = db.relationship('Skill', secondary=project_skills, back_populates='related_projects')
 

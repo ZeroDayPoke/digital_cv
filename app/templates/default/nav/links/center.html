@@ -16,17 +16,27 @@
           >All</a
         >
       </li>
-      {% for project in projects %}
-      <li>
-        <a
-          class="dropdown-item"
-          href="{{ url_for('project_routes.project_details', project_id=project.id) }}"
-          >{{ project.name }}</a
+      {% for category in project_categories %}
+      <li class="nav-item dropdown-submenu">
+        <a class="dropdown-item dropdown-toggle" href="#"
+          >{{ category.name }}</a
         >
+        <ul class="dropdown-menu">
+          {% for project in category.projects %}
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('project_routes.project_details', project_id=project.id) }}"
+              >{{ project.name }}</a
+            >
+          </li>
+          {% endfor %}
+        </ul>
       </li>
       {% endfor %}
     </ul>
   </li>
+
   <li class="nav-item dropdown">
     <a
       class="nav-link dropdown-toggle"
@@ -54,6 +64,7 @@
       {% endfor %}
     </ul>
   </li>
+
   <li class="nav-item dropdown">
     <a
       class="nav-link dropdown-toggle"

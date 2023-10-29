@@ -1,13 +1,14 @@
 # ./seeders/projects.py
 
-from app.models import Project, Skill, User
+from app.models import Project, Skill, User, ProjectCategory
 from app import db
 
 def seed_projects():
     """Seed the projects table"""
     projects = [
         {
-            "name": "Digital CV", 
+            "name": "Digital CV",
+            "category": "Web Development",
             "description": "A digital CV project made with... well everything", 
             "role": "Full-stack developer", 
             "repo_link": "https://github.com/ZeroDayPoke/digital_cv", 
@@ -17,7 +18,8 @@ def seed_projects():
             "collaborators": ["mason"]
         },
         {
-            "name": "Strain.GG Clouds", 
+            "name": "Strain.GG Clouds",
+            "category": "Web Development",
             "description": "hack sprint project",
             "role": "Full-stack developer", 
             "repo_link": "https://https://github.com/ZeroDayPoke/strain.gg_clouds",
@@ -28,6 +30,7 @@ def seed_projects():
         },
         {
             "name": "holberton-designer-two",
+            "category": "Design",
             "description": "second phase of designer language project series",
             "role": "Full-stack developer", 
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-web_front_end/tree/main/designer_research",
@@ -52,8 +55,18 @@ def seed_projects():
             skill_names = project_data.pop('skills', [])
             collaborator_usernames = project_data.pop('collaborators', [])  # Pop collaborators
 
+            # Pop the category field and query for it
+            category_name = project_data.pop('category', None)
+            category = None
+            if category_name:
+                category = db.session.query(ProjectCategory).filter_by(name=category_name).first()
+
             # Create Project object
             project = Project(**project_data)
+
+            # Set category if found
+            if category:
+                project.category_id = category.id
 
             # Query for Skill objects that match the names in 'skills'
             related_skills = db.session.query(Skill).filter(Skill.name.in_(skill_names)).all()

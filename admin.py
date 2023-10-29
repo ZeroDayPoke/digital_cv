@@ -111,3 +111,18 @@ class ExperienceAdminView(AdminModelView):
 class MessageAdminView(AdminModelView):
     column_list = ['sender_id', 'message_body', 'is_read', 'created_at', 'updated_at']
     form_columns = ['sender_id', 'message_body', 'is_read']
+    
+class ProjectCategoryAdminView(AdminModelView):
+    """
+    View for managing project categories in the admin panel.
+    
+    Attributes:
+    - column_list (list): List of columns to display in the admin panel.
+    - form_columns (list): List of columns to display in the add/edit form.
+    """
+    column_list = ['name', 'description', 'created_at', 'updated_at', 'projects']
+    form_columns = ['name', 'description']
+
+    column_formatters = {
+        'projects': lambda v, c, m, p: ", ".join([project.name for project in m.projects]),
+    }

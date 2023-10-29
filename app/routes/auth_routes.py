@@ -77,7 +77,7 @@ def signin():
             flash('Email does not exist.')
         
         return redirect(url_for('main_routes.index'))
-    return render_template('signin.html', form=form)
+    return render_template('default/signin.html', form=form)
 
 @auth_routes.route('/signout', methods=['GET'])
 @login_required
@@ -124,7 +124,7 @@ def account():
             db.session.commit()
             flash('Password changed successfully.')
 
-    return render_template('account.html', form=form, message_form=message_form, 
+    return render_template('default/account.html', form=form, message_form=message_form, 
                            messages=messages, existing_message=existing_message)
 
 

@@ -15,7 +15,7 @@ main_routes = Blueprint('main_routes', __name__, url_prefix='')
 
 @main_routes.route('/')
 def index():
-    return render_template('index.html', include_header=True)
+    return render_template('default/index.html', include_header=True)
 
 @main_routes.route('/about')
 def about():

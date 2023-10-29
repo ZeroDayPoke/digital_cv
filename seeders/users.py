@@ -6,9 +6,9 @@ from app import db
 
 def seed_users():
     """Seed the users table with default admin, user and guest accounts."""
-    admin_username = config('DEFAULT_ADMIN_USERNAME', default='admin')
-    admin_password = config('DEFAULT_ADMIN_PASSWORD', default='admin')
-    admin_email = config('DEFAULT_ADMIN_EMAIL', default='admin@admin.admin')
+    admin_username = config('DEFAULT_ADMIN_USERNAME', default='dev')
+    admin_password = config('DEFAULT_ADMIN_PASSWORD', default='dev')
+    admin_email = config('DEFAULT_ADMIN_EMAIL', default='dev@dev.dev')
 
     # Query existing usernames and emails to prevent duplicates
     existing_usernames = [u.username for u in db.session.query(User.username).all()]
