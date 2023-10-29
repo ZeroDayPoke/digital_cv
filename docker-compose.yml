@@ -54,18 +54,22 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.nginx
+    environment:
+      - CERT_EXISTS=${CERT_EXISTS}
     ports:
       - "80:80"
       - "443:443"
-    depends_on:
-      - flask-app
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /var/www/certbot:/var/www/certbot
       - ./app/static:/app/static
+      - ./nginx/nginx_init.conf:/etc/nginx/conf.d/nginx_init.conf
+      - ./nginx/nginx_ssl.conf:/etc/nginx/conf.d/nginx_ssl.conf
 
   certbot:
     image: certbot/certbot
+    depends_on:
+      - nginx
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/www/certbot:/var/www/certbot

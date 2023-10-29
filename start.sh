@@ -6,8 +6,20 @@ sudo apt update && sudo apt install -y docker docker-compose git
 # Add current user to docker group
 sudo usermod -aG docker $USER
 
-# Clone the Flask app repo
-git clone https://github.com/zerodaypoke/digital_cv
+# Reminder for the user
+echo "You may need to re-login or restart your system for docker group changes to take effect."
+
+# Check if certificate exists and set CERT_EXISTS
+if [ -f "/etc/letsencrypt/live/zerodaypoke.com/fullchain.pem" ]; then
+    export CERT_EXISTS=true
+else
+    export CERT_EXISTS=false
+fi
+
+# Clone the Flask app repo if it doesn't exist
+if [ ! -d "digital_cv" ]; then
+    git clone https://github.com/zerodaypoke/digital_cv
+fi
 
 # Copy the .env file
 cp .env digital_cv/
@@ -19,10 +31,13 @@ cd digital_cv
 docker-compose up -d nginx redis db flask-app
 
 # Wait for a few seconds to make sure everything is initialized
-sleep 69
+sleep 30
 
 # Run certbot to get the certificates
 docker-compose run --rm certbot
 
-# Recreate the Nginx service to now include SSL
-docker-compose up -d --force-recreate nginx
+# Switch Nginx to the SSL-enabled configuration
+docker-compose exec nginx ln -sf /etc/nginx/conf.d/nginx_ssl.conf /etc/nginx/conf.d/default.conf
+
+# Reload Nginx to pick up the new configuration
+docker-compose exec nginx nginx -s reload
