@@ -1,14 +1,12 @@
 <!-- app/templates/tutorial_detail.html -->
-{% extends "base.html" %} {% block title %}{{ tutorial.name }}{% endblock %} {%
-block content %}
+{% extends "base.html" %}
+
+{% block title %}{{ tutorial.name }}{% endblock %}
+
+{% block content %}
 
 <div class="row">
   <article class="col-md-8">
-    <!-- <div class="mt-4" id="tutorial-intro">
-      <h2>{{ tutorial.name }}</h2>
-      <p>{{ tutorial.description }}</p>
-    </div> -->
-
 
     <div class="mt-4" id="tutorial-content">
       <!-- Including the main content of the tutorial from its associated content file -->

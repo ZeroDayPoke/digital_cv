@@ -38,8 +38,7 @@ services:
       retries: 3
 
   flask-app:
-    build:
-      context: ./${FLASK_APP_REPO}
+    build: .
     ports:
       - "${FLASK_APP_PORT}:8000"
     depends_on:
@@ -48,7 +47,7 @@ services:
       redis:
         condition: service_healthy
     volumes:
-      - /home/grazingtatanka/spinup/digital_cv/app/static:/app/static
+      - ./app/static:/app/static
 
   nginx:
     build:
@@ -62,7 +61,7 @@ services:
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /var/www/certbot:/var/www/certbot
-      - /home/grazingtatanka/spinup/digital_cv/app/static:/app/static
+      - ./app/static:/app/static
 
   certbot:
     image: certbot/certbot
