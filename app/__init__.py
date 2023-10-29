@@ -115,7 +115,7 @@ def create_app(config_name='default') -> Flask:
 
     @app.errorhandler(404)
     def page_not_found(e):
-        return render_template('404.html'), 404
+        return render_template('default/404.html'), 404
 
     logging.info(f"App created with config: {config_name}")
 
