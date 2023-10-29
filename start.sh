@@ -28,7 +28,7 @@ cp .env digital_cv/
 cd digital_cv
 
 # Start all services except certbot
-docker-compose up -d nginx redis db flask-app
+CERT_EXISTS=${CERT_EXISTS} docker-compose up -d nginx redis db flask-app
 
 # Wait for a few seconds to make sure everything is initialized
 sleep 30
