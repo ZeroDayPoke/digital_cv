@@ -38,7 +38,8 @@ services:
       retries: 3
 
   flask-app:
-    build: .
+    build:
+      context: .
     ports:
       - "${FLASK_APP_PORT}:8000"
     depends_on:
@@ -68,9 +69,7 @@ services:
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/www/certbot:/var/www/certbot
-    command: certonly --webroot --webroot-path=/var/www/certbot --email diamondpawsholding@gmail.com --agree-tos --no-eff-email --non-interactive --force-renewal -d zerodaypoke.com -d www.zerodaypoke.com
-    depends_on:
-      - nginx
+    command: certonly --webroot --webroot-path=/var/www/certbot --email diamondpawsholding@gmail.com --agree-tos --no-eff-email --force-renewal -d zerodaypoke.com -d www.zerodaypoke.com
 
 volumes:
   mysql-data:
