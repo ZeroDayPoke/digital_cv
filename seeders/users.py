@@ -17,10 +17,13 @@ def seed_users():
     users = [
         {"username": admin_username, "email": admin_email, "password": admin_password, "role": "ADMIN"},
         {"username": "mason", "email": "mason@zerodaypoke.com", "password": "mason", "role": "USER", "github_username": "spindouken"},
+        {"username": "heather", "email": "heather@zerodaypoke.com", "password": "heather", "role": "USER", "github_username": "hayes28"},
         {"username": "rob", "email": "rob@zerodaypoke.com", "password": "rob", "role": "USER", "github_username": "Nomad-Rob"},
         {"username": "jules", "email": "jules@zerodaypoke.com", "password": "jules", "role": "USER", "github_username": "Julia-5534"},
         {"username": "twood", "email": "twood@zerodaypoke.com", "password": "twood", "role": "USER", "github_username": "WoodsonTD"},
-        {"username": "jobb", "email": "jobb@zerodaypoke.com", "password": "jobb", "role": "USER", "github_username": "jobabyyy"}
+        {"username": "colan", "email": "colan@zerodaypoke.com", "password": "colan", "role": "USER", "github_username": "ColanWorstellProgramming"},
+        {"username": "jobb", "email": "jobb@zerodaypoke.com", "password": "jobb", "role": "USER", "github_username": "jobabyyy"},
+        {"username": "linzo", "email": "linzo@zerodaypoke.com", "password": "linzo", "role": "USER", "github_username": "linszay"},
     ]
 
     for user_data in users:

@@ -22,7 +22,7 @@ def seed_projects():
             "category": "Web Development",
             "description": "hack sprint project",
             "role": "Full-stack developer", 
-            "repo_link": "https://https://github.com/ZeroDayPoke/strain.gg_clouds",
+            "repo_link": "https://github.com/ZeroDayPoke/strain.gg_clouds",
             "live_link": "https://strain.gg",
             "image_filename": "notfound2.png",
             "skills": ["Flask", "Python", "JavaScript"],
@@ -38,8 +38,71 @@ def seed_projects():
             "image_filename": "holberton-designer-two.png",
             "skills": ["Figma"],
             "misc_link": "https://www.figma.com/file/aM3UyUZTMKUMWXocCOdYIx/Concept?type=design&node-id=0%3A1&mode=design&t=uWh0rNdxmB4TwYqM-1",
-            "misc_name": "fima link",
+            "misc_name": "figma link",
             "collaborators": ["rob"]
+        },
+        {
+            "name": "holberton-designer-one",
+            "category": "Design",
+            "description": "first phase of designer language project series",
+            "role": "Full-stack developer",
+            "repo_link": "",
+            "skills": ["Figma"],
+            "collaborators": ["rob"]
+        },
+        {
+            "name": "holberton-designer-three",
+            "category": "Design",
+            "description": "third phase of designer language project series",
+            "role": "Full-stack developer",
+            "repo_link": "",
+            "skills": ["Figma"],
+            "collaborators": ["rob"]
+        },
+        {
+            "name": "Monty",
+            "category": "Low level Programming",
+            "description": "A monty bytecode interpreter",
+            "role": "hol-bb",
+            "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-monty",
+            "skills": ["C", "Linux"],
+            "collaborators": ["linzo"]
+        },
+        {
+            "name": "printf",
+            "category": "Low level Programming",
+            "description": "A printf clone",
+            "role": "hol-bb",
+            "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-printf",
+            "skills": ["C", "Linux"],
+            "collaborators": ["mason", "jobb"],
+        },
+        {
+            "name": "simple_shell",
+            "category": "Low level Programming",
+            "description": "A simple shell",
+            "role": "hol-bb",
+            "skills": ["C", "Linux"],
+            "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-simple_shell",
+            "collaborators": ["jules"],
+        },
+        {
+            "name": "HBNB Phase 1",
+            "category": "Web Development",
+            "description": "First phase of the AirBnB clone",
+            "role": "hol-bb",
+            "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone",
+            "skills": ["Python", "Linux"],
+            "collaborators": ["heather"],
+        },
+        {
+            "name": "HBNB Phase 2",
+            "category": "Web Development",
+            "description": "Second phase of the AirBnB clone",
+            "role": "hol-bb",
+            "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone_v2",
+            "skills": ["Python", "Linux", "MySQL", "SQLAlchemy", "HTML", "CSS", "Flask"],
+            "collaborators": ["colan"],
         }
     ]
 
