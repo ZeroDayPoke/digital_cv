@@ -60,6 +60,10 @@ def resume():
 def exit_admin():
     return redirect(url_for('main_routes.index'))
 
+@main_routes.route('/demo')
+def demo():
+    return render_template('demo.html')
+
 @main_routes.route('/send_message', methods=['POST'])
 @login_required
 def send_message():
