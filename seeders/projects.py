@@ -336,6 +336,46 @@ def seed_projects():
             "role": "Tutor",
             "repo_link": "https://github.com/ZeroDayPoke/evilcode",
             "skills": ["Python", "JavaScript", "Linux", "HTML", "CSS", "Flask", "SQLAlchemy", "MySQL", "C"],
+        },
+        {
+            "name": "pokePick",
+            "category": "Data Science",
+            "description": "First full web app; currently serves as the inventory management, order management, and order fulfillment system for my business",
+            "role": "Full-stack developer",
+            "repo_link": "https://github.com/ZeroDayPoke/pokePick",
+            "skills": ["Python", "JavaScript", "Linux", "HTML", "CSS", "Flask", "SQLAlchemy", "MySQL"],
+        },
+        {
+            "name": "C# Exploration",
+            "category": "C#",
+            "description": "C# Exploration",
+            "role": "Full-stack developer",
+            "repo_link": "https://github.com/ZeroDayPoke/bleeding_edge",
+            "skills": ["C#", "Linux", "MySQL"],
+        },
+        {
+            "name": "Museum Prototype",
+            "category": "Web Development",
+            "description": "Museum Prototype",
+            "role": "Full-stack developer",
+            "repo_link": "https://github.com/ZeroDayPoke/mooseum",
+            "skills": ["Javascript", "HTML", "CSS", "Sequelize", "React", "MySQL", "Node.js", "Express"],
+        },
+        {
+            "name": "Sorting Algorithms",
+            "category": "Low level Programming",
+            "description": "Sorting Algorithms",
+            "role": "hol-bb",
+            "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-sorting_algorithms",
+            "skills": ["C", "Linux"],
+        },
+        {
+            "name": "Binary Trees",
+            "category": "Low level programming",
+            "description": "Binary Trees",
+            "role": "hol-bb",
+            "repo-link": "https://github.com/ZeroDayPoke/holbertonschool-binary_trees",
+            "skills": ["C", "Linux"],
         }
     ]
 
