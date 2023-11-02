@@ -146,8 +146,8 @@ block title %}Interface{% endblock %} {% block content %}
       {{ render_form(addtutorialform, 'tutorial_routes.add_tutorial', 'Add') }}
     </div>
     <div class="tab-pane fade" id="update-project" role="tabpanel">
-      {{ render_form(updateprojectform, 'project_routes.update_project',
-      'Update') }}
+      {{ render_form(updateprojectform, 'project_routes.update_project', 'Update
+      Project', kwargs={'project_id': project.id}) }}
     </div>
     <div class="tab-pane fade" id="update-blog" role="tabpanel">
       {{ render_form(updateblogform, 'blog_routes.update_blog', 'Update') }}
@@ -178,15 +178,56 @@ block title %}Interface{% endblock %} {% block content %}
 {% endblock %} {% block js %} {{ super() }}
 <script>
   $(document).ready(function () {
+    // Display the current value for each range input
     $('input[type="range"]').each(function () {
       var displayElement = $('<span id="' + $(this).attr("id") + '_display"/>');
       $(this).after(displayElement);
-
       displayElement.text($(this).val());
 
       $(this).on("input change", function () {
         displayElement.text($(this).val());
       });
+    });
+
+    // Event listener for change on the project select field
+    $("#project").change(function () {
+      var projectId = $(this).val();
+      if (projectId) {
+        // AJAX call to get the project details
+        $.ajax({
+          url: "{{ url_for('project_routes.project_details', project_id='placeholder') }}".replace(
+            "placeholder",
+            projectId
+          ),
+          type: "GET",
+          dataType: "json",
+          success: function (data) {
+            // Update form fields with the data returned
+            $("#name").val(data.name);
+            $("#description").val(data.description);
+            $("#role").val(data.role);
+            $("#repo_link").val(data.repo_link);
+            $("#live_link").val(data.live_link);
+            $("#misc_link").val(data.misc_link);
+            $("#misc_name").val(data.misc_name);
+            $("#status").val(data.status);
+            $("#category").val(data.category_id);
+
+            // Update checkboxes for related skills
+            $('input[name="related_skills"]').each(function () {
+              if (data.related_skills.includes(parseInt($(this).val()))) {
+                $(this).prop("checked", true);
+              } else {
+                $(this).prop("checked", false);
+              }
+            });
+          },
+          error: function (error) {
+            // Handle any errors
+            console.log(error);
+          },
+        });
+      }
     });
   });
 </script>

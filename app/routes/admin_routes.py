@@ -5,6 +5,8 @@ admin_routes.py - admin routes for the Flask application
 # Path: app/routes/admin_routes.py
 
 import os
+from requests import request
+from app.models import Project
 from flask import Blueprint, render_template, redirect, url_for, flash, current_app
 from flask_login import login_required
 from werkzeug.utils import secure_filename
@@ -48,13 +50,28 @@ LOAD_CHOICE_MAP = {
 def interface():
     form = UploadCVForm()
     form_instances = {}
+
+    project_one = Project.query.first()
+
     for form_class, load_choice_funcs in LOAD_CHOICE_MAP.items():
-        form_instance = form_class()
+        if form_class is UpdateProjectForm and project_one:
+            form_instance = form_class(obj=project_one)
+        else:
+            form_instance = form_class()
+
         for func in load_choice_funcs:
             form_instance = func(form_instance)
+
         form_name = form_class.__name__.lower()
         form_instances[form_name] = form_instance
-    return render_template('admin/interface.html', title='Interface', **form_instances, form=form)
+
+    return render_template(
+        'admin/interface.html',
+        title='Interface',
+        **form_instances,
+        form=form,
+        project=project_one
+    )
 
 @admin_routes.route('/upload_cv', methods=['POST'])
 def upload_cv():
