@@ -1,13 +1,6 @@
-{% extends "base.html" %} {% block content %}
-<div role="region" aria-label="demo video">
-  <video controls autoplay loop muted width="100%">
-    <source
-      src="{{ url_for('static', filename='demo-0.mkv') }}"
-      type="video/mp4"
-    />
-    Your browser does not support the video tag or the file format of this
-    video.
-  </video>
-  <p>Here we go!</p>
-</div>
+{% extends "base.html" %}
+{% from "utils/macros.html" import render_video %}
+
+{% block content %}
+  {{ render_video('demo-0.mkv', aria_label='demo video') }}
 {% endblock %}

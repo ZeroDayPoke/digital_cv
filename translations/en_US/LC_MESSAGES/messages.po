@@ -64,7 +64,7 @@ msgid "hire_me_email"
 msgstr "cstampok@gmail.com?subject=Job Opportunity"
 
 msgid "favicon_location"
-msgstr "static/images/favicon.ico"
+msgstr "static/images/defaults/favicon.ico"
 
 msgid "headshot_location"
 msgstr "static/images/chris.png"
