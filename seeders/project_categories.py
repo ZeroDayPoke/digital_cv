@@ -10,6 +10,7 @@ def seed_project_categories():
         {"name": "Data Science", "description": "Projects related to data science."},
         {"name": "Design", "description": "Projects related to design."},
         {"name": "Machine Learning", "description": "Projects related to machine learning."},
+        {"name": "Live Code", "description": "Projects related to live codings."},
         {"name": "DevOps", "description": "Projects related to DevOps."},
         {"name": "Mathematics", "description": "Projects related to mathematics."},
         {"name": "Low Level Programming", "description": "Projects related to low level programming."},
