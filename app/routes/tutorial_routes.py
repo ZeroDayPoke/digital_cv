@@ -6,6 +6,7 @@ tutorial routes for the Flask application
 
 from flask import Blueprint, redirect, url_for, flash, render_template
 from flask_login import login_required, current_user
+from .route_utils.decorators import admin_required
 from ..utils.section_slicer import extract_sections_from_content
 from ..models import db, Tutorial, Skill
 from ..forms import AddTutorialForm, UpdateTutorialForm, DeleteTutorialForm
@@ -28,6 +29,7 @@ def add_tutorial():
     """
 @tutorial_routes.route('/interface/add_tutorial', methods=['GET', 'POST'])
 @login_required
+@admin_required
 def add_tutorial():
     if not current_user.has_role('ADMIN'):
         return redirect(url_for('main_routes.tutorials'))
@@ -55,6 +57,7 @@ def add_tutorial():
 
 @tutorial_routes.route('/interface/update_tutorial', methods=['GET', 'POST'])
 @login_required
+@admin_required
 def update_tutorial():
     """
     Update a tutorial in the database.
@@ -95,6 +98,7 @@ def update_tutorial():
 
 @tutorial_routes.route('/interface/delete_tutorial', methods=['GET', 'POST'])
 @login_required
+@admin_required
 def delete_tutorial():
     """
     Route for deleting a tutorial.
@@ -133,5 +137,4 @@ def tutorial_detail(tutorial_id):
 
 @tutorial_routes.route('/tutorials', methods=['GET'])
 def tutorials():
-    tutorials = Tutorial.query.all()
-    return render_template('tutorials.html', tutorials=tutorials)
+    return render_template('tutorials.html')

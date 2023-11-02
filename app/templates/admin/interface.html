@@ -1,6 +1,6 @@
-<!-- app/templates/interface.html -->
-{% extends "base.html" %} {% from "utils/macros.html" import render_form %} {% block
-title %}Interface{% endblock %} {% block content %}
+<!-- app/templates/admin/interface.html -->
+{% extends "base.html" %} {% from "utils/macros.html" import render_form %} {%
+block title %}Interface{% endblock %} {% block content %}
 
 <h1>Upload CV</h1>
 {{ render_form(form, 'admin_routes.upload_cv', 'Upload') }}
@@ -68,6 +68,17 @@ title %}Interface{% endblock %} {% block content %}
         >Update Blog</a
       >
     </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="update-skill-tab"
+        data-bs-toggle="tab"
+        href="#update-skill"
+        role="tab"
+        >Update Skill</a
+      >
+    </li>
+
     <li class="nav-item" role="presentation">
       <a
         class="nav-link"
@@ -141,6 +152,9 @@ title %}Interface{% endblock %} {% block content %}
     <div class="tab-pane fade" id="update-blog" role="tabpanel">
       {{ render_form(updateblogform, 'blog_routes.update_blog', 'Update') }}
     </div>
+    <div class="tab-pane fade" id="update-skill" role="tabpanel">
+      {{ render_form(updateskillform, 'skill_routes.update_skill', 'Update') }}
+    </div>
     <div class="tab-pane fade" id="update-tutorial" role="tabpanel">
       {{ render_form(updatetutorialform, 'tutorial_routes.update_tutorial',
       'Update') }}
@@ -161,4 +175,19 @@ title %}Interface{% endblock %} {% block content %}
     </div>
   </div>
 </div>
+{% endblock %} {% block js %} {{ super() }}
+<script>
+  $(document).ready(function () {
+    $('input[type="range"]').each(function () {
+      var displayElement = $('<span id="' + $(this).attr("id") + '_display"/>');
+      $(this).after(displayElement);
+
+      displayElement.text($(this).val());
+
+      $(this).on("input change", function () {
+        displayElement.text($(this).val());
+      });
+    });
+  });
+</script>
 {% endblock %}

@@ -7,5 +7,5 @@ route_utils.py - utility functions for routes
 """
 
 from .choice_selectors import (
-    load_project_choices, load_skill_choices, load_blog_choices, load_tutorial_choices
+    load_project_choices, load_skill_choices, load_blog_choices, load_tutorial_choices, load_category_choices
 )

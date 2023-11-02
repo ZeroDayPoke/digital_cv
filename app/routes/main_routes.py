@@ -7,6 +7,7 @@ main.py - main routes for the Flask application
 from flask import render_template, request, Blueprint, current_app, redirect, url_for, jsonify, flash
 from flask_login import login_required, current_user
 
+from .route_utils.decorators import admin_required
 from ..models import Project, Skill, Blog, Message, db
 from ..forms import SkillsFilterForm, MessageAdminForm
 from app.routes.route_utils import load_skill_choices, load_project_choices, load_blog_choices, load_tutorial_choices
@@ -24,7 +25,7 @@ def about():
 @main_routes.route('/projects', methods=['GET', 'POST'])
 def projects():
     form = SkillsFilterForm(request.form)
-    form.skills.choices = [(str(skill.id), skill.name) for skill in Skill.query.all()]
+    form = load_skill_choices(form)
 
     if request.method == 'POST' and form.validate():
         selected_skills = form.skills.data
@@ -87,18 +88,15 @@ def send_message():
 
 @main_routes.route('/get_messages', methods=['GET'])
 @login_required
+@admin_required
 def get_messages():
-    if current_user.has_role('ADMIN'):
-        messages = Message.query.all()
-        return jsonify({'messages': [message.message_body for message in messages]}), 200
-
-    return jsonify({'status': 'Unauthorized'}), 403
+    messages = Message.query.all()
+    return jsonify({'messages': [message.message_body for message in messages]}), 200
 
 @main_routes.route('/mark_as_read/<message_id>', methods=['POST'])
 @login_required
+@admin_required
 def mark_as_read(message_id):
-    if not current_user.has_role('ADMIN'):
-        return jsonify({'status': 'Unauthorized'}), 403
     message = Message.query.get(message_id)
     if message:
         message.is_read = True

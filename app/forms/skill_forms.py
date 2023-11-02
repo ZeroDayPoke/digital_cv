@@ -1,20 +1,32 @@
 #!/usr/bin/env python3
 
+# ./app/forms/skill_forms.py
+
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
+from wtforms import StringField, SubmitField, SelectField, IntegerField
+from wtforms.widgets import Input
 from wtforms.validators import DataRequired
 from flask_wtf.file import FileField, FileAllowed
 from . import at_least_one_checkbox, MultiCheckboxField
+from ..models.skill import Skill
 
 # Skill Forms
+
+class RangeInput(Input):
+    input_type = 'range'
+
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('step', '1')
+        kwargs.setdefault('min', '1')
+        kwargs.setdefault('max', '3')
+        return super().__call__(field, **kwargs)
+
+class SliderField(IntegerField):
+    widget = RangeInput()
 
 class SkillsFilterForm(FlaskForm):
     """
     A form for filtering skills.
-
-    Attributes:
-    - skills: A MultiCheckboxField for selecting skills.
-    - filter: A SubmitField for submitting the form.
     """
     skills = MultiCheckboxField('Skills', choices=[])
     filter = SubmitField('Filter')
@@ -22,11 +34,6 @@ class SkillsFilterForm(FlaskForm):
 class AddSkillForm(FlaskForm):
     """
     A form to add a new skill to the user's digital CV.
-
-    Attributes:
-    - name (StringField): a required field for the name of the skill.
-    - image (FileField): an optional field for an image representing the skill.
-    - submit (SubmitField): a button to submit the form.
     """
     name = StringField('Skill Name', validators=[DataRequired()])
     image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
@@ -35,13 +42,35 @@ class AddSkillForm(FlaskForm):
 class DeleteSkillForm(FlaskForm):
     """
     A form used to delete a skill from a user's profile.
-
-    Attributes:
-    -----------
-    related_skills : SelectField
-        A dropdown list of skills related to the user's profile.
-    submit : SubmitField
-        A button to submit the form.
     """
-    related_skills = SelectField('Skill to Delete', coerce=str)
+    related_skills = MultiCheckboxField(
+        'Related Skills',
+        choices=[],
+        validators=[at_least_one_checkbox]
+    )
     submit = SubmitField('Delete Skill')
+
+class UpdateSkillForm(FlaskForm):
+    """
+    A form to update an existing skill.
+    """
+    related_skills = MultiCheckboxField(
+        'Related Skills',
+        choices=[],
+        validators=[at_least_one_checkbox]
+    )
+    skill_level = SliderField(
+        'Skill Level', 
+        validators=[DataRequired()]
+    )
+    image = FileField(
+        'Skill Image',
+        validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])]
+    )
+    submit = SubmitField('Update Skill')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.related_skills.choices = [
+            (str(skill.id), skill.name) for skill in Skill.query.all()
+        ]

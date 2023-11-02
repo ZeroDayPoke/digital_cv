@@ -4,7 +4,7 @@ project_routes.py - project routes for the Flask application
 """
 # Path: app/routes/project_routes.py
 
-from flask import Blueprint, redirect, url_for, flash, render_template, request
+from flask import Blueprint, redirect, url_for, flash, render_template
 from flask_login import login_required, current_user
 from ..models import db, Project, Skill
 from ..forms import AddProjectForm, UpdateProjectForm, DeleteProjectForm

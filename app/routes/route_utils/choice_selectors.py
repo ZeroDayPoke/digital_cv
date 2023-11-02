@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from app.models import Skill, Project, Blog, Tutorial
+from app.models import Skill, Project, Blog, Tutorial, ProjectCategory
 
 def load_skill_choices(form):
     """
@@ -54,4 +54,17 @@ def load_tutorial_choices(form):
         Form: The updated form object with tutorial choices loaded.
     """
     form.tutorial.choices = [(str(tutorial.id), tutorial.name) for tutorial in Tutorial.query.all()]
+    return form
+
+def load_category_choices(form):
+    """
+    Populate the choices for project category fields in a form.
+
+    Args:
+        form (FlaskForm): A Flask-WTF form object.
+
+    Returns:
+        FlaskForm: The updated form object with category choices loaded.
+    """
+    form.category.choices = [(str(category.id), category.name) for category in ProjectCategory.query.all()]
     return form
