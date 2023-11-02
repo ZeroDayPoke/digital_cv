@@ -52,7 +52,7 @@ def signup():
             flash('Congratulations, you are now a registered user! However, we could not send a verification email.')
 
         return redirect(url_for('main_routes.index'))
-    return render_template('signup.html', form=form)
+    return render_template('default/signup.html', form=form)
 
 @auth_routes.route('/signin', methods=['GET', 'POST'])
 def signin():

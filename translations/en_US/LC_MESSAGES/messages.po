@@ -67,7 +67,7 @@ msgid "favicon_location"
 msgstr "static/images/defaults/favicon.ico"
 
 msgid "headshot_location"
-msgstr "static/images/chris.png"
+msgstr "static/images/defaults/avatars/0004-chris.png"
 
 msgid "about_intro"
 msgstr "Talk about me some here..."
