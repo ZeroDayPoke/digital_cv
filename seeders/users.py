@@ -15,15 +15,15 @@ def seed_users():
     existing_emails = [u.email for u in db.session.query(User.email).all()]
 
     users = [
-        {"username": admin_username, "email": admin_email, "password": admin_password, "role": "ADMIN"},
-        {"username": "mason", "email": "mason@zerodaypoke.com", "password": "mason", "role": "USER", "github_username": "spindouken"},
-        {"username": "heather", "email": "heather@zerodaypoke.com", "password": "heather", "role": "USER", "github_username": "hayes28"},
-        {"username": "rob", "email": "rob@zerodaypoke.com", "password": "rob", "role": "USER", "github_username": "Nomad-Rob"},
+        {"username": admin_username, "email": admin_email, "password": admin_password, "role": "ADMIN", "github_username": "ZeroDayPoke", "image_filename": "0004-chris.png"},
+        {"username": "mason", "email": "mason@zerodaypoke.com", "password": "mason", "role": "USER", "github_username": "spindouken", "image_filename": ""},
+        {"username": "heather", "email": "heather@zerodaypoke.com", "password": "heather", "role": "USER", "github_username": "hayes28", "image_filename": "0007-heather.png"},
+        {"username": "rob", "email": "rob@zerodaypoke.com", "password": "rob", "role": "USER", "github_username": "Nomad-Rob", "image_filename": "0123-rob.png"},
         {"username": "jules", "email": "jules@zerodaypoke.com", "password": "jules", "role": "USER", "github_username": "Julia-5534"},
-        {"username": "twood", "email": "twood@zerodaypoke.com", "password": "twood", "role": "USER", "github_username": "WoodsonTD"},
+        {"username": "twood", "email": "twood@zerodaypoke.com", "password": "twood", "role": "USER", "github_username": "WoodsonTD", "image_filename": "0145-twood.png"},
         {"username": "colan", "email": "colan@zerodaypoke.com", "password": "colan", "role": "USER", "github_username": "ColanWorstellProgramming"},
         {"username": "jobb", "email": "jobb@zerodaypoke.com", "password": "jobb", "role": "USER", "github_username": "jobabyyy"},
-        {"username": "linzo", "email": "linzo@zerodaypoke.com", "password": "linzo", "role": "USER", "github_username": "linszay"},
+        {"username": "linzo", "email": "linzo@zerodaypoke.com", "password": "linzo", "role": "USER", "github_username": "linszay", "image_filename": "0133-linzo.png"},
     ]
 
     for user_data in users:
