@@ -27,17 +27,25 @@ cp .env digital_cv/
 # Change directory to Flask app
 cd digital_cv
 
-# Start all services except certbot
-CERT_EXISTS=${CERT_EXISTS} docker-compose up -d nginx redis db flask-app
+# Run the initial setup if required
+if [ ! -f ".env" ]; then
+  bash ./utils/setup_all.sh
+fi
+
+# Start all services including Nginx, Redis, DB, and the Flask app
+CERT_EXISTS=${CERT_EXISTS} docker-compose up -d nginx redis db flask-app node-app
 
 # Wait for a few seconds to make sure everything is initialized
 sleep 30
 
-# Run certbot to get the certificates
-docker-compose run --rm certbot
+# Conditional execution of Certbot based on CERT_EXISTS
+if [ "$CERT_EXISTS" = false ]; then
+  # Run certbot to get the certificates
+  docker-compose run --rm certbot
 
-# Switch Nginx to the SSL-enabled configuration
-docker-compose exec nginx ln -sf /etc/nginx/conf.d/nginx_ssl.conf /etc/nginx/conf.d/default.conf
+  # Switch Nginx to the SSL-enabled configuration
+  docker-compose exec nginx ln -sf /etc/nginx/conf.d/nginx_ssl.conf /etc/nginx/conf.d/default.conf
 
-# Reload Nginx to pick up the new configuration
-docker-compose exec nginx nginx -s reload
+  # Reload Nginx to pick up the new configuration
+  docker-compose exec nginx nginx -s reload
+fi
