@@ -1,0 +1,14 @@
+<!-- Toggle Featured Form -->
+<form
+  action="{{ url_for('skill_routes.toggle_featured', skill_id=skill_data.skill_id) }}"
+  method="post"
+>
+  <input type="hidden" name="skill_id" value="{{ skill_data.skill_id }}" />
+  {{ skill_data.form.hidden_tag() }} {% if skill_data.form.is_featured.data %}
+  <button type="submit" class="btn btn-outline-danger">
+    Remove from Featured
+  </button>
+  {% else %}
+  <button type="submit" class="btn btn-outline-success">Add to Featured</button>
+  {% endif %}
+</form>

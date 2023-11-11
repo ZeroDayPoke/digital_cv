@@ -1,0 +1,43 @@
+<!-- Skill Association Form -->
+<form
+  method="post"
+  action="{{ url_for('skill_routes.associate_skill', skill_id=skill_data.skill_id) }}"
+  class="row align-items-center g-3"
+>
+  <input type="hidden" name="skill_id" value="{{ skill_data.skill_id }}" />
+  {{ skill_data.form.hidden_tag() }}
+  <div class="col-md-2">
+    <label for="entityTypeSelect-{{ skill_data.skill_id }}" class="form-label"
+      >Associate to</label
+    >
+    <select
+      id="entityTypeSelect-{{ skill_data.skill_id }}"
+      name="entity_type"
+      class="form-select"
+      onchange="updateEntityInstances(this.value, '{{ skill_data.skill_id }}', 'entityInstanceSelect-{{ skill_data.skill_id }}')"
+    >
+      <option value="">Select Type</option>
+      <option value="project">Project</option>
+      <option value="blog">Blog</option>
+      <option value="tutorial">Tutorial</option>
+      <option value="education">Education</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label
+      for="entityInstanceSelect-{{ skill_data.skill_id }}"
+      class="form-label"
+      >Select Instance</label
+    >
+    <select
+      id="entityInstanceSelect-{{ skill_data.skill_id }}"
+      name="entity_instance"
+      class="form-select"
+    >
+      <!-- Options will be populated dynamically based on the first dropdown's selection -->
+    </select>
+  </div>
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-outline-dark">Associate</button>
+  </div>
+</form>

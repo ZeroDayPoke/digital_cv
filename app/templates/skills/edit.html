@@ -1,0 +1,83 @@
+{% extends "base.html" %} {% block content %}
+<!-- Featured Skills Section -->
+{% include 'skills/_featured_skills.html' %}
+
+<!-- Skill Form -->
+<div class="container my-4">
+  <div class="accordion" id="skillsAccordion">
+    {% for category, skills in skill_forms.items() %}
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading{{ loop.index }}">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapse{{ loop.index }}"
+          aria-expanded="false"
+          aria-controls="collapse{{ loop.index }}"
+        >
+          {{ category }} Category: {{ skills|length }} Total Skill(s)
+        </button>
+      </h2>
+      <div
+        id="collapse{{ loop.index }}"
+        class="accordion-collapse collapse"
+        aria-labelledby="heading{{ loop.index }}"
+        data-bs-parent="#skillsAccordion"
+      >
+        <div class="accordion-body">
+          {% for skill_data in skills %}
+          <div class="card text-white mb-3 shadow">
+            <div class="card-body">
+              <!-- Skill Card Header -->
+              <div class="card-header row">
+                <div class="col">
+                  <h5 class="card-title">
+                    Skill Name: {{ skill_data.form.name.data }}
+                  </h5>
+                </div>
+                <div class="col card-subtitle mb-2 text-muted">
+                  Skill Category: {{ skill_data.form.category.data }}
+                </div>
+                <div class="col card-subtitle mb-2 text-muted">
+                  Associations: {{ skill_data.association_count }}
+                </div>
+                <div class="col">
+                  {% include 'skills/_skill_toggle_form.html' %}
+                </div>
+              </div>
+
+              <!-- Skill Card Body -->
+              <div class="row card-body align-items-center mt-3">
+                <div class="col-auto">
+                  <img
+                    src="{{ url_for('static', filename='images/skills/' + skill_data.form.image_filename.data) }}"
+                    class="img-fluid rounded"
+                    alt="{{ skill_data.form.name.data }}"
+                    style="max-height: 100px; width: auto; object-fit: cover"
+                  />
+                </div>
+                <div class="col-auto">
+                  {% include 'skills/_skill_image_form.html' %}
+                </div>
+                {% include 'skills/_skill_edit_form.html' %}
+              </div>
+
+              <!-- Skill Card Footer -->
+              <div class="card-footer row mt-3">
+                <div class="col">
+                  {% include 'skills/_skill_association_form.html' %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %} {% block js %}
+<script src="{{ url_for('static', filename='scripts/edit_skills.js') }}"></script>
+{% endblock %}

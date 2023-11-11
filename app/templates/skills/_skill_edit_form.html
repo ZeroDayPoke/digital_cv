@@ -1,0 +1,48 @@
+<!-- Skill Update Form -->
+<form
+  method="post"
+  action="{{ url_for('skill_routes.edit_skill', skill_id=skill_data.skill_id) }}"
+  class="row align-items-center g-3"
+>
+  <input
+    type="hidden"
+    name="skill_id"
+    value="{{ skill_data.form.skill_id.data }}"
+  />
+  {{ skill_data.form.hidden_tag() }}
+  <div class="col-auto">
+    <label class="form-label" for="level-{{ skill_data.skill_id }}"
+      >Level: </label
+    >
+    <span id="level-text-{{ skill_data.skill_id }}">
+      {{ 'Beginner' if skill_data.form.level.data == 1 else 'Intermediate' if
+      skill_data.form.level.data == 2 else 'Advanced' }}
+    </span>
+    <input
+      class="form-range"
+      id="level-{{ skill_data.skill_id }}"
+      name="level"
+      type="range"
+      min="1"
+      max="3"
+      step="1"
+      value="{{ skill_data.form.level.data }}"
+      oninput="updateSkillLevelText(this.value, 'level-text-{{ skill_data.skill_id }}')"
+    />
+  </div>
+  <div class="col-auto">
+    {{ skill_data.form.category.label(for='category-' ~
+    skill_data.form.skill_id.data, class_='form-label') }} {{
+    skill_data.form.category(id='category-' ~ skill_data.form.skill_id.data,
+    class_='form-select') }}
+  </div>
+  <div class="col-auto">
+    {{ skill_data.form.featured_order.label(for='featured_order-' ~
+    skill_data.form.skill_id.data, class_='form-label') }} {{
+    skill_data.form.featured_order(id='featured_order-' ~
+    skill_data.form.skill_id.data, class_='form-control') }}
+  </div>
+  <div class="col-auto">
+    {{ skill_data.form.submit(class="btn btn-outline-info") }}
+  </div>
+</form>

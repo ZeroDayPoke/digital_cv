@@ -1,0 +1,16 @@
+<!-- Image Upload Field -->
+<form
+  method="post"
+  enctype="multipart/form-data"
+  action="{{ url_for('skill_routes.upload_skill_image', skill_id=skill_data.skill_id) }}"
+>
+  {{ skill_data.form.hidden_tag() }}
+  <div class="row">
+    <div class="col">
+      {{ skill_data.form.image(class='form-control mt-2') }}
+    </div>
+    <div class="col">
+      <button type="submit" class="btn btn-outline-info mt-2">Upload Image</button>
+    </div>
+  </div>
+</form>
