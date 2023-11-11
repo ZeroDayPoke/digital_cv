@@ -6,7 +6,7 @@ from app import db
 def seed_project_categories():
     """Seed the project_categories table"""
     categories = [
-        {"name": "Web Development", "description": "Projects related to web development."},
+        {"name": "Full Stack Web Development", "description": "Full stack web development projects."},
         {"name": "Data Science", "description": "Projects related to data science."},
         {"name": "Design", "description": "Projects related to design."},
         {"name": "Machine Learning", "description": "Projects related to machine learning."},
@@ -14,6 +14,8 @@ def seed_project_categories():
         {"name": "DevOps", "description": "Projects related to DevOps."},
         {"name": "Mathematics", "description": "Projects related to mathematics."},
         {"name": "Low Level Programming", "description": "Projects related to low level programming."},
+        {"name": "Web Development - AirBnB Clone", "description": "AirBnB clone projects."},
+        {"name": "Web Development", "description": "General web development category."},
     ]
 
     # Query existing categories to prevent duplicates

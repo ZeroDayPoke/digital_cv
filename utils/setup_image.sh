@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # ./utils/setup_image.sh
-
 # Function to manage image-related variables in .env
+
 manage_image_env() {
     echo "Setting image-related configurations (press Enter to accept defaults):"
 
@@ -22,5 +22,9 @@ manage_image_env() {
     done
 }
 
-manage_image_env
-echo "Image configurations set successfully."
+if [ -f .env ]; then
+    manage_image_env
+    echo "Image configurations set successfully."
+else
+    echo "Error: .env file not found."
+fi

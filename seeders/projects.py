@@ -8,7 +8,7 @@ def seed_projects():
     projects = [
         {
             "name": "Digital CV",
-            "category": "Web Development",
+            "category": "Full Stack Web Development",
             "description": "A digital CV project made with... well everything", 
             "role": "Full-stack developer", 
             "repo_link": "https://github.com/ZeroDayPoke/digital_cv", 
@@ -19,7 +19,7 @@ def seed_projects():
         },
         {
             "name": "Strain.GG Clouds",
-            "category": "Web Development",
+            "category": "Full Stack Web Development",
             "description": "hack sprint project",
             "role": "Full-stack developer", 
             "repo_link": "https://github.com/ZeroDayPoke/strain.gg_clouds",
@@ -46,7 +46,7 @@ def seed_projects():
             "category": "Design",
             "description": "first phase of designer language project series",
             "role": "Full-stack developer",
-            "repo_link": "",
+            "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-web_front_end/tree/main/designer_research_1",
             "skills": ["Figma"],
             "collaborators": ["rob"]
         },
@@ -55,7 +55,7 @@ def seed_projects():
             "category": "Design",
             "description": "third phase of designer language project series",
             "role": "Full-stack developer",
-            "repo_link": "",
+            "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-web_front_end/tree/main/designer_research_3",
             "skills": ["Figma"],
             "collaborators": ["rob"]
         },
@@ -88,7 +88,7 @@ def seed_projects():
         },
         {
             "name": "HBNB Phase 1",
-            "category": "Web Development",
+            "category": "Web Development - AirBnB Clone",
             "description": "First phase of the AirBnB clone",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone",
@@ -97,7 +97,7 @@ def seed_projects():
         },
         {
             "name": "HBNB Phase 2",
-            "category": "Web Development",
+            "category": "Web Development - AirBnB Clone",
             "description": "Second phase of the AirBnB clone",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone_v2",
@@ -106,7 +106,7 @@ def seed_projects():
         },
         {
             "name": "HBNB Phase 3",
-            "category": "Web Development",
+            "category": "Web Development - AirBnB Clone",
             "description": "Third phase of the AirBnB clone",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone_v3",
@@ -115,7 +115,7 @@ def seed_projects():
         },
         {
             "name": "HBNB Phase 4",
-            "category": "Web Development",
+            "category": "Web Development - AirBnB Clone",
             "description": "Fourth phase of the AirBnB clone",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone_v4",
@@ -374,7 +374,7 @@ def seed_projects():
             "category": "Low level programming",
             "description": "Binary Trees",
             "role": "hol-bb",
-            "repo-link": "https://github.com/ZeroDayPoke/holbertonschool-binary_trees",
+            "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-binary_trees",
             "skills": ["C", "Linux"],
         }
     ]

@@ -52,8 +52,8 @@ services:
 
   nginx:
     build:
-      context: .
-      dockerfile: Dockerfile.nginx
+      context: ./nginx
+      dockerfile: Dockerfile
     depends_on:
       - flask-app
     environment:
@@ -76,6 +76,16 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/www/certbot:/var/www/certbot
     command: certonly --webroot --webroot-path=/var/www/certbot --email diamondpawsholding@gmail.com --agree-tos --no-eff-email --force-renewal -d zerodaypoke.com -d www.zerodaypoke.com
+
+  node-app:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
 
 volumes:
   mysql-data:

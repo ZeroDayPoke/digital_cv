@@ -1,75 +1,97 @@
-<!-- app/templates/utils/macros.html -->
-{% macro render_form(form, route, button_label, kwargs={}) %}
-<form action="{{ url_for(route, **kwargs) }}" method="POST" enctype="multipart/form-data">
+{% macro render_text_field(field) %}
+<div class="form-group row mb-2">
+  <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label.text }}</label>
+  <div class="col-sm-10">
+    {{ field(class="form-control" ~ (' is-invalid' if field.errors else '')) }}
+    {% if field.errors %}
+      <div class="invalid-feedback">
+        {% for error in field.errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro render_checkbox_field(field) %}
+<div class="form-group row mb-4">
+  <div class="col-sm-12">
+    <label for="{{ field.id }}" class="form-label">{{ field.label.text }}</label>
+  </div>
+</div>
+<div class="form-group row">
+  <div class="col-sm-12">
+    <div class="d-flex flex-wrap">
+      {% for subfield in field %}
+        <div class="p-2 flex-fill">
+          <input type="checkbox" class="btn-check" name="{{ subfield.name }}" id="{{ subfield.id }}" autocomplete="off" {% if subfield.checked %} checked {% endif %} />
+          <label class="btn btn-outline-primary w-100 mb-3" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+
+
+
+{% macro render_skill_slider(skill_form) %}
+<div class="form-group row mb-2">
+  <div class="col-sm-2 col-form-label">
+    <label for="{{ skill_form.name.id }}" class="form-label">{{ skill_form.name.label.text }}</label>
+  </div>
+  <div class="col-sm-10">
+    {{ skill_form.name(class="form-control", readonly="readonly") }}
+    {{ skill_form.skill_level.label(class="form-label") }}
+    {{ skill_form.skill_level(class="form-control-range") }}
+    <span id="{{ skill_form.skill_level.id }}_display">{{ skill_form.skill_level.data }}</span>
+    {{ skill_form.skill_id }}
+  </div>
+</div>
+{% endmacro %}
+
+
+
+
+{% macro render_submit_button(button_label) %}
+<div class="form-group row">
+  <div class="col-sm-12">
+    <input type="submit" value="{{ button_label }}" class="btn btn-primary w-100" />
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro render_form(form, route, button_label, form_classes='', kwargs={}) %}
+<form action="{{ url_for(route, **kwargs) }}" method="POST" enctype="multipart/form-data" class="{{ form_classes }}">
   <div class="container">
-    {{ form.hidden_tag() }} {% for field in form if field.type != "SubmitField"
-    and field.name != 'csrf_token' %} {% if field.name in ['skills', 'related_skills'] %}
-    <!-- Special layout for 'skills' -->
-    <div class="form-group row mb-4">
-      <div class="col-sm-12">
-        <label for="{{ field.id }}" class="form-label"
-          >{{ field.label.text }}</label
-        >
-      </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-sm-12">
-        <div class="d-flex flex-wrap">
-          {% for subfield in field %}
-          <div class="p-2 flex-fill">
-            <input
-              type="checkbox"
-              class="btn-check"
-              name="{{ subfield.name }}"
-              id="{{ subfield.id }}"
-              autocomplete="off"
-            />
-            <label class="btn btn-primary w-100 mb-3" for="{{ subfield.id }}"
-              >{{ subfield.label.text }}</label
-            >
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-    {% else %}
-    <!-- Default layout for other fields -->
-    <div class="form-group row mb-2">
-      <label for="{{ field.id }}" class="col-sm-2 col-form-label"
-        >{{ field.label.text }}</label
-      >
-      <div class="col-sm-10">
-        {{ field(class="form-control") }} {% if field.errors %}
-        <div class="errors mt-2">
-          {% for error in field.errors %}
-          <p class="error">{{ error }}</p>
-          {% endfor %}
-        </div>
-        {% endif %}
-      </div>
-    </div>
-    {% endif %} {% endfor %}
-    <!-- Submit button -->
-    <div class="form-group row">
-      <div class="col-sm-12">
-        <input
-          type="submit"
-          value="{{ button_label }}"
-          class="btn btn-primary w-100"
-        />
-      </div>
-    </div>
+    {{ form.hidden_tag() }}
+    {% for field in form %}
+      {% if field.type == 'FieldList' %}
+        {% for skill_form in field %}
+          {{ render_skill_slider(skill_form) }}
+        {% endfor %}
+      {% elif field.type == 'CSRFTokenField' %}
+        {# Skip rendering CSRFTokenField explicitly #}
+      {% elif field.name in ['skills', 'related_skills'] %}
+        {{ render_checkbox_field(field) }}
+      {% else %}
+        {{ render_text_field(field) }}
+      {% endif %}
+    {% endfor %}
+    {{ render_submit_button(button_label) }}
   </div>
 </form>
 {% endmacro %}
 
+
 {% macro render_video(filename, aria_label="video", autoplay=true, loop=true, muted=true, width="100%") %}
 <div role="region" aria-label="{{ aria_label }}">
-  <video controls {{ 'autoplay' if autoplay }} {{ 'loop' if loop }} {{ 'muted' if muted }} width="{{ width }}">
-    <source
-      src="{{ url_for('static', filename=filename) }}"
-      type="video/mp4"
-    />
+  <video controls {{ 'autoplay' if autoplay }} {{ 'loop' if loop }} {{ 'muted' if muted }} style="width: {{ width }};">
+    <source src="{{ url_for('static', filename=filename) }}" type="video/mp4" />
     Your browser does not support the video tag or the file format of this video.
   </video>
   <p>Here we go!</p>
