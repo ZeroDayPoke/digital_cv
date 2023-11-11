@@ -5,7 +5,7 @@ FROM node:latest
 WORKDIR /app
 
 # Copy package.json and package-lock.json (if available) to the working directory
-COPY package*.json ./
+COPY ../package*.json ./
 
 # Install Node.js dependencies
 RUN npm install
