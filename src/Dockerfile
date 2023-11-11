@@ -1,11 +1,11 @@
 # Use the latest Node.js image as the base
 FROM node:latest
 
-# Set the working directory inside the container to /app
-WORKDIR /app
+# Set the working directory inside the container to /src
+WORKDIR /src
 
 # Copy package.json and package-lock.json (if available) to the working directory
-COPY ./package.json ./
+COPY package.json .
 
 # Install Node.js dependencies
 RUN npm install
