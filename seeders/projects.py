@@ -14,7 +14,7 @@ def seed_projects():
             "repo_link": "https://github.com/ZeroDayPoke/digital_cv", 
             "live_link": "https://zerodaypoke.com", 
             "image_filename": "digital_cv.png",
-            "skills": ["Flask", "Python", "JavaScript", "CSS", "HTML", "Git", "nginx", "Docker", "SQLAlchemy", "node.js", "MySQL", "Expresss", "Bootstrap"],
+            "skills": ["Flask", "Python", "JavaScript", "CSS", "HTML", "Git", "nginx", "Docker", "SQLAlchemy", "node.js", "MySQL", "Expresss", "Bootstrap", "GCP"],
             "collaborators": ["mason"],
             "is_featured": True,
             "featured_order": 2
@@ -27,7 +27,7 @@ def seed_projects():
             "repo_link": "https://github.com/ZeroDayPoke/strain.gg_clouds",
             "live_link": "https://strain.gg",
             "image_filename": "notfound2.png",
-            "skills": ["Flask", "Python", "JavaScript"],
+            "skills": ["Flask", "Python", "JavaScript", "GCP", "Docker", "nginx", "SQLAlchemy", "MySQL", "Bootstrap", "CSS", "HTML", "node.js", "Expresss", "React", "Sequelize"],
             "collaborators": ["jobb", "twood"],
             "is_featured": True,
             "featured_order": 3
@@ -239,7 +239,7 @@ def seed_projects():
         },
         {
             "name": "CSS Advanced",
-            "category": "Web Development",
+            "category": "Front End Web Dev",
             "description": "CSS - ADVANCED",
             "role": "Front-end developer",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-web-development/tree/main/css_advanced",
@@ -247,7 +247,7 @@ def seed_projects():
         },
         {
             "name": "HTML Advanced",
-            "category": "Web Development",
+            "category": "Front End Web Dev",
             "description": "HTML - ADVANCED",
             "role": "Front-end developer",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-web-development/tree/main/html_advanced",
@@ -255,7 +255,7 @@ def seed_projects():
         },
         {
             "name": "Holberton Headphones",
-            "category": "Web Development",
+            "category": "Front End Web Dev",
             "description": "A mockup of a headphone store",
             "role": "Front-end developer",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-headphones",
@@ -263,7 +263,7 @@ def seed_projects():
         },
         {
             "name": "ES6 Basics",
-            "category": "Web Development",
+            "category": "Back End Web Dev",
             "description": "ES6 - BASICS",
             "role": "Web Developer",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-web_back_end/tree/main/ES6_basic",
@@ -271,7 +271,7 @@ def seed_projects():
         },
         {
             "name": "ES6 Promises",
-            "category": "Web Development",
+            "category": "Back End Web Dev",
             "description": "ES6 - PROMISES",
             "role": "Web Developer",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-web_back_end/tree/main/ES6_promise",
@@ -279,7 +279,7 @@ def seed_projects():
         },
         {
             "name": "ES6 Classes",
-            "category": "Web Development",
+            "category": "Back End Web Dev",
             "description": "ES6 - CLASSES",
             "role": "Web Developer",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-web_back_end/tree/main/ES6_classes",
@@ -287,7 +287,7 @@ def seed_projects():
         },
         {
             "name": "ES6 Data Manipulation",
-            "category": "Web Development",
+            "category": "Back End Web Dev",
             "description": "ES6 - DATA MANIPULATION",
             "role": "Web Developer",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-web_back_end/tree/main/ES6_data_manipulation",
@@ -359,11 +359,11 @@ def seed_projects():
         },
         {
             "name": "Museum Prototype",
-            "category": "Web Development",
+            "category": "Full Stack Web Development",
             "description": "Museum Prototype",
             "role": "Full-stack developer",
             "repo_link": "https://github.com/ZeroDayPoke/mooseum",
-            "skills": ["Javascript", "HTML", "CSS", "Sequelize", "React", "MySQL", "Node.js", "Express"],
+            "skills": ["Javascript", "HTML", "CSS", "Sequelize", "React", "MySQL", "Node.js", "Express", "GCP", "Docker", "nginx"],
             "is_featured": True,
             "featured_order": 1
         },

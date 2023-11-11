@@ -15,7 +15,8 @@ def seed_project_categories():
         {"name": "Mathematics", "description": "Projects related to mathematics."},
         {"name": "Low Level Programming", "description": "Projects related to low level programming."},
         {"name": "Web Development - AirBnB Clone", "description": "AirBnB clone projects."},
-        {"name": "Web Development", "description": "General web development category."},
+        {"name": "Front End Web Dev", "description": "Front end web development category."},
+        {"name": "Back End Web Dev", "description": "Back end web development projects."},
     ]
 
     # Query existing categories to prevent duplicates
