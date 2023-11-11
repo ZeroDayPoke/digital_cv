@@ -5,6 +5,7 @@ __init__ file for app module
 # Path: digital_cv/app/__init__.py
 """
 
+import os
 from flask import Flask, request, g, render_template
 from flask_admin import Admin
 from flask_admin.menu import MenuLink
@@ -14,12 +15,12 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import redis
 from config import config
-from .models import db, User, Blog, Tutorial, Skill, Project, Education, Message, Experience, ProjectCategory
+from .models import db, User, Blog, Tutorial, Skill, Project, Education, Message, Experience, ProjectCategory, SkillLevel
 from .routes import (main_routes, auth_routes, project_routes,
                      skill_routes, admin_routes, blog_routes, tutorial_routes)
 from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView, UserAdminView, MessageAdminView, ExperienceAdminView, ProjectCategoryAdminView
 import logging
-
+from flask_wtf import CSRFProtect
 
 # Initialize database
 def init_db(app):
@@ -106,7 +107,7 @@ def create_app(config_name='default') -> Flask:
     
     storage_uri = f"redis://{redis_host}:{redis_port}"
     
-    default_limits = app.config.get('DEFAULT_LIMITS', "60 per hour")
+    default_limits = app.config.get('DEFAULT_LIMITS', "120 per hour")
 
     limiter = Limiter(
         app=app,
@@ -121,6 +122,8 @@ def create_app(config_name='default') -> Flask:
 
     logging.info(f"App created with config: {config_name}")
 
+    app.secret_key = os.environ.get('SECRET_KEY')
+    CSRFProtect(app)
     return app
 
 def get_locale(app: Flask) -> str:

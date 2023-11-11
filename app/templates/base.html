@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <!-- Title -->
     <title>{% block title %}{{ _('name') }} - Digital CV{% endblock %}</title>
@@ -10,19 +10,16 @@
     <!-- Favicon -->
     <link rel="icon" href="{{ _('favicon_location') }}" type="image/x-icon" />
 
+    <!-- Bootstrap CSS -->
     {% if config['USE_EXTENDED_BOOTSTRAP'] == 'True' %}
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-    />
     <link
       href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/vapor/bootstrap.min.css"
       rel="stylesheet"
     />
     {% else %}
     <link
-      rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
     />
     {% endif %}
 
@@ -35,38 +32,37 @@
     <!-- Fonts -->
     {% include 'default/fonts.html' %} {% block css %}{% endblock %}
   </head>
-  <body class="{{ body_class|default('text-light') }}">
-    <div class="container-fluid">
-      <header class="container d-flex flex-column">
-        {% include 'default/nav/main.html' %}
-      </header>
+  <body class="{{ body_class|default('text-light bg-dark') }}">
+    <header>
+      {% include 'default/nav/main.html' %}
+    </header>
 
-      <div class="container d-flex flex-column">
-        {% include 'default/spacer.html' %}
-      </div>
+    <div class="container mt-5 pt-5">{% include 'utils/flash.html' %}</div>
 
-      <div class="container d-flex flex-column">{% include 'utils/flash.html' %}</div>
+    <main class="container">
+      {% block content %}
+        {% include 'default/construction.html' %}
+      {% endblock %}
+    </main>
 
-      <main class="container d-flex flex-column">
-        {% block content %} {% include 'default/construction.html' %} {%
-        endblock %}
-      </main>
+    <footer class="container mt-auto py-3">
+      {% include 'default/footer.html' %}
+    </footer>
 
-      <footer class="container d-flex flex-column">
-        {% include 'default/footer.html' %}
-      </footer>
-    </div>
     <!-- Common JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <!-- Additional JS -->
-    {% block js %} {% if use_mathjax %}
+    {% block js %}{% endblock %} {% if use_mathjax %}
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script
       id="MathJax-script"
       async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     ></script>
-    {% endif %} {% endblock %}
+    {% endif %}
   </body>
 </html>
