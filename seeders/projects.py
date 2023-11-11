@@ -86,6 +86,7 @@ def seed_projects():
         {
             "name": "simple_shell",
             "category": "Low level Programming",
+            "image_filename": "shell.png",
             "description": "A simple shell",
             "role": "hol-bb",
             "skills": ["C", "Linux"],
@@ -133,6 +134,7 @@ def seed_projects():
         {
             "name": "Classification",
             "category": "Machine Learning",
+            "image_filename": "classification.png",
             "description": "ML - CLASSIFICATION",
             "role": "ML-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-machine_learning/tree/main/supervised_learning/classification",
@@ -174,6 +176,7 @@ def seed_projects():
             "name": "Convolutional Neural Nets",
             "category": "Machine Learning",
             "description": "ML - CNN",
+            "image_filename": "cnn.png",
             "role": "ML-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-machine_learning/tree/main/supervised_learning/cnn",
             "skills": ["Python", "Linux"],
@@ -229,6 +232,7 @@ def seed_projects():
         {
             "name": "Plotting - Holberton",
             "category": "Mathematics",
+            "image_filename": "plotting.png",
             "description": "MATH - PLOTTING",
             "role": "ML-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-machine_learning/tree/main/math/plotting",
