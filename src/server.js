@@ -28,7 +28,7 @@ app.use(
 );
 
 // Define allowed origins
-const allowedOrigins = ["https://zerodaypoke.com", "https://www.zerodaypoke.com", "node-app:3000", "localhost:8000"];
+const allowedOrigins = ["https://zerodaypoke.com:8000", "https://zerodaypoke.com/send_verification_email", "node-app:3000", "localhost:8000"];
 
 // Set up CORS policy
 app.use(
