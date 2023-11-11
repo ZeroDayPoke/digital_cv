@@ -11,9 +11,14 @@
   />
   {{ skill_data.form.hidden_tag() }}
   <div class="col-auto">
+    {{ skill_data.form.name.label(for='name-' ~ skill_data.form.skill_id.data,
+    class_='form-label') }} {{ skill_data.form.name(id='name-' ~
+    skill_data.form.skill_id.data, class_='form-control') }}
+  </div>
+  <div class="col-auto">
     <label class="form-label" for="level-{{ skill_data.skill_id }}"
-      >Level: </label
-    >
+      >Level:
+    </label>
     <span id="level-text-{{ skill_data.skill_id }}">
       {{ 'Beginner' if skill_data.form.level.data == 1 else 'Intermediate' if
       skill_data.form.level.data == 2 else 'Advanced' }}
