@@ -11,7 +11,10 @@ def seed_skills():
         {"name": "C", "image_filename": "c.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.LANGUAGE},
         {"name": "TypeScript", "image_filename": "ts.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.LANGUAGE},
         {"name": "C#", "image_filename": "csharp.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.LANGUAGE},
-        
+        {"name": "HTML", "image_filename": "html.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.LANGUAGE},
+        {"name": "CSS", "image_filename": "css.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.LANGUAGE},
+        {"name": "Bash Scripting", "image_filename": "bash.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.LANGUAGE},
+
         # Frameworks
         {"name": "Flask", "image_filename": "flask.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.FRAMEWORK, "is_featured": True, "featured_order": 3},
         {"name": "React", "image_filename": "react.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.FRAMEWORK, "is_featured": True, "featured_order": 6},
@@ -31,20 +34,11 @@ def seed_skills():
         # Runtime
         {"name": "Node.js", "image_filename": "node.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.RUNTIME, "is_featured": True, "featured_order": 8},
 
-        # Web Server
-        {"name": "Nginx", "image_filename": "nginx.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.WEB_SERVER, "is_featured": True, "featured_order": 9},
-
-        # Containerization
-        {"name": "Docker", "image_filename": "docker.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.CONTAINERIZATION, "is_featured": True, "featured_order": 10},
-
         # Version Control
         {"name": "Git", "image_filename": "git.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.VERSION_CONTROL, "is_featured": True, "featured_order": 11},
 
-        # Markup Language
-        {"name": "HTML", "image_filename": "html.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.MARKUP_LANGUAGE},
-
-        # Style Language
-        {"name": "CSS", "image_filename": "css.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.STYLE_LANGUAGE},
+        # DevOps
+        {"name": "GCP", "image_filename": "gcp.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.DEVOPS},
 
         # Design Tool
         {"name": "Figma", "image_filename": "figma.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.DESIGN_TOOL},
@@ -55,11 +49,10 @@ def seed_skills():
         {"name": "Machine Learning", "image_filename": "ml.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.FIELD},
         {"name": "Sales", "image_filename": "sales.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.FIELD},
 
-        # Scripting
-        {"name": "Bash Scripting", "image_filename": "bash.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.SCRIPTING},
-
-        # OS
-        {"name": "Linux", "image_filename": "linux.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.OS},
+        # Infrastructure
+        {"name": "Linux", "image_filename": "linux.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.INFRASTRUCTURE},
+        {"name": "Nginx", "image_filename": "nginx.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.INFRASTRUCTURE, "is_featured": True, "featured_order": 9},
+        {"name": "Docker", "image_filename": "docker.png", "level": SkillLevel.INTERMEDIATE, "category": SkillCategory.INFRASTRUCTURE, "is_featured": True, "featured_order": 10},
     ]
 
     # Query existing skills to prevent duplicates

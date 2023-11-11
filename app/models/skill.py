@@ -17,11 +17,11 @@ class SkillCategory(Enum):
     WEB_SERVER = "Web Server"
     CONTAINERIZATION = "Containerization"
     VERSION_CONTROL = "Version Control"
-    MARKUP_LANGUAGE = "Markup Language"
+    INFRASTRUCTURE = "Infrastucture"
     STYLE_LANGUAGE = "Style Language"
     DESIGN_TOOL = "Design Tool"
     FIELD = "Field"
-    SCRIPTING = "Scripting"
+    DEVOPS = "DevOps"
     OS = "OS"
 
 class SkillLevel(Enum):
