@@ -1,5 +1,5 @@
 from .base import BaseModel, db
-from .project import Project
+from .project import Project, ProjectStatus
 from .skill import Skill, SkillLevel, SkillCategory
 from .user import User, Role
 from .blog import Blog

@@ -3,34 +3,17 @@
 # Path: digital_cv/app/models/project.py
 
 from .base import BaseModel, db
+from enum import Enum
+from sqlalchemy import UniqueConstraint
 from .associations import project_skills, project_users
 
+class ProjectStatus(Enum):
+    PLANNING = "Planning"
+    IN_PROGRESS = "In Progress"
+    COMPLETED = "Completed"
+    ON_HOLD = "On Hold"
+
 class Project(BaseModel):
-    """
-    A class representing a project.
-
-    Attributes:
-    -----------
-    id : str
-        The unique identifier of the project.
-    name : str
-        The name of the project.
-    description : str
-        The description of the project.
-    role : str
-        The role of the user in the project.
-    repo_link : str
-        The link to the project's repository.
-    live_link : str
-        The link to the live version of the project.
-    misc_link : str
-        The link to any other relevant information about the project.
-    misc_name : str
-        The name of the misc_link (to be displayed).
-    related_skills : list of Skill objects
-        The list of skills related to the project.
-    """
-
     __tablename__ = 'projects'
     description = db.Column(db.String(500), nullable=True)
     role = db.Column(db.String(120), nullable=True)
@@ -38,11 +21,15 @@ class Project(BaseModel):
     live_link = db.Column(db.String(500), nullable=True)
     misc_link = db.Column(db.String(500), nullable=True)
     misc_name = db.Column(db.String(120), nullable=True)
-    status = db.Column(db.String(20), nullable=False, default='Planning')
+    status = db.Column(db.Enum(ProjectStatus), nullable=False, default=ProjectStatus.PLANNING)
     category_id = db.Column(db.String(60), db.ForeignKey('project_categories.id'), nullable=True)
     category = db.relationship('ProjectCategory', back_populates='projects')
     collaborators = db.relationship('User', secondary=project_users, back_populates='projects')
     related_skills = db.relationship('Skill', secondary=project_skills, back_populates='related_projects')
+    is_featured = db.Column(db.Boolean, default=False, nullable=False)
+    featured_order = db.Column(db.Integer, nullable=True)
+
+    __table_args__ = (UniqueConstraint('featured_order', name='_featured_order_uc'),)
 
     def __repr__(self):
-        return f"<Project (ID: {self.id}, Name: {self.name})>"
+        return f"<Project (ID: {self.id}, Name: {self.name}, Featured: {self.is_featured})>"
