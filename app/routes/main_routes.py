@@ -25,7 +25,6 @@ def about():
 @main_routes.route('/projects', methods=['GET', 'POST'])
 def projects():
     form = SkillsFilterForm(request.form)
-    form = load_skill_choices(form)
 
     if request.method == 'POST' and form.validate():
         selected_skills = form.skills.data
@@ -33,7 +32,7 @@ def projects():
     else:
         projects = Project.query.all()
 
-    return render_template('projects.html', projects=projects, form=form)
+    return render_template('projects/projects.html', projects=projects, form=form)
 
 @main_routes.route('/blogs', methods=['GET', 'POST'])
 def blogs():

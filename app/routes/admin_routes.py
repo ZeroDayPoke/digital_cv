@@ -5,14 +5,13 @@ admin_routes.py - admin routes for the Flask application
 # Path: app/routes/admin_routes.py
 
 import os
-from requests import request
 from app.models import Project
 from flask import Blueprint, render_template, redirect, url_for, flash, current_app
 from flask_login import login_required
 from werkzeug.utils import secure_filename
 from ..forms import (
     UploadCVForm, AddProjectForm, UpdateProjectForm, DeleteProjectForm,
-    AddSkillForm, DeleteSkillForm, UpdateSkillForm,
+    AddSkillForm, DeleteSkillForm, UpdateSkillsForm,
     AddBlogForm, UpdateBlogForm, DeleteBlogForm,
     AddTutorialForm, UpdateTutorialForm, DeleteTutorialForm
 )
@@ -37,7 +36,7 @@ LOAD_CHOICE_MAP = {
     DeleteProjectForm: [load_project_choices],
     AddSkillForm: [],
     DeleteSkillForm: [load_skill_choices],
-    UpdateSkillForm: [load_skill_choices],
+    UpdateSkillsForm: [],
     AddBlogForm: [load_skill_choices],
     UpdateBlogForm: [load_blog_choices],
     DeleteBlogForm: [load_blog_choices],
