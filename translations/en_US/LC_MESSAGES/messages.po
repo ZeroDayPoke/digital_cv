@@ -77,3 +77,6 @@ msgstr "fun job"
 
 msgid "about_interests"
 msgstr "prob should get some outside this"
+
+msgid "extension_name"
+msgstr "vapor"
