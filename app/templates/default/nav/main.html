@@ -1,29 +1,22 @@
 <!-- app/templates/default/nav/main.html -->
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-paint-black">
-  <div class="container-fluid"> <!-- Constrain width using a container -->
+  <div class="container">
     {% include 'default/nav/brand.html' %}
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
     <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="navbar-nav me-auto mb-2 mb-lg-0">
+      <!-- Left-aligned links -->
+      <div class="navbar-nav me-auto">
         {% include 'default/nav/links/left.html' %}
       </div>
-      <div class="navbar-nav">
+
+      <!-- Center-aligned links -->
+      <div class="navbar-nav mx-auto">
         {% include 'default/nav/links/center.html' %}
       </div>
-      <div class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+      <!-- Right-aligned links -->
+      <div class="navbar-nav ms-auto">
         {% include 'default/nav/links/right.html' %}
       </div>
     </div>

@@ -30,3 +30,7 @@ body {
 .bg-paint-black {
   background-color: #000000;
 }
+
+.wlimit {
+  max-width: 500px;
+}

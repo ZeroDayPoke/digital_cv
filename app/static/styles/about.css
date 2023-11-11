@@ -11,10 +11,22 @@
 }
 
 .about-bg {
-  background: url('../images/bg.png') no-repeat center center fixed;
+  background: url("../images/bg.png");
+  background-repeat: no-repeat;
   background-size: cover;
+  background-position: center center;
 }
 
-.navbar, .navbar-expand-lg {
+.navbar,
+.navbar-expand-lg {
   background: transparent;
+}
+
+.nav-success,
+.nav-link {
+  color: rgba(25, 135, 84, 1)
+}
+
+footer {
+  color: rgba(25, 135, 84, 1)
 }

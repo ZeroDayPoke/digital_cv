@@ -32,14 +32,14 @@
     <!-- Fonts -->
     {% include 'default/fonts.html' %} {% block css %}{% endblock %}
   </head>
-  <body class="{{ body_class|default('text-light bg-dark about-bg') }}">
-    <header>
+  <body class="{{ body_class|default('text-light bg-dark') }}">
+    <header class="wlimit">
       {% include 'default/nav/main.html' %}
     </header>
 
     <div class="container mt-5 pt-5">{% include 'utils/flash.html' %}</div>
 
-    <main class="container">
+    <main class="container about-bg">
       {% block content %}
         {% include 'default/construction.html' %}
       {% endblock %}
