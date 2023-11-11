@@ -3,23 +3,45 @@
 <div class="container mt-3">
   <div class="row">
     <!-- About Section -->
-    <section class="col-md-4 mb-4">
+    <section class="col-lg-4 mb-4">
       <h5 class="text-uppercase fw-bold">About</h5>
-      <p class="text-muted">Having fun making a digital resume... thing...</p>
+      <p class="text-muted">
+        This digital resume project is really just a fun, personal endeavor to showcase skills and creativity. That said, 
+        if anyone's interested, it's designed to be easily personalizable. Additionally, since it's software geared and themed, 
+        feel free to 'branch' :D out on github and make it to your taste. By editing the .po translation file, which is 
+        then compiled and integrated into the Jinja2 templates, you can easily change the layout and settings.
+      </p>
     </section>
+
     <!-- Quick Links -->
-    <nav class="col-md-4 mb-4 text-center">
+    <nav class="col-lg-4 mb-4 text-center">
       <h5 class="text-uppercase fw-bold">Quick Links</h5>
       <ul class="list-unstyled">
         <li>
-          <a href="#" class="text-white text-decoration-none">
+          <a href="#top" class="text-white text-decoration-none">
             To Top <i class="fas fa-arrow-up"></i>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('main_routes.index') }}" class="text-white text-decoration-none">
+            To Home <i class="fas fa-home"></i>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('auth_routes.account') }}" class="text-white text-decoration-none">
+            To Account <i class="fas fa-user-circle"></i>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('skill_routes.skills') }}" class="text-white text-decoration-none">
+            To Da Moon <i class="fas fa-moon"></i>
           </a>
         </li>
       </ul>
     </nav>
+
     <!-- Contact -->
-    <address class="col-md-4 mb-4">
+    <address class="col-lg-4 mb-4">
       <h5 class="text-uppercase fw-bold">Contact</h5>
       <ul class="list-unstyled">
         <li>
@@ -35,14 +57,13 @@
           <a href="{{ _('contact_github') }}">{{ _('contact_github') }}</a>
         </li>
         <li>
-          <span class="info-label"
-            ><i class="fab fa-linkedin"></i> LinkedIn:</span
-          >
+          <span class="info-label"><i class="fab fa-linkedin"></i> LinkedIn:</span>
           <a href="{{ _('contact_linkedin') }}">{{ _('contact_linkedin') }}</a>
         </li>
       </ul>
     </address>
   </div>
+
   <!-- Footer Bottom -->
   <div class="row">
     <div class="col text-center">
