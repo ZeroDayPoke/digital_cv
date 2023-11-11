@@ -127,7 +127,7 @@ def project_details(project_id):
 
         return jsonify(project_data)
     
-    return render_template('project_details.html', project=project)
+    return render_template('projects/project_details.html', project=project)
 
 
 @project_routes.route('/projects', methods=['GET', 'POST'])
