@@ -48,6 +48,10 @@
     skill_data.form.skill_id.data, class_='form-control') }}
   </div>
   <div class="col-auto">
-    {{ skill_data.form.submit(class="btn btn-outline-info") }}
+    {% if current_user.is_admin %}
+      {{ skill_data.form.submit(class="btn btn-outline-info") }}
+    {% else %}
+      {{ skill_data.form.submit(class="btn btn-outline-info", disabled=true) }}
+    {% endif %}
   </div>
 </form>

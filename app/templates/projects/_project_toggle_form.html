@@ -1,19 +1,19 @@
 <!-- Toggle Featured Project Form -->
-<form
-  action="{{ url_for('project_routes.toggle_featured', project_id=project_data.project_id) }}"
-  method="post"
->
-  <input
-    type="hidden"
-    name="project_id"
-    value="{{ project_data.project_id }}"
-  />
-  {{ project_data.form.hidden_tag() }} {% if project_data.form.is_featured.data
-  %}
-  <button type="submit" class="btn btn-outline-danger">
-    Remove from Featured
-  </button>
+<form action="{{ url_for('project_routes.toggle_featured', project_id=project_data.project_id) }}" method="post">
+  <input type="hidden" name="project_id" value="{{ project_data.project_id }}" />
+  {{ project_data.form.hidden_tag() }}
+
+  {% if current_user.is_admin %}
+    {% if project_data.form.is_featured.data %}
+      <button type="submit" class="btn btn-outline-danger">Remove from Featured</button>
+    {% else %}
+      <button type="submit" class="btn btn-outline-success">Add to Featured</button>
+    {% endif %}
   {% else %}
-  <button type="submit" class="btn btn-outline-success">Add to Featured</button>
+    {% if project_data.form.is_featured.data %}
+      <button type="submit" class="btn btn-outline-danger" disabled>Remove from Featured</button>
+    {% else %}
+      <button type="submit" class="btn btn-outline-success" disabled>Add to Featured</button>
+    {% endif %}
   {% endif %}
 </form>

@@ -1,18 +1,16 @@
 <!-- Project Image Upload Field -->
-<form
-  method="post"
-  enctype="multipart/form-data"
-  action="{{ url_for('project_routes.upload_project_image', project_id=project_data.project_id) }}"
->
+<form method="post" enctype="multipart/form-data" action="{{ url_for('project_routes.upload_project_image', project_id=project_data.project_id) }}">
   {{ project_data.form.hidden_tag() }}
   <div class="row">
     <div class="col">
       {{ project_data.form.image(class='form-control mt-2') }}
     </div>
     <div class="col">
-      <button type="submit" class="btn btn-outline-info mt-2">
-        Upload Image
-      </button>
+      {% if current_user.is_admin %}
+        <button type="submit" class="btn btn-outline-info mt-2">Upload Image</button>
+      {% else %}
+        <button type="submit" class="btn btn-outline-info mt-2" disabled>Upload Image</button>
+      {% endif %}
     </div>
   </div>
 </form>

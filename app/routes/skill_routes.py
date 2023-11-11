@@ -84,8 +84,6 @@ def skills():
 
 
 @skill_routes.route('/edit_skills', methods=['GET'])
-@login_required
-@admin_required
 def edit_skills():
     skills = Skill.query.all()
     skill_forms = {}

@@ -144,8 +144,6 @@ def projects():
 
 
 @project_routes.route('/edit_projects', methods=['GET'])
-@login_required
-@admin_required
 def edit_projects():
     project_categories = ProjectCategory.query.all()
     projects = Project.query.all()

@@ -38,6 +38,10 @@
     </select>
   </div>
   <div class="col-md-2">
+    {% if current_user.is_admin %}
     <button type="submit" class="btn btn-outline-dark">Associate</button>
+    {% else %}
+    <button type="submit" class="btn btn-outline-dark" disabled>Associate</button>
+    {% endif %}
   </div>
 </form>
