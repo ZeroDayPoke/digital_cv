@@ -10,7 +10,7 @@ import rateLimit from "express-rate-limit";
 import { logger } from "./middleware/index.js";
 
 // Load environment variables
-dotenv.config();
+dotenv.config({ path: '../.env', debug: true })
 
 // Create the Express app
 const app = express();
@@ -28,7 +28,7 @@ app.use(
 );
 
 // Define allowed origins
-const allowedOrigins = ["localhost:8000"];
+const allowedOrigins = ["https://zerodaypoke.com", "https://www.zerodaypoke.com", "node-app:3000", "localhost:8000"];
 
 // Set up CORS policy
 app.use(

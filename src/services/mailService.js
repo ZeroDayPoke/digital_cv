@@ -13,7 +13,7 @@ import crypto from "crypto";
 import nodemailer from "nodemailer";
 import { logger } from "../middleware/requestLogger.js";
 
-dotenv.config();
+dotenv.config({ path: '../.env', debug: true })
 
 /**
  * Transporter object responsible for sending emails.
@@ -41,7 +41,7 @@ export default class EmailService {
         from: process.env.EMAIL_USERNAME,
         to: userEmail,
         subject: "Email Verification",
-        text: `Please verify your email by clicking the following link: http://localhost:8000/verify_account_email/${token}`,
+        text: `Please verify your email by clicking the following link: https://zerodaypoke.com/verify_account_email/${token}`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
