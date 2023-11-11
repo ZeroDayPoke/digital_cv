@@ -7,8 +7,8 @@ FROM nginx:latest
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy both custom configuration files from the `nginx` directory into the container
-COPY ./nginx/nginx_init.conf /etc/nginx/conf.d/nginx_init.conf
-COPY ./nginx/nginx_ssl.conf /etc/nginx/conf.d/nginx_ssl.conf
+COPY ./nginx_init.conf /etc/nginx/conf.d/nginx_init.conf
+COPY ./nginx_ssl.conf /etc/nginx/conf.d/nginx_ssl.conf
 
 # Expose ports (docker-compose will handle the port mapping)
 EXPOSE 80 443
