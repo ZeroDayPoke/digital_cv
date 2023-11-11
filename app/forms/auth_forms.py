@@ -39,7 +39,8 @@ class SignupForm(FlaskForm):
         validators=[DataRequired()],
         render_kw={
             "class": "form-control",
-            "placeholder": "Password"
+            "placeholder": "Password",
+            "autocomplete": "password"
         }
     )
     confirm_password = PasswordField(
@@ -47,7 +48,8 @@ class SignupForm(FlaskForm):
         validators=[DataRequired(), EqualTo('password')],
         render_kw={
             "class": "form-control",
-            "placeholder": "Confirm Password"
+            "placeholder": "Confirm Password",
+            "autocomplete": "confirm password"
         }
     )
     submit = SubmitField(
@@ -79,7 +81,8 @@ class SigninForm(FlaskForm):
         validators=[DataRequired()],
         render_kw={
             "class": "form-control", 
-            "placeholder": "Password"
+            "placeholder": "Password",
+            "autocomplete": "password"
         }
     )
     submit = SubmitField(

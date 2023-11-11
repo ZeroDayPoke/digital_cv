@@ -9,3 +9,12 @@
   height: 100%;
   object-fit: cover;
 }
+
+.about-bg {
+  background: url('../images/bg.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.navbar, .navbar-expand-lg {
+  background: transparent;
+}
