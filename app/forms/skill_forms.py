@@ -1,28 +1,20 @@
-#!/usr/bin/env python3
-
-# ./app/forms/skill_forms.py
-
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, IntegerField
+from wtforms import StringField, SubmitField, SelectField, IntegerField, HiddenField, FieldList, FormField, BooleanField, SelectMultipleField
 from wtforms.widgets import Input
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, NumberRange, Optional, InputRequired
 from flask_wtf.file import FileField, FileAllowed
 from . import at_least_one_checkbox, MultiCheckboxField
-from ..models.skill import Skill
+from ..models import SkillLevel, SkillCategory, db, Skill
+from wtforms.widgets import html_params
+from wtforms_alchemy import model_form_factory
+from markupsafe import Markup
 
-# Skill Forms
+BaseModelForm = model_form_factory(FlaskForm)
 
-class RangeInput(Input):
-    input_type = 'range'
-
-    def __call__(self, field, **kwargs):
-        kwargs.setdefault('step', '1')
-        kwargs.setdefault('min', '1')
-        kwargs.setdefault('max', '3')
-        return super().__call__(field, **kwargs)
-
-class SliderField(IntegerField):
-    widget = RangeInput()
+class ModelForm(BaseModelForm):
+    @classmethod
+    def get_session(self):
+        return db.session
 
 class SkillsFilterForm(FlaskForm):
     """
@@ -36,6 +28,12 @@ class AddSkillForm(FlaskForm):
     A form to add a new skill to the user's digital CV.
     """
     name = StringField('Skill Name', validators=[DataRequired()])
+    level = SelectField('Skill Level',
+                        choices=[(level.name, level.value) for level in SkillLevel],
+                        validators=[DataRequired()])
+    category = SelectField('Skill Category',
+                           choices=[(category.name, category.value) for category in SkillCategory],
+                           validators=[DataRequired()])
     image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Add Skill')
 
@@ -50,27 +48,68 @@ class DeleteSkillForm(FlaskForm):
     )
     submit = SubmitField('Delete Skill')
 
-class UpdateSkillForm(FlaskForm):
+class RangeInput:
     """
-    A form to update an existing skill.
+    Custom widget for rendering a range input.
     """
-    related_skills = MultiCheckboxField(
-        'Related Skills',
-        choices=[],
-        validators=[at_least_one_checkbox]
-    )
-    skill_level = SliderField(
-        'Skill Level', 
-        validators=[DataRequired()]
-    )
-    image = FileField(
-        'Skill Image',
-        validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])]
-    )
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('id', field.id)
+        kwargs.setdefault('name', field.name)
+        kwargs.setdefault('type', 'range')
+        kwargs.setdefault('step', '1')
+        kwargs.setdefault('min', '1')
+        kwargs.setdefault('max', '3')
+        kwargs['value'] = field.data if field.data is not None else kwargs.pop('default', '1')
+        html = '<input %s>' % html_params(**kwargs)
+        return Markup(html)
+
+class SliderField(IntegerField):
+    widget = RangeInput()
+
+class ImageUploadForm(FlaskForm):
+    image_filename = HiddenField('Image Filename')
+    image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
+    submit = SubmitField('Upload Image')
+
+class SkillForm(ImageUploadForm):
+    skill_id = HiddenField('Skill ID')
+    name = StringField('Name', validators=[DataRequired()])
+    level = SliderField('Level', validators=[NumberRange(min=1, max=3)], default=1)
+    category = SelectField('Category', coerce=str, choices=[], validators=[DataRequired()])
+    is_featured = BooleanField('Featured')
+    featured_order = SelectField('Featured Order', coerce=int, choices=[], validators=[Optional(), NumberRange(min=1, max=12)])
     submit = SubmitField('Update Skill')
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.related_skills.choices = [
-            (str(skill.id), skill.name) for skill in Skill.query.all()
-        ]
+        super(SkillForm, self).__init__(*args, **kwargs)
+        self.level.choices = [(choice.value, choice.name) for choice in SkillLevel]
+        self.category.choices = [(choice.value, choice.name) for choice in SkillCategory]
+        self.featured_order.choices = [(i, str(i)) for i in range(1, 13)]
+
+class AssociateSkillForm(FlaskForm):
+    """
+    A form for associating a skill with different entities like projects, blogs, etc.
+    """
+    skill_id = HiddenField('Skill ID')
+    entity_type = SelectField('Associate To', choices=[('project', 'Project'), ('blog', 'Blog'), ('tutorial', 'Tutorial'), ('education', 'Education')], validators=[DataRequired()])
+    entity_instance = SelectField('Instance', coerce=str, validators=[InputRequired()])
+    submit = SubmitField('Associate')
+
+class UpdateSkillsForm(FlaskForm):
+    skills = FieldList(FormField(SkillForm), min_entries=1)
+    submit = SubmitField('Update Skills')
+
+    def populate_skills(self, skills):
+        while len(self.skills) > 0:
+            self.skills.pop_entry()
+        
+        for skill in skills:
+            skill_form_data = {
+                'skill_id': skill.id,
+                'name': skill.name,
+                'level': skill.level.value if skill.level else 1,
+                'is_featured': skill.is_featured,
+                'featured_order': skill.featured_order if skill.is_featured else None,
+                'category': skill.category.name if skill.category else None,
+            }
+            self.skills.append_entry(skill_form_data)
