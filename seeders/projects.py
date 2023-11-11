@@ -67,6 +67,7 @@ def seed_projects():
             "name": "Monty",
             "category": "Low level Programming",
             "description": "A monty bytecode interpreter",
+            "image_filename": "monty.png",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-monty",
             "skills": ["C", "Linux"],
@@ -75,6 +76,7 @@ def seed_projects():
         {
             "name": "printf",
             "category": "Low level Programming",
+            "image_filename": "printf.png",
             "description": "A printf clone",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-printf",
@@ -94,6 +96,7 @@ def seed_projects():
             "name": "HBNB Phase 1",
             "category": "Web Development - AirBnB Clone",
             "description": "First phase of the AirBnB clone",
+            "image_filename": "hbnb-one.png",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone",
             "skills": ["Python", "Linux"],
@@ -103,6 +106,7 @@ def seed_projects():
             "name": "HBNB Phase 2",
             "category": "Web Development - AirBnB Clone",
             "description": "Second phase of the AirBnB clone",
+            "image_filename": "hbnb-two.png",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone_v2",
             "skills": ["Python", "Linux", "MySQL", "SQLAlchemy", "HTML", "CSS", "Flask"],
@@ -112,6 +116,7 @@ def seed_projects():
             "name": "HBNB Phase 3",
             "category": "Web Development - AirBnB Clone",
             "description": "Third phase of the AirBnB clone",
+            "image_filename": "hbnb-three.png",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone_v3",
             "skills": ["Python", "Linux", "MySQL", "SQLAlchemy", "HTML", "CSS", "Flask"],
@@ -296,6 +301,7 @@ def seed_projects():
         {
             "name": "Low Level Programming",
             "category": "Low level Programming",
+            "image_filename": "lowlevel.png",
             "description": "Consolidated smaller low level programming projects",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-low_level_programming",
@@ -311,7 +317,8 @@ def seed_projects():
         },
         {
             "name": "Higher Level Programming",
-            "category": "Higher level Programming",
+            "category": "Higher Level Programming",
+            "image_filename": "highlevel.png",
             "description": "Consolidated smaller higher level programming projects",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-higher_level_programming",
@@ -336,6 +343,7 @@ def seed_projects():
         {
             "name": "Tutoring Live Codes",
             "category": "Live Code",
+            "image_filename": "livecode-monty.png",
             "description": "Live codes from tutoring sessions",
             "role": "Tutor",
             "repo_link": "https://github.com/ZeroDayPoke/evilcode",
@@ -370,6 +378,7 @@ def seed_projects():
         {
             "name": "Sorting Algorithms",
             "category": "Low level Programming",
+            "image_filename": "sorting.png",
             "description": "Sorting Algorithms",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-sorting_algorithms",
