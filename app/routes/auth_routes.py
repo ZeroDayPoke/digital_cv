@@ -138,8 +138,8 @@ def send_verification_email():
         str: A message indicating whether the email was sent successfully or not.
     """
     user_email = current_user.email
-    email_service_url = current_app.config.get('EMAIL_SERVICE_URL', 'https://zerodaypoke.com:3000/send-email')
-    
+    email_service_url = current_app.config.get('EMAIL_SERVICE_URL', 'http://node-app:3000/send-email')
+
     try:
         response = requests.post(email_service_url, json={'to': user_email})
         if response.status_code == 200:
