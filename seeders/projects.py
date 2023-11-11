@@ -15,7 +15,9 @@ def seed_projects():
             "live_link": "https://zerodaypoke.com", 
             "image_filename": "digital_cv.png",
             "skills": ["Flask", "Python", "JavaScript", "CSS", "HTML", "Git", "nginx", "Docker", "SQLAlchemy", "node.js", "MySQL", "Expresss", "Bootstrap"],
-            "collaborators": ["mason"]
+            "collaborators": ["mason"],
+            "is_featured": True,
+            "featured_order": 2
         },
         {
             "name": "Strain.GG Clouds",
@@ -26,7 +28,9 @@ def seed_projects():
             "live_link": "https://strain.gg",
             "image_filename": "notfound2.png",
             "skills": ["Flask", "Python", "JavaScript"],
-            "collaborators": ["jobb", "twood"]
+            "collaborators": ["jobb", "twood"],
+            "is_featured": True,
+            "featured_order": 3
         },
         {
             "name": "holberton-designer-two",
@@ -360,6 +364,8 @@ def seed_projects():
             "role": "Full-stack developer",
             "repo_link": "https://github.com/ZeroDayPoke/mooseum",
             "skills": ["Javascript", "HTML", "CSS", "Sequelize", "React", "MySQL", "Node.js", "Express"],
+            "is_featured": True,
+            "featured_order": 1
         },
         {
             "name": "Sorting Algorithms",
