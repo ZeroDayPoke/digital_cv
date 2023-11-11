@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 from flask_wtf.file import FileField, FileAllowed
-from . import at_least_one_checkbox, MultiCheckboxField
+from . import at_least_one_selection, MultiSelectDropdownField
 
 class AddBlogForm(FlaskForm):
     """
@@ -14,17 +14,17 @@ class AddBlogForm(FlaskForm):
     - name (StringField): The name of the blog post.
     - description (TextAreaField): A brief description of the blog post.
     - content_file (StringField): The file path to the content of the blog post.
-    - related_skills (MultiCheckboxField): A list of related skills for the blog post.
+    - related_skills (MultiSelectDropdownField): A list of related skills for the blog post.
     - image (FileField): An image for the blog post.
     - submit (SubmitField): A button to submit the form.
     """
     name = StringField('Blog Name', validators=[DataRequired()])
     description = TextAreaField('Description')
     content_file = StringField('Content File')
-    related_skills = MultiCheckboxField(
+    related_skills = MultiSelectDropdownField(
         'Related Skills',
         choices=[],
-        validators=[at_least_one_checkbox]
+        validators=[at_least_one_selection]
     )
     image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Submit')
@@ -54,7 +54,7 @@ class UpdateBlogForm(FlaskForm):
         A field to update the description of the blog post.
     content_file : StringField
         A field to update the content file of the blog post.
-    related_skills : MultiCheckboxField
+    related_skills : MultiSelectDropdownField
         A field to select the related skills of the blog post.
     submit : SubmitField
         A field to submit the updated blog post.
@@ -63,9 +63,9 @@ class UpdateBlogForm(FlaskForm):
     name = StringField('Updated Blog Name', validators=[DataRequired()])
     description = TextAreaField('Updated Description')
     content_file = StringField('Content File')
-    related_skills = MultiCheckboxField(
+    related_skills = MultiSelectDropdownField(
         'Related Skills',
         choices=[],
-        validators=[at_least_one_checkbox]
+        validators=[at_least_one_selection]
     )
     submit = SubmitField('Update Blog')

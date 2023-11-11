@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 from flask_wtf.file import FileField, FileAllowed
-from . import at_least_one_checkbox, MultiCheckboxField
+from . import at_least_one_selection, MultiSelectDropdownField
 
 class AddTutorialForm(FlaskForm):
     """
@@ -14,17 +14,17 @@ class AddTutorialForm(FlaskForm):
     - name (StringField): The name of the tutorial.
     - description (TextAreaField): The description of the tutorial.
     - content_file (StringField): The file containing the tutorial content.
-    - related_skills (MultiCheckboxField): The skills related to the tutorial.
+    - related_skills (MultiSelectDropdownField): The skills related to the tutorial.
     - image (FileField): An image for the tutorial.
     - submit (SubmitField): The button to submit the form.
     """
     name = StringField('Tutorial Name', validators=[DataRequired()])
     description = TextAreaField('Description')
     content_file = StringField('Content File')
-    related_skills = MultiCheckboxField(
+    related_skills = MultiSelectDropdownField(
         'Related Skills',
         choices=[],
-        validators=[at_least_one_checkbox]
+        validators=[at_least_one_selection]
     )
     image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Submit')
@@ -57,7 +57,7 @@ class UpdateTutorialForm(FlaskForm):
         A field to enter the updated tutorial description.
     content_file : StringField
         A field to enter the content file.
-    related_skills : MultiCheckboxField
+    related_skills : MultiSelectDropdownField
         A list of related skills to choose from.
     submit : SubmitField
         A button to submit the form.
@@ -66,9 +66,9 @@ class UpdateTutorialForm(FlaskForm):
     name = StringField('Updated Tutorial Name', validators=[DataRequired()])
     description = TextAreaField('Updated Description')
     content_file = StringField('Content File')
-    related_skills = MultiCheckboxField(
+    related_skills = MultiSelectDropdownField(
         'Related Skills',
         choices=[],
-        validators=[at_least_one_checkbox]
+        validators=[at_least_one_selection]
     )
     submit = SubmitField('Update Tutorial')

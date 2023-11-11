@@ -1,54 +1,59 @@
 #!/usr/bin/env python3
 
+from flask_wtf import FlaskForm
+from markupsafe import Markup
+from wtforms.widgets import html_params, ListWidget, Select
 from wtforms.validators import ValidationError
 from wtforms.fields import SelectMultipleField
-from wtforms.widgets import ListWidget, CheckboxInput
+from flask_wtf.file import FileField, FileAllowed
 from uuid import UUID
+from wtforms import SubmitField, IntegerField, HiddenField, SelectMultipleField
 
-class MultiCheckboxField(SelectMultipleField):
+class MultiSelectDropdownField(SelectMultipleField):
     """
-    A custom form field that allows multiple checkboxes to be selected.
+    A custom form field that allows multiple selections from a dropdown.
 
     :param SelectMultipleField: The base class for the field.
     :type SelectMultipleField: class
     """
     widget = ListWidget(prefix_label=False)
-    option_widget = CheckboxInput()
 
-    def process_formdata(self, valuelist):
-        """
-        Process the form data for the field.
+    def __init__(self, label=None, validators=None, **kwargs):
+        super(MultiSelectDropdownField, self).__init__(label, validators, **kwargs)
 
-        :param valuelist: A list of values to process.
-        :type valuelist: list
-        """
-        if valuelist:
-            self.data = [str(UUID(x)) for x in valuelist]
-        else:
-            self.data = []
-
-    def process_data(self, value):
-        """
-        Process the data for the field.
-
-        :param value: The value to process.
-        :type value: any
-        """
-        if value:
-            self.data = [str(x) for x in value]
-        else:
-            self.data = []
-
-def at_least_one_checkbox(form, field):
+def at_least_one_selection(form, field):
     """
-    Validates that at least one checkbox is checked in a given field.
+    Validates that at least one option is selected in a multi-select dropdown.
 
     Args:
         form: The form object.
         field: The field to be validated.
 
     Raises:
-        ValidationError: If no checkbox is checked.
+        ValidationError: If no option is selected.
     """
-    if not any(field.data):
-        raise ValidationError("At least one checkbox should be checked.")
+    if not field.data or len(field.data) == 0:
+        raise ValidationError("At least one option must be selected.")
+
+class RangeInput:
+    """
+    Custom widget for rendering a range input.
+    """
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('id', field.id)
+        kwargs.setdefault('name', field.name)
+        kwargs.setdefault('type', 'range')
+        kwargs.setdefault('step', '1')
+        kwargs.setdefault('min', '1')
+        kwargs.setdefault('max', '3')
+        kwargs['value'] = field.data if field.data is not None else kwargs.pop('default', '1')
+        html = '<input %s>' % html_params(**kwargs)
+        return Markup(html)
+
+class SliderField(IntegerField):
+    widget = RangeInput()
+
+class ImageUploadForm(FlaskForm):
+    image_filename = HiddenField('Image Filename')
+    image = FileField('Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
+    submit = SubmitField('Upload Image')
