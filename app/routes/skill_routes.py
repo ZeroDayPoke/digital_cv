@@ -5,10 +5,10 @@ skill_routes.py - skill routes for the Flask application
 # Path: app/routes/skill_routes.py
 
 from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
-from flask_login import login_required, current_user
+from flask_login import login_required
 from ..models import db, Skill, SkillLevel, Project, Blog, Tutorial, Education
-from ..forms import AddSkillForm, DeleteSkillForm, UpdateSkillsForm, SkillForm, AssociateSkillForm, ImageUploadForm
-from ..utils.file_upload_helper import handle_file_upload, allowed_file
+from ..forms import AddSkillForm, DeleteSkillForm, UpdateSkillForm, SkillForm, AssociateSkillForm, ImageUploadForm
+from ..utils.file_upload_helper import handle_file_upload
 from app.routes.route_utils import load_skill_choices, admin_required
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -57,7 +57,7 @@ def delete_skill():
 @login_required
 @admin_required
 def update_skill():
-    skill_form = UpdateSkillsForm()
+    skill_form = UpdateSkillForm()
 
     if skill_form.validate_on_submit():
         skill_to_update = Skill.query.get(skill_form.related_skills.data)
@@ -119,7 +119,8 @@ def edit_skills():
 def edit_skill(skill_id):
     skill = Skill.query.get(skill_id)
     if skill:
-        form = SkillForm(request.form)
+        form = UpdateSkillForm(request.form)
+        print(form.data)
         if form.validate_on_submit():
             try:
                 skill.name = form.name.data
@@ -139,6 +140,7 @@ def edit_skill(skill_id):
                 db.session.rollback()
                 flash('Database error: ' + str(e), 'danger')
         else:
+            print(form.errors)
             flash('Form validation error', 'danger')
     else:
         flash('Skill not found', 'danger')

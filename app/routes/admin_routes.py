@@ -11,7 +11,7 @@ from flask_login import login_required
 from werkzeug.utils import secure_filename
 from ..forms import (
     UploadCVForm, AddProjectForm, UpdateProjectForm, DeleteProjectForm,
-    AddSkillForm, DeleteSkillForm, UpdateSkillsForm,
+    AddSkillForm, DeleteSkillForm, UpdateSkillForm,
     AddBlogForm, UpdateBlogForm, DeleteBlogForm,
     AddTutorialForm, UpdateTutorialForm, DeleteTutorialForm
 )
@@ -36,7 +36,7 @@ LOAD_CHOICE_MAP = {
     DeleteProjectForm: [load_project_choices],
     AddSkillForm: [],
     DeleteSkillForm: [load_skill_choices],
-    UpdateSkillsForm: [],
+    UpdateSkillForm: [],
     AddBlogForm: [load_skill_choices],
     UpdateBlogForm: [load_blog_choices],
     DeleteBlogForm: [load_blog_choices],

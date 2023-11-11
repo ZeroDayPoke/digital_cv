@@ -12,7 +12,7 @@ def load_skill_choices(form):
     Returns:
         Form: The updated form object with skill choices loaded.
     """
-    form.related_skills.choices = [(str(skill.id), skill.name) for skill in Skill.query.all()]
+    form.related_skills.choices = [(skill.id, skill.name) for skill in Skill.query.all()]
     return form
 
 
