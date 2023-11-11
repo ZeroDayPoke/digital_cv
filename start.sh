@@ -16,11 +16,6 @@ else
     export CERT_EXISTS=false
 fi
 
-# Clone the Flask app repo if it doesn't exist
-if [ ! -d "digital_cv" ]; then
-    git clone https://github.com/zerodaypoke/digital_cv
-fi
-
 # Copy the .env file
 cp .env digital_cv/
 
@@ -32,8 +27,7 @@ if [ ! -f ".env" ]; then
   bash ./utils/setup_all.sh
 fi
 
-# Start all services including Nginx, Redis, DB, and the Flask app
-CERT_EXISTS=${CERT_EXISTS} docker-compose up -d nginx redis db flask-app
+docker-compose up -d nginx redis db flask-app
 
 # Wait for a few seconds to make sure everything is initialized
 sleep 30
