@@ -1,0 +1,40 @@
+{% extends "base.html" %} 
+{% block content %}
+<!-- Featured Projects Section -->
+{% include 'projects/_featured_projects.html' %}
+
+<!-- Projects by Category -->
+{% for category, projects_in_category in project_forms.items() %}
+<div class="container my-4">
+  <h2>{{ category }}</h2>
+  <div class="row">
+    {% for project_data in projects_in_category %}
+      <div class="col-md-4 mb-3">
+        <div class="card border-success" style="max-width: 20rem;">
+          <div class="card-header">{{ project_data.form.name.data }}</div>
+          <div class="card-body">
+            <h4 class="card-title">{{ project_data.form.status.label.text }}: {{ project_data.form.status.data }}</h4>
+            <p class="card-text">
+              <br> Role: {{ project_data.form.role.data or 'N/A' }}
+              <br> Category: {{ project_data.form.category.data }}
+            </p>
+
+            <!-- Image -->
+            {% if project_data.form.image_filename.data %}
+              <img src="{{ url_for('static', filename='images/projects/' + project_data.form.image_filename.data) }}" class="card-img-bottom img-fluid rounded" alt="{{ project_data.form.name.data }}" style="max-height: 150px; object-fit: cover">
+            {% endif %}
+            {% include 'projects/_project_image_form.html' %}
+
+            <!-- Update Form -->
+            {% include 'projects/_project_edit_form.html' %}
+
+            <!-- Toggle Featured Form -->
+            {% include 'projects/_project_toggle_form.html' %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

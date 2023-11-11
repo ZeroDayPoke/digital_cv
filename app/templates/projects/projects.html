@@ -1,29 +1,61 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
 {% block content %}
 
-<!-- Main Container -->
-<div class="container-fluid">
+{% include 'projects/_featured_projects.html' %}
 
-  <!-- Row for Filter and Carousel + Synopsis -->
-  <div class="row flex-md-row">
-  
-    <!-- Column for Filter -->
-    <div class="col-12 col-md-4">
-      {% include 'caro/filter.html' %}
+<div id="projectCarousel" class="carousel slide" data-bs-ride="carousel">
+    <!-- Carousel Indicators -->
+    <ol class="carousel-indicators">
+        {% for project in projects %}
+        <li
+            data-bs-target="#projectCarousel"
+            data-bs-slide-to="{{ loop.index0 }}"
+            {% if loop.first %}class="active"{% endif %}
+        ></li>
+        {% endfor %}
+    </ol>
+
+    <!-- Carousel Slides -->
+    <div class="carousel-inner">
+        {% for project in projects %}
+        <div class="carousel-item {% if loop.first %}active{% endif %}">
+            {% if project.image_filename %}
+            <img
+                src="{{ url_for('static', filename='images/projects/' + project.image_filename) }}"
+                alt="{{ project.name }}"
+                class="d-block w-100"
+            />
+            {% else %}
+            <img
+                src="{{ url_for('static', filename='images/defaults/notfound2.png') }}"
+                alt="Default project image"
+                class="d-block w-100"
+            />
+            {% endif %}
+            <div class="carousel-caption d-none d-md-block">
+                <h5>{{ project.name }}</h5>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 
-    <!-- Column for Carousel and Synopsis -->
-    <div class="col-12 col-md-8">
-    
-      <!-- Carousel -->
-      {% include 'caro/main.html' %}
-      
-      <!-- Project Synopsis -->
-      {% include 'caro/synopsis.html' %}
-      
-    </div>
-  </div>
-
-</div> <!-- End Main Container -->
-
+    <!-- Carousel Controls -->
+    <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#projectCarousel"
+        data-bs-slide="prev"
+    >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#projectCarousel"
+        data-bs-slide="next"
+    >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+</div>
 {% endblock %}

@@ -1,0 +1,46 @@
+<!-- Project Update Form -->
+<form
+  method="post"
+  action="{{ url_for('project_routes.edit_project', project_id=project_data.project_id) }}"
+  class="row align-items-center g-3"
+>
+  <input
+    type="hidden"
+    name="project_id"
+    value="{{ project_data.form.project_id.data }}"
+  />
+  {{ project_data.form.hidden_tag() }}
+  <div class="col-auto">
+    {{ project_data.form.name.label(for='name-' ~
+    project_data.form.project_id.data, class_='form-label') }} {{
+    project_data.form.name(id='name-' ~ project_data.form.project_id.data,
+    class_='form-control') }}
+  </div>
+  <div class="col-auto">
+    {{ project_data.form.status.label(for='status-' ~
+    project_data.form.project_id.data, class_='form-label') }} {{
+    project_data.form.status(id='status-' ~ project_data.form.project_id.data,
+    class_='form-select') }}
+  </div>
+  <div class="col-auto">
+    {{ project_data.form.category.label(for='category-' ~
+    project_data.form.project_id.data, class_='form-label') }} {{
+    project_data.form.category(id='category-' ~
+    project_data.form.project_id.data, class_='form-select') }}
+  </div>
+  <div class="col-auto">
+    {{ project_data.form.featured_order.label(for='featured_order-' ~
+    project_data.form.project_id.data, class_='form-label') }} {{
+    project_data.form.featured_order(id='featured_order-' ~
+    project_data.form.project_id.data, class_='form-control') }}
+  </div>
+  <div class="col-auto">
+    {{ project_data.form.related_skills.label(for='related_skills-' ~
+    project_data.form.project_id.data, class_='form-label') }} {{
+    project_data.form.related_skills(id='related_skills-' ~
+    project_data.form.project_id.data, class_='form-select') }}
+  </div>
+  <div class="col-auto">
+    {{ project_data.form.submit(class="btn btn-outline-info") }}
+  </div>
+</form>

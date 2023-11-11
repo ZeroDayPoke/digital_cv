@@ -1,0 +1,37 @@
+<!-- Featured Projects Section -->
+<div class="container my-4">
+  <div class="card bg-dark shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h4>Featured Projects</h4>
+    </div>
+    <div class="card-body">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for project in featured_projects %}
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body bg-secondary">
+              <h5 class="card-title">{{ project.name }}</h5>
+              <p class="card-text">
+                Status: {{ project.status.value }} <br />
+                Role: {{ project.role or 'N/A' }} <br />
+                Order:
+                <span class="badge bg-secondary rounded-pill"
+                  >{{ project.featured_order }}</span
+                >
+              </p>
+            </div>
+            {% if project.image_filename %}
+            <img
+              src="{{ url_for('static', filename='images/projects/' + project.image_filename) }}"
+              alt="{{ project.name }}"
+              class="card-img-bottom"
+              style="max-height: 150px; object-fit: cover"
+            />
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
