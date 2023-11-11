@@ -17,7 +17,7 @@ else
 fi
 
 # Copy the .env file
-cp .env digital_cv/
+cp digital_cv/.env digital_cv/src/.env
 
 # Change directory to Flask app
 cd digital_cv

@@ -13,7 +13,7 @@ import crypto from "crypto";
 import nodemailer from "nodemailer";
 import { logger } from "../middleware/requestLogger.js";
 
-dotenv.config({ path: '../.env', debug: true })
+dotenv.config({ path: '.env', debug: true })
 
 /**
  * Transporter object responsible for sending emails.

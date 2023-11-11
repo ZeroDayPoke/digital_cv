@@ -10,7 +10,7 @@ import rateLimit from "express-rate-limit";
 import { logger } from "./middleware/index.js";
 
 // Load environment variables
-dotenv.config({ path: '../.env', debug: true })
+dotenv.config({ path: '.env', debug: true })
 
 // Create the Express app
 const app = express();
