@@ -33,7 +33,7 @@ if [ ! -f ".env" ]; then
 fi
 
 # Start all services including Nginx, Redis, DB, and the Flask app
-CERT_EXISTS=${CERT_EXISTS} docker-compose up -d nginx redis db flask-app node-app
+CERT_EXISTS=${CERT_EXISTS} docker-compose up -d nginx redis db flask-app
 
 # Wait for a few seconds to make sure everything is initialized
 sleep 30
