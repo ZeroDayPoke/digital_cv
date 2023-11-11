@@ -14,7 +14,7 @@ COPY ./nginx_ssl.conf /etc/nginx/conf.d/nginx_ssl.conf
 EXPOSE 80 443
 
 # Entry script to choose which configuration to use
-COPY ./nginx/entrypoint.sh /entrypoint.sh
+COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Default command to run when the container starts
