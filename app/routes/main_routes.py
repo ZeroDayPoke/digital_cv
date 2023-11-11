@@ -22,18 +22,6 @@ def index():
 def about():
     return render_template('about/main.html', title='About')
 
-@main_routes.route('/blogs', methods=['GET', 'POST'])
-def blogs():
-    form = SkillsFilterForm(request.form)
-    form.skills.choices = [(str(skill.id), skill.name) for skill in Skill.query.all()]
-
-    if request.method == 'POST' and form.validate():
-        selected_skills = form.skills.data
-        blogs = Blog.query.filter(Blog.related_skills.any(Skill.id.in_(selected_skills))).all()
-    else:
-        blogs = Blog.query.all()
-
-    return render_template('blogs.html', blogs=blogs, form=form)
 
 @main_routes.route('/resume')
 def resume():

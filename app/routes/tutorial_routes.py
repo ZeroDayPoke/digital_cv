@@ -133,8 +133,8 @@ def tutorial_detail(tutorial_id):
         return redirect(url_for('main_routes.index'))
     content_file_path = 'app/templates/tutorial/' + tutorial.content_file + '.html'
     sections = extract_sections_from_content(content_file_path)
-    return render_template('tutorial_detail.html', tutorial=tutorial, sections=sections)
+    return render_template('tutorial/tutorial_detail.html', tutorial=tutorial, sections=sections)
 
 @tutorial_routes.route('/tutorials', methods=['GET'])
 def tutorials():
-    return render_template('tutorials.html')
+    return render_template('tutorial/tutorials.html')

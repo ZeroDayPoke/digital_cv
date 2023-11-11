@@ -4,10 +4,10 @@ blog routes for the Flask application
 """
 # Path: app/routes/blog_routes.py
 
-from flask import Blueprint, redirect, url_for, flash, render_template
+from flask import Blueprint, redirect, url_for, flash, render_template, request
 from flask_login import login_required, current_user
 from ..models import db, Blog, Skill
-from ..forms import AddBlogForm, UpdateBlogForm, DeleteBlogForm
+from ..forms import AddBlogForm, UpdateBlogForm, DeleteBlogForm, SkillsFilterForm
 from ..utils.file_upload_helper import handle_file_upload
 from app.routes.route_utils import load_skill_choices, load_blog_choices
 
@@ -135,3 +135,16 @@ def blog_detail(blog_id):
         flash('Blog not found', 'error')
         return redirect(url_for('main_routes.index'))
     return render_template('blog_detail.html', blog=blog)
+
+@blog_routes.route('/blogs', methods=['GET', 'POST'])
+def blogs():
+    form = SkillsFilterForm(request.form)
+    form.skills.choices = [(str(skill.id), skill.name) for skill in Skill.query.all()]
+
+    if request.method == 'POST' and form.validate():
+        selected_skills = form.skills.data
+        blogs = Blog.query.filter(Blog.related_skills.any(Skill.id.in_(selected_skills))).all()
+    else:
+        blogs = Blog.query.all()
+
+    return render_template('blogs/blogs.html', blogs=blogs, form=form)
