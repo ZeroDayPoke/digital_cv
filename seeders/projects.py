@@ -1,6 +1,6 @@
 # ./seeders/projects.py
 
-from app.models import Project, Skill, User, ProjectCategory
+from app.models import Project, Skill, User, ProjectCategory, ProjectStatus
 from app import db
 
 def seed_projects():
@@ -9,6 +9,7 @@ def seed_projects():
         {
             "name": "Digital CV",
             "category": "Full Stack Web Development",
+            "status": ProjectStatus.IN_PROGRESS,
             "description": "A digital CV project made with... well everything", 
             "role": "Full-stack developer", 
             "repo_link": "https://github.com/ZeroDayPoke/digital_cv", 
@@ -22,6 +23,7 @@ def seed_projects():
         {
             "name": "Strain.GG Clouds",
             "category": "Full Stack Web Development",
+            "status": ProjectStatus.IN_PROGRESS,
             "description": "hack sprint project",
             "role": "Full-stack developer", 
             "repo_link": "https://github.com/ZeroDayPoke/strain.gg_clouds",
@@ -35,6 +37,7 @@ def seed_projects():
         {
             "name": "holberton-designer-two",
             "category": "Design",
+            "status": ProjectStatus.COMPLETED,
             "description": "second phase of designer language project series",
             "role": "Full-stack developer", 
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-web_front_end/tree/main/designer_research",
@@ -47,6 +50,7 @@ def seed_projects():
         },
         {
             "name": "holberton-designer-one",
+            "status": ProjectStatus.COMPLETED,
             "category": "Design",
             "description": "first phase of designer language project series",
             "role": "Full-stack developer",
@@ -56,6 +60,7 @@ def seed_projects():
         },
         {
             "name": "holberton-designer-three",
+            "status": ProjectStatus.COMPLETED,
             "category": "Design",
             "description": "third phase of designer language project series",
             "role": "Full-stack developer",
@@ -65,6 +70,7 @@ def seed_projects():
         },
         {
             "name": "Monty",
+            "status": ProjectStatus.COMPLETED,
             "category": "Low level Programming",
             "description": "A monty bytecode interpreter",
             "image_filename": "monty.png",
@@ -75,6 +81,7 @@ def seed_projects():
         },
         {
             "name": "printf",
+            "status": ProjectStatus.COMPLETED,
             "category": "Low level Programming",
             "image_filename": "printf.png",
             "description": "A printf clone",
@@ -85,6 +92,7 @@ def seed_projects():
         },
         {
             "name": "simple_shell",
+            "status": ProjectStatus.COMPLETED,
             "category": "Low level Programming",
             "image_filename": "shell.png",
             "description": "A simple shell",
@@ -95,6 +103,7 @@ def seed_projects():
         },
         {
             "name": "HBNB Phase 1",
+            "status": ProjectStatus.COMPLETED,
             "category": "Web Development - AirBnB Clone",
             "description": "First phase of the AirBnB clone",
             "image_filename": "hbnb-one.png",
@@ -105,6 +114,7 @@ def seed_projects():
         },
         {
             "name": "HBNB Phase 2",
+            "status": ProjectStatus.COMPLETED,
             "category": "Web Development - AirBnB Clone",
             "description": "Second phase of the AirBnB clone",
             "image_filename": "hbnb-two.png",
@@ -115,6 +125,7 @@ def seed_projects():
         },
         {
             "name": "HBNB Phase 3",
+            "status": ProjectStatus.COMPLETED,
             "category": "Web Development - AirBnB Clone",
             "description": "Third phase of the AirBnB clone",
             "image_filename": "hbnb-three.png",
@@ -125,7 +136,9 @@ def seed_projects():
         },
         {
             "name": "HBNB Phase 4",
+            "status": ProjectStatus.COMPLETED,
             "category": "Web Development - AirBnB Clone",
+            "image_filename": "hbnb-four.png",
             "description": "Fourth phase of the AirBnB clone",
             "role": "hol-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-AirBnB_clone_v4",
@@ -133,6 +146,7 @@ def seed_projects():
         },
         {
             "name": "Classification",
+            "status": ProjectStatus.COMPLETED,
             "category": "Machine Learning",
             "image_filename": "classification.png",
             "description": "ML - CLASSIFICATION",
@@ -142,6 +156,7 @@ def seed_projects():
         },
         {
             "name": "Optimization",
+            "status": ProjectStatus.COMPLETED,
             "category": "Machine Learning",
             "description": "ML - OPTIMIZATION",
             "role": "ML-bb",
@@ -150,6 +165,7 @@ def seed_projects():
         },
         {
             "name": "Error Analysis",
+            "status": ProjectStatus.COMPLETED,
             "category": "Machine Learning",
             "description": "ML - ERROR ANALYSIS",
             "role": "ML-bb",
@@ -158,6 +174,7 @@ def seed_projects():
         },
         {
             "name": "Keras",
+            "status": ProjectStatus.COMPLETED,
             "category": "Machine Learning",
             "description": "ML - KERAS",
             "role": "ML-bb",
@@ -166,7 +183,9 @@ def seed_projects():
         },
         {
             "name": "Object Detection",
+            "status": ProjectStatus.COMPLETED,
             "category": "Machine Learning",
+            "image_filename": "object-detection.png",
             "description": "ML - OBJECT DETECTION",
             "role": "ML-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-machine_learning/tree/main/supervised_learning/object_detection",
@@ -174,6 +193,7 @@ def seed_projects():
         },
         {
             "name": "Convolutional Neural Nets",
+            "status": ProjectStatus.COMPLETED,
             "category": "Machine Learning",
             "description": "ML - CNN",
             "image_filename": "cnn.png",
@@ -183,6 +203,7 @@ def seed_projects():
         },
         {
             "name": "Tensorflow",
+            "status": ProjectStatus.COMPLETED,
             "category": "Machine Learning",
             "description": "ML - TENSORFLOW",
             "role": "ML-bb",
@@ -191,6 +212,7 @@ def seed_projects():
         },
         {
             "name": "Regularization",
+            "status": ProjectStatus.COMPLETED,
             "category": "Machine Learning",
             "description": "ML - REGULARIZATION",
             "role": "ML-bb",
@@ -199,6 +221,7 @@ def seed_projects():
         },
         {
             "name": "Deep CNNs",
+            "status": ProjectStatus.COMPLETED,
             "category": "Machine Learning",
             "description": "ML - DEEP CNNs",
             "role": "ML-bb",
@@ -208,6 +231,8 @@ def seed_projects():
         {
             "name": "Calculus - Holberton",
             "category": "Mathematics",
+            "status": ProjectStatus.COMPLETED,
+            "image_filename": "calculus.png",
             "description": "MATH - CALCULUS",
             "role": "ML-bb",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-machine_learning/tree/main/math/calculus",
@@ -215,6 +240,7 @@ def seed_projects():
         },
         {
             "name": "Linear Algebra - Holberton",
+            "status": ProjectStatus.COMPLETED,
             "category": "Mathematics",
             "description": "MATH - LINEAR ALGEBRA",
             "role": "ML-bb",
@@ -223,6 +249,7 @@ def seed_projects():
         },
         {
             "name": "Probability - Holberton",
+            "status": ProjectStatus.COMPLETED,
             "category": "Mathematics",
             "description": "MATH - PROBABILITY",
             "role": "ML-bb",
@@ -231,6 +258,7 @@ def seed_projects():
         },
         {
             "name": "Plotting - Holberton",
+            "status": ProjectStatus.COMPLETED,
             "category": "Mathematics",
             "image_filename": "plotting.png",
             "description": "MATH - PLOTTING",
@@ -240,6 +268,7 @@ def seed_projects():
         },
         {
             "name": "Convolutions and Pooling - Holberton",
+            "status": ProjectStatus.COMPLETED,
             "category": "Mathematics",
             "description": "MATH - CONVOLUTIONS AND POOLING",
             "role": "ML-bb",
@@ -248,6 +277,7 @@ def seed_projects():
         },
         {
             "name": "CSS Advanced",
+            "status": ProjectStatus.COMPLETED,
             "category": "Front End Web Dev",
             "description": "CSS - ADVANCED",
             "role": "Front-end developer",
@@ -256,6 +286,7 @@ def seed_projects():
         },
         {
             "name": "HTML Advanced",
+            "status": ProjectStatus.COMPLETED,
             "category": "Front End Web Dev",
             "description": "HTML - ADVANCED",
             "role": "Front-end developer",
@@ -264,6 +295,7 @@ def seed_projects():
         },
         {
             "name": "Holberton Headphones",
+            "status": ProjectStatus.COMPLETED,
             "category": "Front End Web Dev",
             "description": "A mockup of a headphone store",
             "role": "Front-end developer",
@@ -272,6 +304,7 @@ def seed_projects():
         },
         {
             "name": "ES6 Basics",
+            "status": ProjectStatus.COMPLETED,
             "category": "Back End Web Dev",
             "description": "ES6 - BASICS",
             "role": "Web Developer",
@@ -280,6 +313,7 @@ def seed_projects():
         },
         {
             "name": "ES6 Promises",
+            "status": ProjectStatus.COMPLETED,
             "category": "Back End Web Dev",
             "description": "ES6 - PROMISES",
             "role": "Web Developer",
@@ -288,6 +322,7 @@ def seed_projects():
         },
         {
             "name": "ES6 Classes",
+            "status": ProjectStatus.COMPLETED,
             "category": "Back End Web Dev",
             "description": "ES6 - CLASSES",
             "role": "Web Developer",
@@ -296,6 +331,7 @@ def seed_projects():
         },
         {
             "name": "ES6 Data Manipulation",
+            "status": ProjectStatus.COMPLETED,
             "category": "Back End Web Dev",
             "description": "ES6 - DATA MANIPULATION",
             "role": "Web Developer",
@@ -304,6 +340,7 @@ def seed_projects():
         },
         {
             "name": "Low Level Programming",
+            "status": ProjectStatus.COMPLETED,
             "category": "Low level Programming",
             "image_filename": "lowlevel.png",
             "description": "Consolidated smaller low level programming projects",
@@ -313,6 +350,7 @@ def seed_projects():
         },
         {
             "name": "Zero Day",
+            "status": ProjectStatus.COMPLETED,
             "category": "Low level Programming",
             "description": "A collection of zero day projects",
             "role": "hol-bb",
@@ -321,6 +359,7 @@ def seed_projects():
         },
         {
             "name": "Higher Level Programming",
+            "status": ProjectStatus.COMPLETED,
             "category": "Higher Level Programming",
             "image_filename": "highlevel.png",
             "description": "Consolidated smaller higher level programming projects",
@@ -330,6 +369,7 @@ def seed_projects():
         },
         {
             "name": "Docker - Holberton",
+            "status": ProjectStatus.COMPLETED,
             "category": "DevOps",
             "description": "Docker project from curriculum v2 update; completed as tutor, so not sure if this counts as school or work?",
             "role": "DevOps",
@@ -338,6 +378,7 @@ def seed_projects():
         },
         {
             "name": "System Engineering DevOps",
+            "status": ProjectStatus.COMPLETED,
             "category": "DevOps",
             "description": "Consolidated smaller system engineering and devops projects",
             "role": "hol-bb",
@@ -346,6 +387,7 @@ def seed_projects():
         },
         {
             "name": "Tutoring Live Codes",
+            "status": ProjectStatus.COMPLETED,
             "category": "Live Code",
             "image_filename": "livecode-monty.png",
             "description": "Live codes from tutoring sessions",
@@ -355,6 +397,7 @@ def seed_projects():
         },
         {
             "name": "pokePick",
+            "status": ProjectStatus.IN_PROGRESS,
             "category": "Data Science",
             "description": "First full web app; currently serves as the inventory management, order management, and order fulfillment system for my business",
             "role": "Full-stack developer",
@@ -363,6 +406,7 @@ def seed_projects():
         },
         {
             "name": "C# Exploration",
+            "status": ProjectStatus.ON_HOLD,
             "category": "C#",
             "description": "C# Exploration",
             "role": "Full-stack developer",
@@ -371,6 +415,7 @@ def seed_projects():
         },
         {
             "name": "Museum Prototype",
+            "status": ProjectStatus.IN_PROGRESS,
             "category": "Full Stack Web Development",
             "description": "Museum Prototype",
             "role": "Full-stack developer",
@@ -381,6 +426,7 @@ def seed_projects():
         },
         {
             "name": "Sorting Algorithms",
+            "status": ProjectStatus.COMPLETED,
             "category": "Low level Programming",
             "image_filename": "sorting.png",
             "description": "Sorting Algorithms",
@@ -390,6 +436,7 @@ def seed_projects():
         },
         {
             "name": "Binary Trees",
+            "status": ProjectStatus.COMPLETED,
             "category": "Low level programming",
             "description": "Binary Trees",
             "role": "hol-bb",
