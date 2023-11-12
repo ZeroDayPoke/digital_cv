@@ -1,5 +1,4 @@
 <!-- Skill Association Form -->
-{{ current_user.roles }}
 <form
   method="post"
   action="{{ url_for('skill_routes.associate_skill', skill_id=skill_data.skill_id) }}"
@@ -34,6 +33,7 @@
       id="entityInstanceSelect-{{ skill_data.skill_id }}"
       name="entity_instance"
       class="form-select"
+      style="display: none;"
     >
       <!-- Options will be populated dynamically based on the first dropdown's selection -->
     </select>

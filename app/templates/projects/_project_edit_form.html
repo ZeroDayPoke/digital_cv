@@ -41,7 +41,7 @@
     project_data.form.project_id.data, class_='form-select') }}
   </div>
   <div class="col-auto">
-    {% if current_user.is_admin %}
+    {% if current_user.has_role('ADMIN') %}
       {{ project_data.form.submit(class="btn btn-outline-info") }}
     {% else %}
       {{ project_data.form.submit(class="btn btn-outline-info", disabled=true) }}
