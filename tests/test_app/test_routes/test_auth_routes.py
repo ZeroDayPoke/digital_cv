@@ -272,7 +272,6 @@ class AuthRoutesTestCase(unittest.TestCase):
         """
         Test that the account verification email is successfully sent and the account is verified.
         """
-        print(self.user.verification_token)
         response = self.client.get(
             '/verify_account_email/faketoken', follow_redirects=True)
         self.assertIn('Account successfully verified!', response.data.decode())

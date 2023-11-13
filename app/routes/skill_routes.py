@@ -7,7 +7,7 @@ skill_routes.py - skill routes for the Flask application
 from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_required
 from ..models import db, Skill, SkillLevel, Project, Blog, Tutorial, Education
-from ..forms import AddSkillForm, DeleteSkillForm, UpdateSkillForm, SkillForm, AssociateSkillForm, ImageUploadForm
+from ..forms import AssociateSkillForm, ImageUploadForm, ImageSkillForm
 from ..utils.file_upload_helper import handle_file_upload
 from app.routes.route_utils import load_skill_choices, admin_required
 from sqlalchemy.exc import SQLAlchemyError
@@ -15,16 +15,15 @@ from sqlalchemy.exc import SQLAlchemyError
 skill_routes = Blueprint('skill_routes', __name__, url_prefix='')
 
 
-@skill_routes.route('/interface/add_skill', methods=['GET', 'POST'])
+@skill_routes.route('/interface/add_skill', methods=['POST'])
 @login_required
 @admin_required
 def add_skill():
-    skill_form = AddSkillForm()
+    skill_form = ImageSkillForm()
 
     if skill_form.validate_on_submit():
-        skill = Skill(name=skill_form.name.data)
-
-        # Handle file upload for skill image
+        skill = Skill(name=skill_form.name.data, level=SkillLevel(
+            skill_form.level.data), category=skill_form.category.data)
         image_filename = handle_file_upload("skills")
         if image_filename:
             skill.image_filename = image_filename
@@ -32,19 +31,23 @@ def add_skill():
         db.session.add(skill)
         db.session.commit()
         flash('Your skill has been added!', 'success')
-        return redirect(url_for('admin_routes.interface'))
+        return redirect(url_for('main_routes.index'))
+    else:
+        for fieldName, errorMessages in skill_form.errors.items():
+            for err in errorMessages:
+                flash(f"Error in {fieldName}: {err}", 'danger')
 
-    return render_template('admin/interface.html', title='Interface', skill_form=skill_form)
+    return redirect(url_for('main_routes.index'))
 
 
 @skill_routes.route('/interface/delete_skill', methods=['POST'])
 @login_required
 @admin_required
 def delete_skill():
-    form = load_skill_choices(DeleteSkillForm())
+    form = load_skill_choices(ImageSkillForm())
 
     if form.validate_on_submit():
-        skill_to_delete = Skill.query.get(form.skill.data)
+        skill_to_delete = Skill.query.get(form.skill_id.data)
         if skill_to_delete:
             db.session.delete(skill_to_delete)
             db.session.commit()
@@ -58,13 +61,14 @@ def delete_skill():
 @login_required
 @admin_required
 def update_skill():
-    skill_form = UpdateSkillForm()
+    skill_form = ImageSkillForm()
 
     if skill_form.validate_on_submit():
-        skill_to_update = Skill.query.get(skill_form.related_skills.data)
+        skill_id = skill_form.skill_id.data
+        skill_to_update = Skill.query.get(skill_id)
         if skill_to_update:
             skill_to_update.name = skill_form.name.data
-            skill_to_update.level = SkillLevel[skill_form.skill_level.data]
+            skill_to_update.level = SkillLevel(skill_form.level.data)
 
             image_filename = handle_file_upload("skills")
             if image_filename:
@@ -74,9 +78,13 @@ def update_skill():
             flash('Skill has been updated!', 'success')
         else:
             flash('Error: Skill not found.', 'danger')
+    else:
+        for fieldName, errorMessages in skill_form.errors.items():
+            for err in errorMessages:
+                flash(f'Error in {fieldName}: {err}', 'danger')
 
     flash('Error: Skill not found.', 'danger')
-    return redirect(url_for('admin_routes.interface'))
+    return redirect(url_for('main_routes.index'))
 
 
 @skill_routes.route('/skills', methods=['GET'])
@@ -91,7 +99,7 @@ def edit_skills():
     skills_by_category = {}
 
     for skill in skills:
-        form = SkillForm(obj=skill)
+        form = ImageSkillForm(obj=skill)
         form.level.data = skill.level.value if skill.level else None
         form.category.data = skill.category.name if skill.category else None
         form.skill_id.data = skill.id
@@ -119,8 +127,7 @@ def edit_skills():
 def edit_skill(skill_id):
     skill = Skill.query.get(skill_id)
     if skill:
-        form = UpdateSkillForm(request.form)
-        print(form.data)
+        form = ImageSkillForm(request.form)
         if form.validate_on_submit():
             try:
                 skill.name = form.name.data
@@ -149,7 +156,7 @@ def edit_skill(skill_id):
     return redirect(url_for('skill_routes.edit_skills'))
 
 
-@skill_routes.route('/toggle_featured/<skill_id>', methods=['POST'])
+@skill_routes.route('/skills/toggle_featured/<skill_id>', methods=['POST'])
 @login_required
 @admin_required
 def toggle_featured(skill_id):
@@ -194,7 +201,7 @@ def toggle_featured(skill_id):
 def get_available_entities(entity_type, skill_id):
     skill = Skill.query.get(skill_id)
     if not skill:
-        return jsonify([]), 404
+        return jsonify([])
 
     available_entities = []
     if entity_type == 'project':

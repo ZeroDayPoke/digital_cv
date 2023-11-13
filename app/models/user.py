@@ -122,3 +122,12 @@ class User(UserMixin, BaseModel):
         """
         expiration_time = self.token_generated_at + timedelta(hours=24)
         return datetime.utcnow() > expiration_time
+
+    def is_admin(self):
+        """
+        Checks if the user is an admin.
+
+        Returns:
+            bool: True if the user is an admin, False otherwise.
+        """
+        return self.has_role('ADMIN')
