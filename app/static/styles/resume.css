@@ -2,7 +2,6 @@
 .header-section {
   background-color: var(--dark-gray);
   color: var(--text-light);
-  padding: 20px;
   border-bottom: 3px solid var(--neon-pink);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -13,7 +12,8 @@
 .contact-info h3,
 .ocean-personality h3,
 .interact-buttons h3,
-.headshot-header h3 {
+.headshot-header h3,
+.section-header {
   color: var(--accent-lime-green);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -37,43 +37,41 @@
 
 /* Professional Headshot Styling */
 .professional-headshot img {
-  max-width: 80%; /* Adjust size as needed */
+  max-width: 80%;
   height: auto;
   border-radius: 50%;
   border: 3px solid var(--electric-blue);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.education-section .section-header {
-  color: var(--neon-pink);
-}
-
-.edu-card {
+/* Education Section Styling */
+.education-section .edu-card {
+  background-color: rgba(255, 255, 255, 0.1);
   border: 2px solid var(--electric-blue);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
-.edu-card:hover {
+.education-section .edu-card:hover {
   transform: translateY(-10px);
 }
 
-.edu-info h5,
-.edu-info h6 {
+.education-section .edu-info h5,
+.education-section .edu-info h6 {
   color: var(--accent-lime-green);
 }
 
-.edu-image img {
-  width: 150px;
-  height: 150px;
+.education-section .edu-image img {
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--neon-pink);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* Carousel Styling */
 .carousel-caption {
   background-color: rgba(0, 0, 0, 0.6);
   color: var(--neon-pink);
@@ -90,4 +88,97 @@
   filter: invert(1);
   background-color: var(--electric-blue);
   border-radius: 50%;
+}
+
+/* Project Section Styling */
+.project-section .project-card {
+  background-color: var(--dark-gray);
+  border: 2px solid var(--electric-blue);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.project-section .project-card:hover {
+  transform: translateY(-10px);
+}
+
+.project-section .project-image-col {
+  position: relative;
+}
+
+.project-section .project-image {
+  width: 100%;
+  max-height: 500px;
+  border-bottom: 3px solid var(--neon-pink);
+}
+
+.project-section .related-skills {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 1em;
+}
+
+.project-section .project-synopsis-col {
+  background-color: var(--deep-purple);
+  color: var(--text-light);
+}
+
+.project-section .project-synopsis h5,
+.project-section .project-synopsis h6 {
+  color: var(--accent-lime-green);
+}
+
+.project-section .btn-repo,
+.project-section .btn-live {
+  background-color: var(--neon-pink);
+  color: white;
+  border: none;
+}
+
+.project-section .btn-repo:hover,
+.project-section .btn-live:hover {
+  background-color: var(--electric-blue);
+}
+
+/* Experience Section Styling */
+.experience-section .exp-card {
+  background-color: var(--dark-gray);
+  color: var(--text-light);
+  border: 2px solid var(--electric-blue);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.experience-section .exp-card:hover {
+  transform: translateY(-5px);
+}
+
+.experience-section .exp-header {
+  background-color: var(--neon-pink);
+  color: var(--text-light);
+  border-bottom: 3px solid var(--electric-blue);
+  font-size: 1.5rem;
+}
+
+.experience-section .exp-title,
+.experience-section .exp-location {
+  color: var(--accent-lime-green);
+}
+
+.experience-section .exp-image {
+  max-height: 150px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.experience-section .exp-footer {
+  background-color: var(--deep-purple);
+  color: var(--text-light);
+  text-align: center;
+  border-top: 2px solid var(--electric-blue);
 }

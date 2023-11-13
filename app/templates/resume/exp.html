@@ -1,84 +1,66 @@
-<!-- ./app/templates/resume/exp.html -->
-
-<div class="container mt-4">
+<div class="mt-4 experience-section">
+  <h2 class="section-header text-center mb-5">Professional Experience</h2>
   {% for experience in experiences %}
-  <div class="card mb-3">
-    <!-- Card Header -->
-    <h3 class="card-header">
+  <div class="exp-card mb-4">
+    <h3 class="exp-header">
       {{ experience.position }} @ {{ experience.company }}
     </h3>
 
     <!-- Card Body -->
-    <div class="card-body">
-      <!-- Experience Description -->
+    <div class="card-body exp-body">
       <div class="row mb-3">
         <div class="col-md-12">
-          <h5 class="card-title">
-            {{ experience.experience_type }} {{ experience.name }}
+          <h5 class="exp-title">
+            {{ experience.experience_type }} - {{ experience.name }}
           </h5>
-          <h6 class="card-subtitle text-muted">{{ experience.location }}</h6>
-          <p class="card-text">{{ experience.description }}</p>
+          <h6 class="exp-location">{{ experience.location }}</h6>
+          <p class="exp-description">{{ experience.description }}</p>
         </div>
       </div>
 
       <!-- Images -->
-      <div class="row">
-        <!-- Using Bootstrap's col-3 to ensure each image takes up 25% of the row -->
-        <div class="col-3 d-flex align-items-center justify-content-center">
-          <div class="square">
-            {% if experience.image_filename %}
-            <img
-              src="{{ url_for('static', filename='images/experiences/' + experience.image_filename) }}"
-              alt="{{ experience.company }} Image 1"
-              class="img-fluid"
-            />
-            {% endif %}
-          </div>
+      <div class="row exp-images">
+        {% if experience.image_filename %}
+        <div class="col-3">
+          <img
+            src="{{ url_for('static', filename='images/experiences/' + experience.image_filename) }}"
+            alt="{{ experience.company }} Image 1"
+            class="img-fluid exp-image"
+          />
         </div>
-
-        <div class="col-3 d-flex align-items-center justify-content-center">
-          <div class="square">
-            {% if experience.image_filename_two %}
-            <img
-              src="{{ url_for('static', filename='images/experiences/' + experience.image_filename_two) }}"
-              alt="{{ experience.company }} Image 2"
-              class="img-fluid"
-            />
-            {% endif %}
-          </div>
+        {% endif %} {% if experience.image_filename_two %}
+        <div class="col-3">
+          <img
+            src="{{ url_for('static', filename='images/experiences/' + experience.image_filename_two) }}"
+            alt="{{ experience.company }} Image 2"
+            class="img-fluid exp-image"
+          />
         </div>
-
-        <div class="col-3 d-flex align-items-center justify-content-center">
-          <div class="square">
-            {% if experience.image_filename_three %}
-            <img
-              src="{{ url_for('static', filename='images/experiences/' + experience.image_filename_three) }}"
-              alt="{{ experience.company }} Image 3"
-              class="img-fluid"
-            />
-            {% endif %}
-          </div>
+        {% endif %} {% if experience.image_filename_three %}
+        <div class="col-3">
+          <img
+            src="{{ url_for('static', filename='images/experiences/' + experience.image_filename_three) }}"
+            alt="{{ experience.company }} Image 3"
+            class="img-fluid exp-image"
+          />
         </div>
-
-        <div class="col-3 d-flex align-items-center justify-content-center">
-          <div class="square">
-            {% if experience.image_filename_four %}
-            <img
-              src="{{ url_for('static', filename='images/experiences/' + experience.image_filename_four) }}"
-              alt="{{ experience.company }} Image 4"
-              class="img-fluid"
-            />
-            {% endif %}
-          </div>
+        {% endif %} {% if experience.image_filename_four %}
+        <div class="col-3">
+          <img
+            src="{{ url_for('static', filename='images/experiences/' + experience.image_filename_four) }}"
+            alt="{{ experience.company }} Image 4"
+            class="img-fluid exp-image"
+          />
         </div>
+        {% endif %}
       </div>
-    </div>
 
-    <!-- Card Footer -->
-    <div class="card-footer text-muted">
-      {{ experience.start_date.strftime('%b %Y') }} - {% if experience.end_date
-      %} {{ experience.end_date.strftime('%b %Y') }} {% else %} Present {% endif
-      %}
+      <!-- Card Footer -->
+      <div class="card-footer exp-footer">
+        {{ experience.start_date.strftime('%b %Y') }} - {% if
+        experience.end_date %} {{ experience.end_date.strftime('%b %Y') }} {%
+        else %} Present {% endif %}
+      </div>
     </div>
   </div>
   {% endfor %}

@@ -1,33 +1,38 @@
-<div class="container mt-4 education-section">
+<div class="mt-4 education-section">
   <h2 class="section-header text-center mb-5">Education</h2>
   {% for edu in educations %}
   <div class="edu-card mb-4">
     <div class="row">
-      <!-- Education Description -->
-      <div class="col-md-6 edu-info">
-        <h5>{{ edu.institution }}</h5>
-        <h6>{{ edu.location }}</h6>
-        <p>
-          <strong>Field of Study:</strong> {{ edu.field_of_study }}<br />
-          <strong>Graduation Date:</strong> {{ edu.grad_date or 'Attending'
-          }}<br />
-          <strong>Details:</strong> {{ edu.details or 'N/A' }}
-        </p>
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-auto">
+            <h5 class="edu-title">{{ edu.institution }}</h5>
+            <h6 class="edu-location">{{ edu.location }}</h6>
+            <strong>Field of Study:</strong> {{ edu.field_of_study }}<br />
+            <strong>Graduation Date:</strong> {{ edu.grad_date or 'Attending'
+            }}<br />
+          </div>
+          <div class="col-auto">
+            <div class="edu-image">
+              <img
+                src="{{ url_for('static', filename='images/educations/' + (edu.image_filename or 'default.png')) }}"
+                alt="{{ edu.institution }}"
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <p class="edu-details">
+              <strong>Details:</strong> {{ edu.details or 'N/A' }}
+            </p>
+          </div>
+        </div>
       </div>
-
-      <!-- Image -->
-      <div class="col-md-3 edu-image">
-        <img
-          src="{{ url_for('static', filename='images/educations/' + (edu.image_filename or 'default.png')) }}"
-          alt="{{ edu.institution }}"
-        />
-      </div>
-
-      <!-- Skills -->
-      <div class="col-md-3 edu-skills">
-        {% if edu.related_skills %}
-        {% include "caro/edu/main.html" %}
-        {% endif %}
+      <div class="col-md-3">
+        {% if edu.related_skills %} {% include "caro/edu/main.html" %} {% endif
+        %}
       </div>
     </div>
   </div>
