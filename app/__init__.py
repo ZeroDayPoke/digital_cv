@@ -76,7 +76,9 @@ def register_context_processors(app):
             'educations': Education.query.all(),
             'experiences': Experience.query.all(),
             'project_categories': ProjectCategory.query.all(),
-            'skill_categories': [category.value for category in SkillCategory]
+            'skill_categories': [category.value for category in SkillCategory],
+            'featured_skills': Skill.query.filter_by(is_featured=True).all(),
+            'featured_projects': Project.query.filter_by(is_featured=True).all(),
         }
 
 

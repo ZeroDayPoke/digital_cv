@@ -1,25 +1,39 @@
+{% for skill in skills %}
+<div
+  class="skill-data"
+  data-name="{{ skill.name }}"
+  data-category="{{ skill.category.value }}"
+  data-level="{{ skill.level.name }}"
+  data-featured="{{ skill.is_featured }}"
+  data-image="{{ url_for('static', filename='images/skills/' + (skill.image_filename or 'default_skill.png')) }}"
+></div>
+{% endfor %}
+
 <div class="mt-4 skills-section">
   <h2 class="section-header text-center mb-5">Skills</h2>
-  {% for category in skill_categories %}
-  <div class="skill-category mb-4">
-    <h3 class="skill-category-header">{{ category.value }}</h3>
-    <div class="row">
-      {% for skill in skills if skill.category.value == category %}
-      <div class="col-md-4 mb-3">
-        <div class="skill-card">
-          <h5 class="skill-name">{{ skill.name }}</h5>
-          <div class="skill-level">
-            <span class="badge bg-info">{{ skill.level.name }}</span>
-          </div>
-          <img
-            src="{{ url_for('static', filename='images/skills/' + (skill.image_filename or 'default_skill.png')) }}"
-            alt="{{ skill.name }}"
-            class="img-fluid skill-image"
-          />
-        </div>
-      </div>
-      {% endfor %}
-    </div>
+
+  <div class="skill-filters mb-3 text-center">
+    <button
+      class="btn btn-outline-success filter-btn active-filter"
+      data-filter="featured"
+      data-is-featured="true"
+    >
+      Featured
+    </button>
+    {% for category in skill_categories %}
+    <button class="btn btn-outline-success filter-btn" data-filter="{{ category|lower }}">
+      {{ category }}
+    </button>
+    {% endfor %}
+    <button class="btn btn-outline-success level-filter-btn" data-level="beginner">Beginner</button>
+    <button class="btn btn-outline-success level-filter-btn" data-level="intermediate">
+      Intermediate
+    </button>
+    <button class="btn btn-outline-success level-filter-btn" data-level="advanced">Advanced</button>
   </div>
-  {% endfor %}
+
+  <div id="dynamic-skills-section">
+    <h3 class="skill-category-header" id="dynamic-header">Featured</h3>
+    <div class="row" id="skill-cards-container"></div>
+  </div>
 </div>

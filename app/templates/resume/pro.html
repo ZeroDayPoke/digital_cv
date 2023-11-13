@@ -1,42 +1,56 @@
+{% for project in projects %}
+<div
+  class="project-data"
+  data-name="{{ project.name }}"
+  data-category="{{ project.category.name|lower }}"
+  data-status="{{ project.status.name|lower }}"
+  data-featured="{{ project.is_featured }}"
+  data-related-skills="{{ project.related_skills | map(attribute='name') | join(', ') }}"
+  data-description="{{ project.description }}"
+  data-role="{{ project.role }}"
+  data-repo-link="{{ project.repo_link }}"
+  data-live-link="{{ project.live_link }}"
+  data-image="{{ url_for('static', filename='images/projects/' + (project.image_filename or 'notfound2.png')) }}"
+></div>
+{% endfor %}
+
 <div class="mt-4 project-section">
   <h2 class="section-header text-center mb-5">Projects</h2>
-  {% for project in projects %}
-  <div class="project-card mb-5">
-    <div class="row">
-      <!-- Project Image and Related Skills -->
-      <div class="col-md-8 project-image-col">
-        <img
-          src="{{ url_for('static', filename='images/projects/' + (project.image_filename or 'notfound2.png')) }}"
-          alt="{{ project.name }}"
-          class="img-fluid project-image"
-        />
-        <div class="related-skills">
-          <strong>Built With:</strong>
-          <ul class="list-inline">
-            {% for skill in project.related_skills %}
-            <li class="list-inline-item">{{ skill.name }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
 
-      <!-- Project Synopsis -->
-      <div class="col-md-4 project-synopsis-col">
-        <div class="project-synopsis">
-          <h5>{{ project.name }}</h5>
-          <h6>{{ project.role or 'N/A' }}</h6>
-          <p>{{ project.description or 'Description not available' }}</p>
-          <div class="project-links">
-            <a href="{{ project.repo_link or '#' }}" class="btn btn-repo"
-              >Repo</a
-            >
-            <a href="{{ project.live_link or '#' }}" class="btn btn-live"
-              >Live</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="project-filters mb-3 text-center">
+    <button
+      class="btn btn-outline-success project-filter-btn"
+      data-filter="featured"
+      data-is-featured="true"
+    >
+      Featured
+    </button>
+    {% for category in project_categories %}
+    <button
+      class="btn btn-outline-success project-filter-btn"
+      data-filter="{{ category.name|lower }}"
+    >
+      {{ category.name }}
+    </button>
+    {% endfor %}
+    <button class="btn btn-outline-success project-status-filter-btn" data-status="PLANNING">
+      Planning
+    </button>
+    <button class="btn btn-outline-success project-status-filter-btn" data-status="IN_PROGRESS">
+      In Progress
+    </button>
+    <button class="btn btn-outline-success project-status-filter-btn" data-status="COMPLETED">
+      Completed
+    </button>
+    <button class="btn btn-outline-success project-status-filter-btn" data-status="ON_HOLD">
+      On Hold
+    </button>
   </div>
-  {% endfor %}
+
+  <div id="dynamic-projects-section">
+    <h3 class="project-category-header" id="dynamic-project-header">
+      Featured Projects
+    </h3>
+    <div class="row" id="project-cards-container"></div>
+  </div>
 </div>

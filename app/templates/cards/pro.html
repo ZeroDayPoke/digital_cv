@@ -1,0 +1,37 @@
+<div
+  class="project-card mb-5"
+  data-category="{{ project.category|lower }}"
+  data-featured="{{ project.is_featured }}"
+>
+  <div class="row">
+    <!-- Project Image and Related Skills -->
+    <div class="col-md-8 project-image-col">
+      <img
+        src="{{ url_for('static', filename='images/projects/' + (project.image_filename or 'notfound2.png')) }}"
+        alt="{{ project.name }}"
+        class="img-fluid project-image"
+      />
+      <div class="related-skills">
+        <strong>Built With:</strong>
+        <ul class="list-inline">
+          {% for skill in project.related_skills %}
+          <li class="list-inline-item">{{ skill.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Project Synopsis -->
+    <div class="col-md-4 project-synopsis-col">
+      <div class="project-synopsis">
+        <h5>{{ project.name }}</h5>
+        <h6>{{ project.role or 'N/A' }}</h6>
+        <p>{{ project.description or 'Description not available' }}</p>
+        <div class="project-links">
+          <a href="{{ project.repo_link or '#' }}" class="btn btn-repo">Repo</a>
+          <a href="{{ project.live_link or '#' }}" class="btn btn-live">Live</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

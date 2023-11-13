@@ -1,0 +1,18 @@
+<div
+  class="col-md-4 mb-3 skill-card skill-data"
+  data-name="{{ skill.name }}"
+  data-category="{{ skill.category.value|lower }}"
+  data-level="{{ skill.level.name|lower }}"
+  data-featured="{{ skill.is_featured }}"
+  data-image="{{ url_for('static', filename='images/skills/' + (skill.image_filename or 'notfound1,png')) }}"
+>
+  <h5 class="skill-name">{{ skill.name }}</h5>
+  <div class="skill-level">
+    <span class="badge bg-info">{{ skill.level.name }}</span>
+  </div>
+  <img
+    src="{{ url_for('static', filename='images/skills/' + (skill.image_filename or 'notfound1.png')) }}"
+    alt="{{ skill.name }}"
+    class="img-fluid skill-image"
+  />
+</div>
