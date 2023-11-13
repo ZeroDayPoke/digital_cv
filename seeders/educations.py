@@ -3,6 +3,7 @@
 from app.models import Education, Skill
 from app import db
 
+
 def seed_educations():
     """Seed the educations table with real data"""
     educations = [
@@ -27,12 +28,14 @@ def seed_educations():
     ]
 
     # Query existing educations to prevent duplicates
-    existing_educations = db.session.query(Education.institution, Education.field_of_study).all()
-    
+    existing_educations = db.session.query(
+        Education.institution, Education.field_of_study).all()
+
     for education_data in educations:
         # Convert each dictionary to a tuple of (institution, field_of_study)
-        check_tuple = (education_data['institution'], education_data['field_of_study'])
-        
+        check_tuple = (education_data['institution'],
+                       education_data['field_of_study'])
+
         if check_tuple not in existing_educations:
             # Separate out the 'skills' field for special handling
             skill_names = education_data.pop('skills', [])
@@ -41,13 +44,14 @@ def seed_educations():
             education = Education(**education_data)
 
             # Query for Skill objects that match the names in 'skills'
-            related_skills = db.session.query(Skill).filter(Skill.name.in_(skill_names)).all()
+            related_skills = db.session.query(Skill).filter(
+                Skill.name.in_(skill_names)).all()
 
             # Associate the queried Skill objects with the education
             education.related_skills = related_skills
 
             # Add Education object to session
             db.session.add(education)
-    
+
     # Commit the session to save all changes
     db.session.commit()

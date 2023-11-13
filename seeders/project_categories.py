@@ -3,19 +3,25 @@
 from app.models import ProjectCategory
 from app import db
 
+
 def seed_project_categories():
     """Seed the project_categories table"""
     categories = [
-        {"name": "Full Stack Web Development", "description": "Full stack web development projects."},
+        {"name": "Full Stack Web Development",
+            "description": "Full stack web development projects."},
         {"name": "Data Science", "description": "Projects related to data science."},
         {"name": "Design", "description": "Projects related to design."},
-        {"name": "Machine Learning", "description": "Projects related to machine learning."},
+        {"name": "Machine Learning",
+            "description": "Projects related to machine learning."},
         {"name": "Live Code", "description": "Projects related to live codings."},
         {"name": "DevOps", "description": "Projects related to DevOps."},
         {"name": "Mathematics", "description": "Projects related to mathematics."},
-        {"name": "Low Level Programming", "description": "Projects related to low level programming."},
-        {"name": "Web Development - AirBnB Clone", "description": "AirBnB clone projects."},
-        {"name": "Front End Web Dev", "description": "Front end web development category."},
+        {"name": "Low Level Programming",
+            "description": "Projects related to low level programming."},
+        {"name": "Web Development - AirBnB Clone",
+            "description": "AirBnB clone projects."},
+        {"name": "Front End Web Dev",
+            "description": "Front end web development category."},
         {"name": "Back End Web Dev", "description": "Back end web development projects."},
         {"name": "Higher Level Programming", "description": "Higher level."},
     ]

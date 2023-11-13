@@ -32,7 +32,8 @@ def add_project():
             repo_link=form.repo_link.data,
             live_link=form.live_link.data,
             category_id=form.category.data,
-            related_skills=Skill.query.filter(Skill.id.in_(form.related_skills.data)).all()
+            related_skills=Skill.query.filter(
+                Skill.id.in_(form.related_skills.data)).all()
         )
 
         image_filename = handle_file_upload("projects")
@@ -93,7 +94,7 @@ def project_details(project_id):
         }
 
         return jsonify(project_data)
-    
+
     return render_template('projects/project_details.html', project=project)
 
 
@@ -103,7 +104,8 @@ def projects():
 
     if request.method == 'POST' and form.validate():
         selected_skills = form.skills.data
-        projects = Project.query.filter(Project.related_skills.any(Skill.id.in_(selected_skills))).all()
+        projects = Project.query.filter(
+            Project.related_skills.any(Skill.id.in_(selected_skills))).all()
     else:
         projects = Project.query.all()
 
@@ -114,7 +116,8 @@ def projects():
 def edit_projects():
     project_categories = ProjectCategory.query.all()
     projects = Project.query.all()
-    projects_by_category = {category.name: [] for category in project_categories}
+    projects_by_category = {category.name: []
+                            for category in project_categories}
     projects_by_category['Uncategorized'] = []
 
     for project in projects:
@@ -122,8 +125,11 @@ def edit_projects():
         form.project_id.data = project.id
         form.category.data = project.category_id
         form.status.data = project.status.value
-        form.related_skills.choices = [(skill.id, skill.name) for skill in Skill.query.all()]
-        form.related_skills.data = [str(skill.id) for skill in project.related_skills]  # Set the related skills data
+        form.related_skills.choices = [
+            (skill.id, skill.name) for skill in Skill.query.all()]
+        # Set the related skills data
+        form.related_skills.data = [str(skill.id)
+                                    for skill in project.related_skills]
 
         project_data = {
             "form": form,
@@ -152,10 +158,12 @@ def toggle_featured(project_id):
                 project.is_featured = False
                 project.featured_order = None
             else:
-                featured_count = project.query.filter_by(is_featured=True).count()
+                featured_count = project.query.filter_by(
+                    is_featured=True).count()
                 if featured_count < 3:
                     project.is_featured = True
-                    all_orders = [s.featured_order for s in project.query.filter_by(is_featured=True).all()]
+                    all_orders = [s.featured_order for s in project.query.filter_by(
+                        is_featured=True).all()]
                     all_orders = sorted(filter(None, all_orders))
                     available_order = 1
                     for order in all_orders:
@@ -168,7 +176,8 @@ def toggle_featured(project_id):
                     return redirect(url_for('project_routes.edit_projects'))
 
             db.session.commit()
-            flash(f"project '{project.name}' featured status toggled to {project.is_featured}, order set to {project.featured_order}.", 'success')
+            flash(
+                f"project '{project.name}' featured status toggled to {project.is_featured}, order set to {project.featured_order}.", 'success')
         except SQLAlchemyError as e:
             db.session.rollback()
             flash('Database error: ' + str(e), 'danger')
@@ -199,10 +208,12 @@ def edit_project(project_id):
 
                 # Update related skills
                 skill_ids = form.related_skills.data
-                project.related_skills = Skill.query.filter(Skill.id.in_(skill_ids)).all()
+                project.related_skills = Skill.query.filter(
+                    Skill.id.in_(skill_ids)).all()
 
                 if form.image.data:
-                    image_filename = handle_file_upload("projects", form.image.data)
+                    image_filename = handle_file_upload(
+                        "projects", form.image.data)
                     if image_filename:
                         project.image_filename = image_filename
 
@@ -217,6 +228,7 @@ def edit_project(project_id):
         flash('Project not found', 'danger')
 
     return redirect(url_for('project_routes.edit_projects'))
+
 
 @project_routes.route('/upload_project_image/<project_id>', methods=['POST'])
 @login_required

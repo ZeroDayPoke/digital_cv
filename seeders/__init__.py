@@ -10,6 +10,7 @@ from .project_categories import seed_project_categories
 from .projects import seed_projects
 from .experiences import seed_experiences
 
+
 def seed_all():
     seed_roles()
     seed_users()

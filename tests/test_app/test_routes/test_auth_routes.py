@@ -3,6 +3,7 @@ import unittest
 from app import create_app, db
 from app.models import User
 
+
 class AuthRoutesTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -29,7 +30,8 @@ class AuthRoutesTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         with self.client.session_transaction() as session:
             try:
-                self.assertIn(('flash', 'Successfully signed in'), session['_flashes'])
+                self.assertIn(('flash', 'Successfully signed in'),
+                              session['_flashes'])
             except KeyError:
                 self.fail("_flashes not set in the session")
 
@@ -41,9 +43,11 @@ class AuthRoutesTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         with self.client.session_transaction() as session:
             try:
-                self.assertIn(('flash', 'Email does not exist.'), session['_flashes'])
+                self.assertIn(('flash', 'Email does not exist.'),
+                              session['_flashes'])
             except KeyError:
                 self.fail("_flashes not set in the session")
+
 
 if __name__ == '__main__':
     unittest.main()

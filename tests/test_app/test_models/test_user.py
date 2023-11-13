@@ -5,13 +5,16 @@ from datetime import datetime, timedelta
 from app.models import db, User, Role
 from app import create_app
 
+
 class UserModelTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = create_app('testing')  # Replace 'testing' with your test configuration
+        # Replace 'testing' with your test configuration
+        self.app = create_app('testing')
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
-        self.user = User(username='john', email='john@example.com', password='cat')
+        self.user = User(
+            username='john', email='john@example.com', password='cat')
         db.session.add(self.user)
         db.session.commit()
 
@@ -43,6 +46,7 @@ class UserModelTestCase(unittest.TestCase):
     def test_token_expiration(self):
         self.user.token_generated_at = datetime.utcnow() - timedelta(hours=25)
         self.assertTrue(self.user.token_expired())
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -5,6 +5,7 @@
 from .base import BaseModel, db
 from datetime import datetime
 
+
 class Experience(BaseModel):
     __tablename__ = 'experiences'
 
@@ -16,7 +17,7 @@ class Experience(BaseModel):
     is_current = db.Column(db.Boolean, default=False)
     description = db.Column(db.String(500), nullable=True)
     experience_type = db.Column(db.String(60), nullable=True)
-    
+
     def __repr__(self):
         return f"<Experience (ID: {self.id}, Company: {self.company}, Position: {self.position})>"
 

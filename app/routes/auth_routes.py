@@ -13,6 +13,7 @@ from ..forms import SignupForm, SigninForm, ChangePasswordForm, MessageAdminForm
 
 auth_routes = Blueprint('auth_routes', __name__, url_prefix='')
 
+
 @auth_routes.route('/signup', methods=['GET', 'POST'])
 def signup():
     """
@@ -28,7 +29,8 @@ def signup():
     form = SignupForm()
     if form.validate_on_submit():
         existing_user = User.query.filter(
-            (User.username == form.username.data) | (User.email == form.email.data)
+            (User.username == form.username.data) | (
+                User.email == form.email.data)
         ).first()
 
         if existing_user:
@@ -39,7 +41,8 @@ def signup():
             return redirect(url_for('auth_routes.signup'))
 
         hashed_password = generate_password_hash(form.password.data)
-        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        new_user = User(username=form.username.data,
+                        email=form.email.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
 
@@ -53,6 +56,7 @@ def signup():
 
         return redirect(url_for('main_routes.index'))
     return render_template('default/signup.html', form=form)
+
 
 @auth_routes.route('/signin', methods=['GET', 'POST'])
 def signin():
@@ -75,9 +79,10 @@ def signin():
             flash('Successfully signed in.')
         else:
             flash('Email does not exist.')
-        
+
         return redirect(url_for('main_routes.index'))
     return render_template('default/signin.html', form=form)
+
 
 @auth_routes.route('/signout', methods=['GET'])
 @login_required
@@ -108,7 +113,8 @@ def account():
     if current_user.has_role('ADMIN'):
         messages = Message.query.filter_by(is_read=False).all()
     else:
-        existing_message = Message.query.filter_by(sender_id=current_user.id).first()
+        existing_message = Message.query.filter_by(
+            sender_id=current_user.id).first()
 
     form = ChangePasswordForm()
     message_form = MessageAdminForm()
@@ -120,11 +126,12 @@ def account():
         if not current_user.check_password(form.current_password.data):
             flash('Incorrect current password.')
         else:
-            current_user.password_hash = generate_password_hash(form.new_password.data)
+            current_user.password_hash = generate_password_hash(
+                form.new_password.data)
             db.session.commit()
             flash('Password changed successfully.')
 
-    return render_template('default/account.html', form=form, message_form=message_form, 
+    return render_template('default/account.html', form=form, message_form=message_form,
                            messages=messages, existing_message=existing_message)
 
 
@@ -138,7 +145,8 @@ def send_verification_email():
         str: A message indicating whether the email was sent successfully or not.
     """
     user_email = current_user.email
-    email_service_url = current_app.config.get('EMAIL_SERVICE_URL', 'http://node-app:3000/send-email')
+    email_service_url = current_app.config.get(
+        'EMAIL_SERVICE_URL', 'http://node-app:3000/send-email')
 
     try:
         response = requests.post(email_service_url, json={'to': user_email})
@@ -153,7 +161,8 @@ def send_verification_email():
             flash(message)
             return message
         else:
-            flash('There was an error sending the verification email. Please try again later.')
+            flash(
+                'There was an error sending the verification email. Please try again later.')
     except requests.RequestException:
         flash('Network error while sending verification email.')
 

@@ -3,6 +3,7 @@
 from app.models import Role
 from app import db
 
+
 def seed_roles():
     """Seed the roles table"""
     roles = ["ADMIN", "USER", "GUEST"]

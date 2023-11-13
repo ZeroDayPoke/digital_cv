@@ -29,13 +29,14 @@ def add_blog():
         return redirect(url_for('main_routes.blogs'))
 
     form = load_skill_choices(AddBlogForm())
-    
+
     if form.validate_on_submit():
         new_blog = Blog(
             name=form.name.data,
             description=form.description.data,
             content_file=form.content_file.data,
-            related_skills=Skill.query.filter(Skill.id.in_(form.related_skills.data)).all()
+            related_skills=Skill.query.filter(
+                Skill.id.in_(form.related_skills.data)).all()
         )
 
         image_filename = handle_file_upload("blogs")
@@ -75,7 +76,8 @@ def update_blog():
             blog_to_update.name = form.name.data
             blog_to_update.description = form.description.data
             blog_to_update.content_file = form.content_file.data
-            blog_to_update.related_skills = Skill.query.filter(Skill.id.in_(form.related_skills.data)).all()
+            blog_to_update.related_skills = Skill.query.filter(
+                Skill.id.in_(form.related_skills.data)).all()
 
             image_filename = handle_file_upload("blogs")
             if image_filename:
@@ -136,14 +138,17 @@ def blog_detail(blog_id):
         return redirect(url_for('main_routes.index'))
     return render_template('blogs/blog_detail.html', blog=blog)
 
+
 @blog_routes.route('/blogs', methods=['GET', 'POST'])
 def blogs():
     form = SkillsFilterForm(request.form)
-    form.skills.choices = [(str(skill.id), skill.name) for skill in Skill.query.all()]
+    form.skills.choices = [(str(skill.id), skill.name)
+                           for skill in Skill.query.all()]
 
     if request.method == 'POST' and form.validate():
         selected_skills = form.skills.data
-        blogs = Blog.query.filter(Blog.related_skills.any(Skill.id.in_(selected_skills))).all()
+        blogs = Blog.query.filter(Blog.related_skills.any(
+            Skill.id.in_(selected_skills))).all()
     else:
         blogs = Blog.query.all()
 

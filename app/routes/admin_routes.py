@@ -28,11 +28,14 @@ admin_routes = Blueprint('admin_routes', __name__, url_prefix='')
 """
 Decorator function that checks if the user is logged in and is an admin before allowing access to the route.
 """
+
+
 @admin_routes.before_request
 @login_required
 @admin_required
 def before_request():
     pass
+
 
 LOAD_CHOICE_MAP = {
     AddProjectForm: [load_skill_choices],
@@ -48,6 +51,7 @@ LOAD_CHOICE_MAP = {
     UpdateTutorialForm: [load_tutorial_choices],
     DeleteTutorialForm: [load_tutorial_choices]
 }
+
 
 @admin_routes.route('/interface', methods=['GET'])
 def interface():
@@ -72,6 +76,7 @@ def interface():
         form=form,
     )
 
+
 @admin_routes.route('/upload_cv', methods=['POST'])
 def upload_cv():
     form = UploadCVForm()
@@ -79,9 +84,11 @@ def upload_cv():
         file = form.cv.data
         cv_pdf_name = config.get('CV_PDF_NAME', 'default_cv_name.pdf')
         filename = secure_filename(cv_pdf_name)
-        file.save(os.path.join(current_app.config.get('CV_UPLOAD_FOLDER', 'app/static/cv/'), filename))
+        file.save(os.path.join(current_app.config.get(
+            'CV_UPLOAD_FOLDER', 'app/static/cv/'), filename))
         flash('CV uploaded successfully', 'success')
     return redirect(url_for('admin_routes.interface'))
+
 
 @admin_routes.route('/go_to_admin', methods=['GET'])
 def go_to_admin():

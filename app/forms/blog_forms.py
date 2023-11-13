@@ -6,6 +6,7 @@ from wtforms.validators import DataRequired
 from flask_wtf.file import FileField, FileAllowed
 from . import at_least_one_selection, MultiSelectDropdownField
 
+
 class AddBlogForm(FlaskForm):
     """
     A form for adding a new blog post.
@@ -26,8 +27,10 @@ class AddBlogForm(FlaskForm):
         choices=[],
         validators=[at_least_one_selection]
     )
-    image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
+    image = FileField('Skill Image', validators=[
+                      FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Submit')
+
 
 class DeleteBlogForm(FlaskForm):
     """
@@ -39,6 +42,7 @@ class DeleteBlogForm(FlaskForm):
     """
     blog = SelectField('Blog to Delete', coerce=str)
     submit = SubmitField('Delete Blog')
+
 
 class UpdateBlogForm(FlaskForm):
     """

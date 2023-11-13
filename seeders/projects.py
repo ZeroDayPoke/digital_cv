@@ -3,6 +3,7 @@
 from app.models import Project, Skill, User, ProjectCategory, ProjectStatus
 from app import db
 
+
 def seed_projects():
     """Seed the projects table"""
     projects = [
@@ -10,10 +11,10 @@ def seed_projects():
             "name": "Digital CV",
             "category": "Full Stack Web Development",
             "status": ProjectStatus.IN_PROGRESS,
-            "description": "A digital CV project made with... well everything", 
-            "role": "Full-stack developer", 
-            "repo_link": "https://github.com/ZeroDayPoke/digital_cv", 
-            "live_link": "https://zerodaypoke.com", 
+            "description": "A digital CV project made with... well everything",
+            "role": "Full-stack developer",
+            "repo_link": "https://github.com/ZeroDayPoke/digital_cv",
+            "live_link": "https://zerodaypoke.com",
             "image_filename": "digital_cv.png",
             "skills": ["Flask", "Python", "JavaScript", "CSS", "HTML", "Git", "nginx", "Docker", "SQLAlchemy", "node.js", "MySQL", "Expresss", "Bootstrap", "GCP"],
             "collaborators": ["mason"],
@@ -25,7 +26,7 @@ def seed_projects():
             "category": "Full Stack Web Development",
             "status": ProjectStatus.IN_PROGRESS,
             "description": "hack sprint project",
-            "role": "Full-stack developer", 
+            "role": "Full-stack developer",
             "repo_link": "https://github.com/ZeroDayPoke/strain.gg_clouds",
             "live_link": "https://strain.gg",
             "image_filename": "notfound2.png",
@@ -39,7 +40,7 @@ def seed_projects():
             "category": "Design",
             "status": ProjectStatus.COMPLETED,
             "description": "second phase of designer language project series",
-            "role": "Full-stack developer", 
+            "role": "Full-stack developer",
             "repo_link": "https://github.com/ZeroDayPoke/holbertonschool-web_front_end/tree/main/designer_research",
             "live_link": "https://docs.google.com/document/d/195bomF7w6ZZoa1gO6grQRx5MF7JNvM-J2y48fV555Qs/edit?usp=sharing",
             "image_filename": "holberton-designer-two.png",
@@ -455,13 +456,15 @@ def seed_projects():
         if check_tuple not in existing_projects:
             # Separate out the 'skills' and 'collaborators' fields for special handling
             skill_names = project_data.pop('skills', [])
-            collaborator_usernames = project_data.pop('collaborators', [])  # Pop collaborators
+            collaborator_usernames = project_data.pop(
+                'collaborators', [])  # Pop collaborators
 
             # Pop the category field and query for it
             category_name = project_data.pop('category', None)
             category = None
             if category_name:
-                category = db.session.query(ProjectCategory).filter_by(name=category_name).first()
+                category = db.session.query(ProjectCategory).filter_by(
+                    name=category_name).first()
 
             # Create Project object
             project = Project(**project_data)
@@ -471,13 +474,15 @@ def seed_projects():
                 project.category_id = category.id
 
             # Query for Skill objects that match the names in 'skills'
-            related_skills = db.session.query(Skill).filter(Skill.name.in_(skill_names)).all()
+            related_skills = db.session.query(Skill).filter(
+                Skill.name.in_(skill_names)).all()
 
             # Associate the queried Skill objects with the project
             project.related_skills = related_skills
 
             # Query for User objects that match the usernames in 'collaborators'
-            collaborators = db.session.query(User).filter(User.username.in_(collaborator_usernames)).all()
+            collaborators = db.session.query(User).filter(
+                User.username.in_(collaborator_usernames)).all()
 
             # Associate the queried User objects with the project
             project.collaborators = collaborators  # Assign collaborators

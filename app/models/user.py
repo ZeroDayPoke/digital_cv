@@ -9,6 +9,7 @@ from .base import BaseModel, db
 from sqlalchemy.orm import relationship
 from .associations import user_roles, project_users
 
+
 class Role(BaseModel):
     """
     A class representing the roles of users in the system.
@@ -26,6 +27,7 @@ class Role(BaseModel):
     def __repr__(self):
         return '<Role {}>'.format(self.name)
 
+
 class User(UserMixin, BaseModel):
     """
     User model class that inherits from UserMixin and BaseModel.
@@ -35,12 +37,15 @@ class User(UserMixin, BaseModel):
     username = db.Column(db.String(64), unique=True, index=True)
     email = db.Column(db.String(120), unique=True, index=True)
     password_hash = db.Column(db.String(128))
-    roles = relationship('Role', secondary=user_roles, backref=db.backref('users', lazy='dynamic'))
+    roles = relationship('Role', secondary=user_roles,
+                         backref=db.backref('users', lazy='dynamic'))
     verification_token = db.Column(db.String(40))
     verified = db.Column(db.Boolean, default=False)
     token_generated_at = db.Column(db.DateTime, default=datetime.utcnow)
-    github_username = db.Column(db.String(39), unique=True, nullable=True, index=True)
-    projects = db.relationship('Project', secondary=project_users, back_populates='collaborators')
+    github_username = db.Column(
+        db.String(39), unique=True, nullable=True, index=True)
+    projects = db.relationship(
+        'Project', secondary=project_users, back_populates='collaborators')
     messages = db.relationship('Message', backref='sender', lazy='dynamic')
 
     def __init__(self, *args, **kwargs):

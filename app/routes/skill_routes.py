@@ -14,6 +14,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 skill_routes = Blueprint('skill_routes', __name__, url_prefix='')
 
+
 @skill_routes.route('/interface/add_skill', methods=['GET', 'POST'])
 @login_required
 @admin_required
@@ -22,7 +23,7 @@ def add_skill():
 
     if skill_form.validate_on_submit():
         skill = Skill(name=skill_form.name.data)
-        
+
         # Handle file upload for skill image
         image_filename = handle_file_upload("skills")
         if image_filename:
@@ -106,7 +107,8 @@ def edit_skills():
             skills_by_category[category] = []
         skills_by_category[category].append(skill_forms[skill.id])
 
-    featured_skills = sorted([skill for skill in skills if skill.is_featured], key=lambda x: (x.featured_order is None, x.featured_order))
+    featured_skills = sorted([skill for skill in skills if skill.is_featured], key=lambda x: (
+        x.featured_order is None, x.featured_order))
 
     return render_template('skills/edit.html', skill_forms=skills_by_category, featured_skills=featured_skills)
 
@@ -128,7 +130,8 @@ def edit_skill(skill_id):
                 skill.category = form.category.data if form.category.data else None
 
                 if form.image.data:
-                    image_filename = handle_file_upload("skills", form.image.data)
+                    image_filename = handle_file_upload(
+                        "skills", form.image.data)
                     if image_filename:
                         skill.image_filename = image_filename
 
@@ -160,7 +163,8 @@ def toggle_featured(skill_id):
                 featured_count = Skill.query.filter_by(is_featured=True).count()
                 if featured_count < 12:
                     skill.is_featured = True
-                    all_orders = [s.featured_order for s in Skill.query.filter_by(is_featured=True).all()]
+                    all_orders = [s.featured_order for s in Skill.query.filter_by(
+                        is_featured=True).all()]
                     all_orders = sorted(filter(None, all_orders))
                     available_order = 1
                     for order in all_orders:
@@ -173,7 +177,8 @@ def toggle_featured(skill_id):
                     return redirect(url_for('skill_routes.edit_skills'))
 
             db.session.commit()
-            flash(f"Skill '{skill.name}' featured status toggled to {skill.is_featured}, order set to {skill.featured_order}.", 'success')
+            flash(
+                f"Skill '{skill.name}' featured status toggled to {skill.is_featured}, order set to {skill.featured_order}.", 'success')
         except SQLAlchemyError as e:
             db.session.rollback()
             flash('Database error: ' + str(e), 'danger')
@@ -193,17 +198,25 @@ def get_available_entities(entity_type, skill_id):
 
     available_entities = []
     if entity_type == 'project':
-        available_projects = [p for p in Project.query.all() if skill not in p.related_skills]
-        available_entities = [{'id': p.id, 'name': p.name} for p in available_projects]
+        available_projects = [
+            p for p in Project.query.all() if skill not in p.related_skills]
+        available_entities = [{'id': p.id, 'name': p.name}
+                              for p in available_projects]
     elif entity_type == 'blog':
-        available_blogs = [b for b in Blog.query.all() if skill not in b.related_skills]
-        available_entities = [{'id': b.id, 'name': b.name} for b in available_blogs]
+        available_blogs = [
+            b for b in Blog.query.all() if skill not in b.related_skills]
+        available_entities = [{'id': b.id, 'name': b.name}
+                              for b in available_blogs]
     elif entity_type == 'tutorial':
-        available_tutorials = [t for t in Tutorial.query.all() if skill not in t.related_skills]
-        available_entities = [{'id': t.id, 'name': t.name} for t in available_tutorials]
+        available_tutorials = [
+            t for t in Tutorial.query.all() if skill not in t.related_skills]
+        available_entities = [{'id': t.id, 'name': t.name}
+                              for t in available_tutorials]
     elif entity_type == 'education':
-        available_educations = [e for e in Education.query.all() if skill not in e.related_skills]
-        available_entities = [{'id': e.id, 'name': e.name} for e in available_educations]
+        available_educations = [
+            e for e in Education.query.all() if skill not in e.related_skills]
+        available_entities = [{'id': e.id, 'name': e.name}
+                              for e in available_educations]
 
     return jsonify(available_entities)
 
@@ -222,7 +235,8 @@ def associate_skill(skill_id):
     entity_type = request.form.get('entity_type')
     if entity_type:
         available_entities = get_available_entities(entity_type, skill_id).json
-        form.entity_instance.choices = [(entity['id'], entity['name']) for entity in available_entities]
+        form.entity_instance.choices = [
+            (entity['id'], entity['name']) for entity in available_entities]
 
     if form.validate_on_submit():
         entity_type = form.entity_type.data

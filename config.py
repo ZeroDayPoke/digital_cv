@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 # Load the environment variables from .env file
 load_dotenv()
 
-import os
 
 class Config:
     """
@@ -30,7 +29,8 @@ class Config:
     - CV_UPLOAD_FOLDER (str): Path to the folder where CVs will be stored.
     - USE_EXTENDED_BOOTSTRAP (bool): Flag to enable/disable extended Bootstrap.
     """
-    ALLOWED_EXTENSIONS = os.getenv('ALLOWED_EXTENSIONS', 'png,jpg,jpeg,gif'.split(','))
+    ALLOWED_EXTENSIONS = os.getenv(
+        'ALLOWED_EXTENSIONS', 'png,jpg,jpeg,gif'.split(','))
     UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', 'app/static/images')
     MAX_FILE_SIZE = os.getenv('MAX_FILE_SIZE', 1572864)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -43,6 +43,7 @@ class Config:
     FLASK_APP_DOMAIN = os.getenv('FLASK_APP_DOMAIN', 'http://localhost:8000')
     CV_PDF_NAME = os.getenv('CV_PDF_NAME', 'resume_draft_v2.pdf')
     USE_EXTENDED_BOOTSTRAP = os.getenv('USE_EXTENDED_BOOTSTRAP', True)
+
 
 class DevelopmentConfig(Config):
     DB_USER = os.getenv('DB_USER', 'cv_user_dev')

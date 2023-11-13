@@ -4,6 +4,7 @@ from unittest import TestCase, mock
 from app.models.base import BaseModel
 from datetime import datetime
 
+
 class BaseModelTestCase(TestCase):
     """
     Test case for the BaseModel class.

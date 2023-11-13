@@ -5,6 +5,7 @@
 from .base import BaseModel, db
 from .associations import blog_skills
 
+
 class Blog(BaseModel):
     """
     A class representing a blog post.
@@ -31,7 +32,8 @@ class Blog(BaseModel):
     description = db.Column(db.String(500), nullable=True)
     content_file = db.Column(db.String(500), nullable=True)
     tags = db.Column(db.String(120), nullable=True)
-    related_skills = db.relationship('Skill', secondary=blog_skills, back_populates='related_blogs')
+    related_skills = db.relationship(
+        'Skill', secondary=blog_skills, back_populates='related_blogs')
 
     def __repr__(self):
         return f"<Blog (ID: {self.id}, Name: {self.name})>"

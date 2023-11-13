@@ -2,6 +2,7 @@
 
 from .base import BaseModel, db
 
+
 class ProjectCategory(BaseModel):
     """
     A class representing a project category.

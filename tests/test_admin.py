@@ -4,6 +4,7 @@ from unittest.mock import patch, MagicMock
 from flask import url_for
 from admin import AdminModelView
 
+
 class TestAdminModelView:
     @patch('admin.current_user')
     def test_is_accessible_returns_false_when_user_is_not_authenticated(self, mock_current_user):

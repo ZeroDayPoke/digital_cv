@@ -4,6 +4,7 @@ from unittest import TestCase, mock
 from flask import Flask
 from app.utils.file_upload_helper import allowed_file, handle_file_upload
 
+
 class FileUploadHelperTestCase(TestCase):
 
     def setUp(self):
@@ -39,8 +40,9 @@ class FileUploadHelperTestCase(TestCase):
         with self.app.test_request_context():
             with mock.patch('app.utils.file_upload_helper.request') as mock_request:
                 mock_request.files = {}
-        
+
                 filename = handle_file_upload('model_name')
 
-        mock_flash.assert_called_once_with('Error: File not found or not allowed.', 'danger')
+        mock_flash.assert_called_once_with(
+            'Error: File not found or not allowed.', 'danger')
         self.assertIsNone(filename)

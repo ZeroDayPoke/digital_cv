@@ -27,6 +27,8 @@ def add_tutorial():
 
     :return: A redirect response to the admin interface page.
     """
+
+
 @tutorial_routes.route('/interface/add_tutorial', methods=['GET', 'POST'])
 @login_required
 @admin_required
@@ -134,6 +136,7 @@ def tutorial_detail(tutorial_id):
     content_file_path = 'app/templates/tutorial/' + tutorial.content_file + '.html'
     sections = extract_sections_from_content(content_file_path)
     return render_template('tutorial/tutorial_detail.html', tutorial=tutorial, sections=sections)
+
 
 @tutorial_routes.route('/tutorials', methods=['GET'])
 def tutorials():

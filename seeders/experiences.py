@@ -4,6 +4,7 @@ from app.models import Experience
 from app import db
 from datetime import datetime
 
+
 def seed_experiences():
     experiences = [
         {
@@ -31,7 +32,8 @@ def seed_experiences():
         }
     ]
 
-    existing_experiences = db.session.query(Experience.company, Experience.position).all()
+    existing_experiences = db.session.query(
+        Experience.company, Experience.position).all()
 
     for experience_data in experiences:
         check_tuple = (experience_data['company'], experience_data['position'])

@@ -23,6 +23,8 @@ import logging
 from flask_wtf import CSRFProtect
 
 # Initialize database
+
+
 def init_db(app):
     db.init_app(app)
 
@@ -47,7 +49,7 @@ def init_admin(app):
 def init_login_manager(app):
     login_manager = LoginManager()
     login_manager.init_app(app)
-    
+
     @login_manager.user_loader
     def load_user(user_id: str) -> User:
         return User.query.get(user_id)
@@ -107,9 +109,9 @@ def create_app(config_name='default') -> Flask:
 
     redis_host = app.config.get('REDIS_HOST', 'redis')
     redis_port = app.config.get('REDIS_PORT', 6379)
-    
+
     storage_uri = f"redis://{redis_host}:{redis_port}"
-    
+
     default_limits = app.config.get('DEFAULT_LIMITS', "120 per hour")
 
     limiter = Limiter(

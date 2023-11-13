@@ -14,9 +14,11 @@ from app.routes.route_utils import load_skill_choices, load_project_choices, loa
 
 main_routes = Blueprint('main_routes', __name__, url_prefix='')
 
+
 @main_routes.route('/')
 def index():
     return render_template('default/index.html', include_header=True)
+
 
 @main_routes.route('/about')
 def about():
@@ -28,17 +30,21 @@ def resume():
     """
     Render the resume page.
     """
-    domain_name = current_app.config.get('FLASK_APP_DOMAIN', 'https://zerodaypoke.com')
+    domain_name = current_app.config.get(
+        'FLASK_APP_DOMAIN', 'https://zerodaypoke.com')
     pdf_name = current_app.config.get('CV_PDF_NAME', 'dynamic_cv_name.pdf')
     return render_template('resume/main.html', title='Resume', domain_name=domain_name, pdf_name=pdf_name)
+
 
 @main_routes.route('/exit_admin')
 def exit_admin():
     return redirect(url_for('main_routes.index'))
 
+
 @main_routes.route('/demo')
 def demo():
     return render_template('demo.html')
+
 
 @main_routes.route('/send_message', methods=['POST'])
 @login_required
@@ -61,12 +67,14 @@ def send_message():
         flash('Invalid form.')
         return redirect(url_for('auth_routes.account'))
 
+
 @main_routes.route('/get_messages', methods=['GET'])
 @login_required
 @admin_required
 def get_messages():
     messages = Message.query.all()
     return jsonify({'messages': [message.message_body for message in messages]}), 200
+
 
 @main_routes.route('/mark_as_read/<message_id>', methods=['POST'])
 @login_required
@@ -79,13 +87,15 @@ def mark_as_read(message_id):
         return redirect(url_for('auth_routes.account'))
     return jsonify({'status': 'Message not found'}), 404
 
+
 @main_routes.route('/edit_message', methods=['POST'])
 @login_required
 def edit_message():
     form = MessageAdminForm()
     if form.validate_on_submit():
         if current_user.verified and not current_user.has_role('ADMIN'):
-            existing_message = Message.query.filter_by(sender_id=current_user.id).first()
+            existing_message = Message.query.filter_by(
+                sender_id=current_user.id).first()
             if existing_message:
                 existing_message.message_body = form.message_body.data
                 db.session.commit()

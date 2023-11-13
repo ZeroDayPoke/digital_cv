@@ -6,6 +6,7 @@ from wtforms.validators import DataRequired
 from flask_wtf.file import FileField, FileAllowed
 from . import at_least_one_selection, MultiSelectDropdownField
 
+
 class AddTutorialForm(FlaskForm):
     """
     A form to add a new tutorial to the database.
@@ -26,8 +27,10 @@ class AddTutorialForm(FlaskForm):
         choices=[],
         validators=[at_least_one_selection]
     )
-    image = FileField('Skill Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
+    image = FileField('Skill Image', validators=[
+                      FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Submit')
+
 
 class DeleteTutorialForm(FlaskForm):
     """
@@ -42,6 +45,7 @@ class DeleteTutorialForm(FlaskForm):
     """
     tutorial = SelectField('Tutorial to Delete', coerce=str)
     submit = SubmitField('Delete Tutorial')
+
 
 class UpdateTutorialForm(FlaskForm):
     """

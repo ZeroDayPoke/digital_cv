@@ -24,6 +24,7 @@ class_dictionary = {
     'Tutorial': Tutorial
 }
 
+
 class CV_Console(cmd.Cmd):
     """A command-line interface for creating, showing, updating, and deleting instances of classes."""
     prompt = '(cv_app) '
@@ -48,7 +49,8 @@ class CV_Console(cmd.Cmd):
             class_name = params.pop(0)
             cls = self.get_class(class_name)
             if cls is None:
-                print(f"Invalid class. Available classes: {', '.join(class_dictionary.keys())}")
+                print(
+                    f"Invalid class. Available classes: {', '.join(class_dictionary.keys())}")
                 return
 
             attributes = {}
@@ -91,7 +93,8 @@ class CV_Console(cmd.Cmd):
             class_name, instance_id = params[0], params[1]
             cls = self.get_class(class_name)
             if cls is None:
-                print(f"Invalid class. Available classes: {', '.join(class_dictionary.keys())}")
+                print(
+                    f"Invalid class. Available classes: {', '.join(class_dictionary.keys())}")
                 return
 
             instance = db.session.get(cls, instance_id)
@@ -116,9 +119,10 @@ class CV_Console(cmd.Cmd):
             class_name, instance_id = params
             cls = self.get_class(class_name)
             if cls is None:
-                print(f"Invalid class. Available classes: {', '.join(class_dictionary.keys())}")
+                print(
+                    f"Invalid class. Available classes: {', '.join(class_dictionary.keys())}")
                 return
-            
+
             instance = cls.query.get(instance_id)
             if instance is None:
                 print(f"{class_name} with ID {instance_id} not found.")
@@ -144,7 +148,8 @@ class CV_Console(cmd.Cmd):
             class_name = params[0]
             cls = self.get_class(class_name)
             if cls is None:
-                print(f"Invalid class. Available classes: {', '.join(class_dictionary.keys())}")
+                print(
+                    f"Invalid class. Available classes: {', '.join(class_dictionary.keys())}")
                 return
 
             instances = cls.query.all()
@@ -161,13 +166,15 @@ class CV_Console(cmd.Cmd):
         with app.app_context():
             params = arg.split()
             if len(params) < 3:
-                print("Usage: update <class> <id> <attribute1=value1> <attribute2=value2> ...")
+                print(
+                    "Usage: update <class> <id> <attribute1=value1> <attribute2=value2> ...")
                 return
 
             class_name, instance_id = params[0], params[1]
             cls = self.get_class(class_name)
             if cls is None:
-                print(f"Invalid class. Available classes: {', '.join(class_dictionary.keys())}")
+                print(
+                    f"Invalid class. Available classes: {', '.join(class_dictionary.keys())}")
                 return
 
             instance = cls.query.get(instance_id)
@@ -190,7 +197,8 @@ class CV_Console(cmd.Cmd):
                 user = instance
                 user.roles.append(role)
                 db.session.commit()
-                print(f"Role {role_name} appended to User with ID {instance_id}")
+                print(
+                    f"Role {role_name} appended to User with ID {instance_id}")
 
             for key, value in attributes.items():
                 setattr(instance, key, value)
@@ -202,6 +210,7 @@ class CV_Console(cmd.Cmd):
         """Quit the console: quit"""
         print("Exiting console...")
         return True
+
 
 if __name__ == "__main__":
     CV_Console().cmdloop()

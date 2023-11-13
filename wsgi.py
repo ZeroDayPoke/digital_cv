@@ -10,12 +10,12 @@ This script creates a Flask app instance and runs it using a WSGI server.
 It also creates a Migrate instance for database migrations and initializes the database tables.
 """
 
+from app import create_app, db
+from flask_migrate import Migrate
 import os
 import sys
 sys.dont_write_bytecode = True
 
-from flask_migrate import Migrate
-from app import create_app, db
 
 app = create_app(config_name=os.getenv('FLASK_APP_ENV'))
 

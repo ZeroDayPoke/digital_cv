@@ -2,6 +2,7 @@
 
 from flask import Flask, g, request
 
+
 def get_locale(app: Flask) -> str:
     """
     Determine the best locale to use for translations.
