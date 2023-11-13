@@ -38,7 +38,7 @@ def signup():
                 flash('Username already in use.')
             if existing_user.email == form.email.data:
                 flash('Email address already in use.')
-            return redirect(url_for('auth_routes.signup'))
+            return redirect(url_for('main_routes.index'))
 
         hashed_password = generate_password_hash(form.password.data)
         new_user = User(username=form.username.data,
@@ -85,7 +85,6 @@ def signin():
 
 
 @auth_routes.route('/signout', methods=['GET'])
-@login_required
 def signout():
     """
     Signs out the current user if they are authenticated, and redirects to the index page.
@@ -193,7 +192,7 @@ def verify_account_email(token):
         user.token_generated_at = None
         db.session.commit()
         flash('Account successfully verified!')
-        return redirect(url_for('auth_routes.account'))
+        return redirect(url_for('main_routes.index'))
 
 
 @auth_routes.route('/change_password', methods=['POST'])

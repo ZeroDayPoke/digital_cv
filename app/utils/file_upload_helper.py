@@ -31,7 +31,7 @@ def handle_file_upload(model_name, field_name='image'):
         str: The filename of the uploaded file if successful, None otherwise.
     """
     if field_name not in request.files:
-        flash('No file part', 'danger')
+        flash('Error: File not found or not allowed.', 'danger')
         return None
 
     file = request.files.get(field_name)

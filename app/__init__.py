@@ -112,7 +112,7 @@ def create_app(config_name='default') -> Flask:
 
     storage_uri = f"redis://{redis_host}:{redis_port}"
 
-    default_limits = app.config.get('DEFAULT_LIMITS', "120 per hour")
+    default_limits = app.config.get('DEFAULT_LIMITS', "1280 per hour")
 
     limiter = Limiter(
         app=app,
