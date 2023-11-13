@@ -1,27 +1,93 @@
+/* Header Section Styling */
 .header-section {
   background-color: var(--dark-gray);
   color: var(--text-light);
+  padding: 20px;
+  border-bottom: 3px solid var(--neon-pink);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.header-name {
-  color: var(--neon-pink);
+/* Common Header Styles */
+.header-name,
+.header-roles,
+.contact-info h3,
+.ocean-personality h3,
+.interact-buttons h3,
+.headshot-header h3 {
+  color: var(--accent-lime-green);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.header-roles {
-  color: var(--electric-blue);
-}
-
+/* Contact Summary Section Styling */
 .contact-summary-section {
   background-color: var(--deep-purple);
   color: var(--text-light);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.contact-info h3,
-.professional-summary h3 {
-  color: var(--accent-lime-green);
-}
-
+/* Interact Buttons Styling */
 .interact-buttons .btn {
   background-color: var(--neon-pink);
   border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+/* Professional Headshot Styling */
+.professional-headshot img {
+  max-width: 80%; /* Adjust size as needed */
+  height: auto;
+  border-radius: 50%;
+  border: 3px solid var(--electric-blue);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.education-section .section-header {
+  color: var(--neon-pink);
+}
+
+.edu-card {
+  border: 2px solid var(--electric-blue);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.edu-card:hover {
+  transform: translateY(-10px);
+}
+
+.edu-info h5,
+.edu-info h6 {
+  color: var(--accent-lime-green);
+}
+
+.edu-image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--neon-pink);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: var(--neon-pink);
+  border-top: 2px solid var(--electric-blue);
+}
+
+.carousel-skill-name {
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 2px black;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+  background-color: var(--electric-blue);
+  border-radius: 50%;
 }

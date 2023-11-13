@@ -1,27 +1,25 @@
-<!-- ./app/templates/caro/edu/main.html -->
 <div
   id="skillsCarousel{{ edu.id }}"
-  class="carousel slide flex-fill d-flex flex-column carousel-position"
+  class="carousel slide carousel-fade"
   data-bs-ride="carousel"
 >
-  <div class="carousel-inner carousel-inner-custom">
-    <!-- Flex grow and overflow control -->
+  <div class="carousel-inner">
     {% for skill in edu.related_skills %}
     <div class="carousel-item {% if loop.first %}active{% endif %}">
       <img
         src="{{ url_for('static', filename='images/skills/' + skill.image_filename) }}"
-        class="d-block w-100 carousel-img-cover"
+        class="d-block w-100"
         alt="{{ skill.name }}"
       />
-      <div class="carousel-caption d-none d-md-block">
-        <h5>{{ skill.name }}</h5>
+      <div class="carousel-caption">
+        <h5 class="carousel-skill-name">{{ skill.name }}</h5>
       </div>
     </div>
     {% endfor %}
   </div>
-  <!-- Carousel controls -->
+
   <button
-    class="carousel-control-prev position-absolute"
+    class="carousel-control-prev"
     type="button"
     data-bs-target="#skillsCarousel{{ edu.id }}"
     data-bs-slide="prev"
@@ -29,7 +27,7 @@
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
   </button>
   <button
-    class="carousel-control-next position-absolute"
+    class="carousel-control-next"
     type="button"
     data-bs-target="#skillsCarousel{{ edu.id }}"
     data-bs-slide="next"

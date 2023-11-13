@@ -6,9 +6,9 @@
   </div>
 </section>
 
-<section class="row align-items-start contact-summary-section">
-  <!-- Contact Information -->
+<section class="row justify-content-center contact-summary-section">
   <div class="col-auto">
+    <!-- Contact Information -->
     <div class="contact-info mb-4">
       <h3>Contact Info</h3>
       <address>
@@ -35,6 +35,40 @@
           </li>
         </ul>
       </address>
+    </div>
+
+    <!-- Interact Buttons -->
+    <div class="text-center">
+      <div class="interact-buttons mb-4">
+        <h3>Interact</h3>
+        <div class="row mb-2">
+          <div class="col">
+            <a
+              href="{{ _('download_code_link') }}"
+              download="Source_Code"
+              class="btn d-block w-100"
+              >Download Source Code</a
+            >
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <a
+              href="{{ _('download_cv_link') }}"
+              download="Chris_Stamper_CV"
+              class="btn d-block w-100"
+              >Download CV</a
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <a href="mailto:{{ _('hire_me_email') }}" class="btn d-block w-100"
+              >Hire Me</a
+            >
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -125,40 +159,17 @@
     </div>
   </div>
 
-  <!-- Interact Buttons -->
-  <div class="col-auto text-md-end">
-    <div class="interact-buttons mb-4">
-      <h3>Interact</h3>
-      <!-- First Button Row -->
-      <div class="row mb-2">
-        <div class="col">
-          <a
-            href="{{ _('download_code_link') }}"
-            download="Source_Code"
-            class="btn d-block w-100"
-            >Download Source Code</a
-          >
-        </div>
-      </div>
-      <!-- Second Button Row -->
-      <div class="row mb-2">
-        <div class="col">
-          <a
-            href="{{ _('download_cv_link') }}"
-            download="Chris_Stamper_CV"
-            class="btn d-block w-100"
-            >Download CV</a
-          >
-        </div>
-      </div>
-      <!-- Third Button Row -->
-      <div class="row">
-        <div class="col">
-          <a href="mailto:{{ _('hire_me_email') }}" class="btn d-block w-100"
-            >Hire Me</a
-          >
-        </div>
-      </div>
+  <!-- Professional Headshot -->
+  <div class="col-md-3 d-flex flex-column align-items-center">
+    <div class="headshot-header">
+      <h3 class="text-center mb-3">Headshot</h3>
+    </div>
+    <div class="professional-headshot">
+      <img
+        src="{{ _('headshot_location') }}"
+        alt="Professional Headshot"
+        class="img-fluid rounded-circle"
+      />
     </div>
   </div>
 </section>
