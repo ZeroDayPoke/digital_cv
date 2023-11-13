@@ -182,3 +182,33 @@
   text-align: center;
   border-top: 2px solid var(--electric-blue);
 }
+
+.skill-category-header {
+  color: var(--accent-lime-green);
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.skill-card {
+  border: 2px solid var(--electric-blue);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  background-color: var(--dark-gray);
+  color: var(--text-light);
+}
+
+.skill-name {
+  color: var(--neon-pink);
+}
+
+.skill-level .badge {
+  background-color: var(--electric-blue);
+}
+
+.skill-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 10px;
+}
