@@ -7,7 +7,15 @@ from bs4 import BeautifulSoup
 
 
 class SkillRoutesTestCase(unittest.TestCase):
+    """
+    This class contains unit tests for the skill routes in the Flask app.
+    It tests the functionality of adding, deleting, and updating skills.
+    """
     def setUp(self):
+        """
+        Set up the test environment by creating a Flask app instance, pushing an app context,
+        creating a test client, adding an admin user with ADMIN role, and adding a dummy skill.
+        """
         self.app = create_app('testing')
         self.app_context = self.app.app_context()
         self.app_context.push()
@@ -15,7 +23,7 @@ class SkillRoutesTestCase(unittest.TestCase):
         self.client = self.app.test_client(use_cookies=True)
 
         self.admin_user = User(email='admin@example.com',
-                               password='adminpassword', username='adminuser')
+                                password='adminpassword', username='adminuser')
         self.admin_user.roles.append(Role(name='ADMIN'))
         db.session.add(self.admin_user)
         self.dummy_skill = Skill(
@@ -24,17 +32,33 @@ class SkillRoutesTestCase(unittest.TestCase):
         db.session.commit()
 
     def tearDown(self):
+        """
+        This method is called after each test function has been executed. It removes the database session,
+        drops all tables and removes the application context.
+        """
         db.session.remove()
         db.drop_all()
         self.app_context.pop()
 
     def login_admin_user(self):
+        """
+        Logs in an admin user by sending a POST request to the '/signin' endpoint with the admin user's email and password.
+
+        Returns:
+        The response object from the POST request.
+        """
         return self.client.post('/signin', data={
             'email': 'admin@example.com',
             'password': 'adminpassword'
         }, follow_redirects=True)
 
     def test_add_skill(self):
+        """
+        Test adding a new skill to the database via the add_skill route.
+
+        This test logs in an admin user, submits a form with skill data, and checks that the skill was added to the database
+        and a success message was displayed to the user.
+        """
         self.login_admin_user()
         form_data = {
             'name': "NewSkill",
@@ -51,6 +75,12 @@ class SkillRoutesTestCase(unittest.TestCase):
         self.assertIsNotNone(new_skill)
 
     def test_delete_skill(self):
+        """
+        Test deleting a skill from the application.
+
+        This method logs in an admin user, sends a POST request to delete a skill,
+        and then checks that the skill has been deleted from the database.
+        """
         self.login_admin_user()
         response = self.client.post('/interface/delete_skill', data={
             "related_skills": self.dummy_skill.id
@@ -63,6 +93,12 @@ class SkillRoutesTestCase(unittest.TestCase):
         self.assertIsNone(deleted_skill)
 
     def test_update_skill(self):
+        """
+        Test updating a skill using the update_skill route.
+
+        Logs in an admin user, sends a POST request to the update_skill route with dummy skill data,
+        checks if the skill has been updated successfully and the success message is displayed.
+        """
         self.login_admin_user()
         skill_form_data = {
             'skill_id': self.dummy_skill.id,
