@@ -47,43 +47,10 @@ def add_project():
     return redirect(url_for('admin_routes.interface'))
 
 
-@project_routes.route('/interface/update_project/<project_id>', methods=['GET', 'POST'])
+@project_routes.route('/interface/update_project', methods=['GET', 'POST'])
 @login_required
 @admin_required
-def update_project(project_id):
-    project = Project.query.get_or_404(project_id)
-    form = UpdateProjectForm(obj=project)
-    form = load_project_choices(form)
-    form = load_skill_choices(form)
-    form = load_category_choices(form)
-
-    if request.method == 'GET':
-        form.project.data = project_id
-        form.name.data = project.name
-        form.description.data = project.description
-        form.role.data = project.role
-        form.repo_link.data = project.repo_link
-        form.live_link.data = project.live_link
-        form.category.data = project.category_id
-        form.related_skills.data = [skill.id for skill in project.related_skills]
-
-    elif request.method == 'POST' and form.validate_on_submit():
-        project.name = form.name.data
-        project.description = form.description.data
-        project.role = form.role.data
-        project.repo_link = form.repo_link.data
-        project.live_link = form.live_link.data
-        project.category_id = form.category.data
-        project.related_skills = Skill.query.filter(Skill.id.in_(form.related_skills.data)).all()
-
-        image_filename = handle_file_upload("projects")
-        if image_filename:
-            project.image_filename = image_filename
-
-        db.session.commit()
-        flash('Project has been updated!', 'success')
-        return redirect(url_for('admin_routes.interface'))
-
+def update_project():
     return redirect(url_for('admin_routes.interface'))
 
 

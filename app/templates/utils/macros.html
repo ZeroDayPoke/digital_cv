@@ -15,6 +15,25 @@
 {% endmacro %}
 
 
+{% macro render_boolean_field(field) %}
+<div class="form-group row mb-3">
+  <div class="col-sm-12">
+    <label class="form-check-label col-2" for="{{ field.id }}">
+      {{ field.label.text }}
+    </label>
+    <input class="form-check-input col-8" type="checkbox" id="{{ field.id }}" name="{{ field.name }}" {{ 'checked' if field.data else '' }}>
+    {% if field.errors %}
+      <div class="invalid-feedback">
+        {% for error in field.errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+
 {% macro render_checkbox_field(field) %}
 <div class="form-group row mb-4">
   <div class="col-sm-12">
@@ -36,24 +55,21 @@
 {% endmacro %}
 
 
-
-
-{% macro render_skill_slider(skill_form) %}
+{% macro render_skill_slider(field) %}
 <div class="form-group row mb-2">
-  <div class="col-sm-2 col-form-label">
-    <label for="{{ skill_form.name.id }}" class="form-label">{{ skill_form.name.label.text }}</label>
-  </div>
-  <div class="col-sm-10">
-    {{ skill_form.name(class="form-control", readonly="readonly") }}
-    {{ skill_form.skill_level.label(class="form-label") }}
-    {{ skill_form.skill_level(class="form-control-range") }}
-    <span id="{{ skill_form.skill_level.id }}_display">{{ skill_form.skill_level.data }}</span>
-    {{ skill_form.skill_id }}
+  <label for="{{ field.id }}" class="col-2 col-form-label">{{ field.label.text }}</label>
+  <div class="col-auto">
+    {{ field(class="form-control-range" ~ (' is-invalid' if field.errors else '')) }}
+    {% if field.errors %}
+      <div class="invalid-feedback">
+        {% for error in field.errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 </div>
 {% endmacro %}
-
-
 
 
 {% macro render_submit_button(button_label) %}
@@ -70,14 +86,13 @@
   <div class="container">
     {{ form.hidden_tag() }}
     {% for field in form %}
-      {% if field.type == 'FieldList' %}
-        {% for skill_form in field %}
-          {{ render_skill_slider(skill_form) }}
-        {% endfor %}
-      {% elif field.type == 'CSRFTokenField' %}
-        {# Skip rendering CSRFTokenField explicitly #}
+      {% if field.type == 'CSRFTokenField' or field.name == 'submit' or field.type == 'HiddenField' %}
       {% elif field.name in ['skills', 'related_skills'] %}
         {{ render_checkbox_field(field) }}
+      {% elif field.type == 'BooleanField' %}
+        {{ render_boolean_field(field) }}
+      {% elif field.name == 'level' %}
+        {{ render_skill_slider(field) }}
       {% else %}
         {{ render_text_field(field) }}
       {% endif %}
@@ -86,7 +101,6 @@
   </div>
 </form>
 {% endmacro %}
-
 
 {% macro render_video(filename, aria_label="video", autoplay=true, loop=true, muted=true, width="100%") %}
 <div role="region" aria-label="{{ aria_label }}">

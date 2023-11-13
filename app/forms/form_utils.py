@@ -2,19 +2,19 @@
 
 from flask_wtf import FlaskForm
 from markupsafe import Markup
-from wtforms.widgets import html_params, ListWidget, Select
+from wtforms.widgets import html_params, ListWidget
 from wtforms.validators import ValidationError
 from wtforms.fields import SelectMultipleField
 from flask_wtf.file import FileField, FileAllowed
-from uuid import UUID
 from wtforms import SubmitField, IntegerField, HiddenField, SelectMultipleField
 
 class MultiSelectDropdownField(SelectMultipleField):
     """
-    A custom form field that allows multiple selections from a dropdown.
+    A custom form field that allows for multiple selections from a dropdown list.
 
-    :param SelectMultipleField: The base class for the field.
-    :type SelectMultipleField: class
+    :param label: The label for the field.
+    :param validators: A list of validators to apply to the field.
+    :param kwargs: Additional keyword arguments to pass to the parent class.
     """
     widget = ListWidget(prefix_label=False)
 
@@ -51,9 +51,22 @@ class RangeInput:
         return Markup(html)
 
 class SliderField(IntegerField):
+    """
+    A custom form field that renders as a slider input.
+
+    Inherits from `IntegerField` and uses a `RangeInput` widget.
+    """
     widget = RangeInput()
 
 class ImageUploadForm(FlaskForm):
+    """
+    A form for uploading images.
+
+    Attributes:
+        image_filename (str): The filename of the uploaded image.
+        image (FileField): The file upload field for the image.
+        submit (SubmitField): The submit button for the form.
+    """
     image_filename = HiddenField('Image Filename')
     image = FileField('Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Upload Image')

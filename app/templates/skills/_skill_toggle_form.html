@@ -6,16 +6,16 @@
   <input type="hidden" name="skill_id" value="{{ skill_data.skill_id }}" />
   {{ skill_data.form.hidden_tag() }}
   {% if current_user.is_authenticated and current_user.has_role('ADMIN') %}
-  {% if skill_data.form.is_featured.data %}
-    <button type="submit" class="btn btn-outline-danger">Remove from Featured</button>
+    {% if skill_data.form.is_featured.data %}
+      <button type="submit" class="btn btn-outline-danger">Remove from Featured</button>
+    {% else %}
+      <button type="submit" class="btn btn-outline-success">Add to Featured</button>
+    {% endif %}
   {% else %}
-    <button type="submit" class="btn btn-outline-success">Add to Featured</button>
-  {% endif %}
-  {% else %}
-  {% if skill_data.form.is_featured.data %}
-    <button type="submit" class="btn btn-outline-danger" disabled>Remove from Featured</button>
-  {% else %}
-    <button type="submit" class="btn btn-outline-success" disabled>Add to Featured</button>
-  {% endif %}
+    {% if skill_data.form.is_featured.data %}
+      <button type="submit" class="btn btn-outline-danger" disabled>Remove from Featured</button>
+    {% else %}
+      <button type="submit" class="btn btn-outline-success" disabled>Add to Featured</button>
+    {% endif %}
   {% endif %}
 </form>

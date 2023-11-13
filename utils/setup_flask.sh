@@ -8,7 +8,7 @@ generate_secret_key() {
 }
 
 manage_flask_env() {
-  flask_vars=("FLASK_DEBUG" "SECRET_KEY" "FLASK_APP_ENV")
+  flask_vars=("FLASK_DEBUG" "SECRET_KEY" "FLASK_APP_ENV" "FLASK_APP_DOMAIN" "FLASK_APP_PORT")
   for var in "${flask_vars[@]}"; do
     if ! grep -q "^$var=" .env; then
       if [ "$var" == "SECRET_KEY" ]; then

@@ -24,6 +24,10 @@ from .route_utils import (
 config = Config('.env')
 admin_routes = Blueprint('admin_routes', __name__, url_prefix='')
 
+
+"""
+Decorator function that checks if the user is logged in and is an admin before allowing access to the route.
+"""
 @admin_routes.before_request
 @login_required
 @admin_required
@@ -32,7 +36,7 @@ def before_request():
 
 LOAD_CHOICE_MAP = {
     AddProjectForm: [load_skill_choices],
-    UpdateProjectForm: [load_skill_choices, load_project_choices],
+    UpdateProjectForm: [load_skill_choices],
     DeleteProjectForm: [load_project_choices],
     AddSkillForm: [],
     DeleteSkillForm: [load_skill_choices],
@@ -53,10 +57,7 @@ def interface():
     project_one = Project.query.first()
 
     for form_class, load_choice_funcs in LOAD_CHOICE_MAP.items():
-        if form_class is UpdateProjectForm and project_one:
-            form_instance = form_class(obj=project_one)
-        else:
-            form_instance = form_class()
+        form_instance = form_class()
 
         for func in load_choice_funcs:
             form_instance = func(form_instance)
@@ -69,7 +70,6 @@ def interface():
         title='Interface',
         **form_instances,
         form=form,
-        project=project_one
     )
 
 @admin_routes.route('/upload_cv', methods=['POST'])

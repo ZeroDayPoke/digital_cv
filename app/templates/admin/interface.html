@@ -147,13 +147,13 @@ block title %}Interface{% endblock %} {% block content %}
     </div>
     <div class="tab-pane fade" id="update-project" role="tabpanel">
       {{ render_form(updateprojectform, 'project_routes.update_project', 'Update
-      Project', kwargs={'project_id': project.id}) }}
+      Project') }}
     </div>
     <div class="tab-pane fade" id="update-blog" role="tabpanel">
       {{ render_form(updateblogform, 'blog_routes.update_blog', 'Update') }}
     </div>
     <div class="tab-pane fade" id="update-skill" role="tabpanel">
-      {{ render_form(updateskillsform, 'skill_routes.update_skill', 'Update') }}
+      {{ render_form(updateskillform, 'skill_routes.update_skill', 'Update') }}
     </div>
     <div class="tab-pane fade" id="update-tutorial" role="tabpanel">
       {{ render_form(updatetutorialform, 'tutorial_routes.update_tutorial',
