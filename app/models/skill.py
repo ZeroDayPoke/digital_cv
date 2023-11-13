@@ -14,15 +14,11 @@ class SkillCategory(Enum):
     DATABASE = "Database"
     LIBRARY = "Library"
     RUNTIME = "Runtime"
-    WEB_SERVER = "Web Server"
-    CONTAINERIZATION = "Containerization"
     VERSION_CONTROL = "Version Control"
     INFRASTRUCTURE = "Infrastucture"
-    STYLE_LANGUAGE = "Style Language"
     DESIGN_TOOL = "Design Tool"
     FIELD = "Field"
     DEVOPS = "DevOps"
-    OS = "OS"
 
 class SkillLevel(Enum):
     BEGINNER = 1

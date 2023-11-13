@@ -5,7 +5,7 @@
 >
   <input type="hidden" name="skill_id" value="{{ skill_data.skill_id }}" />
   {{ skill_data.form.hidden_tag() }}
-  {% if current_user.has_role('ADMIN') %}
+  {% if current_user.is_authenticated and current_user.has_role('ADMIN') %}
   {% if skill_data.form.is_featured.data %}
     <button type="submit" class="btn btn-outline-danger">Remove from Featured</button>
   {% else %}

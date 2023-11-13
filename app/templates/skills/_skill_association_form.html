@@ -39,7 +39,7 @@
     </select>
   </div>
   <div class="col-md-2">
-    {% if current_user.has_role('ADMIN') %}
+    {% if current_user.is_authenticated and current_user.has_role('ADMIN') %}
     <button type="submit" class="btn btn-outline-dark">Associate</button>
     {% else %}
     <button type="submit" class="btn btn-outline-dark" disabled>Associate</button>

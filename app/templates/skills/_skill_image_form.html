@@ -10,7 +10,7 @@
       {{ skill_data.form.image(class='form-control mt-2') }}
     </div>
     <div class="col">
-      {% if current_user.has_role('ADMIN') %}
+      {% if current_user.is_authenticated and current_user.has_role('ADMIN') %}
         <button type="submit" class="btn btn-outline-info mt-2">Upload Image</button>
       {% else %}
         <button type="submit" class="btn btn-outline-info mt-2" disabled>Upload Image</button>
