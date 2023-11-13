@@ -1,32 +1,34 @@
-<section class="row align-items-center">
-  <div class="col-12">
-    <h1>{{ _('header_name') }}</h1>
-    <h2>{{ _('header_roles') }}</h2>
-    <p class="fs-5">{{ _('header_location') }}</p>
+<section class="row align-items-center header-section">
+  <div class="col-12 text-center mb-4">
+    <h1 class="header-name">{{ _('header_name') }}</h1>
+    <h2 class="header-roles">{{ _('header_roles') }}</h2>
+    <p class="fs-5 header-location">{{ _('header_location') }}</p>
   </div>
 </section>
-<section class="row align-items-center">
-  <div class="col-md-4">
-    <div class="mb-4">
+
+<section class="row align-items-start contact-summary-section">
+  <!-- Contact Information -->
+  <div class="col-auto">
+    <div class="contact-info mb-4">
       <h3>Contact Info</h3>
       <address>
         <ul class="list-unstyled">
           <li>
-            <span class="info-label">Email:</span>
+            <i class="fas fa-envelope"></i>
             <a href="mailto:{{ _('contact_email') }}"
               >{{ _('contact_email') }}</a
             >
           </li>
           <li>
-            <span class="info-label">Website:</span>
+            <i class="fas fa-globe"></i>
             <a href="{{ _('contact_website') }}">{{ _('contact_website') }}</a>
           </li>
           <li>
-            <span class="info-label">GitHub:</span>
+            <i class="fab fa-github"></i>
             <a href="{{ _('contact_github') }}">{{ _('contact_github') }}</a>
           </li>
           <li>
-            <span class="info-label">LinkedIn:</span>
+            <i class="fab fa-linkedin"></i>
             <a href="{{ _('contact_linkedin') }}"
               >{{ _('contact_linkedin') }}</a
             >
@@ -35,31 +37,127 @@
       </address>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="mb-4">
-      <h3>Objective</h3>
-      <p class="small">{{ _('header_objective') }}</p>
+
+  <!-- OCEAN Personality Scores -->
+  <div class="col-auto">
+    <div class="ocean-personality mb-4">
+      <h3>{{ _('personality_section_title') }}</h3>
+      <!-- Openness -->
+      <div class="mb-2">
+        <label><i class="fas fa-brain"></i> {{ _('openness_label') }}</label>
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-success"
+            role="progressbar"
+            style="width: {{ _('openness_score') }}%;"
+            aria-valuenow="{{ _('openness_score') }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+      <!-- Conscientiousness -->
+      <div class="mb-2">
+        <label
+          ><i class="fas fa-tasks"></i> {{ _('conscientiousness_label')
+          }}</label
+        >
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-info"
+            role="progressbar"
+            style="width: {{ _('conscientiousness_score') }}%;"
+            aria-valuenow="{{ _('conscientiousness_score') }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+      <!-- Extraversion -->
+      <div class="mb-2">
+        <label
+          ><i class="fas fa-users"></i> {{ _('extraversion_label') }}</label
+        >
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-warning"
+            role="progressbar"
+            style="width: {{ _('extraversion_score') }}%;"
+            aria-valuenow="{{ _('extraversion_score') }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+      <!-- Agreeableness -->
+      <div class="mb-2">
+        <label
+          ><i class="fas fa-heart"></i> {{ _('agreeableness_label') }}</label
+        >
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-danger"
+            role="progressbar"
+            style="width: {{ _('agreeableness_score') }}%;"
+            aria-valuenow="{{ _('agreeableness_score') }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+      <!-- Neuroticism -->
+      <div class="mb-2">
+        <label
+          ><i class="fas fa-balance-scale"></i> {{ _('neuroticism_label')
+          }}</label
+        >
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped"
+            role="progressbar"
+            style="width: {{ _('neuroticism_score') }}%;"
+            aria-valuenow="{{ _('neuroticism_score') }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="text-md-end">
-      <div class="mb-4">
-        <h3>Interact</h3>
-        <a
-          href="{{ _('download_code_link') }}"
-          download="Source_Code"
-          class="btn btn-primary ml-2"
-          >Download Source Code</a
-        >
-        <a
-          href="{{ _('download_cv_link') }}"
-          download="Chris_Stamper_CV"
-          class="btn btn-primary"
-          >Download CV</a
-        >
-        <a href="mailto:{{ _('hire_me_email') }}" class="btn btn-primary ml-2"
-          >Hire Me</a
-        >
+
+  <!-- Interact Buttons -->
+  <div class="col-auto text-md-end">
+    <div class="interact-buttons mb-4">
+      <h3>Interact</h3>
+      <!-- First Button Row -->
+      <div class="row mb-2">
+        <div class="col">
+          <a
+            href="{{ _('download_code_link') }}"
+            download="Source_Code"
+            class="btn d-block w-100"
+            >Download Source Code</a
+          >
+        </div>
+      </div>
+      <!-- Second Button Row -->
+      <div class="row mb-2">
+        <div class="col">
+          <a
+            href="{{ _('download_cv_link') }}"
+            download="Chris_Stamper_CV"
+            class="btn d-block w-100"
+            >Download CV</a
+          >
+        </div>
+      </div>
+      <!-- Third Button Row -->
+      <div class="row">
+        <div class="col">
+          <a href="mailto:{{ _('hire_me_email') }}" class="btn d-block w-100"
+            >Hire Me</a
+          >
+        </div>
       </div>
     </div>
   </div>

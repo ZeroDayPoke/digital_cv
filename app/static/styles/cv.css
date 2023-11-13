@@ -1,3 +1,13 @@
+:root {
+  --neon-pink: #ff007f;
+  --electric-blue: #00ffff;
+  --deep-purple: #7200ca;
+  --dark-gray: #333333;
+  --accent-lime-green: #ccff00;
+  --text-light: #ffffff;
+  --text-dark: #000000;
+}
+
 @font-face {
   font-family: "Orbitron";
   src: url("/static/fonts/Orbitron/static/Orbitron-Black.ttf")
@@ -8,6 +18,37 @@
 
 body {
   font-family: "Orbitron", sans-serif;
+  background-color: var(--dark-gray);
+  color: var(--text-light);
+}
+
+.bg-neon-pink {
+  background-color: var(--neon-pink);
+}
+
+.bg-electric-blue {
+  background-color: var(--electric-blue);
+}
+
+.bg-deep-purple {
+  background-color: var(--deep-purple);
+}
+
+.text-neon-pink {
+  color: var(--neon-pink);
+}
+
+.text-electric-blue {
+  color: var(--electric-blue);
+}
+
+.text-deep-purple {
+  color: var(--deep-purple);
+}
+
+.button-neon {
+  background-color: var(--neon-pink);
+  color: var(--text-dark);
 }
 
 .dropdown-submenu {

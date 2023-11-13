@@ -80,3 +80,36 @@ msgstr "prob should get some outside this"
 
 msgid "extension_name"
 msgstr "vapor"
+
+msgid "personality_section_title"
+msgstr "My Personality (OCEAN)"
+
+msgid "openness_label"
+msgstr "Openness"
+
+msgid "openness_score"
+msgstr "97"
+
+msgid "conscientiousness_label"
+msgstr "Conscientiousness"
+
+msgid "conscientiousness_score"
+msgstr "62"
+
+msgid "extraversion_label"
+msgstr "Extraversion"
+
+msgid "extraversion_score"
+msgstr "72"
+
+msgid "agreeableness_label"
+msgstr "Agreeableness"
+
+msgid "agreeableness_score"
+msgstr "68"
+
+msgid "neuroticism_label"
+msgstr "Neuroticism"
+
+msgid "neuroticism_score"
+msgstr "34"

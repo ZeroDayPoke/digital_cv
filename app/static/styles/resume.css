@@ -1,0 +1,27 @@
+.header-section {
+  background-color: var(--dark-gray);
+  color: var(--text-light);
+}
+
+.header-name {
+  color: var(--neon-pink);
+}
+
+.header-roles {
+  color: var(--electric-blue);
+}
+
+.contact-summary-section {
+  background-color: var(--deep-purple);
+  color: var(--text-light);
+}
+
+.contact-info h3,
+.professional-summary h3 {
+  color: var(--accent-lime-green);
+}
+
+.interact-buttons .btn {
+  background-color: var(--neon-pink);
+  border: none;
+}
