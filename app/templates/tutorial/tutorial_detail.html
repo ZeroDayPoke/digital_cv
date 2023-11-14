@@ -1,0 +1,35 @@
+<!-- app/templates/tutorial_detail.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ tutorial.name }}{% endblock %}
+
+{% block content %}
+
+{% if current_user.is_authenticated and current_user.is_admin %}
+<a href="{{ url_for('tutorial_routes.update_tutorial', tutorial_id=tutorial.id) }}" class="btn btn-primary mt-3">Edit Tutorial</a>
+{% endif %}
+
+<div class="row">
+  <article class="col-md-8">
+    <div class="mt-4" id="tutorial-content">
+      {{ tutorial.content_html|safe }}
+    </div>
+  </article>
+
+  <aside class="col-md-4">
+    <nav role="navigation" aria-label="Table of Contents" id="toc-sticky">
+      <h2 id="table-of-contents-heading">Table of Contents</h2>
+      <ul>
+        {% for section in tutorial.get_sections() %}
+        <li><a href="#{{ section.anchor }}">{{ section.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </aside>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% endblock %}
