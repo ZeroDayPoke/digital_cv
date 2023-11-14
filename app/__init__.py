@@ -21,6 +21,7 @@ from .routes import (main_routes, auth_routes, project_routes,
 from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView, UserAdminView, MessageAdminView, ExperienceAdminView, ProjectCategoryAdminView
 import logging
 from flask_wtf import CSRFProtect
+from flask_ckeditor import CKEditor
 
 # Initialize database
 
@@ -129,4 +130,5 @@ def create_app(config_name='default') -> Flask:
 
     app.secret_key = os.environ.get('SECRET_KEY')
     CSRFProtect(app)
+    ckeditor = CKEditor(app)
     return app

@@ -5,6 +5,7 @@ from wtforms import StringField, TextAreaField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 from flask_wtf.file import FileField, FileAllowed
 from . import at_least_one_selection, MultiSelectDropdownField
+from flask_ckeditor import CKEditorField
 
 
 class AddTutorialForm(FlaskForm):
@@ -76,3 +77,9 @@ class UpdateTutorialForm(FlaskForm):
         validators=[at_least_one_selection]
     )
     submit = SubmitField('Update Tutorial')
+
+
+class TutorialForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content_html = CKEditorField('Content', validators=[DataRequired()])
+    submit = SubmitField('Submit')

@@ -8,7 +8,7 @@ def seed_tutorials():
     """Seed the tutorials table"""
     tutorials = [
         {"name": "Flask Tutorial", "description": "A tutorial on Flask.",
-            "content_file": "tutorial", "image_filename": "notfound4.png"},
+            "content_file": "tutorial", "image_filename": "notfound4.png", "content_html": "<h2>UWU</h2>"},
     ]
 
     # Query existing tutorials to prevent duplicates
