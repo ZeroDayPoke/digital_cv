@@ -7,7 +7,7 @@ from app import db
 def seed_tutorials():
     """Seed the tutorials table"""
     tutorials = [
-        {"name": "Flask Tutorial", "description": "A tutorial on Flask.",
+        {"name": "Flask Tutorial", "description": "A tutorial on Flask.", "title": "Flask Tutorial",
             "content_file": "tutorial", "image_filename": "notfound4.png", "content_html": "<h2>UWU</h2>"},
     ]
 

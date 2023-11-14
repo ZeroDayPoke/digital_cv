@@ -13,7 +13,7 @@ from ..forms import (
     UploadCVForm, AddProjectForm, UpdateProjectForm, DeleteProjectForm,
     ImageSkillForm, ImageSkillForm, ImageSkillForm,
     AddBlogForm, UpdateBlogForm, DeleteBlogForm,
-    AddTutorialForm, UpdateTutorialForm, DeleteTutorialForm
+    TutorialForm, DeleteTutorialForm
 )
 from .route_utils.decorators import admin_required
 from decouple import Config
@@ -23,11 +23,6 @@ from .route_utils import (
 
 config = Config('.env')
 admin_routes = Blueprint('admin_routes', __name__, url_prefix='')
-
-
-"""
-Decorator function that checks if the user is logged in and is an admin before allowing access to the route.
-"""
 
 
 @admin_routes.before_request
@@ -47,8 +42,6 @@ LOAD_CHOICE_MAP = {
     AddBlogForm: [load_skill_choices],
     UpdateBlogForm: [load_blog_choices],
     DeleteBlogForm: [load_blog_choices],
-    AddTutorialForm: [load_skill_choices],
-    UpdateTutorialForm: [load_tutorial_choices],
     DeleteTutorialForm: [load_tutorial_choices]
 }
 

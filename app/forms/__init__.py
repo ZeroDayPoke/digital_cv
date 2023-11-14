@@ -5,4 +5,4 @@ from app.forms.auth_forms import SignupForm, SigninForm, UploadCVForm, MessageAd
 from app.forms.project_forms import AddProjectForm, UpdateProjectForm, DeleteProjectForm, BaseProjectForm
 from app.forms.skill_forms import SkillsFilterForm, ImageSkillForm, SkillForm, AssociateSkillForm
 from app.forms.blog_forms import AddBlogForm, DeleteBlogForm, UpdateBlogForm
-from app.forms.tutorial_forms import AddTutorialForm, DeleteTutorialForm, UpdateTutorialForm
+from app.forms.tutorial_forms import TutorialForm, DeleteTutorialForm
