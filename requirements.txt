@@ -19,3 +19,4 @@ WTForms==3.0.1
 mysqlclient
 email-validator==1.1.3
 wtforms_alchemy
+Flask_CKEditor
