@@ -11,7 +11,6 @@ class ProjectCategory(BaseModel):
         Inherits all attributes from BaseModel
     """
     __tablename__ = 'project_categories'
-    description = db.Column(db.String(500), nullable=True)
     projects = db.relationship('Project', back_populates='category')
 
     def __repr__(self):

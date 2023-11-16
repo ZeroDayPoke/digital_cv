@@ -29,7 +29,6 @@ class Blog(BaseModel):
         Returns a string representation of the Blog object.
     """
     __tablename__ = 'blogs'
-    description = db.Column(db.String(500), nullable=True)
     content_file = db.Column(db.String(500), nullable=True)
     tags = db.Column(db.String(120), nullable=True)
     related_skills = db.relationship(

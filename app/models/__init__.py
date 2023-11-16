@@ -9,4 +9,5 @@ from .message import Message
 from .experience import Experience
 from .project_category import ProjectCategory
 from .pet import Pet
+from .award import Award
 from .associations import project_skills, tutorial_skills, blog_skills, user_roles, education_skills, project_users

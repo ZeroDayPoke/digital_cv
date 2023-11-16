@@ -15,10 +15,10 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from .utils import get_locale
 from config import config
-from .models import db, User, Blog, Tutorial, Skill, Project, Education, Message, Experience, ProjectCategory, SkillCategory, Pet
+from .models import db, User, Blog, Tutorial, Skill, Project, Education, Message, Experience, ProjectCategory, SkillCategory, Pet, Award
 from .routes import (main_routes, auth_routes, project_routes,
                      skill_routes, admin_routes, blog_routes, tutorial_routes)
-from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView, UserAdminView, MessageAdminView, ExperienceAdminView, ProjectCategoryAdminView, PetAdminView
+from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView, UserAdminView, MessageAdminView, ExperienceAdminView, ProjectCategoryAdminView, PetAdminView, AwardAdminView
 import logging
 from flask_wtf import CSRFProtect
 from flask_ckeditor import CKEditor
@@ -44,6 +44,7 @@ def init_admin(app):
     admin.add_view(ExperienceAdminView(Experience, db.session))
     admin.add_view(ProjectCategoryAdminView(ProjectCategory, db.session))
     admin.add_view(PetAdminView(Pet, db.session))
+    admin.add_view(AwardAdminView(Award, db.session))
     admin.add_link(MenuLink(name='Back to Central App', url='/'))
 
 
@@ -84,6 +85,7 @@ def register_context_processors(app):
             'featured_skills': Skill.query.filter_by(is_featured=True).all(),
             'featured_projects': Project.query.filter_by(is_featured=True).all(),
             'featured_pet': Pet.query.filter_by(is_featured=True).first(),
+            'awards': Award.query.all(),
         }
 
 

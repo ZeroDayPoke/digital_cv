@@ -167,3 +167,14 @@ class PetAdminView(AdminModelView):
     column_formatters = {
         'images': lambda v, c, m, p: ', '.join([f"{img['filename']} ({img['description']})" for img in m.images]) if m.images else 'No Images'
     }
+
+class AwardAdminView(AdminModelView):
+    """
+    View for managing awards in the admin panel.
+
+    Attributes:
+    - column_list (list): List of columns to display in the admin panel.
+    - form_columns (list): List of columns to display in the add/edit form.
+    """
+    column_list = ['name', 'issuer', 'created_at', 'updated_at']
+    form_columns = ['name', 'issuer']

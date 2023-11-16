@@ -15,7 +15,6 @@ class Experience(BaseModel):
     start_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     end_date = db.Column(db.DateTime, nullable=True)
     is_current = db.Column(db.Boolean, default=False)
-    description = db.Column(db.String(500), nullable=True)
     experience_type = db.Column(db.String(60), nullable=True)
 
     def __repr__(self):

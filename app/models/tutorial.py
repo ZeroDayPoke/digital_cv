@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 
 class Tutorial(BaseModel):
     __tablename__ = 'tutorials'
-    description = db.Column(db.String(500), nullable=True)
     content_file = db.Column(db.String(500), nullable=True)
     content_html = db.Column(db.Text, nullable=False)
     title = db.Column(db.String(120), nullable=False)
