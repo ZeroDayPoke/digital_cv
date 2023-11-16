@@ -1,4 +1,3 @@
-/* General Background Styling */
 body {
   background: url("../images/defaults/about-bg.png");
   background-repeat: no-repeat;
@@ -7,18 +6,25 @@ body {
   color: #e0e0e0;
 }
 
-/* Image Container Styling */
 .img-container {
-  max-height: 450px;
+  float: right;
+  width: 350px;
+  height: 350px;
   overflow: hidden;
   border-radius: 50%;
   border: 5px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  padding: 10px;
   background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Carousel Styling */
+.img-container img {
+  width: 100%;
+  height: auto;
+}
+
 #petCarousel {
   position: relative;
   margin-top: 20px;
@@ -37,13 +43,11 @@ body {
   border-radius: 50%;
 }
 
-/* Text Styling */
 .about-text {
   color: #e0e0e0;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
-/* Heading Styling */
 .about-heading {
   color: var(--electric-blue);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
@@ -52,7 +56,13 @@ body {
 .catousel-image {
   width: 100%;
   height: auto;
-  max-height: 500px;
+  max-height: 650px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.about-text::after {
+  content: "";
+  display: table;
+  clear: both;
 }
