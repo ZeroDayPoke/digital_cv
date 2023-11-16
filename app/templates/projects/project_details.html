@@ -1,11 +1,6 @@
-{% extends 'base.html' %} {% block css %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='styles/project-detail.css', v='1.2') }}"
-/>
-{% endblock %} {% block content %}
+{% extends 'base.html' %} {% block css %} {% endblock %} {% block content %}
 <section class="row justify-content-center">
-  <div class="col-md-10">
+  <div class="col-md-12">
     <div class="card project-card mb-4 bg-dark text-light card-container">
       <div class="card-header">
         <h3>
@@ -18,22 +13,7 @@
       </div>
       <div class="card-body">
         <div class="row d-flex align-items-stretch flex-wrap mb-4">
-          <div class="col-md-6 d-flex flex-column">
-            <h6 class="card-title text-muted mb-4">
-              {% if project.repo_link %}
-              <a href="{{ project.repo_link }}" target="_blank"
-                >Github Repo: {{ project.repo_link }}</a
-              >
-              {% endif %}
-            </h6>
-            <h6 class="card-subtitle text-muted">
-              {% if project.live_link %}
-              <a href="{{ project.live_link }}" target="_blank"
-                >Live Project At: {{ project.live_link }}</a
-              >
-              {% endif %}
-            </h6>
-          </div>
+          <!-- Project Image -->
           <div
             class="col-md-6 d-flex justify-content-center align-items-center"
           >
@@ -44,9 +24,23 @@
             />
             {% endif %}
           </div>
-        </div>
-        <div class="row d-flex align-items-stretch flex-wrap mb-4">
-          <div class="col-md-12 d-flex flex-column">
+
+          <!-- Project Details -->
+          <div class="col-md-6 d-flex flex-column">
+            <h6 class="card-title text-muted mb-4">
+              {% if project.repo_link %}
+              <a href="{{ project.repo_link }}" target="_blank"
+                >Github Repo: {{ project.repo_link }}</a
+              >
+              {% endif %}
+            </h6>
+            <h6 class="card-subtitle text-muted mb-4">
+              {% if project.live_link %}
+              <a href="{{ project.live_link }}" target="_blank"
+                >Live Project At: {{ project.live_link }}</a
+              >
+              {% endif %}
+            </h6>
             <p class="card-text mb-4">
               <b>Description:</b> {{ project.description }}
             </p>
@@ -59,30 +53,44 @@
               >
             </p>
             {% endif %}
-            <ul class="mb-4">
-              <li>
-                <b>Related Skills:</b>
-                <ul>
-                  {% for skill in project.related_skills %}
-                  <li>{{ skill.name }}</li>
-                  {% endfor %}
-                </ul>
-              </li>
-              <li>
-                <b>Collaborators:</b>
-                <ul>
-                  {% for collaborator in project.collaborators %}
-                  <li>
-                    <a
-                      href="https://github.com/{{ collaborator.github_username }}"
-                      target="_blank"
-                      >{{ collaborator.username }}</a
-                    >
-                  </li>
-                  {% endfor %}
-                </ul>
-              </li>
-            </ul>
+          </div>
+        </div>
+
+        <!-- Related Skills -->
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <h5>Related Skills:</h5>
+            <div style="display: flex; flex-wrap: wrap">
+              {% for skill in project.related_skills %}
+              <button
+                type="button"
+                class="btn btn-secondary btn-lg"
+                style="margin-right: 10px; margin-bottom: 10px"
+              >
+                {{ skill.name }}
+              </button>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Collaborators -->
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <h5>Collaborators:</h5>
+            <div style="display: flex; flex-wrap: wrap">
+              {% for collaborator in project.collaborators %}
+              <!-- Link styled as button for each collaborator -->
+              <a
+                href="https://github.com/{{ collaborator.github_username }}"
+                target="_blank"
+                class="btn btn-info btn-lg"
+                style="margin-right: 10px; margin-bottom: 10px"
+              >
+                {{ collaborator.username }}
+              </a>
+              {% endfor %}
+            </div>
           </div>
         </div>
       </div>

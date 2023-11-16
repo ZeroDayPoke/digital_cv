@@ -9,8 +9,8 @@
   <h2>{{ category }}</h2>
   <div class="row">
     {% for project_data in projects_in_category %}
-      <div class="col-md-4 mb-3">
-        <div class="card border-success" style="max-width: 20rem;">
+      <div class="col-12 col-md-6 mb-3">
+        <div class="card border-success">
           <div class="card-header">{{ project_data.form.name.data }}</div>
           <div class="card-body">
             <h4 class="card-title">{{ project_data.form.status.label.text }}: {{ project_data.form.status.data }}</h4>
