@@ -15,7 +15,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from .utils import get_locale
 from config import config
-from .models import db, User, Blog, Tutorial, Skill, Project, Education, Message, Experience, ProjectCategory, SkillCategory
+from .models import db, User, Blog, Tutorial, Skill, Project, Education, Message, Experience, ProjectCategory, SkillCategory, Pet
 from .routes import (main_routes, auth_routes, project_routes,
                      skill_routes, admin_routes, blog_routes, tutorial_routes)
 from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView, UserAdminView, MessageAdminView, ExperienceAdminView, ProjectCategoryAdminView
@@ -82,6 +82,7 @@ def register_context_processors(app):
             'skill_categories': [category.value for category in SkillCategory],
             'featured_skills': Skill.query.filter_by(is_featured=True).all(),
             'featured_projects': Project.query.filter_by(is_featured=True).all(),
+            'featured_pet': Pet.query.filter_by(is_featured=True).first(),
         }
 
 

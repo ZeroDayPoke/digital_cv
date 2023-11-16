@@ -9,6 +9,7 @@ from .educations import seed_educations
 from .project_categories import seed_project_categories
 from .projects import seed_projects
 from .experiences import seed_experiences
+from .pets import seed_pets
 
 
 def seed_all():
@@ -21,3 +22,4 @@ def seed_all():
     seed_educations()
     seed_projects()
     seed_experiences()
+    seed_pets()
