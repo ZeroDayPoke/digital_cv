@@ -12,7 +12,9 @@
 <div class="mt-4 skills-section">
   <h2 class="section-header text-center mb-5">Skills</h2>
 
+  <!-- Featured Filter -->
   <div class="skill-filters mb-3 text-center">
+    <h3 class="filter-category-header">Featured</h3>
     <button
       class="btn btn-outline-success filter-btn active-filter"
       data-filter="featured"
@@ -20,16 +22,42 @@
     >
       Featured
     </button>
+  </div>
+
+  <!-- Categorical Filters -->
+  <div class="skill-filters mb-3 text-center">
+    <h3 class="filter-category-header">Categories</h3>
     {% for category in skill_categories %}
-    <button class="btn btn-outline-success filter-btn" data-filter="{{ category|lower }}">
+    <button
+      class="btn btn-outline-success filter-btn"
+      data-filter="{{ category|lower }}"
+    >
       {{ category }}
     </button>
     {% endfor %}
-    <button class="btn btn-outline-success level-filter-btn" data-level="beginner">Beginner</button>
-    <button class="btn btn-outline-success level-filter-btn" data-level="intermediate">
+  </div>
+
+  <!-- Level Filters -->
+  <div class="skill-filters mb-3 text-center">
+    <h3 class="filter-category-header">Levels</h3>
+    <button
+      class="btn btn-outline-success level-filter-btn"
+      data-level="beginner"
+    >
+      Beginner
+    </button>
+    <button
+      class="btn btn-outline-success level-filter-btn"
+      data-level="intermediate"
+    >
       Intermediate
     </button>
-    <button class="btn btn-outline-success level-filter-btn" data-level="advanced">Advanced</button>
+    <button
+      class="btn btn-outline-success level-filter-btn"
+      data-level="advanced"
+    >
+      Advanced
+    </button>
   </div>
 
   <div id="dynamic-skills-section">

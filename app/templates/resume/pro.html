@@ -15,9 +15,9 @@
 {% endfor %}
 
 <div class="mt-4 project-section">
-  <h2 class="section-header text-center mb-5">Projects</h2>
-
+  <!-- Featured Filter -->
   <div class="project-filters mb-3 text-center">
+    <h3 class="filter-category-header">Featured</h3>
     <button
       class="btn btn-outline-success project-filter-btn"
       data-filter="featured"
@@ -25,6 +25,11 @@
     >
       Featured
     </button>
+  </div>
+
+  <!-- Categorical Filters -->
+  <div class="project-filters mb-3 text-center">
+    <h3 class="filter-category-header">Categories</h3>
     {% for category in project_categories %}
     <button
       class="btn btn-outline-success project-filter-btn"
@@ -33,16 +38,33 @@
       {{ category.name }}
     </button>
     {% endfor %}
-    <button class="btn btn-outline-success project-status-filter-btn" data-status="PLANNING">
+  </div>
+
+  <!-- Status Filters -->
+  <div class="project-filters mb-3 text-center">
+    <h3 class="filter-category-header">Status</h3>
+    <button
+      class="btn btn-outline-success project-status-filter-btn"
+      data-status="PLANNING"
+    >
       Planning
     </button>
-    <button class="btn btn-outline-success project-status-filter-btn" data-status="IN_PROGRESS">
+    <button
+      class="btn btn-outline-success project-status-filter-btn"
+      data-status="IN_PROGRESS"
+    >
       In Progress
     </button>
-    <button class="btn btn-outline-success project-status-filter-btn" data-status="COMPLETED">
+    <button
+      class="btn btn-outline-success project-status-filter-btn"
+      data-status="COMPLETED"
+    >
       Completed
     </button>
-    <button class="btn btn-outline-success project-status-filter-btn" data-status="ON_HOLD">
+    <button
+      class="btn btn-outline-success project-status-filter-btn"
+      data-status="ON_HOLD"
+    >
       On Hold
     </button>
   </div>
