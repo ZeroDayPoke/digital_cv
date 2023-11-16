@@ -89,6 +89,10 @@ $(document).ready(function () {
     let skillsArray = project.relatedSkills
       .split(",")
       .map((skill) => skill.trim());
+    let liveLinkHtml =
+      project.liveLink && project.liveLink !== "None"
+        ? `<a href="${project.liveLink}" class="btn btn-live">Live</a>`
+        : "";
     return `
     <div class="project-card mb-5">
       <div class="row">
@@ -113,7 +117,7 @@ $(document).ready(function () {
             <p>${project.description || "Description not available"}</p>
             <div class="project-links">
               <a href="${project.repoLink || "#"}" class="btn btn-repo">Repo</a>
-              <a href="${project.liveLink || "#"}" class="btn btn-live">Live</a>
+              ${liveLinkHtml}
             </div>
           </div>
         </div>
@@ -160,10 +164,13 @@ $(document).ready(function () {
     highlightActiveFilter(".project-filter-btn", this);
   });
 
-  $(".project-status-filter-btn").click(function() {
+  $(".project-status-filter-btn").click(function () {
     const status = $(this).data("status");
     updateProjectCards("status", status);
-    highlightActiveFilter(".project-filter-btn, .project-status-filter-btn", this);
+    highlightActiveFilter(
+      ".project-filter-btn, .project-status-filter-btn",
+      this
+    );
   });
 
   function highlightActiveFilter(selector, activeButton) {

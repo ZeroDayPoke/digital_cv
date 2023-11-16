@@ -22,7 +22,6 @@
 .contact-summary-section {
   background-color: var(--deep-purple);
   color: var(--text-light);
-  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
@@ -105,6 +104,7 @@
 }
 
 .project-section .project-image-col {
+  padding: 0;
   position: relative;
 }
 
@@ -193,9 +193,9 @@
   border: 2px solid var(--electric-blue);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 10px;
   background-color: var(--dark-gray);
   color: var(--text-light);
+  padding: 10px;
 }
 
 .skill-name {
