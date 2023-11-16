@@ -18,7 +18,7 @@ from config import config
 from .models import db, User, Blog, Tutorial, Skill, Project, Education, Message, Experience, ProjectCategory, SkillCategory, Pet
 from .routes import (main_routes, auth_routes, project_routes,
                      skill_routes, admin_routes, blog_routes, tutorial_routes)
-from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView, UserAdminView, MessageAdminView, ExperienceAdminView, ProjectCategoryAdminView
+from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView, UserAdminView, MessageAdminView, ExperienceAdminView, ProjectCategoryAdminView, PetAdminView
 import logging
 from flask_wtf import CSRFProtect
 from flask_ckeditor import CKEditor
@@ -43,6 +43,7 @@ def init_admin(app):
     admin.add_view(MessageAdminView(Message, db.session))
     admin.add_view(ExperienceAdminView(Experience, db.session))
     admin.add_view(ProjectCategoryAdminView(ProjectCategory, db.session))
+    admin.add_view(PetAdminView(Pet, db.session))
     admin.add_link(MenuLink(name='Back to Central App', url='/'))
 
 

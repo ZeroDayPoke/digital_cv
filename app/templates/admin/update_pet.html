@@ -1,0 +1,6 @@
+<!-- app/templates/update_pet.html -->
+{% extends 'base.html' %}
+{% from "utils/macros.html" import render_form %}
+{% block content %}
+{{ render_form(form, 'admin_routes.update_pet', 'Update Pet', kwargs={'pet_id': pet_id}) }}
+{% endblock %}

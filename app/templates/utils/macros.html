@@ -15,6 +15,20 @@
 {% endmacro %}
 
 
+{% macro render_descriptive_images(field) %}
+<div class="form-group">
+    <label>{{ field.label.text }}</label>
+    {% for image_form in field %}
+        <div class="mb-3">
+            {{ image_form.filename.data }}
+            {{ image_form.img_description.data }}
+        </div>
+    {% endfor %}
+</div>
+{% endmacro %}
+
+
+
 {% macro render_boolean_field(field) %}
 <div class="form-group row mb-3">
   <div class="col-sm-12">
@@ -93,6 +107,8 @@
         {{ render_boolean_field(field) }}
       {% elif field.name == 'level' %}
         {{ render_skill_slider(field) }}
+      {% elif field.name == 'images' %}
+        {{ render_descriptive_images(field) }}
       {% else %}
         {{ render_text_field(field) }}
       {% endif %}

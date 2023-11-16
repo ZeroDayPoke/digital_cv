@@ -70,13 +70,13 @@ msgid "headshot_location"
 msgstr "static/images/defaults/avatars/0004-chris.png"
 
 msgid "about_intro"
-msgstr "Talk about me some here..."
+msgstr "Defying the odds has been a theme throughout my life. Despite a significant visual disability, I not only learned to read but also developed a passion for engineering and technology, completing the RIT Project Lead the Way during high school. I furthered this passion at Oklahoma State University, graduating as a Chemical Engineer in 2015. Post-graduation, the landscape of the job market proved challenging due to the oil shock. I found an opportunity to pivot, stepping into a paralegal role. This transition allowed me to strengthen my research, problem-solving, and analytical skills. After a rewarding experience in the legal field, I was able to return to my engineering roots, securing a position in lubricant R&D. During this time, I honed my technical skills and rekindled my passion for problem-solving in an engineering context. When the global pandemic hit, like many, I had to adapt. Despite the challenges posed by my visual disability, I found innovative ways to stay productive and engaged. I ventured into the world of vintage collectibles, mastering the nuances of this niche market, while also dedicating time to care for my family. This period of my life strengthened my resolve to use my skills in technology to make a meaningful difference. Driven by my personal experiences, I decided to pivot once again, this time towards software engineering and machine learning, with a particular interest in genetic research. My career journey might not be conventional, but it's imbued with resilience, adaptability, and a deep-seated commitment to contribute positively to the world. I bring these qualities with me as I transition into the dynamic field of machine learning."
 
 msgid "about_goals"
-msgstr "fun job"
+msgstr "My goal is to secure a fulfilling role where my analytical skills, attention to detail, and ability to see things from a unique perspective drive success and innovation. I am looking for a position that values self-sufficiency, creativity, and a collaborative spirit, in a workspace where diversity of thought is celebrated. I am passionate about contributing to a team that thrives on mutual respect and shared goals, where each member is empowered to leverage their individual strengths towards our collective achievements."
 
 msgid "about_interests"
-msgstr "prob should get some outside this"
+msgstr "My interests span a variety of activities that keep me balanced and connected. Engaging with music, immersing myself in the latest TV series, and exploring new gaming worlds are just a few examples that sharpen my creative and strategic abilities. Additionally, I value interpersonal experiences, such as spending quality time with friends and colleagues. These interactions enrich my communication skills and foster a sense of community and teamwork, which are essential in both personal and professional spheres."
 
 msgid "extension_name"
 msgstr "vapor"

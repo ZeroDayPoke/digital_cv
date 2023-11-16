@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% from "utils/macros.html" import render_form %}
+{% block title %}Pet{% endblock %}
+{% block content %}
+
+{{ render_form(form, 'admin_routes.add_pet', 'Add') }}
+
+{% endblock %}

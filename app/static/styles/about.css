@@ -3,7 +3,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  color: #e0e0e0;
 }
 
 .img-container {
@@ -43,14 +42,16 @@ body {
   border-radius: 50%;
 }
 
-.about-text {
-  color: #e0e0e0;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+.about-text,
+.about-heading {
+  color: #ffffff;
+  text-shadow: 2px 2px 4px #000000;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
 .about-heading {
-  color: var(--electric-blue);
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  font-size: 2em;
 }
 
 .catousel-image {
@@ -65,4 +66,10 @@ body {
   content: "";
   display: table;
   clear: both;
+}
+
+.text-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 5px;
 }
