@@ -123,13 +123,16 @@
 }
 
 .project-section .project-synopsis-col {
-  background-color: var(--deep-purple);
-  color: var(--text-light);
+  background: url("../images/defaults/synopsis-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  color: var(--text-dark);
 }
 
 .project-section .project-synopsis h5,
 .project-section .project-synopsis h6 {
-  color: var(--accent-lime-green);
+  color: var(--text-dark);
 }
 
 .project-section .btn-repo,
