@@ -6,7 +6,8 @@ admin_routes.py - admin routes for the Flask application
 
 import json
 import os
-from app.models import Project, Pet, db
+from app.utils import handle_file_upload
+from app.models import Project, Pet, db, Image
 from flask import Blueprint, render_template, redirect, url_for, flash, current_app, request
 from flask_login import login_required
 from werkzeug.utils import secure_filename
@@ -14,7 +15,7 @@ from ..forms import (
     UploadCVForm, AddProjectForm, UpdateProjectForm, DeleteProjectForm,
     ImageSkillForm, ImageSkillForm, ImageSkillForm,
     AddBlogForm, UpdateBlogForm, DeleteBlogForm,
-    TutorialForm, DeleteTutorialForm, PetForm, ImagePetForm, PetImageForm
+    TutorialForm, DeleteTutorialForm, PetForm, ImageUploadForm
 )
 from .route_utils.decorators import admin_required
 from decouple import Config
@@ -89,66 +90,81 @@ def go_to_admin():
     return redirect('/admin/')
 
 
-@admin_routes.route('/add_pet', methods=['GET', 'POST'])
-def add_pet():
-    form = ImagePetForm()
-    if form.validate_on_submit():
-        new_pet = Pet(
-            name=form.name.data,
-            breed=form.breed.data,
-            description=form.description.data,
-            images=json.loads(form.images.data),
-            is_featured=form.is_featured.data
-        )
-        db.session.add(new_pet)
-        db.session.commit()
-        flash('Pet added successfully', 'success')
-        return redirect(url_for('admin_routes.interface'))
-
-    return render_template('admin/add_pet.html', form=form)
-
-
 @admin_routes.route('/update_pet/<pet_id>', methods=['GET', 'POST'])
 def update_pet(pet_id):
     pet = Pet.query.get_or_404(pet_id)
     form = PetForm()
 
     if form.validate_on_submit():
-        pet.name = form.name.data
-        pet.breed = form.breed.data
-        pet.description = form.description.data
-        pet.is_featured = form.is_featured.data
+        update_pet_info(pet, form)
+        db.session.commit()
 
-        # Extract image data from the form
-        images_data = []
-        for image_form in form.images:
-            image_data = {
-                'filename': image_form.filename.data,
-                'description': image_form.img_description.data
-            }
-            images_data.append(image_data)
-        pet.images = images_data
+        # Handle image uploads
+        for image_form in form.images.entries:
+            if image_form.image.data:
+                file_path = handle_file_upload('pets', image_form.image.data)
+                image = Image(owner_id=pet.id, owner_type='pets', file_path=file_path, filename=image_form.image.data.filename, description=image_form.image_description.data)
+                db.session.add(image)
+
+            # Consider logic for updating existing images if needed
+
+        removed_images = request.form.getlist('remove_images')
+        for filename in removed_images:
+            image = Image.query.filter_by(filename=filename).first()
+            if image:
+                db.session.delete(image)
+                delete_image_file(image.file_path)
 
         db.session.commit()
-        flash('Pet updated successfully')
-        return redirect(url_for('admin_routes.some_route'))
+        flash('Pet updated successfully', 'success')
+        return redirect(url_for('main_routes.index'))
 
     elif request.method == 'GET':
-        form.name.data = pet.name
-        form.breed.data = pet.breed
-        form.description.data = pet.description
-        form.is_featured.data = pet.is_featured
-
-        while len(form.images) > 0:
-            form.images.pop_entry()
-
-        for image_info in pet.images:
-            image_form = PetImageForm()
-            image_form.filename.data = image_info.get('filename', '')
-            image_form.img_description.data = image_info.get('description', '')
-            form.images.append_entry(image_form)
+        populate_form_from_pet(form, pet)
 
     return render_template('admin/update_pet.html', form=form, pet_id=pet_id)
+
+def update_pet_info(pet, form):
+    pet.name = form.name.data
+    pet.breed = form.breed.data
+    pet.description = form.description.data
+    pet.is_featured = form.is_featured.data
+
+def populate_form_from_pet(form, pet):
+    form.name.data = pet.name
+    form.breed.data = pet.breed
+    form.description.data = pet.description
+    form.is_featured.data = pet.is_featured
+    images = pet.get_images()
+    form.populate_images(images)
+
+def delete_image_file(file_path):
+    print(f"Deleting image: {file_path}")
+    os.remove(file_path)
+
+def process_new_images(image_forms):
+    new_images = []
+    for image_form in image_forms:
+        if image_form.image.data:
+            filename = handle_file_upload('pets', field_name='image')
+            if filename:
+                new_images.append({'filename': filename, 'description': image_form.img_description.data})
+    return new_images
+
+def process_existing_images(image_forms, removed_images):
+    existing_images = []
+    for image_form in image_forms:
+        filename = image_form.image_filename.data
+        if filename and filename not in removed_images:
+            existing_images.append({'filename': filename, 'description': image_form.img_description.data})
+    return existing_images
+
+def delete_removed_images_from_filesystem(removed_images):
+    for removed_image in removed_images:
+        image_path = os.path.join(current_app.static_folder, 'images/pets', removed_image)
+        if os.path.exists(image_path):
+            print(f"Deleting image: {image_path}")  # Print statement for troubleshooting
+            os.remove(image_path)
 
 @admin_routes.route('/delete_pet/<pet_id>', methods=['POST'])
 def delete_pet(pet_id):
