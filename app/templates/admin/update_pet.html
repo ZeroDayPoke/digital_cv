@@ -1,6 +1,14 @@
-<!-- app/templates/update_pet.html -->
+<!-- app/templates/admin/update_pet.html -->
 {% extends 'base.html' %}
 {% from "utils/macros.html" import render_form %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/pet.css', v='1.0') }}">
+{% endblock %}
+{% block title %}Update Pet{% endblock %}
 {% block content %}
 {{ render_form(form, 'admin_routes.update_pet', 'Update Pet', kwargs={'pet_id': pet_id}) }}
+<div id="additional-images"></div>
+{% endblock %}
+{% block js %}
+<script src="{{ url_for('static', filename='scripts/pet.js', v='1.0') }}"></script>
 {% endblock %}

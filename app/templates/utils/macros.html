@@ -18,15 +18,41 @@
 {% macro render_descriptive_images(field) %}
 <div class="form-group">
     <label>{{ field.label.text }}</label>
-    {% for image_form in field %}
-        <div class="mb-3">
-            {{ image_form.filename.data }}
-            {{ image_form.img_description.data }}
-        </div>
-    {% endfor %}
+    <div id="image-fields-container">
+        {% for image_form in field %}
+            <div class="mb-3 image-container">  
+                {% if image_form.image.data %}
+                <img src="{{ url_for('static', filename=image_form.filepath.data) }}" alt="Image preview" class="image-preview">
+                {% endif %}
+                {{ image_form.filename.data }}
+                {{ render_file_field(image_form.image) }}
+                {{ render_text_field(image_form.image_description.data) }}
+                <button type="button" class="remove-image-btn btn btn-danger">
+                    Remove
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+    <button type="button" id="add-image-button" class="btn btn-secondary">Add Image</button>
 </div>
 {% endmacro %}
 
+
+{% macro render_file_field(field) %}
+<div class="form-group row mb-2">
+    <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label.text }}</label>
+    <div class="col-sm-10">
+        {{ field(class="form-control" ~ (' is-invalid' if field.errors else '')) }}
+        {% if field.errors %}
+        <div class="invalid-feedback">
+            {% for error in field.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}
 
 
 {% macro render_boolean_field(field) %}
@@ -101,14 +127,14 @@
     {{ form.hidden_tag() }}
     {% for field in form %}
       {% if field.type == 'CSRFTokenField' or field.name == 'submit' or field.type == 'HiddenField' %}
+      {% elif field.name == 'images' %}
+        {{ render_descriptive_images(field) }}
       {% elif field.name in ['skills', 'related_skills'] %}
         {{ render_checkbox_field(field) }}
       {% elif field.type == 'BooleanField' %}
         {{ render_boolean_field(field) }}
       {% elif field.name == 'level' %}
         {{ render_skill_slider(field) }}
-      {% elif field.name == 'images' %}
-        {{ render_descriptive_images(field) }}
       {% else %}
         {{ render_text_field(field) }}
       {% endif %}
@@ -117,6 +143,7 @@
   </div>
 </form>
 {% endmacro %}
+
 
 {% macro render_video(filename, aria_label="video", autoplay=true, loop=true, muted=true, width="100%") %}
 <div role="region" aria-label="{{ aria_label }}">

@@ -1,5 +1,14 @@
 <div class="container text-center my-5">
   <h1 class="display-4">Under Construction</h1>
+  {% for pet in pets %}
+  <div class="card my-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ pet.name }}</h5>
+      <p class="card-text">ID {{ pet.id }}</p>
+      <a href="{{ url_for('admin_routes.update_pet', pet_id=pet.id) }}" class="btn btn-primary">View Pet</a>
+    </div>
+  </div>
+  {% endfor %}
   <img
     src="{{ url_for('static', filename='images/defaults/construction.png') }}"
     class="img-fluid"
