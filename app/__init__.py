@@ -15,9 +15,9 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from .utils import get_locale
 from config import config
-from .models import db, User, Blog, Tutorial, Skill, Project, Education, Message, Experience, ProjectCategory, SkillCategory, Pet, Award
+from .models import db, User, Blog, Tutorial, Skill, Project, Education, Message, Experience, ProjectCategory, SkillCategory, Pet, Award, Service
 from .routes import (main_routes, auth_routes, project_routes,
-                     skill_routes, admin_routes, blog_routes, tutorial_routes)
+                     skill_routes, admin_routes, blog_routes, tutorial_routes, services_routes)
 from admin import ProjectAdminView, SkillAdminView, BlogAdminView, TutorialAdminView, EducationAdminView, UserAdminView, MessageAdminView, ExperienceAdminView, ProjectCategoryAdminView, PetAdminView, AwardAdminView
 import logging
 from flask_wtf import CSRFProtect
@@ -67,6 +67,7 @@ def register_blueprints(app):
     app.register_blueprint(admin_routes)
     app.register_blueprint(blog_routes)
     app.register_blueprint(tutorial_routes)
+    app.register_blueprint(services_routes)
 
 
 # Register context processors
@@ -86,6 +87,8 @@ def register_context_processors(app):
             'featured_projects': Project.query.filter_by(is_featured=True).all(),
             'featured_pet': Pet.query.filter_by(is_featured=True).first(),
             'awards': Award.query.all(),
+            'services': Service.query.all(),
+            'pets': Pet.query.all(),
         }
 
 

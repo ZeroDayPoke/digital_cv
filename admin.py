@@ -161,8 +161,8 @@ class PetAdminView(AdminModelView):
     - column_list (list): List of columns to display in the admin panel.
     - form_columns (list): List of columns to display in the add/edit form.
     """
-    column_list = ['name', 'id', 'breed', 'description', 'images', 'is_featured', 'created_at', 'updated_at']
-    form_columns = ['name', 'breed', 'description', 'images', 'is_featured']
+    column_list = ['name', 'id', 'breed', 'description', 'is_featured', 'created_at', 'updated_at']
+    form_columns = ['name', 'breed', 'description', 'is_featured']
     
     column_formatters = {
         'images': lambda v, c, m, p: ', '.join([f"{img['filename']} ({img['description']})" for img in m.images]) if m.images else 'No Images'
