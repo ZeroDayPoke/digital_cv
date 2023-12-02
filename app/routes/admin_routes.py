@@ -6,7 +6,7 @@ admin_routes.py - admin routes for the Flask application
 
 import json
 import os
-from app.utils import handle_file_upload
+from app.utils import handle_file_upload, handle_file_upload_alt
 from app.models import Project, Pet, db, Image
 from flask import Blueprint, render_template, redirect, url_for, flash, current_app, request
 from flask_login import login_required
@@ -99,14 +99,11 @@ def update_pet(pet_id):
         update_pet_info(pet, form)
         db.session.commit()
 
-        # Handle image uploads
         for image_form in form.images.entries:
             if image_form.image.data:
-                file_path = handle_file_upload('pets', image_form.image.data)
+                file_path = handle_file_upload_alt('pets', image_form.image.data)
                 image = Image(owner_id=pet.id, owner_type='pets', file_path=file_path, filename=image_form.image.data.filename, description=image_form.image_description.data)
                 db.session.add(image)
-
-            # Consider logic for updating existing images if needed
 
         removed_images = request.form.getlist('remove_images')
         for filename in removed_images:
@@ -142,29 +139,13 @@ def delete_image_file(file_path):
     print(f"Deleting image: {file_path}")
     os.remove(file_path)
 
-def process_new_images(image_forms):
-    new_images = []
-    for image_form in image_forms:
-        if image_form.image.data:
-            filename = handle_file_upload('pets', field_name='image')
-            if filename:
-                new_images.append({'filename': filename, 'description': image_form.img_description.data})
-    return new_images
-
 def process_existing_images(image_forms, removed_images):
     existing_images = []
     for image_form in image_forms:
         filename = image_form.image_filename.data
         if filename and filename not in removed_images:
-            existing_images.append({'filename': filename, 'description': image_form.img_description.data})
+            existing_images.append({'filename': filename, 'description': image_form.image_description.data})
     return existing_images
-
-def delete_removed_images_from_filesystem(removed_images):
-    for removed_image in removed_images:
-        image_path = os.path.join(current_app.static_folder, 'images/pets', removed_image)
-        if os.path.exists(image_path):
-            print(f"Deleting image: {image_path}")  # Print statement for troubleshooting
-            os.remove(image_path)
 
 @admin_routes.route('/delete_pet/<pet_id>', methods=['POST'])
 def delete_pet(pet_id):
