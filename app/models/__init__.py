@@ -13,4 +13,5 @@ from .award import Award
 from .testimonial import Testimonial
 from .booking import Booking
 from .service import Service
+from .image import Image
 from .associations import project_skills, tutorial_skills, blog_skills, user_roles, education_skills, project_users
