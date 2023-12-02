@@ -1,6 +1,6 @@
 # ./seeders/pets.py
 
-from app.models import Pet
+from app.models import Pet, Image
 from app import db
 
 def seed_pets():
@@ -12,27 +12,24 @@ def seed_pets():
             "description": "Amazing",
             "is_featured": True,
             "images": [
-                {"filename": "fluffy1.jpg", "description": "fluffy is awesome"},
-                {"filename": "fluffy2.jpg", "description": "so awesome"},
-                {"filename": "fluffy3.jpg", "description": "truly da best"}
-                 
+                {"filename": "fluffy1.jpg", "description": "test1"},
+                {"filename": "fluffy2.jpg", "description": "test2"},
+                {"filename": "fluffy3.jpg", "description": "test3"}
             ]
         }
     ]
 
-    # Query existing pets to prevent duplicates
-    existing_pets = db.session.query(Pet.name, Pet.breed).all()
-
     for pet_data in pets:
-        # Convert each dictionary to a tuple of (name, breed)
-        check_tuple = (pet_data['name'], pet_data['breed'])
-
-        if check_tuple not in existing_pets:
-            # Create Pet object
-            pet = Pet(**pet_data)
-
-            # Add Pet object to session
+        pet = Pet.query.filter_by(name=pet_data['name'], breed=pet_data['breed']).first()
+        if not pet:
+            pet = Pet(name=pet_data['name'], breed=pet_data['breed'],
+                      description=pet_data['description'], is_featured=pet_data['is_featured'])
             db.session.add(pet)
+            db.session.flush()
 
-    # Commit the session to save all changes
+            for image_data in pet_data['images']:
+                file_path = pet.construct_file_path(image_data['filename'])
+                image = Image(owner_id=pet.id, owner_type='pets', file_path=file_path, filename=image_data['filename'], description=image_data['description'])
+                db.session.add(image)
+
     db.session.commit()

@@ -90,7 +90,6 @@ def seed_skills():
             "category": SkillCategory.INFRASTRUCTURE, "is_featured": True, "featured_order": 10},
     ]
 
-    # Query existing skills to prevent duplicates
     existing_skills = [s.name for s in db.session.query(Skill.name).all()]
 
     for skill_data in skills:
@@ -99,7 +98,3 @@ def seed_skills():
             db.session.add(skill)
 
     db.session.commit()
-
-
-# Call the function at the end or where needed to seed the data
-seed_skills()

@@ -11,6 +11,7 @@ from .projects import seed_projects
 from .experiences import seed_experiences
 from .pets import seed_pets
 from .awards import seed_awards
+from .services import seed_services
 
 
 def seed_all():
@@ -25,3 +26,4 @@ def seed_all():
     seed_experiences()
     seed_pets()
     seed_awards()
+    seed_services()
