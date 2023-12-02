@@ -6,4 +6,4 @@ from app.forms.project_forms import AddProjectForm, UpdateProjectForm, DeletePro
 from app.forms.skill_forms import SkillsFilterForm, ImageSkillForm, SkillForm, AssociateSkillForm
 from app.forms.blog_forms import AddBlogForm, DeleteBlogForm, UpdateBlogForm
 from app.forms.tutorial_forms import TutorialForm, DeleteTutorialForm
-from app.forms.pet_forms import PetForm, ImagePetForm, PetImageForm
+from app.forms.pet_forms import PetForm

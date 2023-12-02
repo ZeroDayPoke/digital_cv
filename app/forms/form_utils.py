@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from markupsafe import Markup
 from wtforms.widgets import html_params, ListWidget
 from wtforms.validators import ValidationError
-from wtforms.fields import SelectMultipleField
+from wtforms.fields import SelectMultipleField, StringField
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import SubmitField, IntegerField, HiddenField, SelectMultipleField
 
@@ -67,15 +67,16 @@ class SliderField(IntegerField):
 
 
 class ImageUploadForm(FlaskForm):
-    """
-    A form for uploading images.
-
-    Attributes:
-        image_filename (str): The filename of the uploaded image.
-        image (FileField): The file upload field for the image.
-        submit (SubmitField): The submit button for the form.
-    """
-    image_filename = HiddenField('Image Filename')
     image = FileField('Image', validators=[
                       FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
+    image_description = StringField('Image Description', default='')
+    filepath = StringField('Filepath', default='')
+    model = StringField('Model', default='')
+    filename = HiddenField('Filename', default='')
     submit = SubmitField('Upload Image')
+
+    def populate_from_image(self, image):
+        self.image_description.data = image.description
+        self.model = image.owner_type
+        self.filename.data = image.filename
+        self.filepath = 'images/' + image.owner_type + '/' + image.filename

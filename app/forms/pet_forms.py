@@ -7,23 +7,22 @@ from wtforms.validators import DataRequired
 from .form_utils import ImageUploadForm
 
 
-class PetImageForm(FlaskForm):
-    """
-    A sub-form for handling each pet image and its description.
-    """
-    filename = StringField('Image Filename', validators=[DataRequired()])
-    img_description = StringField('Image Description')
-
-
 class PetForm(FlaskForm):
     pet_id = HiddenField('Pet ID')
     name = StringField('Name', validators=[DataRequired()])
     breed = StringField('Breed', validators=[DataRequired()])
     description = TextAreaField('Description')
-    images = FieldList(FormField(PetImageForm), min_entries=1)
+    images = FieldList(FormField(ImageUploadForm), min_entries=0)
     is_featured = BooleanField('Featured')
     submit = SubmitField('Update Pet')
 
+    def add_image_field(self):
+        """Add a new image field to the form."""
+        image_form = ImageUploadForm()
+        self.images.append_entry(image_form)
 
-class ImagePetForm(PetForm, ImageUploadForm):
-    submit = SubmitField('Submit Pet')
+    def populate_images(self, images):
+        for image in images:
+            image_form = ImageUploadForm()
+            image_form.populate_from_image(image)
+            self.images.append_entry(image_form)
