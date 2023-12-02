@@ -3,7 +3,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, SelectField
 from wtforms.validators import DataRequired
-from flask_wtf.file import FileField, FileAllowed
 from . import at_least_one_selection, MultiSelectDropdownField
 from flask_ckeditor import CKEditorField
 

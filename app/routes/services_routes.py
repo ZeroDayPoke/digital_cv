@@ -12,6 +12,5 @@ from ..models import Project, Skill, Blog, Message, db
 services_routes = Blueprint('services_routes', __name__, url_prefix='')
 
 @services_routes.route('/services', methods=['GET'])
-@login_required
 def services():
     return render_template('services/main.html', title='Services')

@@ -1,0 +1,81 @@
+{% extends 'base.html' %} {% block content %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/service.css', v='1.0') }}">
+{% endblock %}
+
+<!-- Header Section -->
+<section
+  class="py-5 text-center container"
+  style="background-color: var(--dark-gray)"
+>
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light text-neon-pink">Our Services</h1>
+      <p class="lead text-electric-blue">
+        Explore our range of specialized services designed to integrate your
+        professional needs with cutting-edge software solutions.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Services List -->
+<section class="album py-5" style="background-color: var(--dark-gray)">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      {% for service in services %}
+      <div class="col">
+        <div
+          class="card shadow-sm bg-deep-purple {{ 'early-mover' if service.early_eligible }}"
+        >
+          <div class="service-image">
+            <img
+              src="{{ url_for('static', filename='images/services/' + (service.image_filename or 'default.png')) }}"
+              alt="{{ service.name }}"
+              class="img-fluid"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text text-light">
+              {{ service.details.description }}
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm button-neon">
+                  View
+                </button>
+                <button type="button" class="btn btn-sm button-neon">
+                  Edit
+                </button>
+              </div>
+              <small class="text-accent-lime-green">
+                As low as {{ service.price }} {{ service.currency }} {% if
+                service.early_eligible %}
+                <span class="early-mover-note">*</span>
+                {% endif %}
+              </small>
+            </div>
+            {% if service.early_eligible %}
+            <div class="early-mover-banner">Early Mover Discount!</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section
+  class="text-center container my-5"
+  style="background-color: var(--dark-gray)"
+>
+  <p class="lead text-electric-blue">
+    Interested in our services or need more information? Feel free to reach out.
+  </p>
+  <button type="button" class="btn btn-primary button-neon">Contact Us</button>
+</section>
+
+{% endblock %}

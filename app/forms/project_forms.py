@@ -2,7 +2,6 @@
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, SelectField, BooleanField, ValidationError, HiddenField, SelectMultipleField
-from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired, Optional, NumberRange
 from ..models import Project, ProjectCategory, ProjectStatus, Skill
 from ..routes.route_utils import load_skill_choices, load_category_choices, load_project_choices
