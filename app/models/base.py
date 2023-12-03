@@ -50,16 +50,3 @@ class BaseModel(db.Model):
 
     def __repr__(self):
         return f"<{self.__class__.__name__} (ID: {self.id})>"
-
-    def construct_file_path(self, filename):
-        """
-        Construct the file path for an image based on the model name and filename.
-
-        Args:
-            filename (str): The name of the file.
-
-        Returns:
-            str: The constructed file path.
-        """
-        model_name = self.__class__.__name__.lower()
-        return f"./app/static/images/{model_name}s/{filename}"

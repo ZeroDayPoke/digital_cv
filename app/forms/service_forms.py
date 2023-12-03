@@ -6,12 +6,14 @@ from wtforms.validators import DataRequired, Optional, NumberRange
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, FloatField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Optional, NumberRange
-from .form_utils import MultiSelectDropdownField, ImageUploadForm
+from .form_utils import MultiSelectDropdownField, ImageUploadForm, ImageFieldManager
 import json
+from wtforms.fields import FieldList, FormField
 
 class AddServiceForm(FlaskForm):
     name = StringField('Service Title', validators=[DataRequired()])
     details = TextAreaField('Details', validators=[Optional()])
+    images = FieldList(FormField(ImageUploadForm), min_entries=0)
     price = FloatField('Price', validators=[NumberRange(min=0)])
     currency = StringField('Currency', validators=[DataRequired()])
     category = StringField('Category', validators=[DataRequired()])
@@ -35,6 +37,12 @@ class AddServiceForm(FlaskForm):
                 self.promo.data = json.loads(self.promo.data)
         except json.JSONDecodeError:
             raise ValueError("Invalid JSON format in one of the fields.")
+
+    def add_image_field(self):
+        ImageFieldManager.add_image_field(self)
+
+    def populate_images(self, images):
+        ImageFieldManager.populate_images(self, images)
 
 class UpdateServiceForm(AddServiceForm):
     service_id = SelectField('Service', coerce=str, validators=[DataRequired()])

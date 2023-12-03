@@ -28,8 +28,7 @@ def seed_pets():
             db.session.flush()
 
             for image_data in pet_data['images']:
-                file_path = pet.construct_file_path(image_data['filename'])
-                image = Image(owner_id=pet.id, owner_type='pets', file_path=file_path, filename=image_data['filename'], description=image_data['description'])
+                image = Image(owner_id=pet.id, owner_type='pets', filename=image_data['filename'], description=image_data['description'])
                 db.session.add(image)
 
     db.session.commit()

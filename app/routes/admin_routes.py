@@ -105,6 +105,16 @@ def update_pet(pet_id):
                 image = Image(owner_id=pet.id, owner_type='pets', file_path=file_path, filename=image_form.image.data.filename, description=image_form.image_description.data)
                 db.session.add(image)
 
+            else:
+                print(image_form.data)
+                filename = image_form.filename.data
+                if filename:
+                    print(f"Updating image: {filename}")
+                    image = Image.query.filter_by(filename=filename).first()
+                    if image:
+                        image.description = image_form.image_description.data
+                        db.session.commit()
+
         removed_images = request.form.getlist('remove_images')
         for filename in removed_images:
             image = Image.query.filter_by(filename=filename).first()
@@ -136,8 +146,9 @@ def populate_form_from_pet(form, pet):
     form.populate_images(images)
 
 def delete_image_file(file_path):
-    print(f"Deleting image: {file_path}")
-    os.remove(file_path)
+    if os.path.exists(file_path):
+        print(f"Deleting image: {file_path}")
+        os.remove(file_path)
 
 def process_existing_images(image_forms, removed_images):
     existing_images = []

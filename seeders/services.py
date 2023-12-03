@@ -46,7 +46,7 @@ def seed_services():
             },
             "price": 80.0,
             "currency": "USD",
-            "is_available": True,
+            "is_available": False,
             "category": "Consulting",
             "duration": "flat",
             "early_eligible": True,

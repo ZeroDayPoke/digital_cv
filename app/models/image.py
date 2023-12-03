@@ -14,6 +14,6 @@ class Image(BaseModel):
         return f"<Image (ID: {self.id}, Owner ID: {self.owner_id}, Owner Type: {self.owner_type}, Description: {self.description})>"
 
     @property
-    def full_file_path(self):
+    def file_path(self):
         """Returns the full file path for the image."""
-        return self.construct_file_path(self.image_filename)
+        return f"app/static/images/{self.owner_type}/{self.filename}"

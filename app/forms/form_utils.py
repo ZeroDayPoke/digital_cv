@@ -80,3 +80,18 @@ class ImageUploadForm(FlaskForm):
         self.model = image.owner_type
         self.filename.data = image.filename
         self.filepath = 'images/' + image.owner_type + '/' + image.filename
+
+class ImageFieldManager:
+    @staticmethod
+    def add_image_field(form):
+        """Add a new image field to the form."""
+        image_form = ImageUploadForm()
+        form.images.append_entry(image_form)
+
+    @staticmethod
+    def populate_images(form, images):
+        """Populate form with existing images."""
+        for image in images:
+            image_form = ImageUploadForm()
+            image_form.populate_from_image(image)
+            form.images.append_entry(image_form)

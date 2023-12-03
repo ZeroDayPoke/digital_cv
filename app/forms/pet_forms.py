@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, TextAreaField, HiddenField
 from wtforms.fields import FieldList, FormField
 from wtforms.validators import DataRequired
-from .form_utils import ImageUploadForm
+from .form_utils import ImageUploadForm, ImageFieldManager
 
 
 class PetForm(FlaskForm):
@@ -17,12 +17,7 @@ class PetForm(FlaskForm):
     submit = SubmitField('Update Pet')
 
     def add_image_field(self):
-        """Add a new image field to the form."""
-        image_form = ImageUploadForm()
-        self.images.append_entry(image_form)
+        ImageFieldManager.add_image_field(self)
 
     def populate_images(self, images):
-        for image in images:
-            image_form = ImageUploadForm()
-            image_form.populate_from_image(image)
-            self.images.append_entry(image_form)
+        ImageFieldManager.populate_images(self, images)
