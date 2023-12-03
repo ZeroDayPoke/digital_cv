@@ -11,14 +11,20 @@ db = SQLAlchemy()
 
 class BaseModel(db.Model):
     """
-    Base model for all database models.
+    Base model class for all models in the application.
 
     Attributes:
-        id (str): Primary key of the model.
-        image_filename (str): Name of the image file.
-        created_at (datetime): Date and time when the model was created.
-        updated_at (datetime): Date and time when the model was last updated.
+        id (str): The unique identifier for the model.
+        name (str): The name of the model.
+        description (str): The description of the model.
+        created_at (datetime): The timestamp when the model was created.
+        updated_at (datetime): The timestamp when the model was last updated.
+        image_filename (str): The filename of the main image associated with the model.
+        image_filename_two (str): The filename of the second image associated with the model.
+        image_filename_three (str): The filename of the third image associated with the model.
+        image_filename_four (str): The filename of the fourth image associated with the model.
     """
+
     __abstract__ = True
     id = db.Column(db.String(60), primary_key=True,
                    default=lambda: str(uuid4()), nullable=False)

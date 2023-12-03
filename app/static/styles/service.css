@@ -1,5 +1,8 @@
 .service-header {
-  background-color: var(--dark-gray);
+  background: url("../images/defaults/service-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 }
 
 .service-list {
@@ -10,18 +13,70 @@
   border: 2px solid var(--accent-lime-green);
 }
 
-.early-mover-banner {
-  background-color: var(--accent-lime-green);
-  color: var(--text-dark);
+.call-to-action {
+  background-color: var(--dark-gray);
+}
+
+.tooltip-inner {
+  background-color: var(--deep-purple);
+  color: var(--text-light);
+  font-size: 0.8em;
+}
+
+.bs-tooltip-top .arrow::before {
+  border-top-color: var(--deep-purple);
+}
+
+.card-banner-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.early-mover-banner,
+.experimental-banner {
+  color: var(--text-light);
   text-align: center;
   font-weight: bold;
   padding: 5px;
   border-radius: 5px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  margin-bottom: 0.5rem;
 }
 
-.call-to-action {
-  background-color: var(--dark-gray);
+.early-mover-banner:hover,
+.experimental-banner:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.early-mover-banner {
+  background-color: rgba(
+    204,
+    255,
+    0,
+    0.6
+  );
+}
+
+.experimental-banner {
+  background-color: rgba(
+    255,
+    0,
+    127,
+    0.6
+  );
+}
+
+.card {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.btn, .button-neon {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.service-header {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
