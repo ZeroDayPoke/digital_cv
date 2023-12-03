@@ -18,7 +18,7 @@
 }
 
 .tooltip-inner {
-  background-color: var(--deep-purple);
+  background-color: var(--dark-gray);
   color: var(--text-light);
   font-size: 0.8em;
 }

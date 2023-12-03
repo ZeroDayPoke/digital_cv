@@ -23,6 +23,12 @@
     />
     {% endif %}
 
+    <!-- Include Shariff CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='shariff/shariff.complete.css') }}"
+    />
+
     <!-- Custom CSS -->
     <link
       rel="stylesheet"
@@ -33,16 +39,13 @@
     {% include 'default/fonts.html' %} {% block css %}{% endblock %}
   </head>
   <body class="{{ body_class|default('text-light bg-dark') }}">
-    <header class="wlimit">
-      {% include 'default/nav/main.html' %}
-    </header>
+    <header class="wlimit">{% include 'default/nav/main.html' %}</header>
 
     <div class="container mt-5 pt-5">{% include 'utils/flash.html' %}</div>
 
     <main class="container">
-      {% block content %}
-        {% include 'default/construction.html' %}
-      {% endblock %}
+      {% block content %} {% include 'default/construction.html' %} {% endblock
+      %}
     </main>
 
     <footer class="container mt-auto py-3">
@@ -54,6 +57,9 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Include Shariff JS -->
+    <script src="{{ url_for('static', filename='shariff/shariff.complete.js') }}"></script>
 
     <!-- Additional JS -->
     {% block js %}{% endblock %} {% if use_mathjax %}
