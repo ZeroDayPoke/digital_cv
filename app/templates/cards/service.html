@@ -1,0 +1,56 @@
+<div
+  class="card service-card shadow-sm bg-deep-purple {{ 'early-mover' if service.early_eligible }}"
+  data-category="{{ service.category }}"
+  data-price="{{ service.price }}"
+  data-is_available="{{ service.is_available }}"
+>
+  <div class="card-banner-buttons position-absolute top-0 end-0 m-2">
+    {% if service.early_eligible %}
+    <button
+      type="button"
+      class="btn btn-outline-success btn-sm early-mover-banner"
+    >
+      Early Mover Discount!
+    </button>
+    {% endif %} {% if service.experimental %}
+    <button
+      type="button"
+      class="btn btn-outline-danger btn-sm experimental-banner"
+    >
+      Experimental Discount!
+    </button>
+    {% endif %}
+  </div>
+  <div class="service-image">
+    <img
+      src="{{ url_for('static', filename='images/services/' + (service.image_filename or 'default.png')) }}"
+      alt="{{ service.name }}"
+      class="img-fluid"
+    />
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{ service.details.description }}</p>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="btn-group">
+        <button type="button" class="btn btn-sm button-neon">View</button>
+        <button type="button" class="btn btn-sm button-neon">Edit</button>
+      </div>
+      <small class="text-accent-lime-green">
+        As low as {{ service.price }} {{ service.currency }} {% if
+        service.early_eligible %}
+        <span class="early-mover-note">*</span>
+        {% if service.note %}
+        <button
+          type="button"
+          class="btn btn-sm btn-info"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="{{ service.note }}"
+        >
+          Note
+        </button>
+        {% endif %} {% endif %}
+      </small>
+    </div>
+  </div>
+</div>
