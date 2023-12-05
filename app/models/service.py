@@ -18,9 +18,6 @@ class Service(FilterSortMixin, BaseModel):
     early_eligible = db.Column(db.Boolean, default=True)
     experimental = db.Column(db.Boolean, default=False)
 
-    def __repr__(self):
-        return f"<Service (ID: {self.id}, Title: {self.title})>"
-
     def to_dict(self):
         """
         Convert Service object into a dictionary format.
@@ -36,4 +33,11 @@ class Service(FilterSortMixin, BaseModel):
             'experimental': self.experimental,
             'image_url': f"static/images/services/{self.image_filename}",
             'details': self.details,
+            'duration': self.duration,
         }
+
+    @classmethod
+    def get_price_range(cls):
+        min_price = db.session.query(db.func.min(cls.price)).scalar()
+        max_price = db.session.query(db.func.max(cls.price)).scalar()
+        return min_price, max_price

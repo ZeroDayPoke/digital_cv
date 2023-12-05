@@ -1,9 +1,9 @@
-{% extends 'base.html' %} {% block content %} {% block css %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='styles/service.css', v='1.0') }}"
-/>
-{% endblock %} {% block js %}
+{% extends 'base.html' %}
+{% block content %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/service.css', v='1.0') }}" />
+{% endblock %}
+{% block js %}
 <script src="{{ url_for('static', filename='scripts/service-mixin.js', v='1.0') }}"></script>
 {% endblock %}
 
@@ -13,69 +13,16 @@
     <div class="col-lg-6 col-md-8 mx-auto">
       <h1 class="fw-light text-neon-pink">Our Services</h1>
       <p class="lead text-electric-blue">
-        Explore our range of specialized services designed to integrate your
-        professional needs with cutting-edge software solutions.
+        Explore our range of specialized services designed to integrate your professional needs with cutting-edge software solutions.
       </p>
     </div>
   </div>
 </section>
 
-<!-- Filter Section -->
-<section class="py-3">
+<!-- Dynamic Filter Form -->
+<section class="filter-section">
   <div class="container">
-    <div class="row mb-3">
-      <div class="col-md-4">
-        <select
-          id="category-filter"
-          class="form-select"
-          onchange="applyFilters()"
-        >
-          <option value="">All Categories</option>
-          <option value="Development">Development</option>
-          <option value="Consulting">Consulting</option>
-          <option value="Event">Event</option>
-          <option value="Education">Education</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <input
-          type="number"
-          id="price-filter-min"
-          class="form-control"
-          placeholder="Min Price"
-        />
-      </div>
-      <div class="col-md-3">
-        <input
-          type="number"
-          id="price-filter-max"
-          class="form-control"
-          placeholder="Max Price"
-        />
-      </div>
-
-      <!-- Sort by Price Filter -->
-      <div class="col-12 col-md-3">
-        <select id="sort-filter" class="form-select" onchange="applyFilters()">
-          <option value="">Sort by Price</option>
-          <option value="asc">Low to High</option>
-          <option value="desc">High to Low</option>
-        </select>
-      </div>
-
-      <!-- Availability Filter -->
-      <div class="col-12 col-md-3 d-flex align-items-center mt-3 mt-md-0">
-        <input type="checkbox" id="availability-filter" class="form-check-input me-2" onchange="applyFilters()">
-        <label for="availability-filter" class="form-check-label">Available Only</label>
-      </div>
-
-      <!-- Apply Filters Button -->
-      <div class="col-12 col-md-2 mt-3 mt-md-0">
-        <button onclick="applyFilters()" class="btn btn-primary w-100">
-          Apply Filters
-        </button>
-      </div>
-    </div>
+    {{ render_filter_form(form, 'services_routes.services', 'Apply Filters', 'service-filters-form', 'service-filters-form') }}
   </div>
 </section>
 
@@ -89,16 +36,9 @@
 </section>
 
 <!-- Call to Action -->
-<section
-  class="text-center container pb-5"
-  style="background-color: var(--dark-gray)"
->
-  <p class="lead text-electric-blue">
-    Interested in our services or need more information? Feel free to reach out.
-  </p>
-  <button type="button" class="btn btn-primary btn-lg button-neon">
-    Contact Us
-  </button>
+<section class="text-center container pb-5" style="background-color: var(--dark-gray)">
+  <p class="lead text-electric-blue">Interested in our services or need more information? Feel free to reach out.</p>
+  <button type="button" class="btn btn-primary btn-lg button-neon">Contact Us</button>
 </section>
 
 {% endblock %}

@@ -1,8 +1,8 @@
-{% macro render_text_field(field) %}
+{% macro render_text_field(field, is_filter_field=False) %}
 <div class="form-group row mb-2">
   <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label.text }}</label>
   <div class="col-sm-10">
-    {{ field(class="form-control" ~ (' is-invalid' if field.errors else '')) }}
+    {{ field(class="form-control" ~ (' is-invalid' if field.errors else '') ~ (' filter-field' if is_filter_field)) }}
     {% if field.errors %}
       <div class="invalid-feedback">
         {% for error in field.errors %}
@@ -14,6 +14,17 @@
 </div>
 {% endmacro %}
 
+{% macro render_range_field(field, min_label, max_label, min_value, max_value) %}
+<div class="form-group row mb-2">
+  <label for="{{ field }}" class="col-sm-2 col-form-label">{{ field }}</label>
+  <div class="col-sm-4">
+    <input type="number" id="{{ field }}_min" name="{{ field }}_min" class="form-control filter-field" placeholder="{{ min_label }}" min="{{ min_value }}" max="{{ max_value }}">
+  </div>
+  <div class="col-sm-4">
+    <input type="number" id="{{ field }}_max" name="{{ field }}_max" class="form-control filter-field" placeholder="{{ max_label }}" min="{{ min_value }}" max="{{ max_value }}">
+  </div>
+</div>
+{% endmacro %}
 
 {% macro render_descriptive_images(field) %}
 <div class="form-group">
@@ -37,7 +48,6 @@
 </div>
 {% endmacro %}
 
-
 {% macro render_file_field(field) %}
 <div class="form-group row mb-2">
     <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label.text }}</label>
@@ -54,14 +64,13 @@
 </div>
 {% endmacro %}
 
-
-{% macro render_boolean_field(field) %}
+{% macro render_boolean_field(field, is_filter_field=False) %}
 <div class="form-group row mb-3">
   <div class="col-sm-12">
     <label class="form-check-label col-2" for="{{ field.id }}">
       {{ field.label.text }}
     </label>
-    <input class="form-check-input col-8" type="checkbox" id="{{ field.id }}" name="{{ field.name }}" {{ 'checked' if field.data else '' }}>
+    <input class="form-check-input col-8" type="checkbox" id="{{ field.id }}" name="{{ field.name }}" {{ 'checked' if field.data else '' }} {{ 'filter-field' if is_filter_field }}>
     {% if field.errors %}
       <div class="invalid-feedback">
         {% for error in field.errors %}
@@ -72,7 +81,6 @@
   </div>
 </div>
 {% endmacro %}
-
 
 {% macro render_checkbox_field(field) %}
 <div class="form-group row mb-4">
@@ -94,7 +102,6 @@
 </div>
 {% endmacro %}
 
-
 {% macro render_skill_slider(field) %}
 <div class="form-group row mb-2">
   <label for="{{ field.id }}" class="col-2 col-form-label">{{ field.label.text }}</label>
@@ -111,7 +118,6 @@
 </div>
 {% endmacro %}
 
-
 {% macro render_submit_button(button_label) %}
 <div class="form-group row">
   <div class="col-sm-12">
@@ -119,7 +125,6 @@
   </div>
 </div>
 {% endmacro %}
-
 
 {% macro render_form(form, route, button_label, form_classes='', kwargs={}) %}
 <form action="{{ url_for(route, **kwargs) }}" method="POST" enctype="multipart/form-data" class="{{ form_classes }}">
@@ -144,7 +149,6 @@
 </form>
 {% endmacro %}
 
-
 {% macro render_video(filename, aria_label="video", autoplay=true, loop=true, muted=true, width="100%") %}
 <div role="region" aria-label="{{ aria_label }}">
   <video controls {{ 'autoplay' if autoplay }} {{ 'loop' if loop }} {{ 'muted' if muted }} style="width: {{ width }};">
@@ -153,4 +157,69 @@
   </video>
   <p>Here we go!</p>
 </div>
+{% endmacro %}
+
+{% macro render_select_field(field, is_filter_field=False) %}
+<div class="form-group row mb-2">
+  <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label.text }}</label>
+  <div class="col-sm-10">
+    <select class="form-control {{ ' filter-field' if is_filter_field }}" id="{{ field.id }}" name="{{ field.name }}">
+      {% if field.choices %}
+        {% for option in field.choices %}
+          <option value="{{ option[0] }}">{{ option[1] }}</option>
+        {% endfor %}
+      {% else %}
+        <option value="">No options available</option>
+      {% endif %}
+    </select>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro render_filter_form(form, submit_route, submit_label, form_classes='', form_id='') %}
+<form action="{{ url_for(submit_route) }}" method="GET" class="{{ form_classes }}" id="{{ form_id }}">
+  <div class="container">
+    {% for field in form %}
+      {% if field.type == 'StringField' %}
+        {{ render_text_field(field, true) }}
+      {% elif field.type == 'BooleanField' %}
+        {{ render_boolean_field(field, true) }}
+      {% elif field.type == 'SelectField' %}
+        {{ render_select_field(field, true) }}
+      {% elif field.type == 'FloatField' and 'min' in field.name %}
+        {% set base_field_name = field.name[:-4] %}
+        {{ render_range_field(base_field_name, 'Min', 'Max', min_price, max_price) }}
+      {% endif %}
+    {% endfor %}
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary w-100">{{ submit_label }}</button>
+      </div>
+    </div>
+  </div>
+</form>
+{% endmacro %}
+
+
+{% macro render_dynamic_field(field) %}
+<div class="form-group">
+  <label for="{{ field.id }}">{{ field.label }}</label>
+  {{ field(class="form-control" ~ (' is-invalid' if field.errors else '')) }}
+  {% if field.errors %}
+    <div class="invalid-feedback">
+      {% for error in field.errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{% macro render_filter_fields(form) %}
+{% for field in form %}
+  {% if field.type != 'CSRFTokenField' and field.name != 'submit' %}
+    {{ render_dynamic_field(field) }}
+  {% endif %}
+{% endfor %}
 {% endmacro %}

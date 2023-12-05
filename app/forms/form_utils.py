@@ -3,10 +3,23 @@
 from flask_wtf import FlaskForm
 from markupsafe import Markup
 from wtforms.widgets import html_params, ListWidget
-from wtforms.validators import ValidationError
+from wtforms.validators import ValidationError, Optional
 from wtforms.fields import SelectMultipleField, StringField
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import SubmitField, IntegerField, HiddenField, SelectMultipleField
+from wtforms import SubmitField, IntegerField, HiddenField, SelectMultipleField, StringField, SelectField
+
+
+class BaseFilterForm(FlaskForm):
+    name = StringField('Search', validators=[Optional()])
+    sort_by = SelectField('Sort By', validators=[Optional()])
+    order = SelectField('Order', choices=[('asc', 'Ascending'), ('desc', 'Descending')], validators=[Optional()])
+
+    def set_sort_choices(self, fields):
+        """
+        Dynamically set the choices for the sort_by field based on provided fields.
+        :param fields: A list of field names (str) to include in sort choices.
+        """
+        self.sort_by.choices = [(field, field.title()) for field in fields]
 
 
 class MultiSelectDropdownField(SelectMultipleField):
@@ -95,3 +108,24 @@ class ImageFieldManager:
             image_form = ImageUploadForm()
             image_form.populate_from_image(image)
             form.images.append_entry(image_form)
+
+def setup_range_filter(form, field_name, default_min=0, default_max=999999999):
+    """
+    Sets up range filters for the given field in the form.
+
+    Args:
+        form: The form instance containing the fields.
+        field_name (str): The base name of the range filter field.
+        default_min: The default minimum value.
+        default_max: The default maximum value.
+
+    Returns:
+        tuple: A tuple containing the min and max values for the range filter.
+    """
+    min_field = getattr(form, f"{field_name}_min", None)
+    max_field = getattr(form, f"{field_name}_max", None)
+
+    min_val = min_field.data if min_field and min_field.data is not None else default_min
+    max_val = max_field.data if max_field and max_field.data is not None else default_max
+
+    return (min_val, max_val)
