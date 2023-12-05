@@ -51,7 +51,7 @@ def services():
             filters['sort'].append((form.sort_by.data, form.order.data))
 
         page = request.args.get('page', 1, type=int)
-        per_page = request.args.get('per_page', 10, type=int)
+        per_page = request.args.get('per_page', 9, type=int)
         pagination = Service.get_filtered(filters, page, per_page)
         services = pagination.items
         return jsonify({'services': [service.to_dict() for service in services]})

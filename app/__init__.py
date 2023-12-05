@@ -135,6 +135,11 @@ def create_app(config_name='default') -> Flask:
 
     logging.info(f"App created with config: {config_name}")
 
+    def title_case(s):
+        return s.replace('_', ' ').title()
+
+    app.jinja_env.filters['title_case'] = title_case
+
     app.secret_key = os.environ.get('SECRET_KEY')
     CSRFProtect(app)
     ckeditor = CKEditor(app)
