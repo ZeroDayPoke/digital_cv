@@ -11,3 +11,4 @@ from .choice_selectors import (
 )
 
 from .decorators import admin_required
+from .generate_filters import generate_filters

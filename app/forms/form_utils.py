@@ -6,8 +6,8 @@ from wtforms.widgets import html_params, ListWidget
 from wtforms.validators import ValidationError, Optional
 from wtforms.fields import SelectMultipleField, StringField
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import SubmitField, IntegerField, HiddenField, SelectMultipleField, StringField, SelectField
-
+from wtforms import SubmitField, IntegerField, HiddenField, SelectMultipleField, StringField, SelectField, BooleanField, FloatField
+from ..models import db
 
 class BaseFilterForm(FlaskForm):
     name = StringField('Search', validators=[Optional()])
@@ -129,3 +129,46 @@ def setup_range_filter(form, field_name, default_min=0, default_max=999999999):
     max_val = max_field.data if max_field and max_field.data is not None else default_max
 
     return (min_val, max_val)
+
+
+def create_dynamic_filter_form(model, excluded_fields=None, select_fields=None, range_fields=None):
+    class DynamicFilterForm(BaseFilterForm):
+        pass
+
+    if excluded_fields is None:
+        excluded_fields = []
+
+    if select_fields is None:
+        select_fields = []
+
+    if range_fields is None:
+        range_fields = []
+
+    field_type_map = {
+        'String': StringField,
+        'Float': FloatField,
+        'Boolean': BooleanField
+    }
+
+    excluded_fields += ['id', 'created_at', 'updated_at', 'image_filename', 'image_filename_two', 'image_filename_three', 'image_filename_four']
+
+    for column in model.__table__.columns:
+        if column.name in excluded_fields:
+            continue
+
+        if column.name in select_fields:
+            distinct_values = db.session.query(getattr(model, column.name)).distinct().all()
+            choices = [('', 'All')] + [(value[0], value[0]) for value in distinct_values if value[0]]
+            setattr(DynamicFilterForm, column.name, SelectField(column.name, choices=choices, validators=[Optional()]))
+        elif column.name in range_fields:
+            setattr(DynamicFilterForm, f"{column.name}_min", FloatField(f"{column.name.capitalize()} Min", validators=[Optional()]))
+            setattr(DynamicFilterForm, f"{column.name}_max", FloatField(f"{column.name.capitalize()} Max", validators=[Optional()]))
+        else:
+            field_type = type(column.type).__name__
+            if field_type in ['JSON', 'DateTime']:
+                continue
+            form_field_type = field_type_map.get(field_type)
+            if form_field_type:
+                setattr(DynamicFilterForm, column.name, form_field_type(column.name, validators=[Optional()]))
+
+    return DynamicFilterForm
