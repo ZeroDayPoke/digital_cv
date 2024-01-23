@@ -1,44 +1,84 @@
-{% extends 'base.html' %}
-{% block content %}
-{% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/service.css', v='1.0') }}" />
-{% endblock %}
-{% block js %}
+{% extends 'base.html' %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/service.css', v='1.0') }}"
+/>
+{% endblock %} {% block js %}
 <script src="{{ url_for('static', filename='scripts/service.js', v='1.0') }}"></script>
-{% endblock %}
-
-<!-- Header Section -->
-<section class="text-center container service-header">
-  <div class="row">
-    <div class="col-lg-6 col-md-8 mx-auto">
-      <h1 class="fw-light text-neon-pink">Our Services</h1>
-      <p class="lead text-electric-blue">
-        Explore our range of specialized services designed to integrate your professional needs with cutting-edge software solutions.
-      </p>
+{% endblock %} {% block content %}
+<div class="service-background">
+  <!-- Header Section -->
+  <section class="text-center container service-header">
+    <div class="row">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light text-neon-pink">Our Services</h1>
+        <p class="lead text-electric-blue">
+          Explore our range of specialized services designed to integrate your
+          professional needs with cutting-edge software solutions.
+        </p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Dynamic Filter Form -->
-<section class="filter-section">
-  <div class="container">
-    {{ render_filter_form(form, 'services_routes.services', 'Apply Filters', 'service-filters-form', 'service-filters-form') }}
-  </div>
-</section>
+  <!-- Trigger Button for Add/Edit Service -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEditServiceModal">
+    Add Service
+  </button>
 
-<!-- Services List -->
-<section class="album py-5 bg-dark-gray">
-  <div class="container">
-    <div id="services-list" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <!-- Dynamic services will be loaded here -->
+  <!-- Add/Edit Service Modal -->
+  {{ render_add_edit_modal(
+    addServiceForm,
+    'services_routes.add_service',
+    'addEditServiceModal',
+    'Add New Service',
+    'Save Service',
+    'add-service-form'
+  ) }}
+
+  <!-- Delete Service Modal -->
+  {{ render_delete_form(
+    delete_service_form,
+    'services_routes.delete_service',
+    'service',
+    model_id='',
+    modal_title='Delete Service',
+    confirmation_message='Are you sure you want to delete this service?',
+    delete_button_label='Delete Service',
+    form_classes='delete-service-form'
+  ) }}
+
+  <!-- Dynamic Filter Form -->
+  <section class="filter-section">
+    <div class="container">
+      {{ render_filter_form(form, 'services_routes.services', 'Apply Filters',
+      'service-filters-form', 'service-filters-form') }}
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Call to Action -->
-<section class="text-center container pb-5" style="background-color: var(--dark-gray)">
-  <p class="lead text-electric-blue">Interested in our services or need more information? Feel free to reach out.</p>
-  <button type="button" class="btn btn-primary btn-lg button-neon">Contact Us</button>
-</section>
+  <!-- Services List -->
+  <section class="album py-5 bg-dark-gray">
+    <div class="container">
+      <div
+        id="services-list"
+        class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+      >
+        <!-- Dynamic services will be loaded here -->
+      </div>
+    </div>
+  </section>
 
+  <!-- Call to Action -->
+  <section
+    class="text-center container pb-5"
+    style="background-color: var(--dark-gray)"
+  >
+    <p class="lead text-electric-blue">
+      Interested in our services or need more information? Feel free to reach
+      out.
+    </p>
+    <button type="button" class="btn btn-primary btn-lg button-neon">
+      Contact Us
+    </button>
+  </section>
+</div>
 {% endblock %}

@@ -1,0 +1,9 @@
+{% macro render_video(filename, aria_label="video", autoplay=true, loop=true, muted=true, width="100%") %}
+<div role="region" aria-label="{{ aria_label }}">
+  <video controls {{ 'autoplay' if autoplay }} {{ 'loop' if loop }} {{ 'muted' if muted }} style="width: {{ width }};">
+    <source src="{{ url_for('static', filename=filename) }}" type="video/mp4" />
+    Your browser does not support the video tag or the file format of this video.
+  </video>
+  <p>Here we go!</p>
+</div>
+{% endmacro %}

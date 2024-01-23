@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'wrap.html' %}
+{% block wrap %}
+
   <head>
     <!-- Title -->
     <title>{% block title %}{{ _('name') }} - Digital CV{% endblock %}</title>
@@ -38,10 +39,7 @@
     <!-- Fonts -->
     {% include 'default/fonts.html' %} {% block css %}{% endblock %}
   </head>
-  {% from "utils/macros.html" import render_form %}
-  {% from 'utils/macros.html' import render_filter_form %}
-  {% from 'utils/macros.html' import render_filter_fields %}
-  
+
   <body class="{{ body_class|default('text-light bg-dark') }}">
     <header class="wlimit">{% include 'default/nav/main.html' %}</header>
 
@@ -75,4 +73,5 @@
     ></script>
     {% endif %}
   </body>
-</html>
+
+{% endblock %}

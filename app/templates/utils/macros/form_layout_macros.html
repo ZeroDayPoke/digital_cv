@@ -1,0 +1,141 @@
+{% from 'utils/macros/form_field_macros.html' import render_text_field, render_checkbox_field, render_boolean_field, render_skill_slider, render_select_field, render_dynamic_field, render_descriptive_images, render_range_field with context %}
+
+{% macro render_filter_form(form, submit_route, submit_label, form_classes='', form_id='') %}
+<form action="{{ url_for(submit_route) }}" method="GET" class="{{ form_classes }}" id="{{ form_id }}">
+  <div class="container">
+    <!-- Rendering Other Fields -->
+    {% for field in form %}
+      {% if field.type != 'BooleanField' %}
+        {% if field.type == 'StringField' %}
+          {{ render_text_field(field, true) }}
+        {% elif field.type == 'SelectField' %}
+          {{ render_select_field(field, true) }}
+        {% elif field.type == 'FloatField' and 'min' in field.name %}
+          {% set base_field_name = field.name[:-4] %}
+          {{ render_range_field(base_field_name, 'Min', 'Max', min_price, max_price) }}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- Rendering Boolean Fields -->
+    <div class="row">
+      {% for field in form %}
+        {% if field.type == 'BooleanField' %}
+          <div class="col-md">
+            {{ render_boolean_field(field, true) }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary w-100">{{ submit_label }}</button>
+      </div>
+    </div>
+  </div>
+</form>
+{% endmacro %}
+
+
+{% macro render_form(form, route, button_label='', form_classes='', kwargs={}, button_type='default') %}
+<form action="{{ url_for(route, **kwargs) }}" method="POST" enctype="multipart/form-data" class="{{ form_classes }}">
+  <div class="container">
+    {{ form.hidden_tag() }}
+    {% for field in form %}
+      {% if field.type == 'CSRFTokenField' or field.name == 'submit' or field.type == 'HiddenField' %}
+      {% elif field.name == 'images' %}
+        {{ render_descriptive_images(field) }}
+      {% elif field.name in ['skills', 'related_skills'] %}
+        {{ render_checkbox_field(field) }}
+      {% elif field.type == 'BooleanField' %}
+        {{ render_boolean_field(field) }}
+      {% elif field.name == 'level' %}
+        {{ render_skill_slider(field) }}
+      {% else %}
+        {{ render_text_field(field) }}
+      {% endif %}
+    {% endfor %}
+    {% if button_type != 'default' %}
+      {{ render_modal_footer(button_label, 'Close') }}
+    {% else %}
+      {{ render_submit_button(button_label) }}
+    {% endif %}
+  </div>
+</form>
+{% endmacro %}
+
+
+{% macro render_filter_fields(form) %}
+{% for field in form %}
+  {% if field.type != 'CSRFTokenField' and field.name != 'submit' %}
+    {{ render_dynamic_field(field) }}
+  {% endif %}
+{% endfor %}
+{% endmacro %}
+
+
+{% macro render_delete_form(form, submit_route, model_name, model_id, modal_title="Delete Item", confirmation_message="Are you sure you want to delete this item?", delete_button_label="Delete", form_classes='', form_id='', additional_attributes='') %}
+<form action="{{ url_for(submit_route) }}" method="POST" class="{{ form_classes }}" id="{{ form_id }}" {{ additional_attributes }}>
+  {{ form.hidden_tag() }}
+  <input type="hidden" name="delete_{{ model_name }}_id" value="{{ model_id }}" />
+
+  <!-- Modal Structure -->
+  <div class="modal fade" id="delete{{ model_name|capitalize }}Modal" tabindex="-1" aria-labelledby="delete{{ model_name|capitalize }}ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content modal-background">
+        <div class="modal-header">
+          <h5 class="modal-title" id="delete{{ model_name|capitalize }}ModalLabel">{{ modal_title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {{ confirmation_message }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-danger">{{ delete_button_label }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+{% endmacro %}
+
+
+{% macro render_add_edit_modal(form, submit_route, modal_id, modal_title, save_button_label, form_classes='', modal_size='modal-lg') %}
+<div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-labelledby="{{ modal_id }}Label" aria-hidden="true">
+  <div class="modal-dialog {{ modal_size }}">
+    <div class="modal-content modal-background">
+      <div class="modal-header">
+        <h5 class="modal-title" id="{{ modal_id }}Label">{{ modal_title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ render_form(form, submit_route, save_button_label, form_classes, {}, 'modal') }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro render_submit_button(button_label) %}
+<div class="form-group row">
+  <div class="col-sm-12">
+    <input type="submit" value="{{ button_label }}" class="btn btn-primary w-100" />
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro render_modal_footer(submit_label='Submit', close_label='Close', submit_class='btn btn-primary', close_class='btn btn-secondary') %}
+<div class="modal-footer">
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <button type="button" class="{{ close_class }}" data-bs-dismiss="modal">{{ close_label }}</button>
+      <input value="{{ submit_label }}" type="submit" class="{{ submit_class }}" />
+    </div>
+  </div>
+</div>
+{% endmacro %}

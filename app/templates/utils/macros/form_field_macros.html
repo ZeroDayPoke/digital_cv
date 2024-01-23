@@ -1,0 +1,188 @@
+{% macro render_text_field(field, is_filter_field=False) %}
+<div class="form-group row mb-2">
+  <label for="{{ field.id }}" class="col-sm-2 col-form-label"
+    >{{ field.label.text|title_case }}</label
+  >
+  <div class="col-sm-10">
+    {{ field(class="form-control" ~ (' is-invalid' if field.errors else '') ~ ('
+    filter-field' if is_filter_field)) }} {% if field.errors %}
+    <div class="invalid-feedback">
+      {% for error in field.errors %}
+      <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro render_range_field(field, min_label, max_label,
+min_value, max_value) %}
+<div class="form-group row mb-2">
+  <label for="{{ field }}" class="col-sm-2 col-form-label"
+    >{{ field|title_case }}</label
+  >
+  <div class="col-sm-4">
+    <input
+      type="number"
+      id="{{ field }}_min"
+      name="{{ field }}_min"
+      class="form-control filter-field"
+      placeholder="{{ min_label }}"
+      min="{{ min_value }}"
+      max="{{ max_value }}"
+    />
+  </div>
+  <div class="col-sm-4">
+    <input
+      type="number"
+      id="{{ field }}_max"
+      name="{{ field }}_max"
+      class="form-control filter-field"
+      placeholder="{{ max_label }}"
+      min="{{ min_value }}"
+      max="{{ max_value }}"
+    />
+  </div>
+</div>
+{% endmacro %}
+
+{% macro render_descriptive_images(field) %}
+<div class="form-group">
+  <label>{{ field.label.text }}</label>
+  <div id="image-fields-container">
+    {% for image_form in field %}
+    <div class="mb-3 image-container">
+      {% if image_form.image.data %}
+      <img
+        src="{{ url_for('static', filename=image_form.filepath.data) }}"
+        alt="Image preview"
+        class="image-preview"
+      />
+      {% endif %} {{ image_form.filename.data }} {{
+      render_file_field(image_form.image) }} {{
+      render_text_field(image_form.image_description.data) }}
+      <button type="button" class="remove-image-btn btn btn-danger">
+        Remove
+      </button>
+    </div>
+    {% endfor %}
+  </div>
+  <button type="button" id="add-image-button" class="btn btn-secondary">
+    Add Image
+  </button>
+</div>
+{% endmacro %}
+
+{% macro render_file_field(field) %}
+<div class="form-group row mb-2">
+  <label for="{{ field.id }}" class="col-sm-2 col-form-label"
+    >{{ field.label.text }}</label
+  >
+  <div class="col-sm-10">
+    {{ field(class="form-control" ~ (' is-invalid' if field.errors else '')) }}
+    {% if field.errors %}
+    <div class="invalid-feedback">
+      {% for error in field.errors %}
+      <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro render_boolean_field(field, is_filter_field=False) %}
+<div class="form-group row mb-3">
+  <div class="col-sm-12 d-flex align-items-center">
+    <label
+      class="btn btn-outline-primary w-100 mb-3 d-flex justify-content-between align-items-center {{ 'filter-field' if is_filter_field }}"
+      for="{{ '' if is_filter_field else 'default_' }}{{ field.id }}"
+    >
+      <span>{{ field.label.text|title_case }}</span>
+      <input type="checkbox" class="btn-check {{ 'filter-field' if is_filter_field }}" id="{{ '' if is_filter_field else 'default_' }}{{ field.id }}"
+             name="{{ '' if is_filter_field else 'default_' }}{{ field.name }}"
+             {{ 'checked' if field.data else '' }}
+             {{ 'filter-field' if is_filter_field }} hidden>
+      <span class="checkbox-indicator"></span>
+    </label>
+  </div>
+  {% if field.errors %}
+  <div class="col-sm-12">
+    <div class="invalid-feedback d-block">
+      {% for error in field.errors %}
+      <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endmacro %}
+
+
+{% macro render_checkbox_field(field) %}
+<div class="form-group row mb-4">
+  <div class="col-sm-12">
+    <label for="{{ field.id }}" class="form-label">{{ field.label.text }}</label>
+  </div>
+</div>
+<div class="form-group row">
+  <div class="col-sm-12">
+    <div class="d-flex flex-wrap">
+      {% for subfield in field %}
+        <div class="p-2 flex-fill">
+          <input type="checkbox" class="btn-check" name="{{ subfield.name }}" id="{{ subfield.id }}" autocomplete="off" {% if subfield.checked %} checked {% endif %} />
+          <label class="btn btn-outline-primary w-100 mb-3" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro render_skill_slider(field) %}
+<div class="form-group row mb-2">
+  <label for="{{ field.id }}" class="col-2 col-form-label">{{ field.label.text }}</label>
+  <div class="col-auto">
+    {{ field(class="form-control-range" ~ (' is-invalid' if field.errors else '')) }}
+    {% if field.errors %}
+      <div class="invalid-feedback">
+        {% for error in field.errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro render_select_field(field, is_filter_field=False) %}
+<div class="form-group row mb-2">
+  <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label.text|title_case }}</label>
+  <div class="col-sm-10">
+    <select class="form-control {{ ' filter-field' if is_filter_field }}" id="{{ field.id }}" name="{{ field.name }}">
+      {% if field.choices %}
+        {% for option in field.choices %}
+          <option value="{{ option[0] }}">{{ option[1] }}</option>
+        {% endfor %}
+      {% else %}
+        <option value="">No options available</option>
+      {% endif %}
+    </select>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro render_dynamic_field(field) %}
+<div class="form-group">
+  <label for="{{ field.id }}">{{ field.label }}</label>
+  {{ field(class="form-control" ~ (' is-invalid' if field.errors else '')) }}
+  {% if field.errors %}
+    <div class="invalid-feedback">
+      {% for error in field.errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endmacro %}

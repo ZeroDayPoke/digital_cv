@@ -5,7 +5,6 @@ function applyFilters() {
     .serializeArray()
     .forEach((item) => {
       filters[item.name] = item.value;
-      console.log(item.name, item.value);
     });
 
   $("select.filter-field").each(function () {
@@ -29,7 +28,6 @@ function fetchServices(filters) {
 }
 
 function updateServicesList(services) {
-  console.log("Services:", services);
   const servicesHtml = services
     .map((service) => createServiceCard(service))
     .join("");
@@ -41,7 +39,8 @@ function createServiceCard(service) {
     service.details && service.details.description
       ? service.details.description
       : "No description available";
-
+  const editButton = `<button type="button" class="btn btn-sm button-neon" onclick="editService('${service.id}')">Edit</button>`;
+  const deleteButton = `<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteServiceModal" onclick="setServiceToDelete('${service.id}')">Delete</button>`;
   const earlyMoverClass = service.early_eligible ? "early-mover" : "";
   const earlyMoverBanner = service.early_eligible
     ? '<button type="button" class="btn btn-outline-success btn-sm early-mover-banner">Early Mover Discount!</button>'
@@ -76,7 +75,8 @@ function createServiceCard(service) {
         <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
             <button type="button" class="btn btn-sm button-neon">View</button>
-            <button type="button" class="btn btn-sm button-neon">Edit</button>
+            ${editButton}
+            ${deleteButton}
           </div>
           <small class="text-accent-lime-green">
             As low as ${service.price} ${service.currency}
@@ -89,17 +89,22 @@ function createServiceCard(service) {
 }
 
 function updateCheckboxButtonState(checkbox) {
-  const label = checkbox.closest('label');
-  const indicator = label.querySelector('.checkbox-indicator');
+  const label = checkbox.closest("label");
+  const indicator = label.querySelector(".checkbox-indicator");
   if (checkbox.checked) {
-    label.classList.add('btn-success');
-    label.classList.remove('btn-outline-danger');
-    indicator.textContent = 'Active';
+    label.classList.add("btn-success");
+    label.classList.remove("btn-outline-danger");
+    indicator.textContent = "Active";
   } else {
-    label.classList.add('btn-outline-danger');
-    label.classList.remove('btn-success');
-    indicator.textContent = 'Inactive';
+    label.classList.add("btn-outline-danger");
+    label.classList.remove("btn-success");
+    indicator.textContent = "Inactive";
   }
+}
+
+function setServiceToDelete(serviceId) {
+  console.log("Setting service to delete:", serviceId);
+  document.getElementById("delete_service_id").value = serviceId;
 }
 
 $(document).ready(function () {
@@ -114,10 +119,9 @@ $(document).ready(function () {
     applyFilters();
   });
 
-  document.querySelectorAll('.btn-check').forEach(function(checkbox) {
-    checkbox.addEventListener('change', function() {
+  document.querySelectorAll(".btn-check").forEach(function (checkbox) {
+    checkbox.addEventListener("change", function () {
       updateCheckboxButtonState(this);
-      applyFilters();
     });
     updateCheckboxButtonState(checkbox);
   });
